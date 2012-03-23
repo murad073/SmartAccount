@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5dcd6107-294b-4cf5-b3e9-483c3acdcbd9" name="FixedAssetScheduleCalculator" linkedPackageId="9ab3c2a3-8970-4146-a04a-a6c7f094adc0" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="725db718-9ca4-4c7a-ad0b-f3df31871803" name="DepreciationCalculator" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="6d7c73d9-6588-4865-8b3c-cef3506f0144" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="8d2fb1f1-275a-4147-9667-0df2d4bf823e" name="StraightLineDepreciationCalculator" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c9cb93bd-d2d2-4450-89dc-f5146c092675" />
+        <generalsInternal>
+          <generalization Id="c5b17b13-860e-4767-9665-2404e2df07eb" isSubstitutable="false">
+            <classMoniker Id="725db718-9ca4-4c7a-ad0b-f3df31871803" LastKnownName="DepreciationCalculator" />
+            <elementDefinition Id="23328bb5-15b8-4130-9eff-403b9c30a644" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a12d1c4d-b498-43fb-8cf5-630c2bbe771a" name="ReducingBalanceDepreciationCalculator" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="0174d4e4-30df-4b8a-8a70-2736a38a7635" />
+        <generalsInternal>
+          <generalization Id="9d71567c-b4ac-4b73-8c10-b0d4348aa338" isSubstitutable="false">
+            <classMoniker Id="725db718-9ca4-4c7a-ad0b-f3df31871803" LastKnownName="DepreciationCalculator" />
+            <elementDefinition Id="dcfa7742-962c-49e6-bb92-005514e0138a" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="9ab3c2a3-8970-4146-a04a-a6c7f094adc0" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+    <profileInstances>
+      <packageHasProfileInstances Id="5e451da0-14b9-48c7-a0d8-4e3ebd0dc56a">
+        <profileInstance Id="5f925cea-3bff-472c-a99c-b80768706a3c" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="b3858ed6-05d8-4436-99e1-4320fe1cafca">
+        <profileInstance Id="b308b649-bdce-4b1c-a653-22a485089053" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

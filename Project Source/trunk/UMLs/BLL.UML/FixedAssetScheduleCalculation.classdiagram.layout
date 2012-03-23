@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="FixedAssetScheduleCalculator">
+  <logicalClassDesignerModelMoniker Id="5dcd6107-294b-4cf5-b3e9-483c3acdcbd9" />
+  <nestedChildShapes>
+    <classShape Id="d7cee973-5545-4beb-b521-10479f810fe5" absoluteBounds="2.75, 0.875, 2.5, 0.90234373509883881" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="725db718-9ca4-4c7a-ad0b-f3df31871803" LastKnownName="DepreciationCalculator" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="4eee186a-9364-4eb8-85d0-09a53fd47a9b" absoluteBounds="2.765, 1.2650000000000001, 2.4699999999999998, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="5839e07e-f5a2-4ee1-b469-5e24c5675b2b" absoluteBounds="2.765, 1.4761718675494193, 2.4699999999999998, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2b832d2e-ccbc-4fca-936d-ebab018c19ce" absoluteBounds="0.625, 2.375, 3, 0.90234373509883881" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="8d2fb1f1-275a-4147-9667-0df2d4bf823e" LastKnownName="StraightLineDepreciationCalculator" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="cd22022d-e451-4862-b131-1dec5e388492" absoluteBounds="0.64, 2.765, 2.9699999999999998, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="63884d45-0f32-478f-bd45-ab467969e1d1" absoluteBounds="0.64, 2.9761718675494193, 2.9699999999999998, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <generalizationConnector edgePoints="[(2.125 : 2.375); (2.125 : 2.07734373509884); (4 : 2.07734373509884); (4 : 1.77734373509884)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
+      <generalizationMoniker Id="c5b17b13-860e-4767-9665-2404e2df07eb" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="2b832d2e-ccbc-4fca-936d-ebab018c19ce" />
+        <classShapeMoniker Id="d7cee973-5545-4beb-b521-10479f810fe5" />
+      </nodes>
+    </generalizationConnector>
+    <classShape Id="e8715f79-97f2-49a1-8b7b-f10adc226025" absoluteBounds="3.75, 2.375, 3.25, 0.90234373509883881" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="a12d1c4d-b498-43fb-8cf5-630c2bbe771a" LastKnownName="ReducingBalanceDepreciationCalculator" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="0f717dcc-80d5-416d-a525-2114e31c1918" absoluteBounds="3.765, 2.765, 3.2199999999999998, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="b97110a2-7d5b-4fa6-8b59-8e87e88acd52" absoluteBounds="3.765, 2.9761718675494193, 3.2199999999999998, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <generalizationConnector edgePoints="[(5.375 : 2.375); (5.375 : 2.07734373509884); (4 : 2.07734373509884); (4 : 1.77734373509884)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
+      <generalizationMoniker Id="9d71567c-b4ac-4b73-8c10-b0d4348aa338" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="e8715f79-97f2-49a1-8b7b-f10adc226025" />
+        <classShapeMoniker Id="d7cee973-5545-4beb-b521-10479f810fe5" />
+      </nodes>
+    </generalizationConnector>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="ffb89c8d-d89b-4810-9a3f-abbac2fbf752" name="BLL" linkedPackageId="20e55a67-3c48-4ae0-ac37-3903a84dcd0d" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="50b71fec-7de8-403a-870d-99bcf23ae276">
+      <profileInstance Id="235424cb-f3f8-4e12-ab6f-7a8be2739d4a" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="033cdd7f-71d2-462c-8f72-052d1be0a818">
+      <profileInstance Id="9fb12846-bb38-44ea-8c1a-0500d92f921c" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="714aa167-a943-4f93-bec3-ed05c9a8a944" name="BLL" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <elementDefinition Id="7d367563-1468-4f02-a103-4fb864b3ec25" />
+        <lifelines>
+          <lifeline Id="0c7d31d9-8664-40bc-8364-838a141cb75d" name="MessageService" isActor="false" lifelineDisplayName="MessageService">
+            <elementDefinition Id="cb067893-08ab-4406-a9de-7c9130c37b69" />
+            <represents>
+              <propertyMoniker Id="c4c039ec-b692-4fc9-9707-80523dd2326a" />
+            </represents>
+          </lifeline>
+        </lifelines>
+        <ownedAttributesInternal>
+          <property Id="c4c039ec-b692-4fc9-9707-80523dd2326a" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2f483d3d-d950-4ddf-a438-a45f2ddfb5ad" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d1826889-1842-4de6-b0a6-671e41cd67fc" LastKnownName="MessageService" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="d1826889-1842-4de6-b0a6-671e41cd67fc" name="MessageService" isAbstract="false" isLeaf="false" cachedFullName="BLL.UML::MessageService">
+        <elementDefinition Id="75034e36-32b7-4e39-bfbb-b986ce9c8357" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="20e55a67-3c48-4ae0-ac37-3903a84dcd0d" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</SequenceDesignerModel>

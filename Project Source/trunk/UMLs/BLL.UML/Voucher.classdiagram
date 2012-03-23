@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="9b74b46f-ac09-4886-92f6-92e7be49aa80" name="Voucher" linkedPackageId="862556ff-a6fa-4c98-86c3-1512b5f23fc4" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="521234db-c7a3-4acd-aa6b-8a7af239591a" name="VoucherBase" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="07ff5dc0-4b7a-4eae-8ca6-7056925b0e9a" />
+        <generalsInternal>
+          <generalization Id="e28d81bc-9c1e-40c5-92b2-90b64abf4bd4" isSubstitutable="false">
+            <classMoniker Id="0d3b9d09-514b-4594-bcfe-b5878cdaa562" LastKnownName="Record" />
+            <elementDefinition Id="f98cee6e-aee8-4cd0-a745-ba7b437b5021" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="013aee9e-8790-4873-b1a3-4cc34000289f" name="DebitVoucher" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="889521ad-2e39-4adc-bebe-84272f617944" />
+        <generalsInternal>
+          <generalization Id="71122480-f253-4c0f-911b-3ddc406af4c9" isSubstitutable="false">
+            <classMoniker Id="521234db-c7a3-4acd-aa6b-8a7af239591a" LastKnownName="VoucherBase" />
+            <elementDefinition Id="7c408daa-9443-4ce2-8387-0c2971f86dad" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="01c2bf19-5cb5-4d47-9d46-95baad268216" name="CreditVoucher" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b820a0d4-4fb9-4fc7-8108-0f935267cf48" />
+        <generalsInternal>
+          <generalization Id="faea987b-91d6-4bca-93bb-2a2972e328b4" isSubstitutable="false">
+            <classMoniker Id="521234db-c7a3-4acd-aa6b-8a7af239591a" LastKnownName="VoucherBase" />
+            <elementDefinition Id="49131928-57b5-46a7-87ae-c1ad83b4db51" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="151bb136-6043-499e-b52c-bf8993ea5d44" name="JournalVoucher" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fafda382-ad9e-4d5b-ae3b-c1162c86d3a4" />
+        <generalsInternal>
+          <generalization Id="5aad7bf0-3327-48eb-88e8-1d2c694f6385" isSubstitutable="false">
+            <classMoniker Id="521234db-c7a3-4acd-aa6b-8a7af239591a" LastKnownName="VoucherBase" />
+            <elementDefinition Id="c7c770a0-22db-48ce-aa5f-4e0898032cea" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="74a8a119-7b8d-40d0-9916-198613600de4" name="TransactionInCheque" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="48dd7a0d-d33e-42b7-9077-7d50019c6c74" />
+        <generalsInternal>
+          <generalization Id="537a8446-3ac1-48e3-9f77-ff7eb6416cf7" isSubstitutable="false">
+            <classMoniker Id="0d3b9d09-514b-4594-bcfe-b5878cdaa562" LastKnownName="Record" />
+            <elementDefinition Id="8bb05037-9bad-47aa-9457-42209e556cf1" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="e5e4309c-4727-4f50-a802-7660cae2623f" name="TransactionInCash" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="036ef534-4690-4c4a-a8ad-68158e55e014" />
+        <generalsInternal>
+          <generalization Id="0333d189-25ef-4c40-bf54-e1bd302b5333" isSubstitutable="false">
+            <classMoniker Id="0d3b9d09-514b-4594-bcfe-b5878cdaa562" LastKnownName="Record" />
+            <elementDefinition Id="f5312f14-5574-44b0-806d-cd85c2b1be12" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0d3b9d09-514b-4594-bcfe-b5878cdaa562" name="Record" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8fdb8990-a2bc-4c76-9fe8-12f9c37640c6" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="862556ff-a6fa-4c98-86c3-1512b5f23fc4" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+    <profileInstances>
+      <packageHasProfileInstances Id="32991cd3-be88-45df-b54c-e6f280bee2bb">
+        <profileInstance Id="59ecf473-c648-4ff2-8b32-1a17a575410f" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="68d7a969-b8f2-4fbc-a253-4af30f22c477">
+        <profileInstance Id="4bc73c37-4fad-4c7f-84fa-cd024894088d" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

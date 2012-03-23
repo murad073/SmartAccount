@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="MVVMTest.Sobuj"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid>
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="46,39,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=DropdownListItems, Mode=Default}" />
+        <ListBox Height="183" HorizontalAlignment="Left" Margin="277,12,0,0" Name="listBox1" VerticalAlignment="Top" Width="131" />
+        <DataGrid AutoGenerateColumns="False" Height="200" HorizontalAlignment="Left" Margin="46,112,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="200" />
+    </Grid>
+</UserControl>

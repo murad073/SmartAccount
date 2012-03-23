@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="GKS.XAML.UserControls.VoucherPostUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GKS.Model.ViewModels;assembly=GKS.Model"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:model="clr-namespace:BLL.Model.Schema;assembly=BLL.Model"
+             mc:Ignorable="d" 
+            d:DesignHeight="610" d:DesignWidth="850">
+
+    <Grid Height="590" Width="840" IsEnabled="true">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71*" />
+            <RowDefinition Height="60*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="229*" />
+            <RowDefinition Height="205*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" IsEnabled="True" >
+
+            <!-- Banner started -->
+            <Image Height="47" HorizontalAlignment="Left" Margin="295,8,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="28" Source="/GKS.XAML;component/Resource/Images/logo.gif" />
+            <Label Content="Gono Kalyan Sangstha - GKS" Height="30" HorizontalAlignment="Left" Name="label11" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="242" Margin="326,4,0,0" />
+            <Label Content="Nalka, Sirajganj" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Margin="374,30,0,0" />
+            <!-- End of Banner -->
+            
+        </Grid>
+
+        <Grid Grid.Row="1" IsEnabled="{Binding Path=InputFirstPartEnabled, Mode=TwoWay}">
+            
+            <!-- Project Head Section Starts here -->
+            <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="73,1,0,0" Name="label5" VerticalAlignment="Top" Grid.Row="1" />
+            <ComboBox Height="23" DisplayMemberPath="Name" SelectedValuePath="Name" HorizontalAlignment="Left" Margin="121,3,0,0" Name="comboBoxProjectName" VerticalAlignment="Top" Width="425" 
+                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" Grid.Row="1" />
+            <Button Height="23" HorizontalAlignment="Left" Margin="549,3,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Click="RefreshButton_Click"  >
+                <Grid>
+                    <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
+                </Grid>
+                <Button.ToolTip>
+                    <ToolTip>Reload all projects.
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+
+            <Label Content="Head of Account:" Height="28" HorizontalAlignment="Left" Margin="26,29,0,0" Name="label2" VerticalAlignment="Top" IsEnabled="{Binding Path=IsAllHeadsEnabled, Mode=TwoWay}" Grid.Row="1" />
+            <ComboBox Height="23" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="121,32,0,0" Name="comboBoxHead" VerticalAlignment="Top" Width="425" 
+                  ItemsSource="{Binding Path=AllHeads, Mode=OneWay}" SelectedItem="{Binding Path=SelectedHead, Mode=TwoWay}" IsEnabled="{Binding Path=IsAllHeadsEnabled, Mode=TwoWay}" Grid.Row="1">
+            </ComboBox>
+
+            <Label Content="Voucher no:" HorizontalAlignment="Left" Margin="580,0,0,32" Grid.Row="1" />
+            <ComboBox Height="23" HorizontalAlignment="Left" Margin="649,2,0,0" Name="comboBoxVoucherNo" VerticalAlignment="Top" Width="73" 
+                  ItemsSource="{Binding Path=VoucherTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedVoucherType, Mode=TwoWay}" Grid.Row="1">
+            </ComboBox>
+            <TextBox Height="23" IsEnabled="False" HorizontalAlignment="Left" Margin="728,2,0,0" Name="textBoxVoucherNo" VerticalAlignment="Top" Width="78" 
+                 Text="{Binding Path=VoucherSerialNo, Mode=TwoWay}" Grid.Row="1">
+            </TextBox>
+
+            <Label Content="Date:" Height="28" HorizontalAlignment="Left" Margin="612,31,0,0" Name="label4" VerticalAlignment="Top" Grid.Row="1" />
+            <DatePicker Height="26" HorizontalAlignment="Left" Margin="649,32,0,0" Name="datePickerPostDate" VerticalAlignment="Top" Width="157" SelectedDate="{Binding Path=VoucherDate, Mode=TwoWay}" Grid.Row="1" />
+            <!-- Project Head Section ends here -->
+            
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <CheckBox Content="Start same JV" IsChecked="{Binding Path=IsJVStartedChecked, Mode=TwoWay}" Height="18" HorizontalAlignment="Left" Margin="28,6,0,0" Name="checkBoxJVEnabled" VerticalAlignment="Top" Width="270" IsEnabled="{Binding Path=IsMultiJVCheckboxVisible, Mode=TwoWay}" Grid.Row="2" >
+                <CheckBox.ToolTip>
+                    <ToolTip>
+                        Unckeck to complete journal voucher entries. After reviewing, the voucher can be posted.
+                    </ToolTip>
+                </CheckBox.ToolTip>
+            </CheckBox>
+        </Grid>
+
+        <Grid Grid.Row="3" IsEnabled="{Binding Path=InputSecondPartEnabled, Mode=TwoWay}">
+            
+            <!-- Amount section stared -->
+            <Label Content="Amount:" Height="28" HorizontalAlignment="Left" Margin="71,32,0,0" Name="label3" VerticalAlignment="Top" Grid.Row="3" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="121,36,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="118" 
+                 Text="{Binding Path=Amount, Mode=TwoWay}" Grid.Row="3" />
+            <Label Content="Debit/Credit:" Height="28" HorizontalAlignment="Left" Margin="50,65,0,0" VerticalAlignment="Top" IsEnabled="{Binding Path=IsJVDebitOrCreditEnabled, Mode=TwoWay}" Grid.Row="3" />
+            <ComboBox ItemsSource="{Binding Path=JVDebitCreditItems, Mode=OneWay}" SelectedItem="{Binding Path=SelectedJVDebitOrCredit, Mode=TwoWay}" Height="23" HorizontalAlignment="Left" Margin="121,65,0,0" Name="comboBox1" VerticalAlignment="Top" Width="118" IsEnabled="{Binding Path=IsJVDebitOrCreditEnabled, Mode=TwoWay}" Grid.Row="3" >
+                <ComboBox.ToolTip>
+                    <ToolTip>
+                        Specify whether the journal voucher entry is debit or credit.
+                    </ToolTip>
+                </ComboBox.ToolTip>
+            </ComboBox>
+            <Label Content="Contra type:" Height="28" HorizontalAlignment="Left" Margin="52,89,0,0" VerticalAlignment="Top" IsEnabled="{Binding Path=IsContraTypesEnabled, Mode=TwoWay}" Grid.Row="3" />
+            <ComboBox Height="23" HorizontalAlignment="Left" Margin="121,94,0,0" Name="comboBox2" VerticalAlignment="Top" Width="118" 
+                  ItemsSource="{Binding Path=ContraTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedContraType, Mode=TwoWay}" IsEnabled="{Binding Path=IsContraTypesEnabled, Mode=TwoWay}" Grid.Row="3" >
+                <ComboBox.ToolTip>
+                    <ToolTip>
+                        Select the contra voucher type.
+                    </ToolTip>
+                </ComboBox.ToolTip>
+            </ComboBox>
+            <!-- End of Amount Section -->
+
+
+            <!-- Check info Section started -->
+            <CheckBox Content="Payment in cheque" Name="PaymentInChequeCheckBox"  Height="16" HorizontalAlignment="Left" Margin="388,32,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsPaymentInCheque, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabled, ElementName=ChequeInfoGroupBox}" Grid.Row="3" >
+                <CheckBox.ToolTip>
+                    <ToolTip>
+                        Check to provide cheque information.
+                    </ToolTip>
+                </CheckBox.ToolTip>
+            </CheckBox>
+            <Label Content="Cheque no:" Height="28" HorizontalAlignment="Left" Margin="323,50,0,0" Name="label7" VerticalAlignment="Top" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="388,53,0,0" Name="textBoxChequeNo" VerticalAlignment="Top" Width="118" 
+                 Text="{Binding Path=ChequeNo, Mode=TwoWay}" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+            <Label Content="Date of cheque:" Height="28" HorizontalAlignment="Left" Margin="301,81,0,0" Name="label6" VerticalAlignment="Top" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+            <DatePicker Height="26" HorizontalAlignment="Left" Margin="388,82,0,0" Name="datePicker1" SelectedDate="{Binding Path=ChequeDate, Mode=TwoWay}" VerticalAlignment="Top" Width="118" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+
+            <Label Content="Bank name:" Height="28" HorizontalAlignment="Left" Margin="321,113,0,0" VerticalAlignment="Top" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+            <TextBox Height="23" Text="{Binding Path=BankName, Mode=TwoWay}" HorizontalAlignment="Left" Margin="388,115,0,0" VerticalAlignment="Top" Width="118" IsEnabled="{Binding Path=IsChecked, ElementName=PaymentInChequeCheckBox}" Grid.Row="3" />
+            <!-- End of cheque info section -->
+
+
+            <!-- Fixed Asset Section starts here -->
+            <RadioButton IsChecked="True" Content="None" Height="16" HorizontalAlignment="Left" Margin="592,37,0,0"  VerticalAlignment="Top" IsEnabled="{Binding Path=IsEnabled, ElementName=FixedAssetOrAdvanceGroupBox}" Grid.Row="3" />
+            <RadioButton Content="Advance" Height="16" HorizontalAlignment="Left" Margin="655,37,0,0"  VerticalAlignment="Top" IsChecked="{Binding Path=IsAdvance, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabled, ElementName=FixedAssetOrAdvanceGroupBox}" Grid.Row="3" >
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        Check, if the amount is paid as 'advance' and will be realized by a journal voucher in future.
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton Content="Fixed asset" Name="FixedAssetRadioButton" Height="16" HorizontalAlignment="Left" Margin="734,37,0,0"  VerticalAlignment="Top" IsChecked="{Binding Path=IsFixedAsset, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabled, ElementName=FixedAssetOrAdvanceGroupBox}" Grid.Row="3" >
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        Check, if the amount is paid to buy a fixed asset.
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <Label Content="Particulars:" Height="28" HorizontalAlignment="Left" Margin="625,70,0,0" Name="label8" VerticalAlignment="Top" IsEnabled="{Binding Path=IsChecked, ElementName=FixedAssetRadioButton}" Grid.Row="3" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="688,70,0,0" Name="textBoxFAParticulars" VerticalAlignment="Top" Width="120" Text="{Binding Path=FixedAssetParticulars, Mode=TwoWay}" IsEnabled="{Binding Path=IsChecked, ElementName=FixedAssetRadioButton}" Grid.Row="3" />
+            <Label Content="Depreciation rate (%):" Height="28" HorizontalAlignment="Left" Margin="569,97,0,0" Name="label10" VerticalAlignment="Top" IsEnabled="{Binding Path=IsChecked, ElementName=FixedAssetRadioButton}" Grid.Row="3" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="688,99,0,0" Name="textBoxDepRate" VerticalAlignment="Top" Width="120" Text="{Binding Path=FixedAssetDepreciationRate, Mode=TwoWay}" IsEnabled="{Binding Path=IsChecked, ElementName=FixedAssetRadioButton}" Grid.Row="3" />
+            <!-- Fixed Asset Section ends here -->
+
+            <GroupBox Header="Amount information" Height="151" HorizontalAlignment="Left" Margin="28,5,0,0" VerticalAlignment="Top" Width="234" Grid.Row="3" />
+            <GroupBox Header="Cheque information" Name="ChequeInfoGroupBox" Height="151" HorizontalAlignment="Left" Margin="279,5,0,0" VerticalAlignment="Top" Width="253" IsEnabled="{Binding Path=IsChequeGroupboxEnabled, Mode=TwoWay}" Grid.Row="3" />
+            <GroupBox Header="Fixed asset / Advance" Name="FixedAssetOrAdvanceGroupBox" Height="151" HorizontalAlignment="Left" Margin="548,5,0,0" VerticalAlignment="Top" Width="278" IsEnabled="{Binding Path=IsFixedAssetOrAdvanceGroupboxEnabled, Mode=TwoWay}" Grid.Row="3" />
+
+            <!-- Remarks section started -->
+            <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="63,162,0,0" Name="label9" VerticalAlignment="Top" Grid.Row="3" />
+            <TextBox Height="23" Text="{Binding Path=Narration, Mode=TwoWay}" HorizontalAlignment="Left" Margin="121,166,0,0" Name="textBox2" VerticalAlignment="Top" Width="685" Grid.Row="3" />
+            <Label Content="Taka (in words):" Height="28" HorizontalAlignment="Left" Margin="32,195,0,0" VerticalAlignment="Top" Grid.Row="3" />
+            <Label Content="{Binding Path=TakaInWords, Mode=TwoWay}" Height="28" HorizontalAlignment="Right" Margin="0,195,34,0" VerticalAlignment="Top" Width="685" Grid.Row="3" />
+            <!-- End of remark section -->
+            
+        </Grid>
+        
+        <Grid Grid.Row="4">
+            
+            <DataGrid Name="tempVoucherDataGrid"
+                  IsReadOnly="True"
+                  HorizontalGridLinesBrush="Gray"
+                  VerticalGridLinesBrush="Gray"
+                  IsTabStop="False"                  
+                  CanUserSortColumns="False" AutoGenerateColumns="True"                                           
+                  IsSynchronizedWithCurrentItem="True"
+                  Background="Transparent"
+                  RowHeaderWidth="25"                
+                  RowBackground="White"
+                  AlternatingRowBackground="Azure"
+                  AlternationCount="2"
+                  ItemsSource="{Binding Path=TempGridItems}"
+                  Height="95" HorizontalAlignment="Left" Margin="121,9,0,0" VerticalAlignment="Top" Width="685" Grid.Row="4">
+                
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="Focusable" Value="False"/>
+                    </Style>
+                </DataGrid.CellStyle>
+                
+            </DataGrid>
+
+            <Button Content="Create Temporary Voucher" Height="23" HorizontalAlignment="Left" Margin="427,117,0,0" Name="CreateTemporaryVoucherButton" VerticalAlignment="Top" Width="194" Command="{Binding Path=TempButtonClicked}" IsEnabled="{Binding Path=IsTemporaryButtonEnabled, Mode=TwoWay}" Grid.Row="4" >
+                <Button.ToolTip>
+                    <ToolTip>Create a voucher temporarily for review. It can be posted after reviewing.
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Post" Height="23" HorizontalAlignment="Left" Margin="638,117,0,0" Name="PostButton" VerticalAlignment="Top" Width="75" Command="{Binding Path=PostButtonClicked}" IsEnabled="{Binding Path=IsPostButtonEnabled, Mode=TwoWay}" Grid.Row="4" >
+                <Button.ToolTip>
+                    <ToolTip>Post a voucher.
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Clear All" Height="23" HorizontalAlignment="Left" Margin="731,117,0,0" Name="ClearButton" VerticalAlignment="Top" Width="75" Command="{Binding Path=ClearButtonClicked}" Grid.Row="4" />
+
+            <TextBlock Text="{Binding Path=NotificationMessage}" TextWrapping="Wrap" Height="51" HorizontalAlignment="Left" TextAlignment="Center" Margin="7,151,0,0" Name="messageTextBlock" VerticalAlignment="Top" Width="826" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Grid.Row="4" />
+            
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

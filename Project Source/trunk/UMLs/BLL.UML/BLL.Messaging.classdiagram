@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="f54ecb59-bbdc-4911-96d7-fef9a33256c9" name="BLL" linkedPackageId="33aea102-2a6c-4150-b856-d86a28e468ec" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="3617dc1b-2134-42c1-ae70-3f561bf8b27e">
+      <profileInstance Id="ca94d631-7790-42d2-a693-550ed89835c1" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="08a4b72f-a7aa-4ba0-aa8f-321051251fe1">
+      <profileInstance Id="6a21dc70-56f2-4389-b0f3-78bb00d453f9" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="20951a1f-1560-4364-a1e1-5e82f92bc092" name="Message" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a84c3e3f-f727-4947-b0a4-0098f099c6fe" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="fa3b4b1c-15f0-4d60-b815-a554dca4606f" name="MessageType" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="95f112f9-caf2-43e6-8e04-7971e7d028d9" />
+        <ownedLiterals>
+          <enumerationLiteral Id="2dc2b7aa-967f-440e-980b-5ba920f7547b" name="Success">
+            <elementDefinition Id="b7149996-0dca-4ddc-a41e-d63a55467d7d" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="65a445ee-ecbb-4ac9-894e-c8207afc2fa3" name="Error">
+            <elementDefinition Id="d9341b53-31fd-42ed-9743-30160489c673" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="7e464499-bad2-4545-babf-74bd487b68dc" name="Warning">
+            <elementDefinition Id="bdaed952-0abb-43fe-b7eb-965388e98486" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="b2df2cfa-b0bb-496e-8cf8-34b463c33f4a" name="Information">
+            <elementDefinition Id="72e6fc32-d833-4f11-83b3-cc6f5fea4d44" />
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="4b5dab74-73af-4d2d-9120-5a287bfb43df" name="ErrorMessage" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="56e1d08a-e2a5-4d8a-b35b-ae41ffef5f60" />
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="e8347d0c-c5f2-4384-b582-59646e6ec01e" name="SuccessMessage" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2839e774-bd8e-447d-99f4-c5c60515b70b" />
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="0f4135d3-a4ab-4063-93bd-5c234b49bef3" name="WarningMessage" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="96d6fdb9-1670-460d-9d7c-adcde3ea183d" />
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="4712c5ce-4e28-4f8d-b67a-fd826752f057" name="InformationMessage" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bed485d5-915f-43bc-bd26-ab6377febd5a" />
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7583a248-acfa-4fd7-a93d-ef79eeb37019" name="MessageService" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="75034e36-32b7-4e39-bfbb-b986ce9c8357" />
+        <targetEnds>
+          <association Id="9a0be7d6-33c5-4c4a-8e2e-2b8086cebef5" isDerived="false" sourceEndRoleName="MessageService" targetEndRoleName="Message" isLeaf="false" isAbstract="false">
+            <classMoniker Id="20951a1f-1560-4364-a1e1-5e82f92bc092" LastKnownName="Message" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e037e72e-5c83-4fa4-bd97-43b1b6fbf8e3" name="MessageService" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2e66237f-7ca2-4483-813d-16d03a342386" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7e516031-b101-4ead-84e9-20715c52f0d2" name="Message" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="17fb6350-4d1f-43fe-9295-0f30b6caf956" name="Lower" value="0*">
+                      <elementDefinition Id="45309c99-ecfa-416f-8ba9-a1e55d975170" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="5b1bedb8-557c-4e96-bdc5-55c63351acba" name="Upper" value="0*">
+                      <elementDefinition Id="58d690f2-52ac-4753-b698-2c96214dbaad" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="866e3d8e-b769-470c-95f2-191b52ec9a0f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c0b755d1-a421-4511-8097-f7d485d5b183" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="33aea102-2a6c-4150-b856-d86a28e468ec" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</logicalClassDesignerModel>

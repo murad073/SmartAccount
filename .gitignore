@@ -1,0 +1,8 @@
+# from subversion global ignore pattern
+*.tmp
+*.user
+*.suo
+*.so.[0-9]* 
+_ReSharper.*
+bin/
+obj/

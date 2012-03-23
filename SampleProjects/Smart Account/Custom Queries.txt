@@ -1,0 +1,37 @@
+
+Income Statement categories query 
+------------------------------------------------------------------
+select * from Category c 
+	inner join CategoryType ct on c.ID = ct.CategoryID
+	inner join [Type] t on t.ID = ct.TypeID
+	
+where t.ID = 3
+
+
+
+
+
+Income Statement Debit Credit 
+----------------------------------------------------------------------
+
+--select SUM(r.debit) Debit, SUM(credit) Credit from Category c 
+select r.id RecordID, c.CategoryName, r.debit Debit, r.Credit Credit from Category c 
+	inner join CategoryType ct on c.ID = ct.CategoryID
+	inner join [Type] t on t.ID = ct.TypeID
+	inner join ProjectCategory pc on pc.CategoryID = c.ID
+	inner join Record r on r.ProjectCategoryID = pc.ID
+where t.ID = 3
+
+
+
+Depcreation Calculation 
+---------------------------------------------------------------------------
+select sum ((ys.Balance + r.Debit - r.Credit)*c.Value/100)  from Category c 
+	inner join CategoryType ct on c.ID = ct.CategoryID
+	inner join [Type] t on t.ID = ct.TypeID
+	inner join YearSummary ys on ys.CategoryID = c.ID
+	inner join ProjectCategory pc on pc.CategoryID = c.ID
+	inner join Record r on r.ProjectCategoryID = pc.ID
+where t.ID = 1 and ys.[Date] >= CONVERT(datetime, '2009-12-31') 
+--group by c.ID, ys.CategoryID
+

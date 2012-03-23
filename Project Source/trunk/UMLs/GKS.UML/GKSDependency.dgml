@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph Layout="ForceDirected" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(Namespace=BLL)" Head="CodeSchema_Namespace" IsDragSource="True" Label="BLL" />
+    <Node Id="(Namespace=BLL.CommonModel.VoucherEntry)" Head="CodeSchema_Namespace" IsDragSource="True" Label="BLL.CommonModel.VoucherEntry" />
+    <Node Id="(Namespace=GKS.Factory)" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS.Factory" />
+    <Node Id="(Namespace=GKS.Model.ViewModels)" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS.Model.ViewModels" />
+    <Node Id="(Namespace=GKS.XAML.Properties)" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS.XAML.Properties" />
+    <Node Id="(Namespace=GKS.XAML.UserControls)" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS.XAML.UserControls" />
+    <Node Id="(Namespace=MSAccess)" Head="CodeSchema_Namespace" IsDragSource="True" Label="MSAccess" />
+    <Node Id="(Namespace=SQL2K8)" Head="CodeSchema_Namespace" IsDragSource="True" Label="SQL2K8" />
+    <Node Id="(Namespace=SQLExpress)" Head="CodeSchema_Namespace" IsDragSource="True" Label="SQLExpress" />
+    <Node Id="(Namespace=Samples.AccessProviders)" Head="CodeSchema_Namespace" IsDragSource="True" Label="Samples.AccessProviders" />
+    <Node Id="(Namespace=View.Interfaces)" Head="CodeSchema_Namespace" IsDragSource="True" Label="View.Interfaces" />
+    <Node Id="@1" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS" />
+    <Node Id="@2" Head="CodeSchema_Namespace" IsDragSource="True" Label="GKS.XAML" />
+  </Nodes>
+  <Links>
+    <Link Source="(Namespace=BLL)" Target="(Namespace=BLL.CommonModel.VoucherEntry)" Head="Contains" />
+    <Link Source="@1" Target="(Namespace=GKS.Factory)" Head="Contains" />
+    <Link Source="@1" Target="(Namespace=GKS.Model.ViewModels)" Head="Contains" />
+    <Link Source="@1" Target="@2" Head="Contains" />
+    <Link Source="@2" Target="(Namespace=GKS.XAML.Properties)" Head="Contains" />
+    <Link Source="@2" Target="(Namespace=GKS.XAML.UserControls)" Head="Contains" />
+  </Links>
+  <Heads>
+    <Head Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
+    <Head Id="CodeSchema_Namespace" Label="Namespace" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" IsProviderRoot="False" NavigationActionLabel="Namespaces" />
+    <Head Id="CodeSchema_Statement" Label="Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Statement" />
+    <Head Id="Contains" Label="Contains" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+  </Heads>
+  <Properties>
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsDragSource" Label="IsDragSource" Description="IsDragSource" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Id="(Namespace=GKS)" />
+    <Alias n="2" Id="(Namespace=GKS.XAML)" />
+  </IdentifierAliases>
+</DirectedGraph>

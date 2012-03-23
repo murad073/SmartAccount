@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="330b772e-9bea-46a7-87cd-cb80f074b9f7" name="Transaction" linkedPackageId="4462ff85-4b78-4d2a-83a7-40fff4fe7d86" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="3ec205e1-d1e1-4679-85fb-f02f25f637eb">
+      <profileInstance Id="2eda1246-c9d2-441f-904b-3db53ce788a4" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="5170a6ce-04bc-4bff-a14e-d546071055b1">
+      <profileInstance Id="b500cfaf-81aa-43d6-b131-bff5e76945aa" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="701e138d-06c5-4059-a43a-7fb2740b996e" name="Transaction" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cf36e93b-3445-4b56-b60e-8a3b7d942adc" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="069b4338-a0dc-4e8d-89d4-91f0b923bc3d" name="Cheque" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ba4a96da-b1e4-46f7-9889-6602c05b0283" />
+        <generalsInternal>
+          <generalization Id="3ea22ac2-78d9-4116-bae4-5dae1747040e" isSubstitutable="false">
+            <classMoniker Id="701e138d-06c5-4059-a43a-7fb2740b996e" LastKnownName="Transaction" />
+            <elementDefinition Id="d4723eb1-0d9f-4e9a-aafe-9f5d16d69f6f" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="ad93061b-e919-4b6a-a793-4b5b3f6c418a" name="Cash" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="03f24a9e-d803-4df5-8dd5-e0712ce7a925" />
+        <generalsInternal>
+          <generalization Id="8b9a1bee-3406-4215-984a-48d5f4997ce8" isSubstitutable="false">
+            <classMoniker Id="701e138d-06c5-4059-a43a-7fb2740b996e" LastKnownName="Transaction" />
+            <elementDefinition Id="8c344b2c-5e53-4428-8dc8-22ac9d18940a" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="4462ff85-4b78-4d2a-83a7-40fff4fe7d86" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</logicalClassDesignerModel>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sequenceDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="BLL">
+  <SequenceDesignerModelMoniker Id="ffb89c8d-d89b-4810-9a3f-abbac2fbf752" />
+  <nestedChildShapes>
+    <lifelineShape Id="53c435ad-eeb1-47bc-ad59-4d13715c6a3e" absoluteBounds="2.3125, 1, 0.15, 7" visible="true" visualStyleMode="Modified">
+      <lifelineMoniker Id="0c7d31d9-8664-40bc-8364-838a141cb75d" LastKnownName="MessageService" />
+      <relativeChildShapes>
+        <umlLifelineHeadShape Id="fcb275c1-3b69-43b5-a89f-7c8de968257e" absoluteBounds="1.6916073671976726, 0.6, 1.3917852656046548, 0.4" customColor="White" visualStyleMode="Modified">
+          <lifelineMoniker Id="0c7d31d9-8664-40bc-8364-838a141cb75d" LastKnownName="MessageService" />
+          <relativeChildShapes />
+        </umlLifelineHeadShape>
+        <lifelineHoverShape Id="3279d8f3-dcf4-48e8-a4e8-3f7d4dae7ced" absoluteBounds="2.3125, 1, 0, 7">
+          <lifelineMoniker Id="0c7d31d9-8664-40bc-8364-838a141cb75d" LastKnownName="MessageService" />
+        </lifelineHoverShape>
+      </relativeChildShapes>
+    </lifelineShape>
+  </nestedChildShapes>
+</sequenceDesignerDiagram>

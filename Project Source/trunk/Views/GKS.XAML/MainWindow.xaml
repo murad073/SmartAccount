@@ -1,0 +1,111 @@
+﻿<Window x:Class="GKS.XAML.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:localUC="clr-namespace:GKS.XAML.UserControls" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d"
+        Title="SOLVE - An Accounting Solution" WindowStartupLocation="CenterOwner" Left="0" Top="0"  
+        Height="730" Width="1000">
+
+    <Grid Height="690" Width="980">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*" />
+            <RowDefinition Height="707*" />
+        </Grid.RowDefinitions>
+        <Menu IsEnabled="False" Height="23" HorizontalAlignment="Left" Name="menu1" VerticalAlignment="Top" Width="980">
+            <MenuItem Header="File">
+                <MenuItem Command="ApplicationCommands.Close" Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="Voucher">
+                <MenuItem Header="Post a Debit Voucher" />
+                <MenuItem Header="Post a Credit Voucher" />
+                <MenuItem Header="Post a Journal Voucher" />
+                <MenuItem Header="Post a Contra" />
+            </MenuItem>
+            <MenuItem Header="Project">
+                <MenuItem Header="Add a New Project" />
+                <MenuItem Header="View All Projects" />
+                <MenuItem Header="View Project Details" />
+            </MenuItem>
+            <MenuItem Header="Head">
+                <MenuItem Header="Create New Head" />
+                <MenuItem Header="View All Heads" />
+                <MenuItem Header="View Head Details" />
+            </MenuItem>
+            <MenuItem Header="Reports" />
+            <MenuItem Header="Settings" />
+            <MenuItem Header="Help" />
+        </Menu>
+
+        <TabControl Grid.Row="1" Height="670" Name="tabControl1" Width="980" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TabItem Name="tabItemPost">
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Post_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Post a Voucher" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:VoucherPostUC x:Name="postUC1" HorizontalAlignment="Center" />
+            </TabItem>
+            <TabItem Name="tabItemProjects" >
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img2" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Projects_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Add/Edit Project" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:ProjectMgmtUC x:Name="projectMgmtUC1" />
+            </TabItem>
+            <TabItem Name="tabItemHeads" >
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img3" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Heads_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Add/Edit Head" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:HeadMgmtUC x:Name="headMgmtUC1" />
+            </TabItem>
+            <TabItem Name="tabItemSettings" >
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img4" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Settings_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Project Management" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:ProjectHeadMgmtUC x:Name="projectHeadMgmtUC1" />
+            </TabItem>
+            <TabItem Name="tabItemLedger" >
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img5" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Ledger_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Ledger Books" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:LedgerViewUC x:Name="ledgerViewUC1" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+
+</Window>

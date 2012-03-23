@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="d14a6e6f-8373-4c9c-96b0-6d898f44aeeb" name="HeadOrHead" linkedPackageId="1a1eccd3-fc27-485d-af7d-04929831f27c" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="be5d0931-0a07-47ec-93e8-24824e0bbb09">
+      <profileInstance Id="0ce77a1d-ec82-4f80-b80e-07c8ee9c5508" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="3c53d373-44a8-4eeb-a25d-473a89420a7c">
+      <profileInstance Id="ec89a568-482d-40c7-a018-245bc2eb5e87" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="531a0877-880f-431c-bb58-9a17df9eb23a" name="Head" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="27703faa-a8d3-4fc5-aff1-51bd242a7c6b" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="9d4f6891-52f7-48ff-b321-454d8b3ca7c9" name="CapitalHead" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="af8d3c21-cda9-42bc-a7ef-64237f2fdbc5" />
+        <generalsInternal>
+          <generalization Id="f925af1e-3412-4f53-a584-cdc08258dd0e" isSubstitutable="false">
+            <classMoniker Id="531a0877-880f-431c-bb58-9a17df9eb23a" LastKnownName="Head" />
+            <elementDefinition Id="96747861-96ac-4669-a7ff-65020d480cd7" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0966be3a-0fc3-4a3f-be42-ffaacb04910e" name="RevenueHead" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="6e987c25-560a-4337-8651-54869076147c" />
+        <generalsInternal>
+          <generalization Id="ba1173ee-ccb8-408e-b382-21078b70cbf6" isSubstitutable="false">
+            <classMoniker Id="531a0877-880f-431c-bb58-9a17df9eb23a" LastKnownName="Head" />
+            <elementDefinition Id="c8ee9a9b-577b-45cb-97ab-df834cd45ad4" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="1a1eccd3-fc27-485d-af7d-04929831f27c" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</logicalClassDesignerModel>

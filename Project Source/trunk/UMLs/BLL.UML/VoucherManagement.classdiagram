@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="ce1b6179-2e70-4470-90a1-8ad7bf17ccec" name="VoucherManagement" linkedPackageId="b8cab335-5972-4669-b1c4-c08ecd7a080a" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="19aba948-dd9e-42e6-acaf-4fae4b59170f">
+      <profileInstance Id="b3357812-8713-4d5a-8cb4-230f31051134" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="937dc9bf-2f65-4914-b2f4-9f0b2007588f">
+      <profileInstance Id="21371992-343d-413e-aa33-d7a3f44c3f09" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="e178c802-a13f-4df7-a133-1ecfef29a5bb" name="MassVoucherManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b3d94a64-60d8-4262-81bb-c74207eaf86e" />
+        <targetEnds>
+          <association Id="a7cc7345-6065-4421-b0ef-c89c4b647215" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <classMoniker Id="2e1bd280-479e-41ec-b4af-10808004de3a" LastKnownName="VoucherManager" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d6caaf1a-6bbb-4af4-af47-1ba3476ebc61" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1e8537b9-6f00-4cbe-bf4c-aa90ecf43833" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9c16e8c5-c221-4475-a46f-f958ede40a82" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <elementDefinition Id="5b22a2c0-a723-44ac-9ffa-d033b26c6c8e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="519c8b75-7aa5-4774-a8d6-2b45464c9e74" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2e1bd280-479e-41ec-b4af-10808004de3a" name="VoucherManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e8c8a784-5715-4275-b298-d90a5f0b2b22" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="b8cab335-5972-4669-b1c4-c08ecd7a080a" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</logicalClassDesignerModel>

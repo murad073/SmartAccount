@@ -1,0 +1,25 @@
+﻿<Window x:Class="MVVMTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MVVMTest" Title="MainWindow" Height="350" Width="525" >
+    <!--<Window.DataContext>
+        <local:ViewModel></local:ViewModel>
+    </Window.DataContext>-->
+    
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="153*" />
+            <ColumnDefinition Width="350*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*" />
+            <RowDefinition Height="53*" />
+            <RowDefinition Height="218*" />
+        </Grid.RowDefinitions>
+        <Label Content="hello world" Grid.Row="0" Grid.Column="0" />
+        <TextBox Name="NameText" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name, Mode=OneWay}" />
+        <Button Content="Click Me" Grid.Column="1" Grid.Row="1" Command="{Binding Path=ButtonClicked}" />
+        <TextBox Grid.Row="2" Grid.Column="0" Name="NewText" Text="{Binding Path=TempText, Mode=OneWayToSource}" />
+        <ComboBox Height="38" HorizontalAlignment="Left" Name="comboBox1" VerticalAlignment="Top" Width="124" Grid.Row="1" ItemsSource="{Binding Path=ComboItems, Mode=TwoWay}" SelectedItem="{Binding Path=ComboSelected, Mode=TwoWay}" />
+        <DataGrid AutoGenerateColumns="True" Height="200" HorizontalAlignment="Left" Margin="41,6,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=GridViewItems, Mode=OneWay}" />
+    </Grid>
+</Window>
