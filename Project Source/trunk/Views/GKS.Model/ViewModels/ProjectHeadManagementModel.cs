@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using BLL.Model;
+using BLL.Messaging;
 using BLL.Model.Schema;
 using BLL.ProjectManagement;
 using GKS.Factory;
-using BLL.Model.Messaging;
 
 namespace GKS.Model.ViewModels
 {

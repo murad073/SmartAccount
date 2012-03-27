@@ -12,7 +12,7 @@ namespace BLL.VoucherManagement
     {
         private readonly IRecordRepository _recordRepository = default(IRecordRepository);
         private readonly IList<Record> _records = default(List<Record>);
-        private readonly Message _latestMessage;
+        private  Message _latestMessage;
         public RecordManager(IRecordRepository recordRepository, IList<Record> records)
         {
             _recordRepository = recordRepository;
@@ -34,8 +34,9 @@ namespace BLL.VoucherManagement
             {
                 if (_recordRepository.CommitTransaction())
                 {
-                    _latestMessage.MessageType = MessageType.Success;
-                    _latestMessage.MessageText = MessageText.VoucherPostedSuccessfully;
+                    //_latestMessage.MessageType = MessageType.Success;
+                    _latestMessage = MessageService.Instance.Get(SuccessMessage.VoucherPostedSuccessfully.ToString());
+                        //MessageText.VoucherPostedSuccessfully;
                 }
             }
             else _recordRepository.RollbackTransaction();

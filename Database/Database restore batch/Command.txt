@@ -1,0 +1,1 @@
+sqlcmd -S .\sqlexpress -i "C:\Murad Boss\final script.sql" -o "C:\Murad Boss\final script_output.txt"

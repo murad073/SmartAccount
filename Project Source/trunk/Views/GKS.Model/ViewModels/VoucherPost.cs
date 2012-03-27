@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using BLL.Model.Messaging;
+using BLL.Messaging;
 using BLL.Model.Schema;
 using BLL.ProjectManagement;
 using BLL.Utils;
@@ -11,8 +11,6 @@ using BLL.VoucherManagement;
 using GKS.Factory;
 using System.Windows.Data;
 using BLL.Model.Repositories;
-using System.Globalization;
-using System.Threading;
 
 
 namespace GKS.Model.ViewModels
@@ -698,14 +696,14 @@ namespace GKS.Model.ViewModels
 
         public void ShowMessage(Message message)
         {
-            ColorCode = MessageService.GetColorCode(message.MessageType);
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
             NotificationMessage = message.MessageText;
         }
 
         public void ClearMessage()
         {
             Message message = new Message();
-            ColorCode = MessageService.GetColorCode(message.MessageType);
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
             NotificationMessage = message.MessageText;
         }
 

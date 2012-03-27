@@ -7,7 +7,10 @@
         AmountCannotBeZero,
         ContraTypeIsNotSelected,
         JVDebitOrCreditNotSelected,
-        UnknownProblemArise
+        UnknownProblemArise,
+        InvalidProject,
+        InvalidHeadForProject,
+        DebitOrCreditAmountIsInvalid
     }
 
     public enum SuccessMessage
@@ -18,6 +21,8 @@
 
     public enum WarningMessage
     {
+        NoFixedAssetParticularNameFound,
+        ZeroDepreciationProvidedForFixedAsset
     }
 
     public enum InformationMessage

@@ -51,12 +51,14 @@ namespace BLL.VoucherManagement
 
             if (project==null)
             {
-                _message =  MessageService.GetErrorMessage("Invalid project.");
+                //_message = MessageService.GetErrorMessage("Invalid project.");
+                _message = MessageService.Instance.Get(ErrorMessage.InvalidProject.ToString());
                 return false;
             }
             if (head==null  )
             {
-                _message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
+                //_message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
+                _message = MessageService.Instance.Get(ErrorMessage.InvalidHeadForProject.ToString());
                 return false;
             }
 
@@ -73,7 +75,8 @@ namespace BLL.VoucherManagement
 
             if(!isValidHeadFound)
             {
-                _message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
+                //_message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
+                _message = MessageService.Instance.Get(ErrorMessage.InvalidHeadForProject.ToString());
                 return false;
             }
 
@@ -87,7 +90,8 @@ namespace BLL.VoucherManagement
             if ((voucher.Debit == voucher.Credit) || voucher.Debit < 0 || voucher.Credit < 0 ||
                      (voucher.Debit > 0 && voucher.Credit != 0) || (voucher.Credit > 0 && voucher.Debit != 0))
             {
-                _message = MessageService.GetErrorMessage("Debit or Credit amount is invalid. Please verify.");
+                //_message = MessageService.GetErrorMessage("Debit or Credit amount is invalid. Please verify.");
+                _message = MessageService.Instance.Get(ErrorMessage.DebitOrCreditAmountIsInvalid.ToString());
                 return false;
             }
 

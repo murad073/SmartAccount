@@ -3,8 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
-using BLL.Model;
-using BLL.Model.Messaging;
+using BLL.Messaging;
 using BLL.Model.Schema;
 using BLL.ProjectManagement;
 using GKS.Factory;
@@ -130,7 +129,7 @@ namespace GKS.Model.ViewModels
         public void ShowMessage(Message message)
         {
             MessageText = message.MessageText;
-            ColorCode = MessageService.GetColorCode(message.MessageType);
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
         }
 
         public Project GetProject()

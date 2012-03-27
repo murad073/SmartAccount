@@ -33,6 +33,9 @@ namespace BLL.Messaging
             Add(SuccessMessage.TemporaryRecordsAdded.ToString(), MessageType.Success);
             Add(SuccessMessage.VoucherPostedSuccessfully.ToString(), MessageType.Success);
 
+            /**********  Warning Messages ***************/
+            Add(WarningMessage.NoFixedAssetParticularNameFound.ToString(), MessageType.Warning);            
+
             /**********  Information Messages ***************/
             Add(InformationMessage.NoChequeOrBankInfo.ToString(), MessageType.Information);
             Add(InformationMessage.UnknownProblemArise.ToString(), MessageType.Information);
@@ -55,6 +58,28 @@ namespace BLL.Messaging
                 return _messages[key];
             }
             return null;
+        }
+
+        public string GetColorCode(MessageType messageType)
+        {
+            string key = "";
+
+            switch (messageType)
+            {
+                case MessageType.Error:
+                    key = "ErrorColorCode";
+                    break;
+                case MessageType.Information:
+                    key = "InformationColorCode";
+                    break;
+                case MessageType.Success:
+                    key = "SuccessColorCode";
+                    break;
+                case MessageType.Warning:
+                    key = "WarningColorCode";
+                    break;
+            }
+            return ConfigValues.Get(key);
         }
 
         private static Message CreateMessageInstance(string text, MessageType type)

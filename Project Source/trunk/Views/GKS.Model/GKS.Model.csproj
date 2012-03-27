@@ -54,6 +54,10 @@
     <Compile Include="ViewModels\GKSProjectManagementModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL.Messaging\BLL.Messaging.csproj">
+      <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
+      <Name>BLL.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLLs\BLL.LedgerManagement\BLL.LedgerManagement.csproj">
       <Project>{26FC262D-1525-4215-9099-F71C5A25B3C4}</Project>
       <Name>BLL.LedgerManagement</Name>

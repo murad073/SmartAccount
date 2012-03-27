@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-//using Model;
-using BLL;
 using BLL.LedgerManagement;
-using BLL.Model;
-using BLL.Model.Messaging;
+using BLL.Messaging;
 using BLL.Model.Schema;
 using BLL.ProjectManagement;
 using GKS.Factory;
-using System.Collections.ObjectModel;
 using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
@@ -464,7 +459,7 @@ namespace GKS.Model.ViewModels
                 {
                     Message latestMessage = _ledgerManager.GetLatestMessage();
                     ErrorMessage = latestMessage.MessageText;
-                    ColorCode = MessageService.GetColorCode(latestMessage.MessageType);
+                    ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
                     return null;
                 }
 
@@ -499,7 +494,7 @@ namespace GKS.Model.ViewModels
         public void ClearMessage()
         {
             Message message = new Message();
-            ColorCode = MessageService.GetColorCode(message.MessageType);
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
             ErrorMessage = message.MessageText;
         }
 

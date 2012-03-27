@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using BLL.DALInterface;
 using BLL.Model;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
@@ -36,7 +35,7 @@ namespace SQL2K8
                                        Credit = record.Credit,
                                        Debit = record.Debit,
                                        Date = record.Date,
-                                       VoucherNo = record.VoucherType + record.VoucherSerialNo,
+                                       VoucherNo = record.VoucherType + "-" + record.VoucherSerialNo,
                                        Particular = bankRecord != null ? "Bank" : "Cash",
                                        ChequeNo = bankRecord != null ? bankRecord.ChequeNo : "",
                                        Remarks = record.Narration,
