@@ -534,12 +534,10 @@ namespace SQL2K8
         /// Create a new FixedAsset object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
-        /// <param name="depreciationType">Initial value of the DepreciationType property.</param>
-        public static FixedAsset CreateFixedAsset(global::System.Int32 id, global::System.String depreciationType)
+        public static FixedAsset CreateFixedAsset(global::System.Int32 id)
         {
             FixedAsset fixedAsset = new FixedAsset();
             fixedAsset.ID = id;
-            fixedAsset.DepreciationType = depreciationType;
             return fixedAsset;
         }
 
@@ -648,7 +646,7 @@ namespace SQL2K8
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String DepreciationType
         {
@@ -660,7 +658,7 @@ namespace SQL2K8
             {
                 OnDepreciationTypeChanging(value);
                 ReportPropertyChanging("DepreciationType");
-                _DepreciationType = StructuralObject.SetValidValue(value, false);
+                _DepreciationType = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("DepreciationType");
                 OnDepreciationTypeChanged();
             }
