@@ -66,6 +66,13 @@
       <SubType>Content</SubType>
       <DependentUpon>VoucherManagement.classdiagram</DependentUpon>
     </Content>
+    <Content Include="VoucherPostMessaging.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="VoucherPostMessaging.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>VoucherPostMessaging.sequencediagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\BLL.UML.uml">
       <SubType>Content</SubType>

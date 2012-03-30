@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6a6260b0-3ce0-4a97-ba7d-6efb49d8d64c" name="VoucherPostMessaging" linkedPackageId="53b6b205-0fb7-4b0b-a797-b7f8a8722880" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="1cfe369a-cded-41c5-8322-a82e0db6ed6b">
+      <profileInstance Id="27d81a89-799d-4e01-8a10-9e018403ae31" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="b53b79bd-ccd4-4687-9088-6cf960135dd7">
+      <profileInstance Id="ab98ed09-d899-4635-8596-e7fdc03d1959" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="82e24f76-29c0-4770-a752-4f152f22c7b2" name="VoucherPostMessaging" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <elementDefinition Id="8ddac1d5-bfb9-483e-8345-0308622508b6" />
+        <lifelines>
+          <lifeline Id="d539334c-27c0-43a4-a564-59cf9f769743" name="VoucherPostUC" isActor="false" lifelineDisplayName="VoucherPostUC">
+            <elementDefinition Id="3982529c-b552-4782-bad6-f52c797bfb17" />
+          </lifeline>
+        </lifelines>
+      </interaction>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="53b6b205-0fb7-4b0b-a797-b7f8a8722880" name="BLL.UML">
+    <elementDefinition Id="69100848-2d96-47e5-9881-76b5cd915c12" />
+  </package>
+</SequenceDesignerModel>

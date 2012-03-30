@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sequenceDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="VoucherPostMessaging">
+  <SequenceDesignerModelMoniker Id="6a6260b0-3ce0-4a97-ba7d-6efb49d8d64c" />
+  <nestedChildShapes>
+    <lifelineShape Id="15461652-adfc-4eea-b2e8-7a2d3b9bfef5" absoluteBounds="1.025, 1, 0.15, 7" visible="true" visualStyleMode="Modified">
+      <lifelineMoniker Id="d539334c-27c0-43a4-a564-59cf9f769743" LastKnownName="VoucherPostUC" />
+      <relativeChildShapes>
+        <umlLifelineHeadShape Id="00afc44f-c0c3-42d2-b76b-bc99ed186006" absoluteBounds="0.53374605894088734, 0.6, 1.1325078821182251, 0.4" customColor="White" visualStyleMode="Modified">
+          <lifelineMoniker Id="d539334c-27c0-43a4-a564-59cf9f769743" LastKnownName="VoucherPostUC" />
+          <relativeChildShapes />
+        </umlLifelineHeadShape>
+        <lifelineHoverShape Id="ce37f82b-1930-42d1-9725-3d8bb8ac46a7" absoluteBounds="1.025, 1, 0, 7">
+          <lifelineMoniker Id="d539334c-27c0-43a4-a564-59cf9f769743" LastKnownName="VoucherPostUC" />
+        </lifelineHoverShape>
+      </relativeChildShapes>
+    </lifelineShape>
+  </nestedChildShapes>
+</sequenceDesignerDiagram>

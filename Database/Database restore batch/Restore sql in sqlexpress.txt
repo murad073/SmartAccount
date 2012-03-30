@@ -1,0 +1,24 @@
+
+1. copy the script file in a location. (I used the location "C:\Murad Boss\final script.sql")
+
+
+2. run the command in "start menu/run"
+
+
+sqlcmd -S .\sqlexpress -i "C:\Murad Boss\final script.sql" -o "C:\Murad Boss\final script_output.txt"
+
+
+NOTE:
+
+In the command line
+	-S means server instance name
+	-i means input file location
+	-o means output file location
+
+after run the command a file will be generated at location C:\Murad Boss\final script_output.txt
+open the file to see the output.
+
+Hope this will work.
+
+
+

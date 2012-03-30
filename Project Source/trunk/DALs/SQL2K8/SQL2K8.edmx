@@ -46,7 +46,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RecordID" Type="int" Nullable="false" />
-          <Property Name="ChequeNo" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="ChequeNo" Type="varchar" MaxLength="500" />
           <Property Name="BankName" Type="varchar" MaxLength="500" />
           <Property Name="Branch" Type="varchar" MaxLength="500" />
           <Property Name="ChequeDate" Type="datetime" />
@@ -59,7 +59,7 @@
           <Property Name="Name" Type="varchar" MaxLength="500" />
           <Property Name="DepreciationRate" Type="float" />
           <Property Name="DepreciatedValue" Type="int" />
-          <Property Name="DepreciationType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DepreciationType" Type="varchar" MaxLength="50" />
           <Property Name="ByForceDisposed" Type="bit" />
           <Property Name="RecordID" Type="int" />
         </EntityType>
@@ -235,6 +235,7 @@
           <EntitySet Name="Logs" EntityType="SmartAccountModel.Log" />
           <EntitySet Name="OpeningBalances" EntityType="SmartAccountModel.OpeningBalance" />
           <EntitySet Name="Parameters" EntityType="SmartAccountModel.Parameter" />
+          <EntitySet Name="Projects" EntityType="SmartAccountModel.Project" />
           <EntitySet Name="ProjectHeads" EntityType="SmartAccountModel.ProjectHead" />
           <EntitySet Name="Records" EntityType="SmartAccountModel.Record" />
           <AssociationSet Name="FK_BankRecord_Record" Association="SmartAccountModel.FK_BankRecord_Record">
@@ -253,14 +254,13 @@
             <End Role="ProjectHead" EntitySet="ProjectHeads" />
             <End Role="OpeningBalance" EntitySet="OpeningBalances" />
           </AssociationSet>
-          <AssociationSet Name="FK_Record_ProjectCategory" Association="SmartAccountModel.FK_Record_ProjectCategory">
-            <End Role="ProjectHead" EntitySet="ProjectHeads" />
-            <End Role="Record" EntitySet="Records" />
-          </AssociationSet>
-          <EntitySet Name="Projects" EntityType="SmartAccountModel.Project" />
           <AssociationSet Name="FK_ProjectHead_Project" Association="SmartAccountModel.FK_ProjectHead_Project">
             <End Role="Project" EntitySet="Projects" />
             <End Role="ProjectHead" EntitySet="ProjectHeads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_ProjectCategory" Association="SmartAccountModel.FK_Record_ProjectCategory">
+            <End Role="ProjectHead" EntitySet="ProjectHeads" />
+            <End Role="Record" EntitySet="Records" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="BankRecord">
@@ -269,7 +269,7 @@
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="RecordID" Nullable="false" />
-          <Property Type="String" Name="ChequeNo" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ChequeNo" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="BankName" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Branch" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="ChequeDate" />
@@ -283,7 +283,7 @@
           <Property Type="String" Name="Name" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Double" Name="DepreciationRate" />
           <Property Type="Int32" Name="DepreciatedValue" />
-          <Property Type="String" Name="DepreciationType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DepreciationType" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="ByForceDisposed" />
           <Property Type="Int32" Name="RecordID" />
           <NavigationProperty Name="Record" Relationship="SmartAccountModel.FK_FixedAsset_Record" FromRole="FixedAsset" ToRole="Record" />
@@ -331,6 +331,17 @@
           <Property Type="String" Name="Value" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
         </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProjectHeads" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="Project" ToRole="ProjectHead" />
+        </EntityType>
         <EntityType Name="ProjectHead">
           <Key>
             <PropertyRef Name="ID" />
@@ -341,8 +352,8 @@
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <NavigationProperty Name="Head" Relationship="SmartAccountModel.FK_ProjectHead_Head" FromRole="ProjectHead" ToRole="Head" />
           <NavigationProperty Name="OpeningBalances" Relationship="SmartAccountModel.FK_OpeningBalance_ProjectCategory" FromRole="ProjectHead" ToRole="OpeningBalance" />
-          <NavigationProperty Name="Records" Relationship="SmartAccountModel.FK_Record_ProjectCategory" FromRole="ProjectHead" ToRole="Record" />
           <NavigationProperty Name="Project" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="ProjectHead" ToRole="Project" />
+          <NavigationProperty Name="Records" Relationship="SmartAccountModel.FK_Record_ProjectCategory" FromRole="ProjectHead" ToRole="Record" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -412,29 +423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Record_ProjectCategory">
-          <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="1" />
-          <End Type="SmartAccountModel.Record" Role="Record" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectHead">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Record">
-              <PropertyRef Name="ProjectHeadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProjectHeads" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="Project" ToRole="ProjectHead" />
-        </EntityType>
         <Association Name="FK_ProjectHead_Project">
           <End Type="SmartAccountModel.Project" Role="Project" Multiplicity="1" />
           <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="*" />
@@ -444,6 +432,18 @@
             </Principal>
             <Dependent Role="ProjectHead">
               <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_ProjectCategory">
+          <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="1" />
+          <End Type="SmartAccountModel.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectHead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="ProjectHeadID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -523,6 +523,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="SmartAccountModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProjectHeads">
             <EntityTypeMapping TypeName="SmartAccountModel.ProjectHead">
               <MappingFragment StoreEntitySet="ProjectHead">
@@ -547,17 +558,6 @@
                 <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="SmartAccountModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -589,6 +589,7 @@
         <EntityTypeShape EntityType="SmartAccountModel.Log" Width="1.5" PointX="7.75" PointY="0.875" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="SmartAccountModel.OpeningBalance" Width="1.5" PointX="5.25" PointY="1.5" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="SmartAccountModel.Parameter" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906250031" />
         <EntityTypeShape EntityType="SmartAccountModel.ProjectHead" Width="1.5" PointX="3" PointY="4.5" Height="2.5571907552083388" />
         <EntityTypeShape EntityType="SmartAccountModel.Record" Width="1.5" PointX="5.25" PointY="5.5" Height="3.9033007812500031" />
         <AssociationConnector Association="SmartAccountModel.FK_BankRecord_Record" >
@@ -608,15 +609,14 @@
           <ConnectorPoint PointX="3.75" PointY="2.6824446614583337" />
           <ConnectorPoint PointX="5.25" PointY="2.6824446614583337" />
         </AssociationConnector>
-        <AssociationConnector Association="SmartAccountModel.FK_Record_ProjectCategory" >
-          <ConnectorPoint PointX="4.5" PointY="6.2785953776041659" />
-          <ConnectorPoint PointX="5.25" PointY="6.2785953776041659" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906249996" />
         <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Project" >
-          <ConnectorPoint PointX="2.25" PointY="1.7787223307291669" />
-          <ConnectorPoint PointX="3.3437475" PointY="1.7787223307291669" />
+          <ConnectorPoint PointX="2.25" PointY="1.7162223307291669" />
+          <ConnectorPoint PointX="3.3437475" PointY="1.7162223307291669" />
           <ConnectorPoint PointX="3.3437475" PointY="4.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="SmartAccountModel.FK_Record_ProjectCategory" >
+          <ConnectorPoint PointX="4.5" PointY="6.2785953776041694" />
+          <ConnectorPoint PointX="5.25" PointY="6.2785953776041694" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
