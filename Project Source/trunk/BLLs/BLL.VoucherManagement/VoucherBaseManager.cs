@@ -49,13 +49,13 @@ namespace BLL.VoucherManagement
             Project project = _dalProjectRepository.Get(voucher.ProjectName);
             Head head = _dalHeadRepository.Get(voucher.HeadName);
 
-            if (project==null)
+            if (project == null)
             {
                 //_message = MessageService.GetErrorMessage("Invalid project.");
                 _message = MessageService.Instance.Get(ErrorMessage.InvalidProject.ToString());
                 return false;
             }
-            if (head==null  )
+            if (head == null)
             {
                 //_message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
                 _message = MessageService.Instance.Get(ErrorMessage.InvalidHeadForProject.ToString());
@@ -63,17 +63,17 @@ namespace BLL.VoucherManagement
             }
 
             IList<Head> allValidHeads = _dalHeadRepository.GetAll(project.Id);
-            bool isValidHeadFound=false;
+            bool isValidHeadFound = false;
             foreach (Head singleHead in allValidHeads)
             {
-                if(singleHead.Id == head.Id)
+                if (singleHead.Id == head.Id)
                 {
                     isValidHeadFound = true;
                     break;
                 }
             }
 
-            if(!isValidHeadFound)
+            if (!isValidHeadFound)
             {
                 //_message = MessageService.GetErrorMessage("Invalid Head for Project " + voucher.ProjectName);
                 _message = MessageService.Instance.Get(ErrorMessage.InvalidHeadForProject.ToString());
@@ -102,54 +102,54 @@ namespace BLL.VoucherManagement
             return true;
         }
 
-        public bool Save(VoucherBase voucher)
-        {
-            // 1. Save a Voucher and get the id of new entered voucher
-            // 2. If associated fixed asset found, save fixed asset with the voucher id
+        //public bool Save(VoucherBase voucher)
+        //{
+        // 1. Save a Voucher and get the id of new entered voucher
+        // 2. If associated fixed asset found, save fixed asset with the voucher id
 
-            //BLLRecord bllRecord = new BLLRecord { ProjectId = voucher.Project.Id, HeadId = voucher.Head.Id, Debit = 0, Credit = 0, Date = voucher.VoucherDate, Description = voucher.Narration, VoucherType = voucher.VoucherType, VoucherSerialNo = voucher.VoucherSerialNo };
+        //BLLRecord bllRecord = new BLLRecord { ProjectId = voucher.Project.Id, HeadId = voucher.Head.Id, Debit = 0, Credit = 0, Date = voucher.VoucherDate, Description = voucher.Narration, VoucherType = voucher.VoucherType, VoucherSerialNo = voucher.VoucherSerialNo };
 
-            //if (voucher.VoucherType == "CV")
-            //{
-            //    bllRecord.Credit = voucher.Amount;
-            //    _dalVoucherManager.InsertLedgerBookRow(bllRecord);
-            //    cashOrChequeTransaction(bllRecord, voucher.Amount, 0, voucher.TransactionType, voucher.ChequeInfo);
+        //if (voucher.VoucherType == "CV")
+        //{
+        //    bllRecord.Credit = voucher.Amount;
+        //    _dalVoucherManager.InsertLedgerBookRow(bllRecord);
+        //    cashOrChequeTransaction(bllRecord, voucher.Amount, 0, voucher.TransactionType, voucher.ChequeInfo);
 
-            //}
-            //else if (voucher.VoucherType == "DV")
-            //{
-            //    bllRecord.Debit = voucher.Amount;
+        //}
+        //else if (voucher.VoucherType == "DV")
+        //{
+        //    bllRecord.Debit = voucher.Amount;
 
-            //    if (voucher.IsFixedAsset)
-            //    {
-            //        BLLFixedAssetRecord fixedAssetRecord = new BLLFixedAssetRecord(bllRecord);
-            //        fixedAssetRecord.FixedAssetName = voucher.FixedAssetInfo.Name;
-            //        fixedAssetRecord.DepreciationRate = voucher.FixedAssetInfo.DepreciationRate;
-            //        _dalVoucherManager.InsertFixedAssetRow(fixedAssetRecord);
-            //    }
-            //    else
-            //        _dalVoucherManager.InsertLedgerBookRow(bllRecord);
+        //    if (voucher.IsFixedAsset)
+        //    {
+        //        BLLFixedAssetRecord fixedAssetRecord = new BLLFixedAssetRecord(bllRecord);
+        //        fixedAssetRecord.FixedAssetName = voucher.FixedAssetInfo.Name;
+        //        fixedAssetRecord.DepreciationRate = voucher.FixedAssetInfo.DepreciationRate;
+        //        _dalVoucherManager.InsertFixedAssetRow(fixedAssetRecord);
+        //    }
+        //    else
+        //        _dalVoucherManager.InsertLedgerBookRow(bllRecord);
 
-            //    cashOrChequeTransaction(bllRecord, 0, voucher.Amount, voucher.TransactionType, voucher.ChequeInfo);
-            //}
-            //else if (voucher.VoucherType == "JV")
-            //{
-            //    if (voucher.JournalDebitOrCredit == "Debit") bllRecord.Debit = voucher.Amount;
-            //    else if (voucher.JournalDebitOrCredit == "Credit") bllRecord.Credit = voucher.Amount;
-            //    else return;    //TODO: remove the return line
+        //    cashOrChequeTransaction(bllRecord, 0, voucher.Amount, voucher.TransactionType, voucher.ChequeInfo);
+        //}
+        //else if (voucher.VoucherType == "JV")
+        //{
+        //    if (voucher.JournalDebitOrCredit == "Debit") bllRecord.Debit = voucher.Amount;
+        //    else if (voucher.JournalDebitOrCredit == "Credit") bllRecord.Credit = voucher.Amount;
+        //    else return;    //TODO: remove the return line
 
-            //    if (voucher.IsFixedAsset)
-            //    {
-            //        BLLFixedAssetRecord fixedAssetRecord = new BLLFixedAssetRecord(bllRecord);
-            //        fixedAssetRecord.FixedAssetName = voucher.FixedAssetInfo.Name;
-            //        fixedAssetRecord.DepreciationRate = voucher.FixedAssetInfo.DepreciationRate;
-            //        _dalVoucherManager.InsertFixedAssetRow(fixedAssetRecord);
-            //    }
-            //    else
-            //        _dalVoucherManager.InsertLedgerBookRow(bllRecord);
-            //}
-            return false;
-        }
+        //    if (voucher.IsFixedAsset)
+        //    {
+        //        BLLFixedAssetRecord fixedAssetRecord = new BLLFixedAssetRecord(bllRecord);
+        //        fixedAssetRecord.FixedAssetName = voucher.FixedAssetInfo.Name;
+        //        fixedAssetRecord.DepreciationRate = voucher.FixedAssetInfo.DepreciationRate;
+        //        _dalVoucherManager.InsertFixedAssetRow(fixedAssetRecord);
+        //    }
+        //    else
+        //        _dalVoucherManager.InsertLedgerBookRow(bllRecord);
+        //}
+        //return false;
+        //}
 
         //private void cashOrChequeTransaction(BLLRecord record, double debit, double credit, string transactionType, Cheque chequeInfo = null)
         //{

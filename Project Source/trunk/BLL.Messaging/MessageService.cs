@@ -13,10 +13,10 @@ namespace BLL.Messaging
             AttachAllDefaultMessage();
         }
 
-        private static MessageService _instance;
+        private static readonly MessageService _instance = new MessageService();
         public static MessageService Instance
         {
-            get { return _instance ?? (_instance = new MessageService()); }
+            get { return _instance; }
         }
 
         private void AttachAllDefaultMessage()
