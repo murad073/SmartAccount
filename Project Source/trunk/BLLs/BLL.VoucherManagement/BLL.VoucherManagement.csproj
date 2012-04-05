@@ -40,15 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContraManager.cs" />
     <Compile Include="RecordManager.cs" />
-    <Compile Include="TransactionManager.cs" />
-    <Compile Include="VoucherBaseManager.cs" />
     <Compile Include="MassVoucherManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
+      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
+      <Name>BLL.ConfigurationManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL.Messaging\BLL.Messaging.csproj">
       <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
       <Name>BLL.Messaging</Name>

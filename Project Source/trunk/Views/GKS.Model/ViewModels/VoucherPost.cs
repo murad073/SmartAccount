@@ -89,6 +89,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedProject = value;
+                SetVoucherSerialNo();
                 SetAllHeads();
                 if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedProject")); }
             }
@@ -651,16 +652,13 @@ namespace GKS.Model.ViewModels
 
         private void SetJVBalanceZeroMessage()
         {
+            //todo: need to move the logic in BLL
             if (SelectedVoucherType == "JV" && !IsJVStartedChecked && TemporaryRecords.Count > 0)
             {
                 if (TempGridItems.Last().Balance != 0)
                 {
-                    Message errorMessage = new Message
-                                               {
-                                                   MessageType = MessageType.Error,
-                                                   MessageText = "Debit and credit amount is not balanced."
-                                               };
-                    ShowMessage(errorMessage);
+                    ShowMessage(MessageService.Instance.Get(ErrorMessage.VoucherBalanceIsNotZero.ToString(),
+                                                            MessageType.Error));
                 }
             }
         }
@@ -683,7 +681,10 @@ namespace GKS.Model.ViewModels
 
         private void SetVoucherSerialNo()
         {
-            VoucherSerialNo = _massVoucherManager.GetNewVoucherNo(SelectedVoucherType);
+            if (SelectedProject != null)
+                VoucherSerialNo = _massVoucherManager.GetNewVoucherNo(SelectedVoucherType, SelectedProject.Name);
+            else
+                VoucherSerialNo = 0;
             // TODO: new change -> make the function work perfectly
         }
 
@@ -892,7 +893,7 @@ namespace GKS.Model.ViewModels
             bool isSuccess = recordManager.Save();
             Message message = recordManager.GetLatestMessage();
             _voucherPost.ShowMessage(message);
-            _voucherPost.Reset(false);
+            if(isSuccess) _voucherPost.Reset(false);
         }
     }
 

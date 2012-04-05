@@ -4,7 +4,7 @@ namespace BLL.Model.Repositories
 {
     public interface IRecordRepository
     {
-        int GetMaxVoucherNo(string voucherType);
+        int GetMaxVoucherNo(string voucherType, int projectId);
 
         bool BeginTransaction();
 

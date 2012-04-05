@@ -10,12 +10,13 @@
         UnknownProblemArise,
         InvalidProject,
         InvalidHeadForProject,
-        DebitOrCreditAmountIsInvalid
+        DebitOrCreditAmountIsInvalid,
+        VoucherBalanceIsNotZero
     }
 
     public enum SuccessMessage
     {
-        TemporaryRecordsAdded,
+        //TemporaryRecordsAdded,
         VoucherPostedSuccessfully
     }
 
@@ -27,7 +28,6 @@
 
     public enum InformationMessage
     {
-        NoChequeOrBankInfo,
-        UnknownProblemArise
+        NoChequeOrBankInfo
     }
 }

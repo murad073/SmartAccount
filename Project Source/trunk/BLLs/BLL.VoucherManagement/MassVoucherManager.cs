@@ -14,19 +14,15 @@ namespace BLL.VoucherManagement
 
         private  Message _latestMessage = new Message();
         private MassVoucher _massVoucher;
-        private readonly VoucherBaseManager _voucherManager;
 
         private IList<Record> _entryableRecords;
 
         public MassVoucherManager(IRecordRepository dalVoucherManager, IProjectRepository dalProjectManager,
-                                  IHeadRepository dalHeadManager, MassVoucher massVoucher = null)
+                                  IHeadRepository dalHeadManager)
         {
             _recordRepository = dalVoucherManager;
             _projectRepository = dalProjectManager;
             _headRepository = dalHeadManager;
-
-            _voucherManager = new VoucherBaseManager(dalVoucherManager, dalProjectManager, dalHeadManager);
-            if (massVoucher != null) _massVoucher = massVoucher;
             _latestMessage = new Message();
         }
 
@@ -35,43 +31,35 @@ namespace BLL.VoucherManagement
             bool isValid = true;
             if (string.IsNullOrWhiteSpace(massVoucher.ProjectName))
             {
-                //isValid = SetErrorMessage(MessageText.NoProjectSelected);
                 isValid = SetErrorMessage(ErrorMessage.NoProjectSelected.ToString());
             }
             else if (massVoucher.VoucherType != "Contra" && string.IsNullOrWhiteSpace(massVoucher.HeadName))
             {
-                //isValid = SetErrorMessage(MessageText.NoHeadSelected);
                 isValid = SetErrorMessage(ErrorMessage.NoHeadSelected.ToString());
             }
             else if (massVoucher.Amount == 0)
             {
-                //isValid = SetErrorMessage(MessageText.AmountCannotBeZero);
                 isValid = SetErrorMessage(ErrorMessage.AmountCannotBeZero.ToString());
             }
             else if (massVoucher.VoucherType == "Contra" && string.IsNullOrWhiteSpace(massVoucher.ContraType))
             {
-                //isValid = SetErrorMessage(MessageText.ContraTypeIsNotSelected);
                 isValid = SetErrorMessage(ErrorMessage.ContraTypeIsNotSelected.ToString());
             }
             else if (massVoucher.VoucherType == "JV" && string.IsNullOrWhiteSpace(massVoucher.JVDebitOrCredit))
             {
-                //isValid = SetErrorMessage(MessageText.JVDebitOrCreditNotSelected);
                 isValid = SetErrorMessage(ErrorMessage.JVDebitOrCreditNotSelected.ToString());
             }
             else if (massVoucher.IsFixedAsset && string.IsNullOrWhiteSpace(massVoucher.FixedAssetName))
             {
-                //isValid = SetErrorMessage(MessageText.NoFixedAssetParticularNameFound);
                 isValid = SetWarningMessage(WarningMessage.NoFixedAssetParticularNameFound.ToString());
             }
             else if (massVoucher.IsCheque &&
                      (string.IsNullOrWhiteSpace(massVoucher.ChequeNo) || string.IsNullOrWhiteSpace(massVoucher.BankName)))
             {
-                //isValid = SetWarningMessage(MessageText.NoChequeOrBankInfo);
                 isValid = SetInformationMessage(InformationMessage.NoChequeOrBankInfo.ToString());
             }
             else if (massVoucher.IsFixedAsset && massVoucher.FixedAssetDepreciationRate == 0)
             {
-                //isValid = SetInformationMessage(MessageText.ZeroDepreciationProvidedForFixedAsset);
                 isValid = SetInformationMessage(WarningMessage.ZeroDepreciationProvidedForFixedAsset.ToString());
             }
 
@@ -85,7 +73,7 @@ namespace BLL.VoucherManagement
 
         private bool SetErrorMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey);
+            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);
             //_latestMessage.MessageType = MessageType.Error;
             //_latestMessage.MessageText = messageText;
             return false;
@@ -93,7 +81,7 @@ namespace BLL.VoucherManagement
 
         private bool SetWarningMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey);
+            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Warning);
             //_latestMessage.MessageType = MessageType.Warning;
             //_latestMessage.MessageText = messageText;
             return true;
@@ -101,7 +89,7 @@ namespace BLL.VoucherManagement
 
         private bool SetInformationMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey);
+            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Information);
             //_latestMessage.MessageType = MessageType.Information;
             //_latestMessage.MessageText = messageText;
             return true;
@@ -204,9 +192,10 @@ namespace BLL.VoucherManagement
         //    throw new NotImplementedException();
         //}
 
-        public int GetNewVoucherNo(string key)
+        public int GetNewVoucherNo(string key, string projectName)
         {
-            return _recordRepository.GetMaxVoucherNo(key) + 1;
+            Project project = _projectRepository.Get(projectName);
+            return _recordRepository.GetMaxVoucherNo(key, project.Id) + 1;
         }
 
         private DebitVoucher GetDebitVoucher()

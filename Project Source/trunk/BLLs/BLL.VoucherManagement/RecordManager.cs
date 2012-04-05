@@ -12,7 +12,7 @@ namespace BLL.VoucherManagement
     {
         private readonly IRecordRepository _recordRepository = default(IRecordRepository);
         private readonly IList<Record> _records = default(List<Record>);
-        private  Message _latestMessage;
+        private Message _latestMessage;
         public RecordManager(IRecordRepository recordRepository, IList<Record> records)
         {
             _recordRepository = recordRepository;
@@ -22,31 +22,46 @@ namespace BLL.VoucherManagement
 
         public bool Save()
         {
-            bool success = true;
-            _recordRepository.BeginTransaction();
-
-            foreach (Record record in _records)
+            if (IsDebitCreditBalanced())
             {
-                if(!record.Save()) success = false;
-            }
+                bool success = true;
+                _recordRepository.BeginTransaction();
 
-            if (success)
-            {
-                if (_recordRepository.CommitTransaction())
+                if (_records.Any(record => !record.Save()))
                 {
-                    //_latestMessage.MessageType = MessageType.Success;
-                    _latestMessage = MessageService.Instance.Get(SuccessMessage.VoucherPostedSuccessfully.ToString());
-                        //MessageText.VoucherPostedSuccessfully;
+                    success = false;
+                    _latestMessage = MessageService.Instance.Get(ErrorMessage.UnknownProblemArise.ToString(), MessageType.Error);
                 }
-            }
-            else _recordRepository.RollbackTransaction();
 
-            return true;
+                if (success)
+                {
+                    if (_recordRepository.CommitTransaction())
+                    {
+                        _latestMessage = MessageService.Instance.Get(
+                            SuccessMessage.VoucherPostedSuccessfully.ToString(), MessageType.Success);
+                    }
+                }
+                else _recordRepository.RollbackTransaction();
+                return success;
+            }
+
+            _latestMessage = MessageService.Instance.Get(ErrorMessage.VoucherBalanceIsNotZero.ToString(),
+                                                             MessageType.Error);
+            return false;
         }
 
         public Message GetLatestMessage()
         {
             return _latestMessage;
+        }
+
+        private bool IsDebitCreditBalanced()
+        {
+            double debit = _records.Sum(r => r.Debit);
+            double credit = _records.Sum(r => r.Credit);
+
+            if (debit == credit && (debit != 0 || credit != 0)) return true;
+            return false;
         }
     }
 }

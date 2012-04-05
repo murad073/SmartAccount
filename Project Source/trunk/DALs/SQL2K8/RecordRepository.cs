@@ -11,19 +11,13 @@ namespace SQL2K8
     {
         private SmartAccountEntities _db = new SmartAccountEntities();
         private DbTransaction _transaction;
-        public int GetMaxVoucherNo(string voucherType)
+        public int GetMaxVoucherNo(string voucherType, int projectId)
         {
+            int[] projectHeadIds = _db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
             // TODO: remove ToList() function from Records, this will be much more time consuming
-            IList<Record> records = _db.Records.ToList().Where(r => r.VoucherType == voucherType).ToList();
+            IList<Record> records = _db.Records.Where(r=>projectHeadIds.Contains(r.ProjectHeadID) && r.VoucherType == voucherType).ToList();
             return records.Count == 0 ? 0 : records.Max(r => r.VoucherSerialNo);
         }
-
-        //private int GetProjectHeadId(int projectId, int headId)
-        //{
-        //    //TODO: Validation for combobox selection
-        //    ProjectHead pc = db.ProjectHeads.Where(pcc => pcc.ProjectID == projectId && pcc.HeadID == headId).SingleOrDefault();
-        //    return pc.ID;
-        //}
 
         private int GetProjectHeadId(string projectName, string headName)
         {

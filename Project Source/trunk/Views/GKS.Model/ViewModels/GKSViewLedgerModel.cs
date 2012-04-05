@@ -465,7 +465,19 @@ namespace GKS.Model.ViewModels
 
                 ClearMessage();
                 _ledgerManager.LedgerEndDate = LedgerEndDate;
-                return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).ToList();
+                double balance = 0;
+                return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l => 
+                    new Ledger
+                        {
+                            Balance = balance += l.Debit - l.Credit,
+                            ChequeNo = l.ChequeNo,
+                            Credit = l.Credit,
+                            Date = l.Date,
+                            Debit = l.Debit,
+                            Particular = l.Particular,
+                            Remarks = l.Remarks,
+                            VoucherNo = l.VoucherNo
+                        }).ToList();
             }
         }
 
