@@ -268,29 +268,25 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="RecordID" Nullable="false" />
-          <Property Type="String" Name="ChequeNo" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="BankName" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Branch" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="ChequeDate" />
-
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecordID" Type="Int32" Nullable="false" />
+          <Property Name="ChequeNo" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="BankName" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Branch" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ChequeDate" Type="DateTime" />
           <NavigationProperty Name="Record" Relationship="SmartAccountModel.FK_BankRecord_Record" FromRole="BankRecord" ToRole="Record" />
         </EntityType>
         <EntityType Name="FixedAsset">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Double" Name="DepreciationRate" />
-          <Property Type="Int32" Name="DepreciatedValue" />
-          <Property Type="String" Name="DepreciationType" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="ByForceDisposed" />
-          <Property Type="Int32" Name="RecordID" />
-
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="DepreciationRate" Type="Double" />
+          <Property Name="DepreciatedValue" Type="Int32" />
+          <Property Name="DepreciationType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ByForceDisposed" Type="Boolean" />
+          <Property Name="RecordID" Type="Int32" />
           <NavigationProperty Name="Record" Relationship="SmartAccountModel.FK_FixedAsset_Record" FromRole="FixedAsset" ToRole="Record" />
         </EntityType>
         <EntityType Name="Head">
@@ -345,17 +341,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="ProjectHeads" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="Project" ToRole="ProjectHead" />
-        </EntityType>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProjectHeads" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="Project" ToRole="ProjectHead" />
         </EntityType>
         <EntityType Name="ProjectHead">
@@ -448,24 +433,24 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectHead_Project">
-
-          <End Type="SmartAccountModel.Project" Role="Project" Multiplicity="1" />
-          <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="*" />
-
-
+          <End Role="Project" Type="SmartAccountModel.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectHead" Type="SmartAccountModel.ProjectHead" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectHead">
+            <Principal Role="Project">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Record">
-              <PropertyRef Name="ProjectHeadID" />
+            <Dependent Role="ProjectHead">
+              <PropertyRef Name="ProjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-
         <Association Name="FK_Record_ProjectCategory">
-          <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="1" />
-          <End Type="SmartAccountModel.Record" Role="Record" Multiplicity="*" />
+          <End Role="ProjectHead" Type="SmartAccountModel.ProjectHead" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Record" Type="SmartAccountModel.Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectHead">
               <PropertyRef Name="ID" />
@@ -475,124 +460,85 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
-
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SmartAccountModelStoreContainer" CdmEntityContainer="SmartAccountEntities">
-
-          <EntitySetMapping Name="BankRecords">
-            <EntityTypeMapping TypeName="SmartAccountModel.BankRecord">
-              <MappingFragment StoreEntitySet="BankRecord">
-                <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
-                <ScalarProperty Name="Branch" ColumnName="Branch" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
-                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FixedAssets">
-            <EntityTypeMapping TypeName="SmartAccountModel.FixedAsset">
-              <MappingFragment StoreEntitySet="FixedAsset">
-                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
-                <ScalarProperty Name="ByForceDisposed" ColumnName="ByForceDisposed" />
-                <ScalarProperty Name="DepreciationType" ColumnName="DepreciationType" />
-                <ScalarProperty Name="DepreciatedValue" ColumnName="DepreciatedValue" />
-                <ScalarProperty Name="DepreciationRate" ColumnName="DepreciationRate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Heads">
-            <EntityTypeMapping TypeName="SmartAccountModel.Head">
-              <MappingFragment StoreEntitySet="Head">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="SmartAccountModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OpeningBalances">
-            <EntityTypeMapping TypeName="SmartAccountModel.OpeningBalance">
-              <MappingFragment StoreEntitySet="OpeningBalance">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Parameters">
-            <EntityTypeMapping TypeName="SmartAccountModel.Parameter">
-              <MappingFragment StoreEntitySet="Parameter">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Key" ColumnName="Key" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="SmartAccountModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectHeads">
-            <EntityTypeMapping TypeName="SmartAccountModel.ProjectHead">
-              <MappingFragment StoreEntitySet="ProjectHead">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="HeadID" ColumnName="HeadID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Records">
-            <EntityTypeMapping TypeName="SmartAccountModel.Record">
-              <MappingFragment StoreEntitySet="Record">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="VoucherSerialNo" ColumnName="VoucherSerialNo" />
-                <ScalarProperty Name="LedgerType" ColumnName="LedgerType" />
-                <ScalarProperty Name="Narration" ColumnName="Narration" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-
+          <EntitySetMapping Name="BankRecords"><EntityTypeMapping TypeName="SmartAccountModel.BankRecord"><MappingFragment StoreEntitySet="BankRecord">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+            <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+            <ScalarProperty Name="BankName" ColumnName="BankName" />
+            <ScalarProperty Name="Branch" ColumnName="Branch" />
+            <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FixedAssets"><EntityTypeMapping TypeName="SmartAccountModel.FixedAsset"><MappingFragment StoreEntitySet="FixedAsset">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="DepreciationRate" ColumnName="DepreciationRate" />
+            <ScalarProperty Name="DepreciatedValue" ColumnName="DepreciatedValue" />
+            <ScalarProperty Name="DepreciationType" ColumnName="DepreciationType" />
+            <ScalarProperty Name="ByForceDisposed" ColumnName="ByForceDisposed" />
+            <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Heads"><EntityTypeMapping TypeName="SmartAccountModel.Head"><MappingFragment StoreEntitySet="Head">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="Type" ColumnName="Type" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Logs"><EntityTypeMapping TypeName="SmartAccountModel.Log"><MappingFragment StoreEntitySet="Log">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+            <ScalarProperty Name="UserName" ColumnName="UserName" />
+            <ScalarProperty Name="Type" ColumnName="Type" />
+            <ScalarProperty Name="Message" ColumnName="Message" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OpeningBalances"><EntityTypeMapping TypeName="SmartAccountModel.OpeningBalance"><MappingFragment StoreEntitySet="OpeningBalance">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+            <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
+            <ScalarProperty Name="Balance" ColumnName="Balance" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Parameters"><EntityTypeMapping TypeName="SmartAccountModel.Parameter"><MappingFragment StoreEntitySet="Parameter">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Key" ColumnName="Key" />
+            <ScalarProperty Name="Value" ColumnName="Value" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects"><EntityTypeMapping TypeName="SmartAccountModel.Project"><MappingFragment StoreEntitySet="Project">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProjectHeads"><EntityTypeMapping TypeName="SmartAccountModel.ProjectHead"><MappingFragment StoreEntitySet="ProjectHead">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+            <ScalarProperty Name="HeadID" ColumnName="HeadID" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Records"><EntityTypeMapping TypeName="SmartAccountModel.Record"><MappingFragment StoreEntitySet="Record">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+            <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
+            <ScalarProperty Name="Debit" ColumnName="Debit" />
+            <ScalarProperty Name="Credit" ColumnName="Credit" />
+            <ScalarProperty Name="Narration" ColumnName="Narration" />
+            <ScalarProperty Name="LedgerType" ColumnName="LedgerType" />
+            <ScalarProperty Name="VoucherSerialNo" ColumnName="VoucherSerialNo" />
+            <ScalarProperty Name="Link" ColumnName="Link" />
+            <ScalarProperty Name="Tag" ColumnName="Tag" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -613,47 +559,41 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-
-      
-      <Diagram Name="SQL2K8" ZoomLevel="64">
-        <EntityTypeShape EntityType="SmartAccountModel.BankRecord" Width="1.5" PointX="7.5" PointY="4.5" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="SmartAccountModel.FixedAsset" Width="1.5" PointX="7.5" PointY="7.625" Height="2.5571907552083308" />
-        <EntityTypeShape EntityType="SmartAccountModel.Head" Width="1.5" PointX="0.75" PointY="4.625" Height="2.3648893229166745" />
-        <EntityTypeShape EntityType="SmartAccountModel.Log" Width="1.5" PointX="7.75" PointY="0.875" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="SmartAccountModel.OpeningBalance" Width="1.5" PointX="5.25" PointY="1.5" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="SmartAccountModel.Parameter" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416665" />
-        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="SmartAccountModel.ProjectHead" Width="1.5" PointX="3" PointY="4.5" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="SmartAccountModel.Record" Width="1.5" PointX="5.25" PointY="5.5" Height="3.9033007812500031" />
-        <AssociationConnector Association="SmartAccountModel.FK_BankRecord_Record" >
+      <Diagram Name="SQL2K8" ZoomLevel="55">
+        <EntityTypeShape EntityType="SmartAccountModel.BankRecord" Width="1.5" PointX="7.5" PointY="4.5" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.FixedAsset" Width="1.5" PointX="7.5" PointY="7.625" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Head" Width="1.5" PointX="0.75" PointY="4.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Log" Width="1.5" PointX="7.75" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.OpeningBalance" Width="1.5" PointX="5.25" PointY="1.5" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Parameter" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.ProjectHead" Width="1.5" PointX="3" PointY="4.5" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Record" Width="1.5" PointX="5.25" PointY="5.5" Height="3.9033007812500005" IsExpanded="true" />
+        <AssociationConnector Association="SmartAccountModel.FK_BankRecord_Record" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.1824446614583337" />
           <ConnectorPoint PointX="7.5" PointY="6.1824446614583337" />
-
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_FixedAsset_Record" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="7.5750634765625" />
-          <ConnectorPoint PointX="7.5" PointY="7.5750634765625" />
+          <ConnectorPoint PointX="6.75" PointY="8.514150390625" />
+          <ConnectorPoint PointX="7.5" PointY="8.514150390625" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Head" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.1676741536458328" />
-          <ConnectorPoint PointX="3" PointY="5.1676741536458328" />
+          <ConnectorPoint PointX="2.25" PointY="5.8074446614583328" />
+          <ConnectorPoint PointX="3" PointY="5.8074446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_OpeningBalance_ProjectCategory" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="4" />
-          <ConnectorPoint PointX="3.75" PointY="2.2926741536458337" />
-          <ConnectorPoint PointX="5.25" PointY="2.2926741536458337" />
+          <ConnectorPoint PointX="3.75" PointY="4.5" />
+          <ConnectorPoint PointX="3.75" PointY="2.6824446614583328" />
+          <ConnectorPoint PointX="5.25" PointY="2.6824446614583328" />
         </AssociationConnector>
-
-        <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Project" >
-          <ConnectorPoint PointX="2.25" PointY="1.7162223307291669" />
-          <ConnectorPoint PointX="3.3437475" PointY="1.7162223307291669" />
+        <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Project" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.7162223307291664" />
+          <ConnectorPoint PointX="3.3437475" PointY="1.7162223307291664" />
           <ConnectorPoint PointX="3.3437475" PointY="4.5" />
-
-
         </AssociationConnector>
-        <AssociationConnector Association="SmartAccountModel.FK_Record_ProjectCategory" >
-          <ConnectorPoint PointX="4.5" PointY="6.2785953776041694" />
-          <ConnectorPoint PointX="5.25" PointY="6.2785953776041694" />
+        <AssociationConnector Association="SmartAccountModel.FK_Record_ProjectCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="6.2785953776041659" />
+          <ConnectorPoint PointX="5.25" PointY="6.2785953776041659" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
