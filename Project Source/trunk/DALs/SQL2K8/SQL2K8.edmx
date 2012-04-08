@@ -559,6 +559,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
+
       <Diagram Name="SQL2K8" ZoomLevel="55">
         <EntityTypeShape EntityType="SmartAccountModel.BankRecord" Width="1.5" PointX="7.5" PointY="4.5" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartAccountModel.FixedAsset" Width="1.5" PointX="7.5" PointY="7.625" Height="2.5571907552083317" IsExpanded="true" />
@@ -595,6 +596,7 @@
           <ConnectorPoint PointX="4.5" PointY="6.2785953776041659" />
           <ConnectorPoint PointX="5.25" PointY="6.2785953776041659" />
         </AssociationConnector>
+
       </Diagram>
     </Diagrams>
   </Designer>
