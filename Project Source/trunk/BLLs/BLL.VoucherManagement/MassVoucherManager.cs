@@ -12,7 +12,7 @@ namespace BLL.VoucherManagement
         private readonly IProjectRepository _projectRepository;
         private readonly IRecordRepository _recordRepository;
 
-        private  Message _latestMessage = new Message();
+        private Message _latestMessage = new Message();
         private MassVoucher _massVoucher;
 
         private IList<Record> _entryableRecords;
@@ -31,36 +31,36 @@ namespace BLL.VoucherManagement
             bool isValid = true;
             if (string.IsNullOrWhiteSpace(massVoucher.ProjectName))
             {
-                isValid = SetErrorMessage(ErrorMessage.NoProjectSelected.ToString());
+                isValid = SetErrorMessage("NoProjectSelected");
             }
             else if (massVoucher.VoucherType != "Contra" && string.IsNullOrWhiteSpace(massVoucher.HeadName))
             {
-                isValid = SetErrorMessage(ErrorMessage.NoHeadSelected.ToString());
+                isValid = SetErrorMessage("NoHeadSelected");
             }
             else if (massVoucher.Amount == 0)
             {
-                isValid = SetErrorMessage(ErrorMessage.AmountCannotBeZero.ToString());
+                isValid = SetErrorMessage("AmountCannotBeZero");
             }
             else if (massVoucher.VoucherType == "Contra" && string.IsNullOrWhiteSpace(massVoucher.ContraType))
             {
-                isValid = SetErrorMessage(ErrorMessage.ContraTypeIsNotSelected.ToString());
+                isValid = SetErrorMessage("ContraTypeIsNotSelected");
             }
             else if (massVoucher.VoucherType == "JV" && string.IsNullOrWhiteSpace(massVoucher.JVDebitOrCredit))
             {
-                isValid = SetErrorMessage(ErrorMessage.JVDebitOrCreditNotSelected.ToString());
+                isValid = SetErrorMessage("JVDebitOrCreditNotSelected");
             }
             else if (massVoucher.IsFixedAsset && string.IsNullOrWhiteSpace(massVoucher.FixedAssetName))
             {
-                isValid = SetWarningMessage(WarningMessage.NoFixedAssetParticularNameFound.ToString());
+                isValid = SetWarningMessage("NoFixedAssetParticularNameFound");
             }
             else if (massVoucher.IsCheque &&
                      (string.IsNullOrWhiteSpace(massVoucher.ChequeNo) || string.IsNullOrWhiteSpace(massVoucher.BankName)))
             {
-                isValid = SetInformationMessage(InformationMessage.NoChequeOrBankInfo.ToString());
+                isValid = SetInformationMessage("NoChequeOrBankInfo");
             }
             else if (massVoucher.IsFixedAsset && massVoucher.FixedAssetDepreciationRate == 0)
             {
-                isValid = SetInformationMessage(WarningMessage.ZeroDepreciationProvidedForFixedAsset.ToString());
+                isValid = SetInformationMessage("ZeroDepreciationProvidedForFixedAsset");
             }
 
             if (isValid)
@@ -119,7 +119,7 @@ namespace BLL.VoucherManagement
                 else
                 {
                     //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
-                    isValid = SetErrorMessage(ErrorMessage.UnknownProblemArise.ToString());
+                    isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
             else if (_massVoucher.VoucherType.Equals("CV", StringComparison.OrdinalIgnoreCase))
@@ -136,7 +136,7 @@ namespace BLL.VoucherManagement
                 else
                 {
                     //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
-                    isValid = SetErrorMessage(ErrorMessage.UnknownProblemArise.ToString());
+                    isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
             else if (_massVoucher.VoucherType.Equals("JV", StringComparison.OrdinalIgnoreCase))
@@ -149,7 +149,7 @@ namespace BLL.VoucherManagement
                 else
                 {
                     //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
-                    isValid = SetErrorMessage(ErrorMessage.UnknownProblemArise.ToString());
+                    isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
             else if (_massVoucher.VoucherType.Equals("Contra", StringComparison.OrdinalIgnoreCase))
@@ -170,7 +170,7 @@ namespace BLL.VoucherManagement
                 else
                 {
                     //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
-                    isValid = SetErrorMessage(ErrorMessage.UnknownProblemArise.ToString());
+                    isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
 

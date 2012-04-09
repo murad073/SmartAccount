@@ -6,4 +6,12 @@
         public MessageType MessageType { get; set; }
         public bool IsRead { get; set; }
     }
+
+    public enum MessageType
+    {
+        Success,
+        Error,
+        Warning,
+        Information
+    }
 }
