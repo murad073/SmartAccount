@@ -4,12 +4,11 @@ using System.Linq;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
 
-
-namespace SQL2K8
+namespace SQLCompact
 {
     public class LedgerRepository : ILedgerRepository
     {
-        SmartAccountEntities db = new SmartAccountEntities();
+        Entities db = new Entities();
 
         public IList<Ledger> GetLedger(int projectId, int headId)
         {
