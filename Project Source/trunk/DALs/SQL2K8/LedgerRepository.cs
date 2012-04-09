@@ -18,7 +18,6 @@ namespace SQL2K8
             double balance = 0;
             return db.Records.Where(r => projectHeadIds.Contains(r.ProjectHeadID) && r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList()
                 .Select(r => GetLedger(r, ref balance)).ToList();
-            // TODO: Is there any way to also show the head name in the list?
         }
 
         public IList<Ledger> GetLedger(int projectId, int headId)

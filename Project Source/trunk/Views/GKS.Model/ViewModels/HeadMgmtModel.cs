@@ -18,15 +18,10 @@ namespace GKS.Model.ViewModels
             
             AddHeadButtonClicked = new AddnewHead(this);
             ViewHeadButtonClicked = new ViewHead(this);
-            //TODO: Remove this buttons and their handlers.
-            //OKButtonClicked = new HeadOK(this);
-            //CancelButtonClicked = new HeadCancel(this);
         }
 
         public ICommand AddHeadButtonClicked { get; set; }
         public ICommand ViewHeadButtonClicked { get; set; }
-        //public ICommand OKButtonClicked { get; set; }
-        //public ICommand CancelButtonClicked { get; set; }
 
         public IList<Head> Heads
         {
@@ -90,44 +85,4 @@ namespace GKS.Model.ViewModels
         {
         }
     }
-
-    //class HeadOK : ICommand
-    //{
-    //    private HeadMgmtUC _headMgmt;
-    //    public HeadOK(HeadMgmtUC headMgmt)
-    //    {
-    //        _headMgmt = headMgmt;
-    //    }
-
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return true;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged;
-
-    //    public void Execute(object parameter)
-    //    {
-    //    }
-    //}
-
-    //class HeadCancel : ICommand
-    //{
-    //    private HeadMgmtUC _headMgmt;
-    //    public HeadCancel(HeadMgmtUC headMgmt)
-    //    {
-    //        _headMgmt = headMgmt;
-    //    }
-
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return true;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged;
-
-    //    public void Execute(object parameter)
-    //    {
-    //    }
-    //}
 }

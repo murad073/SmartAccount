@@ -71,28 +71,21 @@ namespace BLL.VoucherManagement
             return isValid;
         }
 
-        // TODO: Why does this message return boolean, should have been void.
         private bool SetErrorMessage(string messageKey)
         {
             _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);
-            //_latestMessage.MessageType = MessageType.Error;
-            //_latestMessage.MessageText = messageText;
             return false;
         }
 
         private bool SetWarningMessage(string messageKey)
         {
             _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Warning);
-            //_latestMessage.MessageType = MessageType.Warning;
-            //_latestMessage.MessageText = messageText;
             return true;
         }
 
         private bool SetInformationMessage(string messageKey)
         {
             _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Information);
-            //_latestMessage.MessageType = MessageType.Information;
-            //_latestMessage.MessageText = messageText;
             return true;
         }
 
@@ -119,7 +112,6 @@ namespace BLL.VoucherManagement
                 }
                 else
                 {
-                    //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
                     isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
@@ -136,7 +128,6 @@ namespace BLL.VoucherManagement
                 }
                 else
                 {
-                    //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
                     isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
@@ -149,7 +140,6 @@ namespace BLL.VoucherManagement
                 }
                 else
                 {
-                    //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
                     isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
@@ -170,7 +160,6 @@ namespace BLL.VoucherManagement
                 }
                 else
                 {
-                    //isValid = SetErrorMessage(MessageText.UnknownProblemArise);
                     isValid = SetErrorMessage("UnknownProblemArise");
                 }
             }
@@ -185,13 +174,6 @@ namespace BLL.VoucherManagement
         {
             return _entryableRecords;
         }
-
-        //public bool SaveAll()
-        //{
-        //    // in loop save all 
-
-        //    throw new NotImplementedException();
-        //}
 
         public int GetNewVoucherNo(string key, string projectName)
         {
@@ -236,11 +218,6 @@ namespace BLL.VoucherManagement
                 VoucherTypeKey = _massVoucher.VoucherType,
                 IsFixedAsset = false //TODO: CV cannot be fixed asset. Confirm from sobuj
             };
-            //if (_massVoucher.IsFixedAsset)
-            //{
-            //    creditVoucher.IsFixedAsset = true;
-            //    creditVoucher.FixedAsset = GetFixedAsset();
-            //}
             return creditVoucher;
         }
 
@@ -299,7 +276,6 @@ namespace BLL.VoucherManagement
                                               Debit = debit,
                                               Credit = credit,
                                               ChequeInfo = _massVoucher.IsCheque ? GetChequeInfo() : null
-                                              //TODO: in case of contra - TransactionInCheque can be made without chequeInfo. confirm from sobuj
                                           };
             return transactionInCheque;
         }
