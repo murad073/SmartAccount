@@ -71,6 +71,7 @@ namespace BLL.VoucherManagement
             return isValid;
         }
 
+        // TODO: Why does this message return boolean, should have been void.
         private bool SetErrorMessage(string messageKey)
         {
             _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);

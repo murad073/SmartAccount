@@ -690,7 +690,7 @@ namespace GKS.Model.ViewModels
         private void AmountChanged()
         {
             if (Amount > 0)
-                TakaInWords = Utilities.NumberToTextInLacCrore(((int)Amount).ToString()) + " Only";
+                TakaInWords = Utilities.NumberToTextInLacCrore(((int)Amount).ToString()) + "Only";
             else TakaInWords = "";
         }
 
@@ -850,7 +850,7 @@ namespace GKS.Model.ViewModels
         public void Execute(object parameter)
         {
             MassVoucherManager massVoucherManager = new MassVoucherManager(GKSFactory.GetRecordRepository(), GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository());
-            MassVoucher massVoucher = _voucherPost.GetCurrentVoucher(); // TODO: This line will give null exception, if temp button clicked without proper entry.
+            MassVoucher massVoucher = _voucherPost.GetCurrentVoucher();
 
             if (massVoucher == null)
                 return;
@@ -860,7 +860,7 @@ namespace GKS.Model.ViewModels
 
             if (isAdded)
             {
-                IList<Record> records = massVoucherManager.GetEntryableRecords(); // TODO: This will give exception after calling GetJournalVoucher, if the Journal voucher type (Decit/Credit) is null.
+                IList<Record> records = massVoucherManager.GetEntryableRecords();
                 _voucherPost.AddTemporaryRecords(records);
                 _voucherPost.ClearMessage();
                 _voucherPost.SetPostButtonIsEnabled();

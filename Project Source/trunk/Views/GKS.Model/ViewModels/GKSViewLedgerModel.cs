@@ -353,6 +353,8 @@ namespace GKS.Model.ViewModels
             //IList<Project> projects = _projectManager.GetProjects();
             //Projects = new SelectionList<string>(projects.Select(p => p.Name)); -- For multi selection list.
 
+            IsAllHeadsEnabled = true;
+            ShowAllAdvance = false;
             LedgerEndDate = DateTime.Now;
             LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
 
@@ -412,6 +414,17 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private bool _isAllHeadsEnabled;
+        public bool IsAllHeadsEnabled
+        {
+            get { return _isAllHeadsEnabled; }
+            set
+            {
+                _isAllHeadsEnabled = value;
+                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsAllHeadsEnabled"));
+            }
+        }
+
         private Head _selectedHead;
         public Head SelectedHead
         {
@@ -440,6 +453,24 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private bool _showAllAdvance;
+        public bool ShowAllAdvance
+        {
+            get
+            {
+                return _showAllAdvance;
+            }
+            set
+            {
+                _showAllAdvance = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ShowAllAdvance"));
+                    SetAllHeadsIsEnabled();
+                }
+            }
+        }
+
         private DateTime _ledgerEndDate;
         public DateTime LedgerEndDate
         {
@@ -455,7 +486,7 @@ namespace GKS.Model.ViewModels
         {
             get
             {
-                if (!_ledgerManager.Validate(SelectedProject, SelectedHead))
+                if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
                 {
                     Message latestMessage = _ledgerManager.GetLatestMessage();
                     ErrorMessage = latestMessage.MessageText;
@@ -466,18 +497,25 @@ namespace GKS.Model.ViewModels
                 ClearMessage();
                 _ledgerManager.LedgerEndDate = LedgerEndDate;
                 double balance = 0;
-                return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l => 
+                if (!ShowAllAdvance)
+                {
+                    return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l =>
                     new Ledger
-                        {
-                            Balance = balance += l.Debit - l.Credit,
-                            ChequeNo = l.ChequeNo,
-                            Credit = l.Credit,
-                            Date = l.Date,
-                            Debit = l.Debit,
-                            Particular = l.Particular,
-                            Remarks = l.Remarks,
-                            VoucherNo = l.VoucherNo
-                        }).ToList();
+                    {
+                        VoucherNo = l.VoucherNo,
+                        Date = l.Date,
+                        ChequeNo = l.ChequeNo,
+                        Debit = l.Debit,
+                        Credit = l.Credit,
+                        Balance = balance += l.Debit - l.Credit,
+                        Particular = l.Particular,
+                        Remarks = l.Remarks
+                    }).ToList();
+                }
+                else
+                {
+                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);                    
+                }
             }
         }
 
@@ -513,13 +551,23 @@ namespace GKS.Model.ViewModels
         public ICommand LedgerViewButtonClicked { get; set; }
 
         public void NotifyLedgerGrid()
-        {            
+        {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("LedgerGridViewItems"));
         }
 
         public void Reset()
         {
             AllProjects = _projectManager.GetProjects();
+        }
+
+        private void SetAllHeadsIsEnabled()
+        {
+            if (ShowAllAdvance)
+            {
+                SelectedHead = null;
+                IsAllHeadsEnabled = false;
+            }
+            else IsAllHeadsEnabled = true;
         }
     }
 
