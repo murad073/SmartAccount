@@ -10,7 +10,7 @@ namespace BLL.ProjectManagement
     public class HeadManager
     {
         private readonly IHeadRepository _headRepository;
-        private readonly Message _latestMessage;
+        private  Message _latestMessage;
         public HeadManager(IHeadRepository headRepository)
         {
             _headRepository = headRepository;
@@ -47,13 +47,13 @@ namespace BLL.ProjectManagement
 
             if (existingHead != null)
             {
-                _latestMessage.MessageText = "Head '" + head.Name + "' already exists.";
-                _latestMessage.MessageType = MessageType.Error;
+                _latestMessage = MessageService.Instance.Get("HeadAlreadyExists", MessageType.Error);
+                _latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
                 return false;
             }
             Head insertedHead = _headRepository.Insert(head);
-            _latestMessage.MessageText = "New Account of head '" + insertedHead.Name + "' successfully created";
-            _latestMessage.MessageType = MessageType.Success;
+            _latestMessage = MessageService.Instance.Get("NewHeadSuccessfullyCreated", MessageType.Success);
+            _latestMessage.MessageText = string.Format(_latestMessage.MessageText, insertedHead.Name);
             return true; 
         }
 
@@ -64,12 +64,12 @@ namespace BLL.ProjectManagement
             if (existingHead != null)
             {
                 _headRepository.Update(head);
-                _latestMessage.MessageText = "Account of head '" + head.Name + "' successfully updated";
-                _latestMessage.MessageType = MessageType.Success;
+                _latestMessage = MessageService.Instance.Get("HeadSuccessfullyUpdated", MessageType.Success);
+                _latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
                 return true;
             }
-            _latestMessage.MessageText = "The head '" + head.Name + "' is not available for update";
-            _latestMessage.MessageType = MessageType.Error;
+            _latestMessage = MessageService.Instance.Get("HeadUpdatedFailed", MessageType.Error);
+            _latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
             return false;
         }
 

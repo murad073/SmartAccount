@@ -657,8 +657,7 @@ namespace GKS.Model.ViewModels
             {
                 if (TempGridItems.Last().Balance != 0)
                 {
-                    ShowMessage(MessageService.Instance.Get(ErrorMessage.VoucherBalanceIsNotZero.ToString(),
-                                                            MessageType.Error));
+                    ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
             }
         }
@@ -893,7 +892,7 @@ namespace GKS.Model.ViewModels
             bool isSuccess = recordManager.Save();
             Message message = recordManager.GetLatestMessage();
             _voucherPost.ShowMessage(message);
-            if(isSuccess) _voucherPost.Reset(false);
+            if (isSuccess) _voucherPost.Reset(false);
         }
     }
 

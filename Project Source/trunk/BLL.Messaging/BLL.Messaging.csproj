@@ -41,10 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Message.cs" />
-    <Compile Include="MessageManager.cs" />
-    <Compile Include="MessageEnums.cs" />
     <Compile Include="MessageService.cs" />
-    <Compile Include="MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

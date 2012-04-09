@@ -12,7 +12,7 @@ namespace BLL.ProjectManagement
         private readonly IProjectRepository _projectRepository;
         private readonly IHeadRepository _headRepository;
         private readonly IRecordRepository _recordRepository;
-        private readonly Message _message;
+        private  Message _message;
 
         public ProjectManager(IProjectRepository projectRepository, IHeadRepository headRepository, IRecordRepository recordRepository)
         {
@@ -41,8 +41,8 @@ namespace BLL.ProjectManagement
 
             if (existingProject != null)
             {
-                _message.MessageText = "Project '" + project.Name + "' already exists.";
-                _message.MessageType = MessageType.Error;
+                _message = MessageService.Instance.Get("ProjectAlreadyExists", MessageType.Error);
+                _message.MessageText = string.Format(_message.MessageText, project.Name);
                 return false;
             }
 
@@ -54,8 +54,8 @@ namespace BLL.ProjectManagement
                 //int advanceId = _headRepository.Get("Advance").Id;
                 AddHeadsToProject(insertedProject.Id, new int[] { cashBookId, bankBookId });
 
-                _message.MessageText = "New project '" + insertedProject.Name + "' successfully created. ";
-                _message.MessageType = MessageType.Success;
+                _message = MessageService.Instance.Get("NewProjectSuccessfullyCreated", MessageType.Success);
+                _message.MessageText = string.Format(_message.MessageText, insertedProject.Name);
 
                 if (_headRepository.Get(project.Name) == null)
                 {
@@ -88,12 +88,12 @@ namespace BLL.ProjectManagement
             if (existingProject != null)
             {
                 _projectRepository.Update(project);
-                _message.MessageText = "Project '" + project.Name + "' successfully updated.";
-                _message.MessageType = MessageType.Success;
+                _message = MessageService.Instance.Get("ProjectSuccessfullyUpdated", MessageType.Success);
+                _message.MessageText = string.Format(_message.MessageText, existingProject.Name);
                 return true;
             }
-            _message.MessageText = "Project '" + project.Name + "' is not available for update.";
-            _message.MessageType = MessageType.Error;
+            _message = MessageService.Instance.Get("ProjectUpdatedFailed", MessageType.Error);
+            _message.MessageText = string.Format(_message.MessageText, project.Name);
             return false;
         }
 

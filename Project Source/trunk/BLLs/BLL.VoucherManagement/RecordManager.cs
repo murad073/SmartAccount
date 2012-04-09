@@ -30,22 +30,21 @@ namespace BLL.VoucherManagement
                 if (_records.Any(record => !record.Save()))
                 {
                     success = false;
-                    _latestMessage = MessageService.Instance.Get(ErrorMessage.UnknownProblemArise.ToString(), MessageType.Error);
+                    _latestMessage = MessageService.Instance.Get("UnknownProblemArise", MessageType.Error);
                 }
 
                 if (success)
                 {
                     if (_recordRepository.CommitTransaction())
                     {
-                        _latestMessage = MessageService.Instance.Get(
-                            SuccessMessage.VoucherPostedSuccessfully.ToString(), MessageType.Success);
+                        _latestMessage = MessageService.Instance.Get("VoucherPostedSuccessfully", MessageType.Success);
                     }
                 }
                 else _recordRepository.RollbackTransaction();
                 return success;
             }
 
-            _latestMessage = MessageService.Instance.Get(ErrorMessage.VoucherBalanceIsNotZero.ToString(),
+            _latestMessage = MessageService.Instance.Get("VoucherBalanceIsNotZero",
                                                              MessageType.Error);
             return false;
         }

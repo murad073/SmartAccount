@@ -19,6 +19,9 @@ namespace BLL.Messaging
             get { return _instance; }
         }
 
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        // bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        // ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
         //private void AttachAllDefaultMessage()
         //{
         //    /**********  ERROR Messages ***************/

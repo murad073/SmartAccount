@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BLL.ConfigurationManager;
 using BLL.Messaging;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
@@ -12,7 +13,7 @@ namespace BLL.LedgerManagement
     {
         private readonly ILedgerRepository _ledgerRepository;
         private readonly ParameterManager _parameterManager;
-        private readonly Message _message;
+        private  Message _message;
         public LedgerManager(ILedgerRepository ledgerRepository, IParameterRepository parameterRepository)
         {
             _ledgerRepository = ledgerRepository;
@@ -27,15 +28,13 @@ namespace BLL.LedgerManagement
         {
             if (project == null)
             {
-                _message.MessageText = "Project is not selected.";
-                _message.MessageType = MessageType.Error;
+                _message = MessageService.Instance.Get("NoProjectSelected", MessageType.Error);
                 return false;
             }
 
             if (head == null)
             {
-                _message.MessageText = "Account head is not selected.";
-                _message.MessageType = MessageType.Error;
+                _message = MessageService.Instance.Get("NoHeadSelected", MessageType.Error);
                 return false;
             }
 
