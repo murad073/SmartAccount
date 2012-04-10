@@ -52,6 +52,7 @@
     <Compile Include="ViewModels\VoucherPost.cs" />
     <Compile Include="ViewModels\ProjectHeadManagementModel.cs" />
     <Compile Include="ViewModels\GKSProjectManagementModel.cs" />
+    <Compile Include="ViewModels\VoucherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BLL.Messaging\BLL.Messaging.csproj">

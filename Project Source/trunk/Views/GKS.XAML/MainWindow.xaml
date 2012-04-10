@@ -47,7 +47,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Image Name="img" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Post_tab.png" />
-                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Post a Voucher" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Post Voucher" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
                     </Grid>
                 </TabItem.Header>
                 <localUC:VoucherPostUC x:Name="postUC1" HorizontalAlignment="Center" />
@@ -103,6 +103,19 @@
                     </Grid>
                 </TabItem.Header>
                 <localUC:LedgerViewUC x:Name="ledgerViewUC1" />
+            </TabItem>
+            <TabItem Name="tabItemVoucher" >
+                <TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Name="img6" Grid.Row="0" Grid.Column="0" Height="20" Width="20" Source="Resource/Images/Voucher_tab.png" />
+                        <TextBlock FontSize="14" FontWeight="Bold" Padding="10 0"  Text="Vouchers" Grid.Row="1" Grid.Column="0" Margin="2,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                    </Grid>
+                </TabItem.Header>
+                <localUC:VoucherView x:Name="voucherViewUC" />
             </TabItem>
         </TabControl>
     </Grid>
