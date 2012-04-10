@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\IBudgetRepository.cs" />
     <Compile Include="Repositories\IParameterRepository.cs" />
     <Compile Include="Schema\ChequeInfo.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Schema\Budget.cs" />
     <Compile Include="Schema\FixedAsset.cs" />
     <Compile Include="Schema\Head.cs" />
     <Compile Include="Schema\HeadType.cs">

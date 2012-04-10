@@ -24,6 +24,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQL2K8.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.OpeningBalance), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.ProjectHead), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.Record), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQL2K8.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.Budget), true)]
 
 #endregion
 
@@ -218,6 +219,22 @@ namespace SQL2K8
             }
         }
         private ObjectSet<Record> _Records;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Budget> Budgets
+        {
+            get
+            {
+                if ((_Budgets == null))
+                {
+                    _Budgets = base.CreateObjectSet<Budget>("Budgets");
+                }
+                return _Budgets;
+            }
+        }
+        private ObjectSet<Budget> _Budgets;
 
         #endregion
         #region AddTo Methods
@@ -292,6 +309,14 @@ namespace SQL2K8
         public void AddToRecords(Record record)
         {
             base.AddObject("Records", record);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Budgets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBudgets(Budget budget)
+        {
+            base.AddObject("Budgets", budget);
         }
 
         #endregion
@@ -513,6 +538,224 @@ namespace SQL2K8
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SmartAccountModel.FK_BankRecord_Record", "Record", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Budget")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Budget : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Budget object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="amount">Initial value of the Amount property.</param>
+        public static Budget CreateBudget(global::System.Int32 id, global::System.Double amount)
+        {
+            Budget budget = new Budget();
+            budget.ID = id;
+            budget.Amount = amount;
+            return budget;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProjectHeadID
+        {
+            get
+            {
+                return _ProjectHeadID;
+            }
+            set
+            {
+                OnProjectHeadIDChanging(value);
+                ReportPropertyChanging("ProjectHeadID");
+                _ProjectHeadID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectHeadID");
+                OnProjectHeadIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProjectHeadID;
+        partial void OnProjectHeadIDChanging(Nullable<global::System.Int32> value);
+        partial void OnProjectHeadIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double Amount
+        {
+            get
+            {
+                return _Amount;
+            }
+            set
+            {
+                OnAmountChanging(value);
+                ReportPropertyChanging("Amount");
+                _Amount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Amount");
+                OnAmountChanged();
+            }
+        }
+        private global::System.Double _Amount;
+        partial void OnAmountChanging(global::System.Double value);
+        partial void OnAmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsActive;
+        partial void OnIsActiveChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsActiveChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead")]
+        public ProjectHead ProjectHead
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProjectHead> ProjectHeadReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead", value);
                 }
             }
         }
@@ -1899,6 +2142,28 @@ namespace SQL2K8
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("SmartAccountModel.FK_Record_ProjectCategory", "Record", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "Budget")]
+        public EntityCollection<Budget> Budgets
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget", value);
                 }
             }
         }

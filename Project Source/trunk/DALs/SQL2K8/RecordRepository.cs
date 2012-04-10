@@ -14,14 +14,12 @@ namespace SQL2K8
         public int GetMaxVoucherNo(string voucherType, int projectId)
         {
             int[] projectHeadIds = _db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
-            // TODO: remove ToList() function from Records, this will be much more time consuming
             IList<Record> records = _db.Records.Where(r=>projectHeadIds.Contains(r.ProjectHeadID) && r.VoucherType == voucherType).ToList();
             return records.Count == 0 ? 0 : records.Max(r => r.VoucherSerialNo);
         }
 
         private int GetProjectHeadId(string projectName, string headName)
         {
-            //TODO: Validation for combobox selection
             int projectId = _db.Projects.Where(p => p.Name == projectName).SingleOrDefault().ID;
             int headId = _db.Heads.Where(h => h.Name == headName).SingleOrDefault().ID;
             ProjectHead pc = _db.ProjectHeads.Where(pcc => pcc.ProjectID == projectId && pcc.HeadID == headId).SingleOrDefault();

@@ -23,7 +23,7 @@
             <!-- Banner started -->
             <Image Height="47" HorizontalAlignment="Left" Margin="295,8,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="28" Source="/GKS.XAML;component/Resource/Images/logo.gif" />
             <Label Content="Gono Kalyan Sangstha - GKS" Height="30" HorizontalAlignment="Left" Name="label11" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="242" Margin="326,4,0,0" />
-            <Label Content="Nalka, Sirajganj" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Margin="374,30,0,0" />
+            <Label Content="Sirajganj" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Margin="401,30,0,0" />
             <!-- End of Banner -->
             
         </Grid>
@@ -180,7 +180,7 @@
                 
             </DataGrid>
 
-            <Button Content="Create Temporary Voucher" Height="23" HorizontalAlignment="Left" Margin="427,117,0,0" Name="CreateTemporaryVoucherButton" VerticalAlignment="Top" Width="194" Command="{Binding Path=TempButtonClicked}" IsEnabled="{Binding Path=IsTemporaryButtonEnabled, Mode=TwoWay}" Grid.Row="4" >
+            <Button Content="Create Voucher" Height="23" HorizontalAlignment="Left" Margin="533,117,0,0" Name="CreateTemporaryVoucherButton" VerticalAlignment="Top" Width="97" Command="{Binding Path=TempButtonClicked}" IsEnabled="{Binding Path=IsTemporaryButtonEnabled, Mode=TwoWay}">
                 <Button.ToolTip>
                     <ToolTip>Create a voucher temporarily for review. It can be posted after reviewing.
                     </ToolTip>

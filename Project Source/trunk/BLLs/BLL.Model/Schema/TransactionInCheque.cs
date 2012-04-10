@@ -27,7 +27,7 @@ namespace BLL.Model.Schema
 
         public override bool IsValid()
         {
-            return true;//TODO: write validity condition
+            return true;
         }
 
         public static TransactionInCheque Clone(Record record)

@@ -29,12 +29,6 @@ namespace BLL.ProjectManagement
             return _projectRepository.GetAll().Where(p => p.IsActive).OrderBy(p => p.Name).ToList();
         }
 
-        public Project GetDefaultProject()
-        {
-            return new Project();
-            //TODO : get default project from Parameter field of database
-        }
-
         public bool Add(Project project)
         {
             Project existingProject = _projectRepository.Get(project.Name);
