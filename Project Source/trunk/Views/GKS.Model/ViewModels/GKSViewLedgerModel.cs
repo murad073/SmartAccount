@@ -410,7 +410,7 @@ namespace GKS.Model.ViewModels
             get
             {
                 if (SelectedProject == null || SelectedProject.Id <= 0) return null;
-                return _headManager.GetHeads(SelectedProject.Id).ToList(); // TODO: We need a function like this: GetHeads(ProjectNames[]), which will return the common head.
+                return _headManager.GetHeads(SelectedProject.Id).ToList(); 
             }
         }
 
