@@ -106,6 +106,14 @@ namespace SQL2K8
         //    if (dalBudget == null) return null;
         //    return GetBLLBudget(dalBudget);
         //}
+
+
+        public BLLBudget GetByProjectHeadId(int projectHeadId)
+        {
+            return
+                _db.Budgets.Where(b => b.ProjectHead.ID == projectHeadId && b.IsActive == true).Select(GetBLLBudget).
+                    SingleOrDefault();
+        }
     }
 }
 

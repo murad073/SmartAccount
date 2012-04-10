@@ -64,7 +64,7 @@ namespace SQL2K8
         public bool Update(BLLProject entity)
         {
             DALProject dalProject = GetDALProject(entity.Name);
-            if(dalProject==null) return false;
+            if (dalProject == null) return false;
             //dalProject.Name = entity.Name;
             dalProject.Description = entity.Description;
             dalProject.IsActive = entity.IsActive;
@@ -123,6 +123,14 @@ namespace SQL2K8
             DALProject dalProject = _db.Projects.Where(p => p.Name == projectName).SingleOrDefault();
             if (dalProject == null) return null;
             return GetBLLProject(dalProject);
+        }
+
+
+        public int GetProjectHeadId(string projectName, string headName)
+        {
+            return
+                _db.ProjectHeads.Where(ph => ph.Project.Name == projectName && ph.Head.Name == headName).SingleOrDefault
+                    ().ID;
         }
     }
 }
