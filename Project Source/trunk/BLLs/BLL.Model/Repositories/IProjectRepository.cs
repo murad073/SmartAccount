@@ -9,5 +9,6 @@ namespace BLL.Model.Repositories
         //IList<Head> GetAllHeads(int projectId);
         bool RemoveHeadFromProject(int projectId, int headId);
         bool AddHeadToProject(int projectId, int headId);
+        int GetProjectHeadId(string projectName, string headName);
     }
 }

@@ -27,22 +27,22 @@ namespace BLL.Model.Schema
             get { return Amount; }
         }
 
-        public static CreditVoucher Clone(Record record)
-        {
-            return new CreditVoucher(record.RecordRepository)
-            {
-                VoucherSerialNo = record.VoucherSerialNo,
-                ProjectName = record.ProjectName,
-                Date = record.Date,
-                Narration = record.Narration,
-                LinkedVoucherNo = record.LinkedVoucherNo,
-                Tag = record.Tag,
-                VoucherTypeKey = record.VoucherTypeKey,
-                HeadName = record.HeadName,
-                Debit = record.Debit,
-                Credit = record.Credit
-            };
-        }
+        //public static CreditVoucher Clone(Record record)
+        //{
+        //    return new CreditVoucher(record.RecordRepository)
+        //    {
+        //        VoucherSerialNo = record.VoucherSerialNo,
+        //        ProjectName = record.ProjectName,
+        //        Date = record.Date,
+        //        Narration = record.Narration,
+        //        LinkedVoucherNo = record.LinkedVoucherNo,
+        //        Tag = record.Tag,
+        //        VoucherTypeKey = record.VoucherTypeKey,
+        //        HeadName = record.HeadName,
+        //        Debit = record.Debit,
+        //        Credit = record.Credit
+        //    };
+        //}
     }
 }
 

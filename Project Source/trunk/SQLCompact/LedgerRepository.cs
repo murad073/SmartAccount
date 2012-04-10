@@ -4,20 +4,11 @@ using System.Linq;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
 
-
-namespace SQL2K8
+namespace SQLCompact
 {
     public class LedgerRepository : ILedgerRepository
     {
-        SmartAccountEntities db = new SmartAccountEntities();
-
-        public IList<Ledger> GetLedger(int projectId)
-        {
-            int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
-            double balance = 0;
-            return db.Records.Where(r => projectHeadIds.Contains(r.ProjectHeadID) && r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList()
-                .Select(r => GetLedger(r, ref balance)).ToList();
-        }
+        Entities db = new Entities();
 
         public IList<Ledger> GetLedger(int projectId, int headId)
         {
@@ -43,7 +34,7 @@ namespace SQL2K8
                                        Debit = record.Debit,
                                        Date = record.Date,
                                        VoucherNo = record.VoucherType + "-" + record.VoucherSerialNo,
-                                       Particular = bankRecord != null ? "Bank" : "Cash", // TODO: This is wrong for showing all advance.
+                                       Particular = bankRecord != null ? "Bank" : "Cash",
                                        ChequeNo = bankRecord != null ? bankRecord.ChequeNo : "",
                                        Remarks = record.Narration,
                                        Balance = newBalance

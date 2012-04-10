@@ -5,13 +5,28 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BA605CD0-1CB4-4289-B4C7-CA6B2DC928BA}</ProjectGuid>
+    <ProjectGuid>{556C90B7-EFF6-4474-BFCE-4149D4077712}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SQL2K8</RootNamespace>
-    <AssemblyName>SQL2K8</AssemblyName>
+    <RootNamespace>SQLCompact</RootNamespace>
+    <AssemblyName>SQLCompact</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -43,35 +59,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BudgetRepository.cs" />
     <Compile Include="DBFactory.cs" />
     <Compile Include="HeadRepository.cs" />
     <Compile Include="LedgerRepository.cs" />
-    <Compile Include="ParameterRepository.cs" />
-    <Compile Include="ProjectRepository.cs" />
-    <Compile Include="RecordRepository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQL2K8.Designer.cs">
+    <Compile Include="SmartAccount.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQL2K8.edmx</DependentUpon>
+      <DependentUpon>SmartAccount.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ParameterRepository.cs" />
+    <Compile Include="ProjectRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\DataSources\SmartAccountEntities.datasource" />
-    <EntityDeploy Include="SQL2K8.edmx">
+    <EntityDeploy Include="SmartAccount.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SQL2K8.Designer.cs</LastGenOutput>
+      <LastGenOutput>SmartAccount.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BLLs\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.3.5">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 3.5 SP2</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

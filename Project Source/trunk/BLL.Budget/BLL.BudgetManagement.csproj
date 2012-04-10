@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</ProjectGuid>
+    <ProjectGuid>{9DEC4C54-CB4E-46C2-B346-84BAF9AD2A23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL.Model</RootNamespace>
-    <AssemblyName>BLL.Model</AssemblyName>
+    <RootNamespace>BLL.BudgetManagement</RootNamespace>
+    <AssemblyName>BLL.BudgetManagement</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,44 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\IBudgetRepository.cs" />
-    <Compile Include="Repositories\IParameterRepository.cs" />
-    <Compile Include="Schema\ChequeInfo.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Schema\Budget.cs" />
-    <Compile Include="Schema\FixedAsset.cs" />
-    <Compile Include="Schema\Head.cs" />
-    <Compile Include="Schema\HeadType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Schema\MassVoucher.cs" />
-    <Compile Include="Schema\Parameter.cs" />
-    <Compile Include="Schema\Project.cs" />
+    <Compile Include="BudgetManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schema\Ledger.cs" />
-    <Compile Include="Repositories\IHeadRepository.cs" />
-    <Compile Include="Repositories\ILedgerRepository.cs" />
-    <Compile Include="Repositories\IProjectRepository.cs" />
-    <Compile Include="Repositories\IRecordRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Schema\CreditVoucher.cs" />
-    <Compile Include="Schema\DebitVoucher.cs" />
-    <Compile Include="Schema\JournalVoucher.cs" />
-    <Compile Include="Schema\Record.cs" />
-    <Compile Include="Schema\TransactionFactory.cs" />
-    <Compile Include="Schema\TransactionInCash.cs" />
-    <Compile Include="Schema\TransactionInCheque.cs" />
-    <Compile Include="Schema\VoucherBase.cs" />
-    <Compile Include="Schema\VoucherFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
-      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
-      <Name>BLL.ConfigurationManager</Name>
+    <ProjectReference Include="..\BLL.Messaging\BLL.Messaging.csproj">
+      <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
+      <Name>BLL.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BLL.Utils\BLL.Utils.csproj">
-      <Project>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</Project>
-      <Name>BLL.Utils</Name>
+    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
+      <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
+      <Name>BLL.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

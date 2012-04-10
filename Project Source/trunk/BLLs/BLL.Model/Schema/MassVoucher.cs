@@ -38,10 +38,5 @@ namespace BLL.Model.Schema
         public string JVDebitOrCredit { get; set; }
         public string ContraType { get; set; }
 
-        public bool IsValid()
-        {
-            // TODO: validity condition for this massvoucher...
-            return true;
-        }
     }
 }
