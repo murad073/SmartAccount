@@ -27,7 +27,6 @@ namespace BLL.Model.Schema
 
         public override bool IsValid()
         {
-            // TODO: write all validity condition for this VoucherBase 
             return true;
         }
 

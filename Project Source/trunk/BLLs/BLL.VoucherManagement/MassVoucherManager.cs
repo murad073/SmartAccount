@@ -216,7 +216,7 @@ namespace BLL.VoucherManagement
                 VoucherSerialNo = _massVoucher.VoucherSerialNo,
                 LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
                 VoucherTypeKey = _massVoucher.VoucherType,
-                IsFixedAsset = false //TODO: CV cannot be fixed asset. Confirm from sobuj
+                IsFixedAsset = false //TODO: (sobuj) CV cannot be fixed asset. Confirm from sobuj
             };
             return creditVoucher;
         }

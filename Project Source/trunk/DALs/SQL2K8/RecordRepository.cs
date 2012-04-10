@@ -20,7 +20,6 @@ namespace SQL2K8
 
         private int GetProjectHeadId(string projectName, string headName)
         {
-            //TODO: Validation for combobox selection
             int projectId = _db.Projects.Where(p => p.Name == projectName).SingleOrDefault().ID;
             int headId = _db.Heads.Where(h => h.Name == headName).SingleOrDefault().ID;
             ProjectHead pc = _db.ProjectHeads.Where(pcc => pcc.ProjectID == projectId && pcc.HeadID == headId).SingleOrDefault();
