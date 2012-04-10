@@ -582,7 +582,7 @@ namespace GKS.Model.ViewModels
             else if (SelectedVoucherType != "JV") isJVStartedChecked = false;
 
             IsJVStartedChecked = isJVStartedChecked;
-            // TODO: JV started unchecked does not work with JC Started checkbox disabled
+            // TODO: (sobuj) JV started unchecked does not work with JC Started checkbox disabled
         }
 
         private void SetJVDebitCreditIsEnabled()
@@ -601,7 +601,7 @@ namespace GKS.Model.ViewModels
             else
             {
                 IsContraTypesEnabled = false;
-                SelectedContraType = null; // TODO: The selected contra type should be cleared here.
+                SelectedContraType = null; 
             }
         }
 
@@ -652,7 +652,6 @@ namespace GKS.Model.ViewModels
 
         private void SetJVBalanceZeroMessage()
         {
-            //todo: need to move the logic in BLL
             if (SelectedVoucherType == "JV" && !IsJVStartedChecked && TemporaryRecords.Count > 0)
             {
                 if (TempGridItems.Last().Balance != 0)
@@ -684,13 +683,12 @@ namespace GKS.Model.ViewModels
                 VoucherSerialNo = _massVoucherManager.GetNewVoucherNo(SelectedVoucherType, SelectedProject.Name);
             else
                 VoucherSerialNo = 0;
-            // TODO: new change -> make the function work perfectly
         }
 
         private void AmountChanged()
         {
             if (Amount > 0)
-                TakaInWords = Utilities.NumberToTextInLacCrore(((int)Amount).ToString()) + " Only";
+                TakaInWords = Utilities.NumberToTextInLacCrore(((int)Amount).ToString()) + "Only";
             else TakaInWords = "";
         }
 
@@ -713,7 +711,7 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
-        public MassVoucher GetCurrentVoucher() // TODO: new change -> function return type should be MassVoucher ...
+        public MassVoucher GetCurrentVoucher() 
         {
             MassVoucher massVoucher = new MassVoucher
                                           {
@@ -771,16 +769,6 @@ namespace GKS.Model.ViewModels
 
             }
         }
-
-        //private static bool IsDebitVoucher(MassVoucher v)
-        //{
-        //    // TODO: make the function work well
-        //    // Why do we need this? -JS
-        //    return false;
-        //    //string type = v.VoucherType;
-        //    //return (type == "DV") || (type == "JV" && v.JournalDebitOrCredit == "Debit") ||
-        //    //       (type == "Contra" && v.ContraType == "Cash to bank"); //TODO: is the debit check is okay, sobuj will verify that.
-        //}
 
         public void Reset(bool removeMessage = true)
         {
@@ -850,17 +838,17 @@ namespace GKS.Model.ViewModels
         public void Execute(object parameter)
         {
             MassVoucherManager massVoucherManager = new MassVoucherManager(GKSFactory.GetRecordRepository(), GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository());
-            MassVoucher massVoucher = _voucherPost.GetCurrentVoucher(); // TODO: This line will give null exception, if temp button clicked without proper entry.
+            MassVoucher massVoucher = _voucherPost.GetCurrentVoucher();
 
             if (massVoucher == null)
                 return;
 
-            bool isAdded = massVoucherManager.Set(massVoucher); // TODO: Write validation code in Set.
+            bool isAdded = massVoucherManager.Set(massVoucher); 
             Message latestMessage = massVoucherManager.GetMessage();
 
             if (isAdded)
             {
-                IList<Record> records = massVoucherManager.GetEntryableRecords(); // TODO: This will give exception after calling GetJournalVoucher, if the Journal voucher type (Decit/Credit) is null.
+                IList<Record> records = massVoucherManager.GetEntryableRecords();
                 _voucherPost.AddTemporaryRecords(records);
                 _voucherPost.ClearMessage();
                 _voucherPost.SetPostButtonIsEnabled();

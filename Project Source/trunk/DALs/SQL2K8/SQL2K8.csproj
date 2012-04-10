@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BudgetRepository.cs" />
     <Compile Include="DBFactory.cs" />
     <Compile Include="HeadRepository.cs" />
     <Compile Include="LedgerRepository.cs" />

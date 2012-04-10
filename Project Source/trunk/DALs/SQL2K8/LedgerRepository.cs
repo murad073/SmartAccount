@@ -12,6 +12,14 @@ namespace SQL2K8
     {
         SmartAccountEntities db = new SmartAccountEntities();
 
+        public IList<Ledger> GetLedger(int projectId)
+        {
+            int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
+            double balance = 0;
+            return db.Records.Where(r => projectHeadIds.Contains(r.ProjectHeadID) && r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList()
+                .Select(r => GetLedger(r, ref balance)).ToList();
+        }
+
         public IList<Ledger> GetLedger(int projectId, int headId)
         {
             int projectHeadId =
@@ -36,7 +44,7 @@ namespace SQL2K8
                                        Debit = record.Debit,
                                        Date = record.Date,
                                        VoucherNo = record.VoucherType + "-" + record.VoucherSerialNo,
-                                       Particular = bankRecord != null ? "Bank" : "Cash",
+                                       Particular = bankRecord != null ? "Bank" : "Cash", // TODO: This is wrong for showing all advance.
                                        ChequeNo = bankRecord != null ? bankRecord.ChequeNo : "",
                                        Remarks = record.Narration,
                                        Balance = newBalance

@@ -4,9 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SmartAccountModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SmartAccountModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SmartAccountModelStoreContainer">
           <EntitySet Name="BankRecord" EntityType="SmartAccountModel.Store.BankRecord" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Budget" EntityType="SmartAccountModel.Store.Budget" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FixedAsset" EntityType="SmartAccountModel.Store.FixedAsset" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Head" EntityType="SmartAccountModel.Store.Head" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Log" EntityType="SmartAccountModel.Store.Log" store:Type="Tables" Schema="dbo" />
@@ -18,6 +19,10 @@
           <AssociationSet Name="FK_BankRecord_Record" Association="SmartAccountModel.Store.FK_BankRecord_Record">
             <End Role="Record" EntitySet="Record" />
             <End Role="BankRecord" EntitySet="BankRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Budget_ProjectHead" Association="SmartAccountModel.Store.FK_Budget_ProjectHead">
+            <End Role="ProjectHead" EntitySet="ProjectHead" />
+            <End Role="Budget" EntitySet="Budget" />
           </AssociationSet>
           <AssociationSet Name="FK_FixedAsset_Record" Association="SmartAccountModel.Store.FK_FixedAsset_Record">
             <End Role="Record" EntitySet="Record" />
@@ -50,6 +55,17 @@
           <Property Name="BankName" Type="varchar" MaxLength="500" />
           <Property Name="Branch" Type="varchar" MaxLength="500" />
           <Property Name="ChequeDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectHeadID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="Note" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="FixedAsset">
           <Key>
@@ -154,6 +170,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Budget_ProjectHead">
+          <End Role="ProjectHead" Type="SmartAccountModel.Store.ProjectHead" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Budget" Type="SmartAccountModel.Store.Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectHead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="ProjectHeadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FixedAsset_Record">
           <End Role="Record" Type="SmartAccountModel.Store.Record" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -224,8 +254,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmartAccountModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -262,6 +291,11 @@
           <AssociationSet Name="FK_Record_ProjectCategory" Association="SmartAccountModel.FK_Record_ProjectCategory">
             <End Role="ProjectHead" EntitySet="ProjectHeads" />
             <End Role="Record" EntitySet="Records" />
+          </AssociationSet>
+          <EntitySet Name="Budgets" EntityType="SmartAccountModel.Budget" />
+          <AssociationSet Name="FK_Budget_ProjectHead" Association="SmartAccountModel.FK_Budget_ProjectHead">
+            <End Role="ProjectHead" EntitySet="ProjectHeads" />
+            <End Role="Budget" EntitySet="Budgets" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="BankRecord">
@@ -355,6 +389,7 @@
           <NavigationProperty Name="OpeningBalances" Relationship="SmartAccountModel.FK_OpeningBalance_ProjectCategory" FromRole="ProjectHead" ToRole="OpeningBalance" />
           <NavigationProperty Name="Project" Relationship="SmartAccountModel.FK_ProjectHead_Project" FromRole="ProjectHead" ToRole="Project" />
           <NavigationProperty Name="Records" Relationship="SmartAccountModel.FK_Record_ProjectCategory" FromRole="ProjectHead" ToRole="Record" />
+          <NavigationProperty Name="Budgets" Relationship="SmartAccountModel.FK_Budget_ProjectHead" FromRole="ProjectHead" ToRole="Budget" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -460,6 +495,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProjectHeadID" />
+          <Property Type="DateTime" Name="Date" />
+          <Property Type="Double" Name="Amount" Nullable="false" />
+          <Property Type="String" Name="Note" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <NavigationProperty Name="ProjectHead" Relationship="SmartAccountModel.FK_Budget_ProjectHead" FromRole="Budget" ToRole="ProjectHead" />
+        </EntityType>
+        <Association Name="FK_Budget_ProjectHead">
+          <End Type="SmartAccountModel.ProjectHead" Role="ProjectHead" Multiplicity="0..1" />
+          <End Type="SmartAccountModel.Budget" Role="Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectHead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="ProjectHeadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -539,6 +598,18 @@
             <ScalarProperty Name="Tag" ColumnName="Tag" />
             <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Budgets">
+            <EntityTypeMapping TypeName="SmartAccountModel.Budget">
+              <MappingFragment StoreEntitySet="Budget">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ProjectHeadID" ColumnName="ProjectHeadID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -559,44 +630,47 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-
-      <Diagram Name="SQL2K8" ZoomLevel="55">
-        <EntityTypeShape EntityType="SmartAccountModel.BankRecord" Width="1.5" PointX="7.5" PointY="4.5" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.FixedAsset" Width="1.5" PointX="7.5" PointY="7.625" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.Head" Width="1.5" PointX="0.75" PointY="4.625" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.Log" Width="1.5" PointX="7.75" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.OpeningBalance" Width="1.5" PointX="5.25" PointY="1.5" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.Parameter" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.ProjectHead" Width="1.5" PointX="3" PointY="4.5" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartAccountModel.Record" Width="1.5" PointX="5.25" PointY="5.5" Height="3.9033007812500005" IsExpanded="true" />
+      <Diagram Name="SQL2K8">
+        <EntityTypeShape EntityType="SmartAccountModel.BankRecord" Width="1.5" PointX="7.5" PointY="4" Height="2.0853483072916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.FixedAsset" Width="1.5" PointX="7.5" PointY="6.875" Height="2.2496956380208326" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Head" Width="1.5" PointX="0.75" PointY="4.125" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Log" Width="1.5" PointX="7.75" PointY="0.75" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.OpeningBalance" Width="1.5" PointX="5.25" PointY="1.25" Height="2.0853483072916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Parameter" Width="1.5" PointX="0.75" PointY="7.75" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Project" Width="1.5" PointX="0.75" PointY="1.25" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.ProjectHead" Width="1.5" PointX="3" PointY="4" Height="2.2496956380208317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartAccountModel.Record" Width="1.5" PointX="5.25" PointY="4.875" Height="3.4001269531249996" IsExpanded="true" />
         <AssociationConnector Association="SmartAccountModel.FK_BankRecord_Record" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="6.1824446614583337" />
-          <ConnectorPoint PointX="7.5" PointY="6.1824446614583337" />
+          <ConnectorPoint PointX="6.75" PointY="5.4801741536458337" />
+          <ConnectorPoint PointX="7.5" PointY="5.4801741536458337" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_FixedAsset_Record" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="8.514150390625" />
-          <ConnectorPoint PointX="7.5" PointY="8.514150390625" />
+          <ConnectorPoint PointX="6.75" PointY="7.5750634765625" />
+          <ConnectorPoint PointX="7.5" PointY="7.5750634765625" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Head" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.8074446614583328" />
-          <ConnectorPoint PointX="3" PointY="5.8074446614583328" />
+          <ConnectorPoint PointX="2.25" PointY="5.3074446614583337" />
+          <ConnectorPoint PointX="3" PointY="5.3074446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_OpeningBalance_ProjectCategory" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="4.5" />
-          <ConnectorPoint PointX="3.75" PointY="2.6824446614583328" />
-          <ConnectorPoint PointX="5.25" PointY="2.6824446614583328" />
+          <ConnectorPoint PointX="4.0039078125" PointY="4" />
+          <ConnectorPoint PointX="4.0039078125" PointY="2.7932229614257817" />
+          <ConnectorPoint PointX="5.25" PointY="2.7932229614257817" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_ProjectHead_Project" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.7162223307291664" />
-          <ConnectorPoint PointX="3.3437475" PointY="1.7162223307291664" />
-          <ConnectorPoint PointX="3.3437475" PointY="4.5" />
+          <ConnectorPoint PointX="2.25" PointY="2.0216114807128909" />
+          <ConnectorPoint PointX="3.47070140625" PointY="2.0216114807128909" />
+          <ConnectorPoint PointX="3.47070140625" PointY="4" />
         </AssociationConnector>
         <AssociationConnector Association="SmartAccountModel.FK_Record_ProjectCategory" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="6.2785953776041659" />
-          <ConnectorPoint PointX="5.25" PointY="6.2785953776041659" />
+          <ConnectorPoint PointX="4.5" PointY="5.81224609375" />
+          <ConnectorPoint PointX="5.25" PointY="5.81224609375" />
         </AssociationConnector>
-
+        <EntityTypeShape EntityType="SmartAccountModel.Budget" Width="1.5" PointX="3" PointY="8.25" Height="2.3648893229166674" />
+        <AssociationConnector Association="SmartAccountModel.FK_Budget_ProjectHead" >
+          <ConnectorPoint PointX="3.75" PointY="6.7494921875" />
+          <ConnectorPoint PointX="3.75" PointY="8.25" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>
