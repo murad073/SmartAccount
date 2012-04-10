@@ -43,45 +43,47 @@ namespace SQL2K8
 
         public bool Update(BLLBudget entity)
         {
-            DALBudget dalBudget = GetDALBudget(entity.Name);
+            DALBudget dalBudget = GetDALBudget(entity.ProjectHeadId);
             if (dalBudget == null) return false;
-            //dalBudget.Name = entity.Name;
-            dalBudget.Type = entity.Type.ToString();
-            dalBudget.Description = entity.Description;
+            dalBudget.Amount = entity.Amount;
+            dalBudget.Date = entity.Date;
             dalBudget.IsActive = entity.IsActive;
+            dalBudget.Note = entity.Note;
             return _db.SaveChanges() > 0;
         }
 
         public IList<BLLBudget> GetAll()
         {
-            return _db.Budgets.ToList().Select(GetBLLBudget).ToList();
+            return _db.Budgets.Where(b=>b.IsActive==true).Select(GetBLLBudget).ToList();
         }
 
         public IList<BLLBudget> GetAll(int projectId)
         {
-            int[] headIds = _db.ProjectBudgets.Where(pc => pc.ProjectID == projectId).Select(pcc => pcc.BudgetID).ToArray();
-            return _db.Budgets.Where(h => headIds.Contains(h.ID)).Select(GetBLLBudget).ToList();
+            return _db.Budgets.Where(b => b.ProjectHead.ProjectID == projectId && b.IsActive==true).Select(GetBLLBudget).ToList();
+            //return _db.Budgets.Where(h => headIds.Contains(h.ID)).Select(GetBLLBudget).ToList();
         }
 
-        internal static DALBudget GetDALBudget(int id)
+        internal static DALBudget GetDALBudget(int projectHeadId)
         {
-            return DBFactory.Instance.DB.Budgets.Where(h => h.ID == id).SingleOrDefault();
+            return DBFactory.Instance.DB.Budgets.Where(h => h.ProjectHeadID == projectHeadId && h.IsActive == true).SingleOrDefault();
         }
 
-        internal static DALBudget GetDALBudget(string name)
+        internal static DALBudget GetDALBudget(string projectName, string headName)
         {
-            return DBFactory.Instance.DB.Budgets.Where(h => h.Name == name).SingleOrDefault();
+            ProjectHead projectHead = DBFactory.Instance.DB.ProjectHeads.Where(ph => ph.Project.Name == projectName && ph.Head.Name == headName).SingleOrDefault();
+            return DBFactory.Instance.DB.Budgets.Where(b => b.ProjectHeadID == projectHead.ID && b.IsActive == true).SingleOrDefault();
         }
 
         internal static DALBudget GetDALBudget(BLLBudget bllBudget)
         {
             return new DALBudget
                        {
+                           Amount = bllBudget.Amount,
+                           Date = bllBudget.Date,
                            ID = bllBudget.Id,
-                           Name = bllBudget.Name,
-                           Type = bllBudget.Type.ToString(),
-                           Description = bllBudget.Description,
-                           IsActive = bllBudget.IsActive
+                           IsActive = bllBudget.IsActive,
+                           Note = bllBudget.Note,
+                           ProjectHeadID = bllBudget.ProjectHeadId
                        };
         }
 
@@ -90,19 +92,20 @@ namespace SQL2K8
             return new BLLBudget
             {
                 Id = dalBudget.ID,
-                Name = dalBudget.Name,
-                Type = dalBudget.Type == "Capital" ? BudgetType.Capital : BudgetType.Revenue,
-                Description = dalBudget.Description,
-                IsActive = dalBudget.IsActive
+                Amount = dalBudget.Amount,
+                Date = dalBudget.Date.Value,
+                IsActive = dalBudget.IsActive == true,
+                Note = dalBudget.Note,
+                ProjectHeadId = dalBudget.ProjectHeadID.Value
             };
         }
 
-        public BLLBudget Get(string headName)
-        {
-            DALBudget dalBudget = _db.Budgets.Where(h => h.Name == headName).SingleOrDefault();
-            if (dalBudget == null) return null;
-            return GetBLLBudget(dalBudget);
-        }
+        //public BLLBudget Get(string headName)
+        //{
+        //    DALBudget dalBudget = _db.Budgets.Where(h => h.Name == headName).SingleOrDefault();
+        //    if (dalBudget == null) return null;
+        //    return GetBLLBudget(dalBudget);
+        //}
     }
 }
 

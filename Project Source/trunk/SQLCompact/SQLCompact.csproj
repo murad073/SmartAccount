@@ -62,11 +62,6 @@
     <Compile Include="DBFactory.cs" />
     <Compile Include="HeadRepository.cs" />
     <Compile Include="LedgerRepository.cs" />
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="SmartAccount.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,18 +80,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SmartAccount.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MyDatabase#1.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="test2.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
