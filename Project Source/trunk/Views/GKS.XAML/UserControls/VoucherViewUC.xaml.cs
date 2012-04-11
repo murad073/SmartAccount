@@ -31,5 +31,10 @@ namespace GKS.XAML.UserControls
             VoucherViewModel vm = DataContext as VoucherViewModel;
             //vm.Reset();
         }
+
+        private void buttonVoucherEdit_Click(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel vm = DataContext as VoucherViewModel;
+        }
     }
 }

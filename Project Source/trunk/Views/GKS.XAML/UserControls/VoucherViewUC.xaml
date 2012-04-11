@@ -24,17 +24,44 @@
         </Button>
         
         <Label Content="Voucher type:" Height="23" HorizontalAlignment="Left" Margin="78,97,0,0" Name="label2" VerticalAlignment="Top" Width="81" />
-        <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,97,524,0" Name="comboBox1" VerticalAlignment="Top" Width="162" />
+        <ComboBox Height="21" HorizontalAlignment="Right" Margin="0,97,524,0" Name="comboBoxVoucherType" VerticalAlignment="Top" Width="162" ItemsSource="{Binding Path=AllVoucherTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedVoucherType, Mode=TwoWay}" />
         
         
         <Label Content="Start date:" Height="28" HorizontalAlignment="Left" Margin="400,97,0,0" Name="label4" VerticalAlignment="Top" />
-        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,97,265,0" Name="datePicker1" VerticalAlignment="Top" Width="115" />
+        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,97,265,0" Name="datePickerStartDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=VoucherStartDate, Mode=TwoWay}" />
         <Label Content="End date:" Height="28" HorizontalAlignment="Left" Margin="583,97,0,0" Name="label5" VerticalAlignment="Top" />
-        <DatePicker Height="25" HorizontalAlignment="Left" Margin="641,97,0,0" Name="datePicker2" VerticalAlignment="Top" Width="115" />
+        <DatePicker Height="25" HorizontalAlignment="Left" Margin="641,97,0,0" Name="datePickerEndDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=VoucherEndDate, Mode=TwoWay}" />
 
-        <Button Content="View" Height="23" HorizontalAlignment="Left" Margin="376,132,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
-        <DataGrid AutoGenerateColumns="False" Height="351" HorizontalAlignment="Left" Margin="81,174,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="675" />
-        <Button Content="Edit/Delete" Height="23" HorizontalAlignment="Left" Margin="681,540,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
-    
+        <Button Content="View" Height="23" HorizontalAlignment="Left" Margin="376,132,0,0" Name="buttonVoucherView" VerticalAlignment="Top" Width="75" Command="{Binding Path=VoucherViewButtonClicked, Mode=OneWay}" >
+            <Button.ToolTip>
+                See all vouchers for the selected project.
+            </Button.ToolTip>
+        </Button>
+
+        <DataGrid 
+            Name="dataGridAllProjects"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding Path=SelectedGridItem, Mode=OneWayToSource}"
+                  GridLinesVisibility="None"                  
+                  IsTextSearchEnabled="True"
+                  HorizontalAlignment="Left" Margin="81,174,0,0" VerticalAlignment="Top"
+                  Grid.Row="1" 
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"                                                  
+                  IsSynchronizedWithCurrentItem="True" 
+                  Background="Transparent"
+                  RowHeaderWidth="25"
+                  RowBackground="White"
+                  AlternatingRowBackground="Azure"
+                  AlternationCount="2"
+                  ItemsSource="{Binding Path=Projects}"
+                  Height="351" Width="675" >
+        </DataGrid>
+
+        <Button Content="Edit/Delete" Height="23" HorizontalAlignment="Left" Margin="681,540,0,0" Name="buttonEditDelete" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Path=EditVoucherButtonClicked}" IsEnabled="True" Click="buttonVoucherEdit_Click" >
+        </Button>
+
     </Grid>
 </UserControl>
