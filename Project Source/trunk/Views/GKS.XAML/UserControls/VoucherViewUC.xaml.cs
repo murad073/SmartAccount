@@ -16,11 +16,11 @@ using GKS.Model.ViewModels;
 namespace GKS.XAML.UserControls
 {
     /// <summary>
-    /// Interaction logic for VoucherView.xaml
+    /// Interaction logic for VoucherViewUC.xaml
     /// </summary>
-    public partial class VoucherView : UserControl
+    public partial class VoucherViewUC : UserControl
     {
-        public VoucherView()
+        public VoucherViewUC()
         {
             InitializeComponent();
             DataContext = new VoucherViewModel();
