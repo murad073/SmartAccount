@@ -29,7 +29,7 @@ namespace GKS.XAML.UserControls
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             VoucherViewModel vm = DataContext as VoucherViewModel;
-            //vm.Reset();
+            vm.Reset();
         }
 
         private void buttonVoucherEdit_Click(object sender, RoutedEventArgs e)

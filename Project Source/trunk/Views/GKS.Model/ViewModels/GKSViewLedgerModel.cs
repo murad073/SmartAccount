@@ -363,7 +363,7 @@ namespace GKS.Model.ViewModels
         }
 
         #region Event invokers
-
+        // Needed when we have multi-select list-box.
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler changed = PropertyChanged;
@@ -478,7 +478,11 @@ namespace GKS.Model.ViewModels
             set
             {
                 _ledgerEndDate = value;
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate")); }
+                if (PropertyChanged != null) 
+                { 
+                    // TODO: Why is it here?
+                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate")); 
+                }
             }
         }
 
