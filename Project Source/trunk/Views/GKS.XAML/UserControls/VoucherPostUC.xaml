@@ -22,7 +22,7 @@
 
             <!-- Banner started -->
             <Image Height="47" HorizontalAlignment="Left" Margin="295,8,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="28" Source="/GKS.XAML;component/Resource/Images/logo.gif" />
-            <Label Content="Gono Kalyan Sangstha - GKS" Height="30" HorizontalAlignment="Left" Name="label11" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="242" Margin="326,4,0,0" />
+            <Label Content="Gono Kalyan Sangstha - GKS" Height="30" HorizontalAlignment="Left" Name="label11" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold" Width="242" Margin="326,4,0,0" />
             <Label Content="Sirajganj" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Margin="401,30,0,0" />
             <!-- End of Banner -->
             
