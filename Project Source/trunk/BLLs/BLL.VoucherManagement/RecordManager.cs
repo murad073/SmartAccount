@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BLL.Model;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
 using BLL.Model.Repositories;
-using BLL.Messaging;
+
 
 namespace BLL.VoucherManagement
 {
-    public class RecordManager
+    public class RecordManager : ManagerBase, IRecordManager
     {
         private readonly IRecordRepository _recordRepository = default(IRecordRepository);
         private readonly IList<Record> _records = default(List<Record>);
-        private Message _latestMessage;
         public RecordManager(IRecordRepository recordRepository, IList<Record> records)
         {
             _recordRepository = recordRepository;
             _records = records;
-            _latestMessage = new Message();
         }
 
         public bool Save()
@@ -30,28 +30,26 @@ namespace BLL.VoucherManagement
                 if (_records.Any(record => !record.Save()))
                 {
                     success = false;
-                    _latestMessage = MessageService.Instance.Get("UnknownProblemArise", MessageType.Error);
+                    //_latestMessage = MessageService.Instance.Get("UnknownProblemArise", MessageType.Error);
+                    InvokeManagerEvent(EventType.Error, "UnknownProblemArise");
+                    
                 }
 
                 if (success)
                 {
                     if (_recordRepository.CommitTransaction())
                     {
-                        _latestMessage = MessageService.Instance.Get("VoucherPostedSuccessfully", MessageType.Success);
+                        //_latestMessage = MessageService.Instance.Get("VoucherPostedSuccessfully", MessageType.Success);
+                        InvokeManagerEvent(EventType.Success, "VoucherPostedSuccessfully");
                     }
                 }
                 else _recordRepository.RollbackTransaction();
                 return success;
             }
 
-            _latestMessage = MessageService.Instance.Get("VoucherBalanceIsNotZero",
-                                                             MessageType.Error);
+            //_latestMessage = MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error);
+            InvokeManagerEvent(EventType.Success, "VoucherBalanceIsNotZero");
             return false;
-        }
-
-        public Message GetLatestMessage()
-        {
-            return _latestMessage;
         }
 
         private bool IsDebitCreditBalanced()

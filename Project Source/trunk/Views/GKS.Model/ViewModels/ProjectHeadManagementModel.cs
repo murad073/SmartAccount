@@ -280,14 +280,14 @@ namespace GKS.Model.ViewModels
                 int[] removeHeadIds = _projectHeadModel.RemainingHeads.Select(rc => rc.Key).ToArray();
                 int removedItems = _projectManager.RemoveHeadsFromProject(_projectHeadModel.ProjectSelected.Id,
                                                                           removeHeadIds);
-                Message removedMessage = _projectManager.GetLatestMessage();
+                Message removedMessage = MessageService.Instance.GetLatestMessage();
                 if (removedItems > 0) message += removedMessage.MessageText + Environment.NewLine;
             }
             if (_projectHeadModel.HeadsForProject != null && _projectHeadModel.HeadsForProject.Count() > 0)
             {
                 int[] addedHeadIds = _projectHeadModel.HeadsForProject.Select(cp => cp.Key).ToArray();
                 int addedItems = _projectManager.AddHeadsToProject(_projectHeadModel.ProjectSelected.Id, addedHeadIds);
-                Message addedMessage = _projectManager.GetLatestMessage();
+                Message addedMessage = MessageService.Instance.GetLatestMessage();
                 if (addedItems > 0) message += addedMessage.MessageText;
             }
 

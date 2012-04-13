@@ -50,10 +50,6 @@
       <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
       <Name>BLL.ConfigurationManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BLL.Messaging\BLL.Messaging.csproj">
-      <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
-      <Name>BLL.Messaging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>

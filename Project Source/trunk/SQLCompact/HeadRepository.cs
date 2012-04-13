@@ -8,7 +8,7 @@ namespace SQLCompact
 {
     public class HeadRepository : IHeadRepository
     {
-        private Entities _db;
+        private SQLCEEntities _db;
         public HeadRepository()
         {
             _db = DBFactory.Instance.DB;

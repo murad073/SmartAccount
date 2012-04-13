@@ -174,7 +174,7 @@ namespace GKS.Model.ViewModels
                 if (isSuccess && _addEditHeadModel.CloseButtonClicked.CanExecute(this))
                     _addEditHeadModel.CloseButtonClicked.Execute(this);
                 else
-                    _addEditHeadModel.ShowMessage(_headManager.GetLatestMessage());
+                    _addEditHeadModel.ShowMessage(MessageService.Instance.GetLatestMessage());
             }
         }
     }

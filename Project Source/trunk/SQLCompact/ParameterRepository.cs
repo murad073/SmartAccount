@@ -11,7 +11,7 @@ namespace SQLCompact
 {
     public class ParameterRepository : IParameterRepository
     {
-        private readonly Entities _db;
+        private readonly SQLCEEntities _db;
         public ParameterRepository()
         {
             _db = DBFactory.Instance.DB;

@@ -178,7 +178,7 @@ namespace GKS.Model.ViewModels
                 if (isSuccess && _projectModel.CancelButtonClicked.CanExecute(this))
                     _projectModel.CancelButtonClicked.Execute(this);
                 else
-                    _projectModel.ShowMessage(_projectManger.GetLatestMessage());
+                    _projectModel.ShowMessage(MessageService.Instance.GetLatestMessage());
             }
         }
     }

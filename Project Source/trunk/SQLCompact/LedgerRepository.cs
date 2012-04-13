@@ -8,7 +8,7 @@ namespace SQLCompact
 {
     public class LedgerRepository : ILedgerRepository
     {
-        Entities db = new Entities();
+        SQLCEEntities db = new SQLCEEntities();
 
         public IList<Ledger> GetLedger(int projectId, int headId)
         {
@@ -49,6 +49,11 @@ namespace SQLCompact
         }
 
         public IList<Ledger> GetLedger(int projectId, int headId, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Ledger> GetLedger(int projectId)
         {
             throw new NotImplementedException();
         }

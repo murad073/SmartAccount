@@ -18,12 +18,13 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("Model", "FK_BankRecord_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Record), "BankRecord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.BankRecord), true)]
-[assembly: EdmRelationshipAttribute("Model", "FK_FixedAsset_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.Record), "FixedAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.FixedAsset), true)]
-[assembly: EdmRelationshipAttribute("Model", "FK_ProjectHead_Head", "Head", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Head), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
-[assembly: EdmRelationshipAttribute("Model", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.OpeningBalance), true)]
-[assembly: EdmRelationshipAttribute("Model", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
-[assembly: EdmRelationshipAttribute("Model", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Record), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_BankRecord_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Record), "BankRecord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.BankRecord), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_FixedAsset_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.Record), "FixedAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.FixedAsset), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_ProjectHead_Head", "Head", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Head), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.OpeningBalance), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Record), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Budget), true)]
 
 #endregion
 
@@ -34,32 +35,32 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class Entities : ObjectContext
+    public partial class SmartAccountEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new Entities object using the connection string found in the 'Entities' section of the application configuration file.
+        /// Initializes a new SmartAccountEntities object using the connection string found in the 'SmartAccountEntities' section of the application configuration file.
         /// </summary>
-        public Entities() : base("name=Entities", "Entities")
+        public SmartAccountEntities() : base("name=SmartAccountEntities", "SmartAccountEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Entities object.
+        /// Initialize a new SmartAccountEntities object.
         /// </summary>
-        public Entities(string connectionString) : base(connectionString, "Entities")
+        public SmartAccountEntities(string connectionString) : base(connectionString, "SmartAccountEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Entities object.
+        /// Initialize a new SmartAccountEntities object.
         /// </summary>
-        public Entities(EntityConnection connection) : base(connection, "Entities")
+        public SmartAccountEntities(EntityConnection connection) : base(connection, "SmartAccountEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -218,6 +219,22 @@ namespace SQLCompact
             }
         }
         private ObjectSet<Record> _Records;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Budget> Budgets
+        {
+            get
+            {
+                if ((_Budgets == null))
+                {
+                    _Budgets = base.CreateObjectSet<Budget>("Budgets");
+                }
+                return _Budgets;
+            }
+        }
+        private ObjectSet<Budget> _Budgets;
 
         #endregion
         #region AddTo Methods
@@ -293,6 +310,14 @@ namespace SQLCompact
         {
             base.AddObject("Records", record);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Budgets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBudgets(Budget budget)
+        {
+            base.AddObject("Budgets", budget);
+        }
 
         #endregion
     }
@@ -305,7 +330,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="BankRecord")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="BankRecord")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class BankRecord : EntityObject
@@ -485,16 +510,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_BankRecord_Record", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_BankRecord_Record", "Record")]
         public Record Record
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_BankRecord_Record", "Record").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_BankRecord_Record", "Record").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_BankRecord_Record", "Record").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_BankRecord_Record", "Record").Value = value;
             }
         }
         /// <summary>
@@ -506,13 +531,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_BankRecord_Record", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_BankRecord_Record", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("Model.FK_BankRecord_Record", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SmartAccountModel.FK_BankRecord_Record", "Record", value);
                 }
             }
         }
@@ -523,7 +548,225 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="FixedAsset")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Budget")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Budget : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Budget object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="amount">Initial value of the Amount property.</param>
+        public static Budget CreateBudget(global::System.Int32 id, global::System.Double amount)
+        {
+            Budget budget = new Budget();
+            budget.ID = id;
+            budget.Amount = amount;
+            return budget;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProjectHeadID
+        {
+            get
+            {
+                return _ProjectHeadID;
+            }
+            set
+            {
+                OnProjectHeadIDChanging(value);
+                ReportPropertyChanging("ProjectHeadID");
+                _ProjectHeadID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectHeadID");
+                OnProjectHeadIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProjectHeadID;
+        partial void OnProjectHeadIDChanging(Nullable<global::System.Int32> value);
+        partial void OnProjectHeadIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double Amount
+        {
+            get
+            {
+                return _Amount;
+            }
+            set
+            {
+                OnAmountChanging(value);
+                ReportPropertyChanging("Amount");
+                _Amount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Amount");
+                OnAmountChanged();
+            }
+        }
+        private global::System.Double _Amount;
+        partial void OnAmountChanging(global::System.Double value);
+        partial void OnAmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsActive;
+        partial void OnIsActiveChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsActiveChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead")]
+        public ProjectHead ProjectHead
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProjectHead> ProjectHeadReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountModel.FK_Budget_ProjectHead", "ProjectHead", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="FixedAsset")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class FixedAsset : EntityObject
@@ -725,16 +968,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_FixedAsset_Record", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_FixedAsset_Record", "Record")]
         public Record Record
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_FixedAsset_Record", "Record").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_FixedAsset_Record", "Record").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_FixedAsset_Record", "Record").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_FixedAsset_Record", "Record").Value = value;
             }
         }
         /// <summary>
@@ -746,13 +989,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("Model.FK_FixedAsset_Record", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountModel.FK_FixedAsset_Record", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("Model.FK_FixedAsset_Record", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SmartAccountModel.FK_FixedAsset_Record", "Record", value);
                 }
             }
         }
@@ -763,7 +1006,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="Head")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Head")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Head : EntityObject
@@ -947,18 +1190,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_ProjectHead_Head", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_ProjectHead_Head", "ProjectHead")]
         public EntityCollection<ProjectHead> ProjectHeads
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("Model.FK_ProjectHead_Head", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SmartAccountModel.FK_ProjectHead_Head", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("Model.FK_ProjectHead_Head", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SmartAccountModel.FK_ProjectHead_Head", "ProjectHead", value);
                 }
             }
         }
@@ -969,7 +1212,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="Log")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Log")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Log : EntityObject
@@ -1122,7 +1365,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="OpeningBalance")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="OpeningBalance")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class OpeningBalance : EntityObject
@@ -1302,16 +1545,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_OpeningBalance_ProjectCategory", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead")]
         public ProjectHead ProjectHead
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value = value;
             }
         }
         /// <summary>
@@ -1323,13 +1566,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_OpeningBalance_ProjectCategory", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("Model.FK_OpeningBalance_ProjectCategory", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "ProjectHead", value);
                 }
             }
         }
@@ -1340,7 +1583,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="Parameter")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Parameter")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Parameter : EntityObject
@@ -1471,7 +1714,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="Project")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Project")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Project : EntityObject
@@ -1631,18 +1874,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_ProjectHead_Project", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_ProjectHead_Project", "ProjectHead")]
         public EntityCollection<ProjectHead> ProjectHeads
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("Model.FK_ProjectHead_Project", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SmartAccountModel.FK_ProjectHead_Project", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("Model.FK_ProjectHead_Project", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SmartAccountModel.FK_ProjectHead_Project", "ProjectHead", value);
                 }
             }
         }
@@ -1653,7 +1896,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="ProjectHead")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="ProjectHead")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class ProjectHead : EntityObject
@@ -1789,16 +2032,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_ProjectHead_Head", "Head")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_ProjectHead_Head", "Head")]
         public Head Head
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("Model.FK_ProjectHead_Head", "Head").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountModel.FK_ProjectHead_Head", "Head").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("Model.FK_ProjectHead_Head", "Head").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountModel.FK_ProjectHead_Head", "Head").Value = value;
             }
         }
         /// <summary>
@@ -1810,13 +2053,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("Model.FK_ProjectHead_Head", "Head");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountModel.FK_ProjectHead_Head", "Head");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Head>("Model.FK_ProjectHead_Head", "Head", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Head>("SmartAccountModel.FK_ProjectHead_Head", "Head", value);
                 }
             }
         }
@@ -1827,18 +2070,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_OpeningBalance_ProjectCategory", "OpeningBalance")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_OpeningBalance_ProjectCategory", "OpeningBalance")]
         public EntityCollection<OpeningBalance> OpeningBalances
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OpeningBalance>("Model.FK_OpeningBalance_ProjectCategory", "OpeningBalance");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OpeningBalance>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OpeningBalance>("Model.FK_OpeningBalance_ProjectCategory", "OpeningBalance", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OpeningBalance>("SmartAccountModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance", value);
                 }
             }
         }
@@ -1849,16 +2092,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_ProjectHead_Project", "Project")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_ProjectHead_Project", "Project")]
         public Project Project
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("Model.FK_ProjectHead_Project", "Project").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountModel.FK_ProjectHead_Project", "Project").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("Model.FK_ProjectHead_Project", "Project").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountModel.FK_ProjectHead_Project", "Project").Value = value;
             }
         }
         /// <summary>
@@ -1870,13 +2113,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("Model.FK_ProjectHead_Project", "Project");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountModel.FK_ProjectHead_Project", "Project");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("Model.FK_ProjectHead_Project", "Project", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("SmartAccountModel.FK_ProjectHead_Project", "Project", value);
                 }
             }
         }
@@ -1887,18 +2130,40 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_Record_ProjectCategory", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Record_ProjectCategory", "Record")]
         public EntityCollection<Record> Records
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Record>("Model.FK_Record_ProjectCategory", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Record>("SmartAccountModel.FK_Record_ProjectCategory", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("Model.FK_Record_ProjectCategory", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("SmartAccountModel.FK_Record_ProjectCategory", "Record", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "Budget")]
+        public EntityCollection<Budget> Budgets
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget", value);
                 }
             }
         }
@@ -1909,7 +2174,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model", Name="Record")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountModel", Name="Record")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Record : EntityObject
@@ -2247,18 +2512,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_BankRecord_Record", "BankRecord")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_BankRecord_Record", "BankRecord")]
         public EntityCollection<BankRecord> BankRecords
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BankRecord>("Model.FK_BankRecord_Record", "BankRecord");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BankRecord>("SmartAccountModel.FK_BankRecord_Record", "BankRecord");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BankRecord>("Model.FK_BankRecord_Record", "BankRecord", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BankRecord>("SmartAccountModel.FK_BankRecord_Record", "BankRecord", value);
                 }
             }
         }
@@ -2269,18 +2534,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_FixedAsset_Record", "FixedAsset")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_FixedAsset_Record", "FixedAsset")]
         public EntityCollection<FixedAsset> FixedAssets
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FixedAsset>("Model.FK_FixedAsset_Record", "FixedAsset");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FixedAsset>("SmartAccountModel.FK_FixedAsset_Record", "FixedAsset");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FixedAsset>("Model.FK_FixedAsset_Record", "FixedAsset", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FixedAsset>("SmartAccountModel.FK_FixedAsset_Record", "FixedAsset", value);
                 }
             }
         }
@@ -2291,16 +2556,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_Record_ProjectCategory", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Record_ProjectCategory", "ProjectHead")]
         public ProjectHead ProjectHead
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_Record_ProjectCategory", "ProjectHead").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Record_ProjectCategory", "ProjectHead").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_Record_ProjectCategory", "ProjectHead").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Record_ProjectCategory", "ProjectHead").Value = value;
             }
         }
         /// <summary>
@@ -2312,13 +2577,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("Model.FK_Record_ProjectCategory", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountModel.FK_Record_ProjectCategory", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("Model.FK_Record_ProjectCategory", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountModel.FK_Record_ProjectCategory", "ProjectHead", value);
                 }
             }
         }

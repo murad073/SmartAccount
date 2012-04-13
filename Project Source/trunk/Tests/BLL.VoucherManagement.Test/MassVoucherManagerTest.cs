@@ -9,7 +9,7 @@ namespace BLL.VoucherManagement.Test
     [TestClass]
     public class MassVoucherManagerTest
     {
-        private MassVoucherManager _massVoucherManager;
+        //private MassVoucherManager _massVoucherManager;
 
         [TestInitialize]
         public void Init()

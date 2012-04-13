@@ -17,6 +17,6 @@
             //private set { _instance = value; }
         }
 
-        public Entities DB = new Entities();
+        public SQLCEEntities DB = new SQLCEEntities();
     }
 }

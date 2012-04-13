@@ -9,7 +9,7 @@ namespace SQLCompact
 {
     public class RecordRepository : IRecordRepository
     {
-        private Entities _db = new Entities();
+        private SQLCEEntities _db = new SQLCEEntities();
         private DbTransaction _transaction;
         public int GetMaxVoucherNo(string voucherType, int projectId)
         {

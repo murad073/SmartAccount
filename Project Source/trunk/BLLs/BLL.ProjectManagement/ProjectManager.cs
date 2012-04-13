@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using BLL.Messaging;
+using BLL.Model;
+using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
 using System.Linq;
@@ -7,19 +8,17 @@ using System;
 
 namespace BLL.ProjectManagement
 {
-    public class ProjectManager
+    public class ProjectManager : ManagerBase, IProjectManager
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IHeadRepository _headRepository;
         private readonly IRecordRepository _recordRepository;
-        private  Message _message;
 
         public ProjectManager(IProjectRepository projectRepository, IHeadRepository headRepository, IRecordRepository recordRepository)
         {
             _projectRepository = projectRepository;
             _headRepository = headRepository;
             _recordRepository = recordRepository;
-            _message = new Message();
         }
 
         public IList<Project> GetProjects(bool bringInactive = true)
@@ -35,8 +34,9 @@ namespace BLL.ProjectManagement
 
             if (existingProject != null)
             {
-                _message = MessageService.Instance.Get("ProjectAlreadyExists", MessageType.Error);
-                _message.MessageText = string.Format(_message.MessageText, project.Name);
+                //_message = MessageService.Instance.Get("ProjectAlreadyExists", MessageType.Error);
+                //_message.MessageText = string.Format(_message.MessageText, project.Name);
+                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectAlreadyExists", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
                 return false;
             }
 
@@ -48,8 +48,9 @@ namespace BLL.ProjectManagement
                 //int advanceId = _headRepository.Get("Advance").Id;
                 AddHeadsToProject(insertedProject.Id, new int[] { cashBookId, bankBookId });
 
-                _message = MessageService.Instance.Get("NewProjectSuccessfullyCreated", MessageType.Success);
-                _message.MessageText = string.Format(_message.MessageText, insertedProject.Name);
+                //_message = MessageService.Instance.Get("NewProjectSuccessfullyCreated", MessageType.Success);
+                //_message.MessageText = string.Format(_message.MessageText, insertedProject.Name);
+                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewProjectSuccessfullyCreated", Parameters = new Dictionary<string, string> { { "ProjectName", insertedProject.Name } } });
 
                 if (_headRepository.Get(project.Name) == null)
                 {
@@ -64,11 +65,11 @@ namespace BLL.ProjectManagement
                                        };
                     Head insertedHead = _headRepository.Insert(newHead);
                     if (insertedHead != null)
-                        _message.MessageText += Environment.NewLine + "A head with name '" + project.Name + "' is created for inter project loan.";
+                        InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageDescription = "A head with name '" + project.Name + "' is created for inter project loan." });
                 }
                 else
                 {
-                    _message.MessageText += Environment.NewLine + "Same head with name '" + project.Name + "' already found.";
+                    InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageDescription = "Same head with name '" + project.Name + "' already found." });
                 }
                 return true;
             }
@@ -82,12 +83,14 @@ namespace BLL.ProjectManagement
             if (existingProject != null)
             {
                 _projectRepository.Update(project);
-                _message = MessageService.Instance.Get("ProjectSuccessfullyUpdated", MessageType.Success);
-                _message.MessageText = string.Format(_message.MessageText, existingProject.Name);
+                //_message = MessageService.Instance.Get("ProjectSuccessfullyUpdated", MessageType.Success);
+                //_message.MessageText = string.Format(_message.MessageText, existingProject.Name);
+                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "ProjectSuccessfullyUpdated", Parameters = new Dictionary<string, string> { { "ProjectName", existingProject.Name } } });
                 return true;
             }
-            _message = MessageService.Instance.Get("ProjectUpdatedFailed", MessageType.Error);
-            _message.MessageText = string.Format(_message.MessageText, project.Name);
+            //_message = MessageService.Instance.Get("ProjectUpdatedFailed", MessageType.Error);
+            //_message.MessageText = string.Format(_message.MessageText, project.Name);
+            InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectUpdatedFailed", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
             return false;
         }
 
@@ -98,8 +101,10 @@ namespace BLL.ProjectManagement
 
             if (project == null)
             {
-                _message.MessageText = "Invalid project selected.";
-                _message.MessageType = MessageType.Warning;
+                //_message.MessageText = "Invalid project selected.";
+                //_message.MessageType = MessageType.Warning;
+                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Warning, MessageDescription = "Invalid project selected." });
+
                 return 0;
             }
 
@@ -120,14 +125,21 @@ namespace BLL.ProjectManagement
 
             if (count > 0)
             {
-                _message.MessageText = count + " head(s) removed from project '" + project.Name + "': " +
-                                       headNames + ".";
-                _message.MessageType = MessageType.Success;
+                InvokeManagerEvent(new BLLEventArgs
+                {
+                    EventType = EventType.Success,
+                    MessageDescription = count + " head(s) removed from project '" + project.Name + "': " +
+                        headNames + "."
+                });
+
             }
             else
             {
-                _message.MessageText = "No head(s) removed from project '" + project.Name + "'.";
-                _message.MessageType = MessageType.Information;
+                InvokeManagerEvent(new BLLEventArgs
+                {
+                    EventType = EventType.Information,
+                    MessageDescription = "No head(s) removed from project '" + project.Name + "'."
+                });
             }
             return count;
         }
@@ -139,8 +151,11 @@ namespace BLL.ProjectManagement
 
             if (project == null)
             {
-                _message.MessageText = "Invalid project selected.";
-                _message.MessageType = MessageType.Warning;
+                InvokeManagerEvent(new BLLEventArgs
+                {
+                    EventType = EventType.Warning,
+                    MessageDescription = "Invalid project selected."
+                });
                 return 0;
             }
 
@@ -161,14 +176,19 @@ namespace BLL.ProjectManagement
 
             if (count > 0)
             {
-                _message.MessageText = count + " head(s) added to project '" + project.Name + "': " +
-                                       headNames + ".";
-                _message.MessageType = MessageType.Success;
+                InvokeManagerEvent(new BLLEventArgs
+                {
+                    EventType = EventType.Success,
+                    MessageDescription = count + " head(s) added to project '" + project.Name + "': " + headNames + "."
+                });
             }
             else
             {
-                _message.MessageText = "No head(s) added to project '" + project.Name + "'.";
-                _message.MessageType = MessageType.Information;
+                InvokeManagerEvent(new BLLEventArgs
+                {
+                    EventType = EventType.Information,
+                    MessageDescription = "No head(s) added to project '" + project.Name + "'."
+                });
             }
             return count;
         }
@@ -176,11 +196,6 @@ namespace BLL.ProjectManagement
         public bool IsRecordFound(int projectId, int headId)
         {
             return _recordRepository.IsRecordFound(projectId, headId);
-        }
-
-        public Message GetLatestMessage()
-        {
-            return _message;
         }
     }
 }

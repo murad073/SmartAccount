@@ -1,21 +1,21 @@
-﻿using BLL.Messaging;
+﻿using System.Collections.Generic;
+using BLL.Model;
+using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
 using System;
 
 namespace BLL.BudgetManagement
 {
-    public class BudgetManager
+    public class BudgetManager : ManagerBase, IBudgetManager
     {
         private readonly IBudgetRepository _budgetRepository;
         private readonly IProjectRepository _projectRepository;
-        private Message _latestMessage;
 
         public BudgetManager(IBudgetRepository budgetRepository, IProjectRepository projectRepository)
         {
             _budgetRepository = budgetRepository;
             _projectRepository = projectRepository;
-            _latestMessage = new Message();
         }
 
         public bool Set(string projectName, string headName, double amount)
@@ -35,11 +35,15 @@ namespace BLL.BudgetManagement
 
                 if (insertedBudget != null)
                 {
-                    _latestMessage = MessageService.Instance.Get("NewBudgetSavedSuccessfully", MessageType.Success);
-                    _latestMessage.MessageText = string.Format(_latestMessage.MessageText, insertedBudget.Date.Year);
+                    //_latestMessage = MessageService.Instance.Get("NewBudgetSavedSuccessfully", MessageType.Success);
+                    //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, insertedBudget.Date.Year);
+
+                    InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewBudgetSavedSuccessfully", Parameters = new Dictionary<string, string> { { "BudgetYear", insertedBudget.Date.Year.ToString() } } });
+
                     return true;
                 }
-                _latestMessage = MessageService.Instance.Get("NewBudgetInsertFailed", MessageType.Error);
+                //_latestMessage = MessageService.Instance.Get("NewBudgetInsertFailed", MessageType.Error);
+                InvokeManagerEvent(EventType.Error, "NewBudgetInsertFailed");
                 return false;
             }
             else
@@ -48,16 +52,13 @@ namespace BLL.BudgetManagement
                 budget.IsActive = true;
                 bool isUpdate = _budgetRepository.Update(budget);
                 if (isUpdate)
-                    _latestMessage = MessageService.Instance.Get("BudgetUpdatedSuccessfully", MessageType.Success);
+                    //_latestMessage = MessageService.Instance.Get("BudgetUpdatedSuccessfully", MessageType.Success);
+                    InvokeManagerEvent(EventType.Success, "BudgetUpdatedSuccessfully");
                 else
-                    _latestMessage = MessageService.Instance.Get("BudgetUpdatedFailed", MessageType.Error);
+                    //_latestMessage = MessageService.Instance.Get("BudgetUpdatedFailed", MessageType.Error);
+                    InvokeManagerEvent(EventType.Error, "BudgetUpdatedFailed");
                 return isUpdate;
             }
-        }
-
-        public Message GetLatestMessage()
-        {
-            return _latestMessage;
         }
     }
 }

@@ -1,0 +1,307 @@
+
+-- Warning: There were errors validating the existing SSDL. Drop statements
+-- will not be generated.
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 04/13/2012 19:59:10
+-- Generated from EDMX file: D:\My Projects\Practice self\.net projects\office Github SmartAccount\Project Source\trunk\SQLCompact\SQLCE.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'BankRecords'
+CREATE TABLE [BankRecords] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [RecordID] int  NOT NULL,
+    [ChequeNo] nvarchar(500)  NULL,
+    [BankName] nvarchar(500)  NULL,
+    [Branch] nvarchar(500)  NULL,
+    [ChequeDate] datetime  NULL
+);
+GO
+
+-- Creating table 'FixedAssets'
+CREATE TABLE [FixedAssets] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(500)  NULL,
+    [DepreciationRate] float  NULL,
+    [DepreciatedValue] int  NULL,
+    [DepreciationType] nvarchar(50)  NULL,
+    [ByForceDisposed] bit  NULL,
+    [RecordID] int  NULL
+);
+GO
+
+-- Creating table 'Heads'
+CREATE TABLE [Heads] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [ParentID] int  NULL,
+    [Name] nvarchar(500)  NOT NULL,
+    [IsActive] bit  NOT NULL,
+    [Type] nvarchar(50)  NOT NULL,
+    [Description] ntext  NULL
+);
+GO
+
+-- Creating table 'Logs'
+CREATE TABLE [Logs] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NULL,
+    [UserName] nvarchar(500)  NULL,
+    [Type] nvarchar(50)  NOT NULL,
+    [Message] ntext  NULL
+);
+GO
+
+-- Creating table 'OpeningBalances'
+CREATE TABLE [OpeningBalances] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NULL,
+    [ProjectHeadID] int  NULL,
+    [Balance] int  NULL,
+    [IsActive] bit  NOT NULL,
+    [Description] ntext  NULL
+);
+GO
+
+-- Creating table 'Parameters'
+CREATE TABLE [Parameters] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [Key] nvarchar(500)  NOT NULL,
+    [Value] ntext  NULL,
+    [IsActive] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Projects'
+CREATE TABLE [Projects] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [IsActive] bit  NOT NULL,
+    [Name] nvarchar(500)  NOT NULL,
+    [CreateDate] datetime  NOT NULL,
+    [Description] ntext  NULL
+);
+GO
+
+-- Creating table 'ProjectHeads'
+CREATE TABLE [ProjectHeads] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [ProjectID] int  NOT NULL,
+    [HeadID] int  NOT NULL,
+    [IsActive] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Records'
+CREATE TABLE [Records] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [ProjectHeadID] int  NOT NULL,
+    [Date] datetime  NOT NULL,
+    [VoucherType] nvarchar(500)  NOT NULL,
+    [Debit] float  NOT NULL,
+    [Credit] float  NOT NULL,
+    [Narration] ntext  NULL,
+    [LedgerType] nvarchar(50)  NOT NULL,
+    [VoucherSerialNo] int  NOT NULL,
+    [Link] nvarchar(100)  NULL,
+    [Tag] ntext  NULL,
+    [IsActive] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Budgets'
+CREATE TABLE [Budgets] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [ProjectHeadID] int  NULL,
+    [Date] datetime  NULL,
+    [Amount] float  NOT NULL,
+    [Note] ntext  NULL,
+    [IsActive] bit  NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [ID] in table 'BankRecords'
+ALTER TABLE [BankRecords]
+ADD CONSTRAINT [PK_BankRecords]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'FixedAssets'
+ALTER TABLE [FixedAssets]
+ADD CONSTRAINT [PK_FixedAssets]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Heads'
+ALTER TABLE [Heads]
+ADD CONSTRAINT [PK_Heads]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Logs'
+ALTER TABLE [Logs]
+ADD CONSTRAINT [PK_Logs]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'OpeningBalances'
+ALTER TABLE [OpeningBalances]
+ADD CONSTRAINT [PK_OpeningBalances]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Parameters'
+ALTER TABLE [Parameters]
+ADD CONSTRAINT [PK_Parameters]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Projects'
+ALTER TABLE [Projects]
+ADD CONSTRAINT [PK_Projects]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'ProjectHeads'
+ALTER TABLE [ProjectHeads]
+ADD CONSTRAINT [PK_ProjectHeads]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Records'
+ALTER TABLE [Records]
+ADD CONSTRAINT [PK_Records]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Budgets'
+ALTER TABLE [Budgets]
+ADD CONSTRAINT [PK_Budgets]
+    PRIMARY KEY ([ID] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [RecordID] in table 'BankRecords'
+ALTER TABLE [BankRecords]
+ADD CONSTRAINT [FK_BankRecord_Record]
+    FOREIGN KEY ([RecordID])
+    REFERENCES [Records]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BankRecord_Record'
+CREATE INDEX [IX_FK_BankRecord_Record]
+ON [BankRecords]
+    ([RecordID]);
+GO
+
+-- Creating foreign key on [RecordID] in table 'FixedAssets'
+ALTER TABLE [FixedAssets]
+ADD CONSTRAINT [FK_FixedAsset_Record]
+    FOREIGN KEY ([RecordID])
+    REFERENCES [Records]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_FixedAsset_Record'
+CREATE INDEX [IX_FK_FixedAsset_Record]
+ON [FixedAssets]
+    ([RecordID]);
+GO
+
+-- Creating foreign key on [HeadID] in table 'ProjectHeads'
+ALTER TABLE [ProjectHeads]
+ADD CONSTRAINT [FK_ProjectHead_Head]
+    FOREIGN KEY ([HeadID])
+    REFERENCES [Heads]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectHead_Head'
+CREATE INDEX [IX_FK_ProjectHead_Head]
+ON [ProjectHeads]
+    ([HeadID]);
+GO
+
+-- Creating foreign key on [ProjectHeadID] in table 'OpeningBalances'
+ALTER TABLE [OpeningBalances]
+ADD CONSTRAINT [FK_OpeningBalance_ProjectCategory]
+    FOREIGN KEY ([ProjectHeadID])
+    REFERENCES [ProjectHeads]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OpeningBalance_ProjectCategory'
+CREATE INDEX [IX_FK_OpeningBalance_ProjectCategory]
+ON [OpeningBalances]
+    ([ProjectHeadID]);
+GO
+
+-- Creating foreign key on [ProjectID] in table 'ProjectHeads'
+ALTER TABLE [ProjectHeads]
+ADD CONSTRAINT [FK_ProjectHead_Project]
+    FOREIGN KEY ([ProjectID])
+    REFERENCES [Projects]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectHead_Project'
+CREATE INDEX [IX_FK_ProjectHead_Project]
+ON [ProjectHeads]
+    ([ProjectID]);
+GO
+
+-- Creating foreign key on [ProjectHeadID] in table 'Records'
+ALTER TABLE [Records]
+ADD CONSTRAINT [FK_Record_ProjectCategory]
+    FOREIGN KEY ([ProjectHeadID])
+    REFERENCES [ProjectHeads]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Record_ProjectCategory'
+CREATE INDEX [IX_FK_Record_ProjectCategory]
+ON [Records]
+    ([ProjectHeadID]);
+GO
+
+-- Creating foreign key on [ProjectHeadID] in table 'Budgets'
+ALTER TABLE [Budgets]
+ADD CONSTRAINT [FK_Budget_ProjectHead]
+    FOREIGN KEY ([ProjectHeadID])
+    REFERENCES [ProjectHeads]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Budget_ProjectHead'
+CREATE INDEX [IX_FK_Budget_ProjectHead]
+ON [Budgets]
+    ([ProjectHeadID]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

@@ -843,8 +843,8 @@ namespace GKS.Model.ViewModels
             if (massVoucher == null)
                 return;
 
-            bool isAdded = massVoucherManager.Set(massVoucher); 
-            Message latestMessage = massVoucherManager.GetMessage();
+            bool isAdded = massVoucherManager.Set(massVoucher);
+            Message latestMessage = MessageService.Instance.GetLatestMessage();
 
             if (isAdded)
             {
@@ -878,7 +878,7 @@ namespace GKS.Model.ViewModels
             RecordManager recordManager = new RecordManager(GKSFactory.GetRecordRepository(),
                                                             _voucherPost.TemporaryRecords);
             bool isSuccess = recordManager.Save();
-            Message message = recordManager.GetLatestMessage();
+            Message message = MessageService.Instance.GetLatestMessage();
             _voucherPost.ShowMessage(message);
             if (isSuccess) _voucherPost.Reset(false);
         }

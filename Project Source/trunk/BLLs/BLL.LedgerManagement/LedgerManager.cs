@@ -1,25 +1,29 @@
 ﻿using System.Collections.Generic;
-using BLL.ConfigurationManager;
-using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
+using BLL.Model;
 using System;
-using BLL.ParameterManagement;
 using System.Linq;
+using BLL.ParameterManagement;
 
 namespace BLL.LedgerManagement
 {
-    public class LedgerManager
+    public class LedgerManager : ManagerBase, ILedgerManager
     {
         private readonly ILedgerRepository _ledgerRepository;
-        private readonly ParameterManager _parameterManager;
-        private  Message _message;
+        private readonly IParameterManager _parameterManager;
         public LedgerManager(ILedgerRepository ledgerRepository, IParameterRepository parameterRepository)
         {
             _ledgerRepository = ledgerRepository;
             _parameterManager = new ParameterManager(parameterRepository);
+            //_parameterManager = BLLCoreFactory.GetParameterManager(); //TODO: using BLLCoreFactory creates circular reference
             LedgerEndDate = DateTime.Now;
-            _message = new Message();
+        }
+
+        public override string ModuleName
+        {
+            get { return "Ledger"; }
         }
 
         public DateTime LedgerEndDate { get; set; }
@@ -28,22 +32,16 @@ namespace BLL.LedgerManagement
         {
             if (project == null)
             {
-                _message = MessageService.Instance.Get("NoProjectSelected", MessageType.Error);
+                InvokeManagerEvent(EventType.Error, "NoProjectSelected");
                 return false;
             }
 
             if (!showAllAdvance && head == null)
             {
-                _message = MessageService.Instance.Get("NoHeadSelected", MessageType.Error);
+                InvokeManagerEvent(EventType.Error, "NoHeadSelected");
                 return false;
             }
-
             return true;
-        }
-
-        public Message GetLatestMessage()
-        {
-            return _message;
         }
 
         public IList<Ledger> GetLedgerBook(int projectId, int headId, bool isCashBankShown = false)
@@ -61,7 +59,7 @@ namespace BLL.LedgerManagement
             return _ledgerRepository.GetLedger(projectId);
         }
 
-        private DateTime GetDateAt12AM(DateTime date)
+        public DateTime GetDateAt12AM(DateTime date)
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }

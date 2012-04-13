@@ -488,7 +488,8 @@ namespace GKS.Model.ViewModels
             {
                 if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
                 {
-                    Message latestMessage = _ledgerManager.GetLatestMessage();
+                    //Message latestMessage = _ledgerManager.GetLatestMessage();
+                    Message latestMessage = MessageService.Instance.GetLatestMessage();
                     ErrorMessage = latestMessage.MessageText;
                     ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
                     return null;

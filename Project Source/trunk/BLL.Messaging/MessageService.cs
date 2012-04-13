@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BLL.ConfigurationManager;
+using BLL.Model;
+using System.Linq;
 
 namespace BLL.Messaging
 {
@@ -19,40 +22,65 @@ namespace BLL.Messaging
             get { return _instance; }
         }
 
-        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        // bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-        // ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-        //private void AttachAllDefaultMessage()
-        //{
-        //    /**********  ERROR Messages ***************/
-        //    Add(ErrorMessage.AmountCannotBeZero.ToString(), MessageType.Error);
-        //    Add(ErrorMessage.ContraTypeIsNotSelected.ToString(), MessageType.Error);
-        //    Add(ErrorMessage.JVDebitOrCreditNotSelected.ToString(), MessageType.Error);
-        //    Add(ErrorMessage.NoHeadSelected.ToString(), MessageType.Error);
-        //    Add(ErrorMessage.NoProjectSelected.ToString(), MessageType.Error);
-        //    Add(ErrorMessage.UnknownProblemArise.ToString(), MessageType.Error);
+        public static IList<Message> MessageQueue = new List<Message>();
 
-        //    /**********  SUCCESS Messages ***************/
-        //    Add(SuccessMessage.TemporaryRecordsAdded.ToString(), MessageType.Success);
-        //    Add(SuccessMessage.VoucherPostedSuccessfully.ToString(), MessageType.Success);
+        public Message GetLatestMessage()
+        {
+            Message lastMessage = MessageQueue.Last();
+            MessageQueue.Remove(lastMessage);
+            return lastMessage;
+        }
 
-        //    /**********  Warning Messages ***************/
-        //    Add(WarningMessage.NoFixedAssetParticularNameFound.ToString(), MessageType.Warning);            
+        public void ManagerEventHandler(object sender, BLLEventArgs eventArgs)
+        {
+            if(!IsEventForMessage(eventArgs)) return;
 
-        //    /**********  Information Messages ***************/
-        //    Add(InformationMessage.NoChequeOrBankInfo.ToString(), MessageType.Information);
-        //    Add(InformationMessage.UnknownProblemArise.ToString(), MessageType.Information);
-        //}
+            string messageText = ConfigValues.Get(eventArgs.MessageKey);
 
-        //public void Add(string key, MessageType type, string text = "")
-        //{
-        //    if (string.IsNullOrWhiteSpace(text)) text = ConfigValues.Get(key);
-        //    Message message = CreateMessageInstance(text, type);
-        //    if (_messages.ContainsKey(key))
-        //        _messages[key] = message;
-        //    else
-        //        _messages.Add(key, message);
-        //}
+            foreach (var pair in eventArgs.Parameters)
+            {
+                messageText = messageText.Replace("${" + pair.Key + "}$", pair.Value);
+            }
+
+            Message newMessage = new Message
+                                     {
+                                         IsRead = false,
+                                         MessageText = messageText,
+                                         MessageType = ConvertToMessageType(eventArgs.EventType)
+                                     };
+            MessageQueue.Add(newMessage);
+        }
+
+        private bool IsEventForMessage(BLLEventArgs eventArgs)
+        {
+            if (string.IsNullOrWhiteSpace(eventArgs.MessageKey))
+                return false;
+            if (!new[] { EventType.Error, EventType.Information, EventType.Success, EventType.Warning }.Contains(eventArgs.EventType))
+                return false;
+            return true;
+        }
+        
+        public void Reset()
+        {
+            MessageQueue.Clear();
+        }
+
+        private static MessageType ConvertToMessageType(EventType eventType)
+        {
+            switch (eventType)
+            {
+                case EventType.Success:
+                    return MessageType.Success;
+                case EventType.Error:
+                    return MessageType.Error;
+                case EventType.Warning:
+                    return MessageType.Warning;
+                case EventType.Information:
+                    return MessageType.Information;
+                default:
+                    throw new ArgumentOutOfRangeException("eventType");
+            }
+        }
 
         public Message Get(string key, MessageType messageType)
         {

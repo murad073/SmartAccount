@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLEventArgs.cs" />
+    <Compile Include="Managers\IBudgetManager.cs" />
+    <Compile Include="Managers\IHeadManager.cs" />
+    <Compile Include="Managers\ILedgerManager.cs" />
+    <Compile Include="Managers\IMassVoucherManager.cs" />
+    <Compile Include="Managers\IParameterManager.cs" />
+    <Compile Include="Managers\IProjectManager.cs" />
+    <Compile Include="Managers\IRecordManager.cs" />
+    <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Repositories\IBudgetRepository.cs" />
+    <Compile Include="Log\ILogger.cs" />
     <Compile Include="Repositories\IParameterRepository.cs" />
     <Compile Include="Schema\ChequeInfo.cs" />
     <Compile Include="Constants.cs" />

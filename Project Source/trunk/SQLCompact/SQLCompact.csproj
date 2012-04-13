@@ -49,7 +49,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -59,27 +61,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBFactory.cs" />
-    <Compile Include="HeadRepository.cs" />
-    <Compile Include="LedgerRepository.cs" />
-    <Compile Include="SmartAccount.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SmartAccount.edmx</DependentUpon>
+    <Compile Include="DBFactory.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ParameterRepository.cs" />
-    <Compile Include="ProjectRepository.cs" />
+    <Compile Include="HeadRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LedgerRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParameterRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProjectRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordRepository.cs" />
+    <Compile Include="RecordRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLCE.Designer.cs">
+      <DependentUpon>SQLCE.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="SmartAccount.edmx">
+    <EntityDeploy Include="SQLCE.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SmartAccount.Designer.cs</LastGenOutput>
+      <LastGenOutput>SQLCE.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="SQLCE.edmx.sqlce" />
+    <None Include="SQLCE2.edmx.sqlce" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
@@ -113,6 +129,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQLCE.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

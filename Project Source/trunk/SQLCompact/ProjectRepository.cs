@@ -8,12 +8,12 @@ using BLLProject = BLL.Model.Schema.Project;
 using BLL.Model.Repositories;
 using IProjectRepository = BLL.Model.Repositories.IProjectRepository;
 
-
 namespace SQLCompact
 {
     public class ProjectRepository : IProjectRepository
     {
-        private Entities _db;
+        private SQLCEEntities _db;
+
         public ProjectRepository()
         {
             _db = DBFactory.Instance.DB;
@@ -124,6 +124,11 @@ namespace SQLCompact
             DALProject dalProject = _db.Projects.Where(p => p.Name == projectName).SingleOrDefault();
             if (dalProject == null) return null;
             return GetBLLProject(dalProject);
+        }
+
+        public int GetProjectHeadId(string projectName, string headName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

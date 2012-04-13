@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</ProjectGuid>
+    <ProjectGuid>{406CACEA-6D54-480C-A284-A5A97314D994}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL.Messaging</RootNamespace>
-    <AssemblyName>BLL.Messaging</AssemblyName>
+    <RootNamespace>BLL.Factories</RootNamespace>
+    <AssemblyName>BLL.Factories</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,14 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageService.cs" />
+    <Compile Include="BLLCoreFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
-      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
-      <Name>BLL.ConfigurationManager</Name>
+    <ProjectReference Include="..\BLL.Messaging\BLL.Messaging.csproj">
+      <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
+      <Name>BLL.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL.ParameterManagement\BLL.ParameterManagement.csproj">
+      <Project>{A69B11C2-FF50-4646-B7D3-5F6F64C2912B}</Project>
+      <Name>BLL.ParameterManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLLs\BLL.LedgerManagement\BLL.LedgerManagement.csproj">
+      <Project>{26FC262D-1525-4215-9099-F71C5A25B3C4}</Project>
+      <Name>BLL.LedgerManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>

@@ -44,14 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
-      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
-      <Name>BLL.ConfigurationManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BLL.Messaging\BLL.Messaging.csproj">
-      <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
-      <Name>BLL.Messaging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\BLL.ParameterManagement\BLL.ParameterManagement.csproj">
       <Project>{A69B11C2-FF50-4646-B7D3-5F6F64C2912B}</Project>
       <Name>BLL.ParameterManagement</Name>

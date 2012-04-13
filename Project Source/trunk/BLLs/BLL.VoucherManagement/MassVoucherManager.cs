@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using BLL.Messaging;
+using BLL.Model;
+using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.Model.Schema;
 
 namespace BLL.VoucherManagement
 {
-    public class MassVoucherManager
+    public class MassVoucherManager : ManagerBase, IMassVoucherManager
     {
         private readonly IHeadRepository _headRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly IRecordRepository _recordRepository;
 
-        private Message _latestMessage = new Message();
         private MassVoucher _massVoucher;
 
         private IList<Record> _entryableRecords;
@@ -23,7 +23,11 @@ namespace BLL.VoucherManagement
             _recordRepository = dalVoucherManager;
             _projectRepository = dalProjectManager;
             _headRepository = dalHeadManager;
-            _latestMessage = new Message();
+        }
+
+        public override string ModuleName
+        {
+            get { return "MassVoucherManager"; }
         }
 
         public bool Set(MassVoucher massVoucher)
@@ -73,25 +77,23 @@ namespace BLL.VoucherManagement
 
         private bool SetErrorMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);
+            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);
+            InvokeManagerEvent(EventType.Error, messageKey);
             return false;
         }
 
         private bool SetWarningMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Warning);
+            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Warning);
+            InvokeManagerEvent(EventType.Warning, messageKey);
             return true;
         }
 
         private bool SetInformationMessage(string messageKey)
         {
-            _latestMessage = MessageService.Instance.Get(messageKey, MessageType.Information);
+            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Information);
+            InvokeManagerEvent(EventType.Information, messageKey);
             return true;
-        }
-
-        public Message GetMessage()
-        {
-            return _latestMessage;
         }
 
         private bool SetEntryableRecords()
@@ -308,5 +310,7 @@ namespace BLL.VoucherManagement
                            Date = _massVoucher.ChequeDate
                        };
         }
+
+
     }
 }
