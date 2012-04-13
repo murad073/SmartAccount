@@ -26,14 +26,18 @@ namespace BLL.Messaging
 
         public Message GetLatestMessage()
         {
-            Message lastMessage = MessageQueue.Last();
-            MessageQueue.Remove(lastMessage);
-            return lastMessage;
+            if (MessageQueue.Count > 0)
+            {
+                Message lastMessage = MessageQueue.Last();
+                MessageQueue.Remove(lastMessage);
+                return lastMessage;
+            }
+            return new Message { MessageText = "", MessageType = MessageType.None };
         }
 
         public void ManagerEventHandler(object sender, BLLEventArgs eventArgs)
         {
-            if(!IsEventForMessage(eventArgs)) return;
+            if (!IsEventForMessage(eventArgs)) return;
 
             string messageText = ConfigValues.Get(eventArgs.MessageKey);
 
@@ -59,7 +63,7 @@ namespace BLL.Messaging
                 return false;
             return true;
         }
-        
+
         public void Reset()
         {
             MessageQueue.Clear();

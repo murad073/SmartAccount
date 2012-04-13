@@ -7,6 +7,7 @@ namespace BLL.Model
 {
     public enum EventType
     {
+        None,
         Success,
         Error,
         Warning,
