@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C98FCB75-CAEF-438F-B06D-436D56A40000}</ProjectGuid>
+    <ProjectGuid>{9DEC4C54-CB4E-46C2-B346-84BAF9AD2A23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL.LogProvider</RootNamespace>
-    <AssemblyName>BLL.LogProvider</AssemblyName>
+    <RootNamespace>BLL.BudgetManagement</RootNamespace>
+    <AssemblyName>BLL.BudgetManagement</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,11 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Log4Net.cs" />
+    <Compile Include="BudgetManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\..\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>

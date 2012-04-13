@@ -68,7 +68,7 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BLLs\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>

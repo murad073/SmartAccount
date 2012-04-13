@@ -81,11 +81,7 @@
     <Compile Include="Schema\VoucherFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
-      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
-      <Name>BLL.ConfigurationManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BLL.Utils\BLL.Utils.csproj">
+    <ProjectReference Include="..\..\HelperService\BLL.Utils\BLL.Utils.csproj">
       <Project>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</Project>
       <Name>BLL.Utils</Name>
     </ProjectReference>

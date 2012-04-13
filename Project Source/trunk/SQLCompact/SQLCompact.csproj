@@ -98,12 +98,6 @@
     <None Include="SQLCE2.edmx.sqlce" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
-      <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
-      <Name>BLL.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -134,6 +128,12 @@
     <Content Include="SQLCE.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
+      <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
+      <Name>BLL.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

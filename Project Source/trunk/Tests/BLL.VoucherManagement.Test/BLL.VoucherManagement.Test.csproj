@@ -48,12 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MassVoucherManagerTest.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BLLs\BLL.VoucherManagement\BLL.VoucherManagement.csproj">
-      <Project>{A7B3773D-9D33-4AA0-A2A2-6FF94EB27E0F}</Project>
-      <Name>BLL.VoucherManagement</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

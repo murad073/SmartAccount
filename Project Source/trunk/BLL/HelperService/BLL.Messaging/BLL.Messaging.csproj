@@ -45,13 +45,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL.ConfigurationManager\BLL.ConfigurationManager.csproj">
-      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
-      <Name>BLL.ConfigurationManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\..\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\BLL.ConfigurationManagement\BLL.ConfigurationManagement.csproj">
+      <Project>{197248D3-A613-4853-8299-872840BF3D49}</Project>
+      <Name>BLL.ConfigurationManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

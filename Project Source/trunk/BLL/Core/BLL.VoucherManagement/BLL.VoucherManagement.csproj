@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9DEC4C54-CB4E-46C2-B346-84BAF9AD2A23}</ProjectGuid>
+    <ProjectGuid>{A7B3773D-9D33-4AA0-A2A2-6FF94EB27E0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL.BudgetManagement</RootNamespace>
-    <AssemblyName>BLL.BudgetManagement</AssemblyName>
+    <RootNamespace>BLL.VoucherManagement</RootNamespace>
+    <AssemblyName>BLL.VoucherManagement</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,11 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BudgetManager.cs" />
+    <Compile Include="RecordManager.cs" />
+    <Compile Include="MassVoucherManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLLs\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\..\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
