@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace GKS.XAML.Pages
 {
     /// <summary>
-    /// Interaction logic for ViewVoucherWindow.xaml
+    /// Interaction logic for VoucherDetailsWindow.xaml
     /// </summary>
-    public partial class ViewVoucherWindow : Window
+    public partial class VoucherDetailsWindow : Window
     {
-        public ViewVoucherWindow()
+        public VoucherDetailsWindow()
         {
             InitializeComponent();
         }

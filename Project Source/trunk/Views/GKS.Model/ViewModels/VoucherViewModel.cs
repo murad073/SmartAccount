@@ -38,11 +38,11 @@ namespace GKS.Model.ViewModels
             _parameterManager = BLLCoreFactory.GetParameterManager();
 
             AllProjects = _projectManager.GetProjects();
-
+            SelectedVoucherType = "Debit voucher";
             VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
             VoucherEndDate = DateTime.Today;
 
-            VoucherViewButtonClicked = new ViewVoucher(this);
+            VoucherDetailsButtonClicked = new ViewVoucherDetails(this);
         }
 
         public IList<Project> _allProjects;
@@ -175,7 +175,7 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public ICommand VoucherViewButtonClicked { get; set; }
+        public ICommand VoucherDetailsButtonClicked { get; set; }
 
         public void NotifyVoucherGrid()
         {
@@ -195,10 +195,10 @@ namespace GKS.Model.ViewModels
         }
     }
 
-    public class ViewVoucher : ICommand
+    public class ViewVoucherDetails : ICommand
     {
         private VoucherViewModel _viewVoucherModel;
-        public ViewVoucher(VoucherViewModel viewVoucherModel)
+        public ViewVoucherDetails(VoucherViewModel viewVoucherModel)
         {
             _viewVoucherModel = viewVoucherModel;
         }
