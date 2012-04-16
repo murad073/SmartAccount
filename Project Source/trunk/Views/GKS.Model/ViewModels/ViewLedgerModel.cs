@@ -248,7 +248,7 @@ namespace GKS.Model.ViewModels
     //    #endregion // ICommand Members
     //}
 
-    public class GKSViewLedgerModel : INotifyPropertyChanged
+    public class ViewLedgerModel : INotifyPropertyChanged
     {
         //#region Fields
 
@@ -336,7 +336,7 @@ namespace GKS.Model.ViewModels
         private readonly ProjectManager _projectManager;
         private readonly HeadManager _headManager;
         private readonly LedgerManager _ledgerManager;
-        public GKSViewLedgerModel()
+        public ViewLedgerModel()
         {
             IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
             IHeadRepository headRepository = GKSFactory.GetHeadRepository();
@@ -578,9 +578,9 @@ namespace GKS.Model.ViewModels
 
     public class ViewLedger : ICommand
     {
-        private GKSViewLedgerModel _viewLedgerModel;
+        private ViewLedgerModel _viewLedgerModel;
         private ILedgerRepository _ledgerRepository;
-        public ViewLedger(GKSViewLedgerModel viewLedgerModel, ILedgerRepository ledgerRepository)
+        public ViewLedger(ViewLedgerModel viewLedgerModel, ILedgerRepository ledgerRepository)
         {
             _viewLedgerModel = viewLedgerModel;
             _ledgerRepository = ledgerRepository;

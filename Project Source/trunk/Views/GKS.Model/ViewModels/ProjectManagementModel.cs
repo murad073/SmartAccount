@@ -9,11 +9,11 @@ using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
-    public class GKSProjectManagementModel : INotifyPropertyChanged
+    public class ProjectManagementModel : INotifyPropertyChanged
     {
         ProjectManager _projectManager;
 
-        public GKSProjectManagementModel()
+        public ProjectManagementModel()
         {
             _projectManager = new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
             //SelectedGridItem = null;
@@ -53,8 +53,8 @@ namespace GKS.Model.ViewModels
 
     //class ViewProject : ICommand
     //{
-    //    private GKSProjectManagementModel _projectMgmt;
-    //    public ViewProject(GKSProjectManagementModel projectMgmt)
+    //    private ProjectManagementModel _projectMgmt;
+    //    public ViewProject(ProjectManagementModel projectMgmt)
     //    {
     //        _projectMgmt = projectMgmt;
     //    }
@@ -73,8 +73,8 @@ namespace GKS.Model.ViewModels
     //}
     //class AddnewProject : ICommand
     //{
-    //    private GKSProjectManagementModel _projectMgmt;
-    //    public AddnewProject(GKSProjectManagementModel projectMgmt)
+    //    private ProjectManagementModel _projectMgmt;
+    //    public AddnewProject(ProjectManagementModel projectMgmt)
     //    {
     //        _projectMgmt = projectMgmt;
     //    }
@@ -94,8 +94,8 @@ namespace GKS.Model.ViewModels
     //}
     //class ProjectHeadOK : ICommand
     //{
-    //    private GKSProjectManagementModel _projectMgmt;
-    //    public ProjectHeadOK(GKSProjectManagementModel projectMgmt)
+    //    private ProjectManagementModel _projectMgmt;
+    //    public ProjectHeadOK(ProjectManagementModel projectMgmt)
     //    {
     //        _projectMgmt = projectMgmt;
     //    }
@@ -113,8 +113,8 @@ namespace GKS.Model.ViewModels
     //}
     //class ProjectHeadCancel : ICommand
     //{
-    //    private GKSProjectManagementModel _projectMgmt;
-    //    public ProjectHeadCancel(GKSProjectManagementModel projectMgmt)
+    //    private ProjectManagementModel _projectMgmt;
+    //    public ProjectHeadCancel(ProjectManagementModel projectMgmt)
     //    {
     //        _projectMgmt = projectMgmt;
     //    }
