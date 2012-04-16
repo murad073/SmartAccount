@@ -52,6 +52,14 @@
       <Project>{A69B11C2-FF50-4646-B7D3-5F6F64C2912B}</Project>
       <Name>BLL.ParameterManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\BLL.ProjectManagement\BLL.ProjectManagement.csproj">
+      <Project>{78BBE281-F205-49D8-A22B-AA912F320856}</Project>
+      <Name>BLL.ProjectManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\BLL.VoucherManagement\BLL.VoucherManagement.csproj">
+      <Project>{A7B3773D-9D33-4AA0-A2A2-6FF94EB27E0F}</Project>
+      <Name>BLL.VoucherManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HelperService\BLL.Messaging\BLL.Messaging.csproj">
       <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
       <Name>BLL.Messaging</Name>

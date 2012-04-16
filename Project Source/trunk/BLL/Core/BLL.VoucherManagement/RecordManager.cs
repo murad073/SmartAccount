@@ -13,10 +13,14 @@ namespace BLL.VoucherManagement
     public class RecordManager : ManagerBase, IRecordManager
     {
         private readonly IRecordRepository _recordRepository = default(IRecordRepository);
-        private readonly IList<Record> _records = default(List<Record>);
-        public RecordManager(IRecordRepository recordRepository, IList<Record> records)
+        private  IList<Record> _records = default(List<Record>);
+        public RecordManager(IRecordRepository recordRepository)
         {
             _recordRepository = recordRepository;
+        }
+
+        public void SetRecords(IList<Record> records)
+        {
             _records = records;
         }
 

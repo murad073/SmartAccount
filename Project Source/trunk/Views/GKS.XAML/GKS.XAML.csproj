@@ -216,13 +216,17 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Factories\BLL.Factories.csproj">
+      <Project>{406CACEA-6D54-480C-A284-A5A97314D994}</Project>
+      <Name>BLL.Factories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DALs\SQL2K8\SQL2K8.csproj">
-      <Project>{BA605CD0-1CB4-4289-B4C7-CA6B2DC928BA}</Project>
-      <Name>SQL2K8</Name>
+    <ProjectReference Include="..\GKS.Factory\GKS.Factory.csproj">
+      <Project>{7ADDA0C7-520D-46C9-8B2D-FC9DAAABFA41}</Project>
+      <Name>GKS.Factory</Name>
     </ProjectReference>
     <ProjectReference Include="..\GKS.Model\GKS.Model.csproj">
       <Project>{442CFA8B-3C4A-4F12-9FB4-92B68D44A857}</Project>

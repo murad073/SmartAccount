@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BLL.Factories;
+using GKS.Factory;
 
 namespace GKS.XAML
 {
@@ -23,12 +25,27 @@ namespace GKS.XAML
     {
         public MainWindow()
         {
-            InitializeComponent();
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             ci.DateTimeFormat.LongDatePattern = "dd-MM-yyyy";
             ci.DateTimeFormat.FullDateTimePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
+
+            //BudgetRepository { get; set; }
+            //HeadRepository { get; set; }
+            //LedgerRepository { get; set; }
+            //ParameterRepository { get; set; 
+            //ProjectRepository { get; set; }
+            //RecordRepository { get; set; }
+
+            //BLLCoreFactory.BudgetRepository = GKSFactory.
+            BLLCoreFactory.HeadRepository = GKSFactory.GetHeadRepository();
+            BLLCoreFactory.LedgerRepository = GKSFactory.GetLedgerRepository();
+            BLLCoreFactory.ParameterRepository = GKSFactory.GetParameterRepository();
+            BLLCoreFactory.ProjectRepository = GKSFactory.GetProjectRepository();
+            BLLCoreFactory.RecordRepository = GKSFactory.GetRecordRepository();
+
+            InitializeComponent();
         }
     }
 }

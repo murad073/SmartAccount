@@ -41,11 +41,13 @@ namespace BLL.Messaging
 
             string messageText = ConfigValues.Get(eventArgs.MessageKey);
 
-            foreach (var pair in eventArgs.Parameters)
+            if (eventArgs.Parameters != null && eventArgs.Parameters.Count > 0)
             {
-                messageText = messageText.Replace("${" + pair.Key + "}$", pair.Value);
+                foreach (var pair in eventArgs.Parameters)
+                {
+                    messageText = messageText.Replace("${" + pair.Key + "}$", pair.Value);
+                }
             }
-
             Message newMessage = new Message
                                      {
                                          IsRead = false,

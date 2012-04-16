@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
+using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
@@ -145,11 +145,11 @@ namespace GKS.Model.ViewModels
     public class SaveNewHead : ICommand
     {
         AddEditHeadModel _addEditHeadModel;
-        HeadManager _headManager;
+        IHeadManager _headManager;
         public SaveNewHead(AddEditHeadModel addEditHeadModel)
         {
             _addEditHeadModel = addEditHeadModel;
-            _headManager = new HeadManager(GKSFactory.GetHeadRepository());
+            _headManager = BLLCoreFactory.GetHeadManager();
         }
 
         public bool CanExecute(object parameter)

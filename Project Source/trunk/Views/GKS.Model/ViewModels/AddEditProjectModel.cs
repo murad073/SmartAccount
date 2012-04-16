@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
+using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels
@@ -147,12 +149,12 @@ namespace GKS.Model.ViewModels
     public class SaveProject : ICommand
     {
         AddEditProjectModel _projectModel;
-        ProjectManager _projectManger;
+        IProjectManager _projectManger;
 
         public SaveProject(AddEditProjectModel projectModel)
         {
             _projectModel = projectModel;
-            _projectManger = new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
+            _projectManger = BLLCoreFactory.GetProjectManager();// new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
         }
 
         public bool CanExecute(object parameter)
