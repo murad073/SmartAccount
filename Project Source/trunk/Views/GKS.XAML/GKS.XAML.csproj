@@ -110,8 +110,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Page\AddEditProjectWindow.xaml.cs">
+    <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ViewVoucherWindow.xaml.cs">
+      <DependentUpon>ViewVoucherWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
@@ -148,13 +151,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\AddEditHeadWindow.xaml">
+    <Page Include="Pages\AddEditHeadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\AddEditProjectWindow.xaml">
+    <Page Include="Pages\AddEditProjectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ViewVoucherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\VoucherPostUC.xaml">
       <SubType>Designer</SubType>
@@ -185,7 +192,7 @@
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\AddEditHeadWindow.xaml.cs">
+    <Compile Include="Pages\AddEditHeadWindow.xaml.cs">
       <DependentUpon>AddEditHeadWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
