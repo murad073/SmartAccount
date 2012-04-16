@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using BLL.Utils;
-using BLL.VoucherManagement;
+//using BLL.VoucherManagement;
 using GKS.Factory;
 using System.Windows.Data;
 using BLL.Model.Repositories;
@@ -17,9 +19,9 @@ namespace GKS.Model.ViewModels
 {
     public class VoucherPost : INotifyPropertyChanged
     {
-        private readonly ProjectManager _projectManager;
-        private readonly HeadManager _headManager;
-        private readonly MassVoucherManager _massVoucherManager;
+        private readonly IProjectManager _projectManager;
+        private readonly IHeadManager _headManager;
+        private readonly IMassVoucherManager _massVoucherManager;
 
         public VoucherPost()
         {
@@ -27,10 +29,14 @@ namespace GKS.Model.ViewModels
             IHeadRepository headRepository = GKSFactory.GetHeadRepository();
             IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
 
-            _projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
-            _headManager = new HeadManager(headRepository);
-            _massVoucherManager = new MassVoucherManager(recordRepository, projectRepository, headRepository);
+            //_projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
+            //_headManager = new HeadManager(headRepository);
 
+            //_massVoucherManager = new MassVoucherManager(recordRepository, projectRepository, headRepository);
+            _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+            _projectManager = BLLCoreFactory.GetProjectManager();
+            _headManager = BLLCoreFactory.GetHeadManager();
+            
             InputFirstPartEnabled = true;
             InputSecondPartEnabled = true;
 
@@ -837,7 +843,7 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            MassVoucherManager massVoucherManager = new MassVoucherManager(GKSFactory.GetRecordRepository(), GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository());
+            IMassVoucherManager massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
             MassVoucher massVoucher = _voucherPost.GetCurrentVoucher();
 
             if (massVoucher == null)
@@ -875,8 +881,10 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            RecordManager recordManager = new RecordManager(GKSFactory.GetRecordRepository(),
-                                                            _voucherPost.TemporaryRecords);
+            //RecordManager recordManager = new RecordManager(GKSFactory.GetRecordRepository(),
+            //                                                _voucherPost.TemporaryRecords);
+            IRecordManager recordManager = BLLCoreFactory.GetRecordManager();
+            recordManager.SetRecords(_voucherPost.TemporaryRecords);
             bool isSuccess = recordManager.Save();
             Message message = MessageService.Instance.GetLatestMessage();
             _voucherPost.ShowMessage(message);

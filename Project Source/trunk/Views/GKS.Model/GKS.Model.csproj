@@ -55,21 +55,13 @@
     <Compile Include="ViewModels\VoucherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Factories\BLL.Factories.csproj">
+      <Project>{406CACEA-6D54-480C-A284-A5A97314D994}</Project>
+      <Name>BLL.Factories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BLL\Core\BLL.LedgerManagement\BLL.LedgerManagement.csproj">
-      <Project>{26FC262D-1525-4215-9099-F71C5A25B3C4}</Project>
-      <Name>BLL.LedgerManagement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BLL\Core\BLL.ProjectManagement\BLL.ProjectManagement.csproj">
-      <Project>{78BBE281-F205-49D8-A22B-AA912F320856}</Project>
-      <Name>BLL.ProjectManagement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BLL\Core\BLL.VoucherManagement\BLL.VoucherManagement.csproj">
-      <Project>{A7B3773D-9D33-4AA0-A2A2-6FF94EB27E0F}</Project>
-      <Name>BLL.VoucherManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BLL\HelperService\BLL.Messaging\BLL.Messaging.csproj">
       <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>

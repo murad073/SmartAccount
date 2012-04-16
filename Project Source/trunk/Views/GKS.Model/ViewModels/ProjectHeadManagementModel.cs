@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
     public class ProjectHeadManagementModel : INotifyPropertyChanged
     {
-        private readonly ProjectManager _projectManager;
-        private readonly HeadManager _headManager;
+        private readonly IProjectManager _projectManager;
+        private readonly IHeadManager _headManager;
 
         private IList<Head> _allHeads;
 
         public ProjectHeadManagementModel()
         {
-            _projectManager = new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
-            _headManager = new HeadManager(GKSFactory.GetHeadRepository());
+            _projectManager = BLLCoreFactory.GetProjectManager();
+            _headManager = BLLCoreFactory.GetHeadManager();
 
             _allHeads = _headManager.GetHeads(false, false);
 
@@ -256,13 +258,13 @@ namespace GKS.Model.ViewModels
     public class SaveProjectHeadRelation : ICommand
     {
         ProjectHeadManagementModel _projectHeadModel;
-        private HeadManager _headManager;
-        private ProjectManager _projectManager;
+        private IHeadManager _headManager;
+        private IProjectManager _projectManager;
         public SaveProjectHeadRelation(ProjectHeadManagementModel model)
         {
             _projectHeadModel = model;
-            _headManager = new HeadManager(GKSFactory.GetHeadRepository());
-            _projectManager = new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
+            _headManager = BLLCoreFactory.GetHeadManager();
+            _projectManager = BLLCoreFactory.GetProjectManager();
         }
 
         public bool CanExecute(object parameter)
