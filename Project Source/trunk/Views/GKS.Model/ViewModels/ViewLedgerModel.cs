@@ -14,7 +14,8 @@ using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
 {
-    public class GKSViewLedgerModel : INotifyPropertyChanged
+
+    public class ViewLedgerModel : INotifyPropertyChanged
     {
         #region Events
 
@@ -22,10 +23,11 @@ namespace GKS.Model.ViewModels
 
         #endregion
 
+
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
         private readonly ILedgerManager _ledgerManager;
-        public GKSViewLedgerModel()
+        public ViewLedgerModel()
         {
             //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
             //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
@@ -103,7 +105,7 @@ namespace GKS.Model.ViewModels
             get
             {
                 if (SelectedProject == null || SelectedProject.Id <= 0) return null;
-                return _headManager.GetHeads(SelectedProject.Id).ToList(); 
+                return _headManager.GetHeads(SelectedProject.Id).ToList();
             }
         }
 
@@ -171,10 +173,10 @@ namespace GKS.Model.ViewModels
             set
             {
                 _ledgerEndDate = value;
-                if (PropertyChanged != null) 
-                { 
+                if (PropertyChanged != null)
+                {
                     // TODO: Why is it here?
-                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate")); 
+                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate"));
                 }
             }
         }
@@ -212,7 +214,7 @@ namespace GKS.Model.ViewModels
                 }
                 else
                 {
-                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);                    
+                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);
                 }
             }
         }
@@ -271,9 +273,9 @@ namespace GKS.Model.ViewModels
 
     public class ViewLedger : ICommand
     {
-        private GKSViewLedgerModel _viewLedgerModel;
+        private ViewLedgerModel _viewLedgerModel;
         private ILedgerRepository _ledgerRepository;
-        public ViewLedger(GKSViewLedgerModel viewLedgerModel, ILedgerRepository ledgerRepository)
+        public ViewLedger(ViewLedgerModel viewLedgerModel, ILedgerRepository ledgerRepository)
         {
             _viewLedgerModel = viewLedgerModel;
             _ledgerRepository = ledgerRepository;

@@ -24,12 +24,12 @@ namespace GKS.XAML.UserControls
         public ProjectMgmtUC()
         {
             InitializeComponent();
-            DataContext = new GKSProjectManagementModel();
+            DataContext = new ProjectManagementModel();
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            GKSProjectManagementModel vm = DataContext as GKSProjectManagementModel;
+            ProjectManagementModel vm = DataContext as ProjectManagementModel;
 
             AddEditProjectWindow projectWindow = new AddEditProjectWindow {Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset};
             projectWindow.SetOperationType(OperationType.Add);
@@ -38,7 +38,7 @@ namespace GKS.XAML.UserControls
 
         private void buttonView_Click(object sender, RoutedEventArgs e)
         {
-            GKSProjectManagementModel vm = DataContext as GKSProjectManagementModel;
+            ProjectManagementModel vm = DataContext as ProjectManagementModel;
             Project project = vm.SelectedGridItem;
             if (project != null)
             {
@@ -51,7 +51,7 @@ namespace GKS.XAML.UserControls
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            GKSProjectManagementModel vm = DataContext as GKSProjectManagementModel;
+            ProjectManagementModel vm = DataContext as ProjectManagementModel;
             vm.Reset();
         }
     }
