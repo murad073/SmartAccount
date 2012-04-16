@@ -3,350 +3,45 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using BLL.LedgerManagement;
+using BLL.Factories;
+//using BLL.LedgerManagement;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using GKS.Factory;
 using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
 {
-    //public class SelectionItem<T> : INotifyPropertyChanged
-    //{
-    //    #region Fields
-
-    //    private bool _isSelected;
-
-    //    private T _item;
-
-    //    #endregion
-
-    //    #region Properties
-
-    //    public bool IsSelected
-    //    {
-    //        get { return _isSelected; }
-    //        set
-    //        {
-    //            if (value == _isSelected) return;
-    //            _isSelected = value;
-    //            OnPropertyChanged("IsSelected");
-    //            OnSelectionChanged();
-    //            //OnPropertyChanged("AllHeads");
-    //        }
-    //    }
-
-    //    public T Item
-    //    {
-    //        get { return _item; }
-    //        set
-    //        {
-    //            if (value.Equals(_item)) return;
-    //            _item = value;
-    //            OnPropertyChanged("Item");
-    //        }
-    //    }
-
-    //    #endregion
-
-    //    #region Events
-
-    //    public event PropertyChangedEventHandler PropertyChanged;
-
-    //    public event EventHandler SelectionChanged;
-
-    //    #endregion
-
-    //    #region constructor
-
-    //    public SelectionItem(T item)
-    //        : this(false, item)
-    //    {
-    //    }
-
-    //    public SelectionItem(bool selected, T item)
-    //    {
-    //        this._isSelected = selected;
-    //        this._item = item;
-    //    }
-
-    //    #endregion
-
-    //    #region Event invokers
-
-    //    private void OnPropertyChanged(string propertyName)
-    //    {
-    //        PropertyChangedEventHandler changed = PropertyChanged;
-    //        if (changed != null) changed(this, new PropertyChangedEventArgs(propertyName));
-    //    }
-
-    //    private void OnSelectionChanged()
-    //    {
-    //        EventHandler changed = SelectionChanged;
-    //        if (changed != null) changed(this, EventArgs.Empty);
-    //    }
-
-    //    #endregion
-    //}
-
-    //public class SelectionList<T> :
-    //ObservableCollection<SelectionItem<T>> where T : IComparable<T>
-    //{
-    //    #region Properties
-
-    //    /// <summary>
-    //    /// Returns the selected items in the list
-    //    /// </summary>
-    //    private IList<T> _selectedItems;
-    //    public IList<T> SelectedItems
-    //    {
-    //        get
-    //        {
-    //            _selectedItems = this.Where(x => x.IsSelected).Select(x => x.Item);
-    //            return _selectedItems;
-    //        }
-    //    }
-
-    //    /// <summary>
-    //    /// Returns all the items in the SelectionList
-    //    /// </summary>
-    //    public IList<T> AllItems
-    //    {
-    //        get { return this.Select(x => x.Item); }
-    //    }
-
-    //    #endregion
-
-    //    #region ctor
-
-    //    public SelectionList(IList<T> col)
-    //        : base(toSelectionItemEnumerable(col))
-    //    {
-
-    //    }
-
-    //    #endregion
-
-    //    #region Public methods
-
-    //    /// <summary>
-    //    /// Adds the item to the list
-    //    /// </summary>
-    //    /// <param name="item"></param>
-    //    public void Add(T item)
-    //    {
-    //        int i = 0;
-    //        foreach (T existingItem in AllItems)
-    //        {
-    //            if (item.CompareTo(existingItem) < 0) break;
-    //            i++;
-    //        }
-    //        Insert(i, new SelectionItem<T>(item));
-    //    }
-
-    //    /// <summary>
-    //    /// Checks if the item exists in the list
-    //    /// </summary>
-    //    /// <param name="item"></param>
-    //    /// <returns></returns>
-    //    public bool Contains(T item)
-    //    {
-    //        return AllItems.Contains(item);
-    //    }
-
-    //    /// <summary>
-    //    /// Selects all the items in the list
-    //    /// </summary>
-    //    public void SelectAll()
-    //    {
-    //        foreach (SelectionItem<T> selectionItem in this)
-    //        {
-    //            selectionItem.IsSelected = true;
-    //        }
-    //    }
-
-    //    /// <summary>
-    //    /// Unselects all the items in the list
-    //    /// </summary>
-    //    public void UnselectAll()
-    //    {
-    //        foreach (SelectionItem<T> selectionItem in this)
-    //        {
-    //            selectionItem.IsSelected = false;
-    //        }
-    //    }
-
-    //    #endregion
-
-    //    #region Helper methods
-
-    //    /// <summary>
-    //    /// Creates an SelectionList from any IEnumerable
-    //    /// </summary>
-    //    /// <param name="items"></param>
-    //    /// <returns></returns>
-    //    private static IList<SelectionItem<T>> toSelectionItemEnumerable(IList<T> items)
-    //    {
-    //        List<SelectionItem<T>> list = new List<SelectionItem<T>>();
-    //        foreach (T item in items)
-    //        {
-    //            SelectionItem<T> selectionItem = new SelectionItem<T>(item);
-    //            list.Add(selectionItem);
-    //        }
-    //        return list;
-    //    }
-
-    //    #endregion
-    //}
-
-    //public class RelayCommand : ICommand
-    //{
-    //    #region Fields
-
-    //    readonly Action<object> _execute;
-    //    readonly Predicate<object> _canExecute;
-
-    //    #endregion // Fields
-
-    //    #region Constructors
-
-    //    public RelayCommand(Action<object> execute)
-    //        : this(execute, null)
-    //    {
-    //    }
-
-    //    public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-    //    {
-    //        if (execute == null)
-    //            throw new ArgumentNullException("execute");
-
-    //        _execute = execute;
-    //        _canExecute = canExecute;
-    //    }
-    //    #endregion // Constructors
-
-    //    #region ICommand Members
-
-    //    //[DebuggerStepThrough]
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return _canExecute == null ? true : _canExecute(parameter);
-    //    }
-
-    //    public event EventHandler CanExecuteChanged
-    //    {
-    //        add { CommandManager.RequerySuggested += value; }
-    //        remove { CommandManager.RequerySuggested -= value; }
-    //    }
-
-    //    public void Execute(object parameter)
-    //    {
-    //        _execute(parameter);
-    //    }
-
-    //    #endregion // ICommand Members
-    //}
 
     public class ViewLedgerModel : INotifyPropertyChanged
     {
-        //#region Fields
-
-        //private ICommand _selectAllCommand;
-
-        //private ICommand _unselectAllCommand;
-
-        //private ICommand _addCommand;
-
-        //private string _newProject;
-
-        //#endregion
-
-        //#region Properties
-
-        //public SelectionList<string> Projects { get; set; }
-
-        //public string NewProject
-        //{
-        //    get { return _newProject; }
-        //    set
-        //    {
-        //        if (value == _newProject) return;
-        //        _newProject = value;
-        //        OnPropertyChanged("NewProject");
-        //    }
-        //}
-
-        //#endregion
-
-        //#region Commands
-
-        //public ICommand SelectAllCommand
-        //{
-        //    get
-        //    {
-        //        if (_selectAllCommand == null)
-        //        {
-        //            _selectAllCommand = new RelayCommand(param => Projects.SelectAll());
-        //        }
-        //        return _selectAllCommand;
-        //    }
-        //}
-
-        //public ICommand UnselectAllCommand
-        //{
-        //    get
-        //    {
-        //        if (_unselectAllCommand == null)
-        //        {
-        //            _unselectAllCommand = new RelayCommand(param => Projects.UnselectAll());
-        //        }
-        //        return _unselectAllCommand;
-        //    }
-        //}
-
-        //public ICommand AddCommand
-        //{
-        //    get
-        //    {
-        //        if (_addCommand == null)
-        //        {
-        //            _addCommand = new RelayCommand(param =>
-        //            {
-        //                Projects.Add(NewProject);
-        //                NewProject = string.Empty;
-        //            },
-        //            param2=>
-        //                {
-        //                    return true;
-        //                });
-        //        }
-        //        return _addCommand;
-        //    }
-        //}
-
-        //#endregion
-
         #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
-        private readonly ProjectManager _projectManager;
-        private readonly HeadManager _headManager;
-        private readonly LedgerManager _ledgerManager;
+
+        private readonly IProjectManager _projectManager;
+        private readonly IHeadManager _headManager;
+        private readonly ILedgerManager _ledgerManager;
         public ViewLedgerModel()
         {
-            IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
-            IHeadRepository headRepository = GKSFactory.GetHeadRepository();
-            IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
+            //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
+            //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
+            //IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
             ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
-            IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
+            //IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
 
-            _projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
-            _headManager = new HeadManager(headRepository);
-            _ledgerManager = new LedgerManager(ledgerRepository, parameterRepository);
+            //_projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
+            //_headManager = new HeadManager(headRepository);
+            //_ledgerManager =  new LedgerManager(ledgerRepository, parameterRepository);
+
+            _ledgerManager = BLLCoreFactory.GetLedgerManager();
+            _headManager = BLLCoreFactory.GetHeadManager();
+            _projectManager = BLLCoreFactory.GetProjectManager();
 
             AllProjects = _projectManager.GetProjects();
 
@@ -410,7 +105,7 @@ namespace GKS.Model.ViewModels
             get
             {
                 if (SelectedProject == null || SelectedProject.Id <= 0) return null;
-                return _headManager.GetHeads(SelectedProject.Id).ToList(); 
+                return _headManager.GetHeads(SelectedProject.Id).ToList();
             }
         }
 
@@ -478,10 +173,10 @@ namespace GKS.Model.ViewModels
             set
             {
                 _ledgerEndDate = value;
-                if (PropertyChanged != null) 
-                { 
+                if (PropertyChanged != null)
+                {
                     // TODO: Why is it here?
-                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate")); 
+                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate"));
                 }
             }
         }
@@ -519,7 +214,7 @@ namespace GKS.Model.ViewModels
                 }
                 else
                 {
-                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);                    
+                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);
                 }
             }
         }

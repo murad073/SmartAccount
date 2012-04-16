@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Windows.Input;
-
-using BLL.LedgerManagement;
+//using BLL.LedgerManagement;
+using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using GKS.Factory;
 using BLL.Model.Repositories;
-using BLL.ParameterManagement;
+//using BLL.ParameterManagement;
 
 namespace GKS.Model.ViewModels
 {
@@ -19,22 +20,22 @@ namespace GKS.Model.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly ProjectManager _projectManager;
-        private readonly HeadManager _headManager;
-        private readonly LedgerManager _ledgerManager;
-        private readonly ParameterManager _parameterManager;
+        private readonly IProjectManager _projectManager;
+        private readonly IHeadManager _headManager;
+        private readonly ILedgerManager _ledgerManager;
+        private readonly IParameterManager _parameterManager;
         public VoucherViewModel()
         {
-            IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
-            IHeadRepository headRepository = GKSFactory.GetHeadRepository();
-            IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
-            ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
-            IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
+            //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
+            //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
+            //IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
+            //ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
+            //IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
 
-            _projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
-            _headManager = new HeadManager(headRepository);
-            _ledgerManager = new LedgerManager(ledgerRepository, parameterRepository);
-            _parameterManager = new ParameterManager(parameterRepository);
+            _projectManager = BLLCoreFactory.GetProjectManager();
+            _headManager = BLLCoreFactory.GetHeadManager();
+            _ledgerManager = BLLCoreFactory.GetLedgerManager();
+            _parameterManager = BLLCoreFactory.GetParameterManager();
 
             AllProjects = _projectManager.GetProjects();
 

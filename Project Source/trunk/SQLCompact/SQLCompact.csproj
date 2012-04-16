@@ -81,7 +81,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SQLCE.Designer.cs">
-      <DependentUpon>SQLCE.edmx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -90,10 +89,6 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="SQLCE.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SQLCE.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="SQLCE.edmx.sqlce" />
     <None Include="SQLCE2.edmx.sqlce" />
   </ItemGroup>

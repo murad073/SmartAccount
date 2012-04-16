@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using BLL.Factories;
 using BLL.Model;
+using BLL.Model.Managers;
 using BLL.Model.Schema;
-using BLL.ProjectManagement;
+//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
     public class ProjectManagementModel : INotifyPropertyChanged
     {
-        ProjectManager _projectManager;
+        IProjectManager _projectManager;
 
         public ProjectManagementModel()
         {
-            _projectManager = new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
+            _projectManager = BLLCoreFactory.GetProjectManager();// new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
             //SelectedGridItem = null;
             //AddProjectButtonClicked = new AddnewProject(this);
             //ViewProjectButtonClicked = new ViewProject(this);

@@ -4,6 +4,8 @@ using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.ParameterManagement;
+using BLL.ProjectManagement;
+using BLL.VoucherManagement;
 
 namespace BLL.Factories
 {
@@ -42,5 +44,56 @@ namespace BLL.Factories
             throw new ArgumentNullException("message");
         }
 
+        public static IMassVoucherManager GetMassVoucherManager()
+        {
+            if (RecordRepository != null && ProjectRepository != null && HeadRepository !=null)
+            {
+                MassVoucherManager ledgerManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository);
+                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return ledgerManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
+
+        public static IRecordManager GetRecordManager()
+        {
+            if (RecordRepository != null)
+            {
+                RecordManager ledgerManager = new RecordManager(RecordRepository);
+                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return ledgerManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
+
+        public static IHeadManager GetHeadManager()
+        {
+            if (HeadRepository != null)
+            {
+                HeadManager ledgerManager = new HeadManager(HeadRepository);
+                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return ledgerManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
+
+        public static IProjectManager GetProjectManager()
+        {
+            if (ProjectRepository!=null && HeadRepository != null && RecordRepository!=null)
+            {
+                ProjectManager ledgerManager = new ProjectManager(ProjectRepository, HeadRepository, RecordRepository);
+                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return ledgerManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
     }
 }
