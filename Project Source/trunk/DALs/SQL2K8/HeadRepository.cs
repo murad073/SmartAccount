@@ -48,7 +48,6 @@ namespace SQL2K8
         {
             DALHead dalHead = GetDALHead(entity.Name);
             if (dalHead == null) return false;
-            //dalHead.Name = entity.Name;
             dalHead.Type = entity.Type.ToString();
             dalHead.Description = entity.Description;
             dalHead.IsActive = entity.IsActive;

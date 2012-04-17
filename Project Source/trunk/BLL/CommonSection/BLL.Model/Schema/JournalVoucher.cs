@@ -9,7 +9,6 @@ namespace BLL.Model.Schema
         private const string DebitText = "debit";
         private const string CreditText = "credit";
 
-        // ContraType can be "Bank to cash" or "Cash to bank"
         private string _jvDebitOrCredit;
 
         public JournalVoucher(IRecordRepository recordRepository) : base(recordRepository)
@@ -52,7 +51,7 @@ namespace BLL.Model.Schema
             }
         }
 
-        private Exception JVDebitOrCreditNull()
+        private static Exception JVDebitOrCreditNull()
         {
             return new Exception("JVDebitOrCredit can not be null for Journal Voucher."); 
         }

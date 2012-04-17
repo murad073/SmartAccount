@@ -16,32 +16,6 @@ namespace SQL2K8
             _db = DBFactory.Instance.DB;
         }
 
-        //public int Set(string key, string value)
-        //{
-        //    Parameter parameter = new Parameter
-        //                              {
-        //                                  Key = key,
-        //                                  Value = value,
-        //                                  IsActive = true
-        //                              };
-        //    _db.AddToParameters(parameter);
-        //    _db.SaveChanges();
-        //    return parameter.ID;
-        //}
-
-        //public string Get(string key)
-        //{
-        //    Parameter parameter =  _db.Parameters.Where(p => p.Key == key).SingleOrDefault();
-        //    return parameter == null ? "" : parameter.Value;
-        //}
-
-
-        //public bool HasKey(string key)
-        //{
-        //    Parameter parameter = _db.Parameters.Where(p => p.Key == key).SingleOrDefault();
-        //    return parameter != null;
-        //}
-
         public BLLParameter Insert(BLLParameter entity)
         {
             DALParameter dalParameter = GetDALParameter(entity);

@@ -5,9 +5,6 @@ namespace BLL.Model.Schema
 {
     public class CreditVoucher : VoucherBase
     {
-        //public bool IsPaymentInCheque;
-        //public ChequeInfo ChequeInfo;
-
         public CreditVoucher(IRecordRepository recordRepository) : base(recordRepository)
         {
         }

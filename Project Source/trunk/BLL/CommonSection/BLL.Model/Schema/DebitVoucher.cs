@@ -8,8 +8,6 @@ namespace BLL.Model.Schema
         public DebitVoucher(IRecordRepository recordRepository)
             : base(recordRepository)
         { }
-        //public bool IsPaymentInCheque;
-        //public ChequeInfo ChequeInfo;
 
         public override string VoucherTypeKey
         {

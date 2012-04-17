@@ -34,8 +34,6 @@ namespace BLL.ProjectManagement
 
             if (existingProject != null)
             {
-                //_message = MessageService.Instance.Get("ProjectAlreadyExists", MessageType.Error);
-                //_message.MessageText = string.Format(_message.MessageText, project.Name);
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectAlreadyExists", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
                 return false;
             }
@@ -45,11 +43,8 @@ namespace BLL.ProjectManagement
             {
                 int cashBookId = _headRepository.Get("Cash Book").Id;
                 int bankBookId = _headRepository.Get("Bank Book").Id;
-                //int advanceId = _headRepository.Get("Advance").Id;
                 AddHeadsToProject(insertedProject.Id, new int[] { cashBookId, bankBookId });
 
-                //_message = MessageService.Instance.Get("NewProjectSuccessfullyCreated", MessageType.Success);
-                //_message.MessageText = string.Format(_message.MessageText, insertedProject.Name);
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewProjectSuccessfullyCreated", Parameters = new Dictionary<string, string> { { "ProjectName", insertedProject.Name } } });
 
                 if (_headRepository.Get(project.Name) == null)
@@ -83,13 +78,9 @@ namespace BLL.ProjectManagement
             if (existingProject != null)
             {
                 _projectRepository.Update(project);
-                //_message = MessageService.Instance.Get("ProjectSuccessfullyUpdated", MessageType.Success);
-                //_message.MessageText = string.Format(_message.MessageText, existingProject.Name);
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "ProjectSuccessfullyUpdated", Parameters = new Dictionary<string, string> { { "ProjectName", existingProject.Name } } });
                 return true;
             }
-            //_message = MessageService.Instance.Get("ProjectUpdatedFailed", MessageType.Error);
-            //_message.MessageText = string.Format(_message.MessageText, project.Name);
             InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectUpdatedFailed", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
             return false;
         }
@@ -101,10 +92,7 @@ namespace BLL.ProjectManagement
 
             if (project == null)
             {
-                //_message.MessageText = "Invalid project selected.";
-                //_message.MessageType = MessageType.Warning;
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Warning, MessageDescription = "Invalid project selected." });
-
                 return 0;
             }
 

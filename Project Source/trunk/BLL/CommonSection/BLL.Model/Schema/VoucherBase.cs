@@ -15,11 +15,6 @@ namespace BLL.Model.Schema
 
         public double Amount;
 
-        //public override string VoucherNo
-        //{
-        //    get { return VoucherNumberHelper.GetVoucherNumber(VoucherTypeKey, VoucherSerialNo); }
-        //}
-
         public override string LedgerType
         {
             get { return "LedgerBook"; }

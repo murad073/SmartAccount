@@ -19,7 +19,6 @@ namespace SQL2K8
                 if (_instance == null) _instance = new DBFactory();
                 return _instance;
             }
-            //private set { _instance = value; }
         }
 
         public SmartAccountEntities DB = new SmartAccountEntities();

@@ -48,7 +48,6 @@
     <Compile Include="ViewModels\AddEditProjectModel.cs" />
     <Compile Include="ViewModels\HeadMgmtModel.cs" />
     <Compile Include="ViewModels\ViewLedgerModel.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\VoucherPost.cs" />
     <Compile Include="ViewModels\ProjectHeadManagementModel.cs" />
     <Compile Include="ViewModels\ProjectManagementModel.cs" />

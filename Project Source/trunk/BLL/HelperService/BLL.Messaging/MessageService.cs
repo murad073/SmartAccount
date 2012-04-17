@@ -8,12 +8,9 @@ namespace BLL.Messaging
 {
     public class MessageService
     {
-        //private readonly Dictionary<string, Message> _messages;
 
         private MessageService()
         {
-            //_messages = new Dictionary<string, Message>();
-            //AttachAllDefaultMessage();
         }
 
         private static readonly MessageService _instance = new MessageService();
@@ -57,7 +54,7 @@ namespace BLL.Messaging
             MessageQueue.Add(newMessage);
         }
 
-        private bool IsEventForMessage(BLLEventArgs eventArgs)
+        private static bool IsEventForMessage(BLLEventArgs eventArgs)
         {
             if (string.IsNullOrWhiteSpace(eventArgs.MessageKey))
                 return false;

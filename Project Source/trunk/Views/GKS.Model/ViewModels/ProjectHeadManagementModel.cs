@@ -7,8 +7,6 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
@@ -33,7 +31,6 @@ namespace GKS.Model.ViewModels
             SaveProjectsForHead = new SaveProjectHeadRelation(this);
         }
 
-        // Project list box - left sided
         private IList<Project> _allProjectItems;
         public IList<Project> AllProjectItems
         {
@@ -73,7 +70,6 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        // Remaining Heads list box - right sided
         private KeyValuePair<int, string>[] _remainingHeads;
         public KeyValuePair<int, string>[] RemainingHeads
         {
@@ -107,7 +103,6 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        // Project-Head list box - middle placed
         private KeyValuePair<int, string>[] _headsForProject;
         public KeyValuePair<int, string>[] HeadsForProject
         {

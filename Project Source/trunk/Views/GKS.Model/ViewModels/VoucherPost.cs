@@ -7,12 +7,8 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using BLL.Utils;
-//using BLL.VoucherManagement;
-using GKS.Factory;
 using System.Windows.Data;
-using BLL.Model.Repositories;
 
 
 namespace GKS.Model.ViewModels
@@ -25,14 +21,6 @@ namespace GKS.Model.ViewModels
 
         public VoucherPost()
         {
-            //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
-            //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
-            //IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
-
-            //_projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
-            //_headManager = new HeadManager(headRepository);
-
-            //_massVoucherManager = new MassVoucherManager(recordRepository, projectRepository, headRepository);
             _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
             _projectManager = BLLCoreFactory.GetProjectManager();
             _headManager = BLLCoreFactory.GetHeadManager();
@@ -150,7 +138,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedVoucherType = value;
-                VoucherTypeChanged(); // All small event moved to inside the function
+                VoucherTypeChanged(); 
                 if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedVoucherType")); }
             }
         }
@@ -190,7 +178,6 @@ namespace GKS.Model.ViewModels
                 SetPostButtonIsEnabled();
                 SetInputSecondPartIsEnabled();
                 SetJVBalanceZeroMessage();
-                //SetTemporaryButtonIsEnabled();
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("IsJVStartedChecked"));
@@ -472,7 +459,6 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isTemporaryButtonEnabled = value;
-                //SetPostButtonIsEnabled();
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsTemporaryButtonEnabled"));
             }
         }
@@ -570,7 +556,6 @@ namespace GKS.Model.ViewModels
         private bool IsSelectedHeadCapital()
         {
             if (SelectedHead != null)
-                //return _headManager.IsCapitalHead(SelectedHead.Id);
                 return SelectedHead.Type == HeadType.Capital;
             return false;
         }
@@ -613,16 +598,6 @@ namespace GKS.Model.ViewModels
 
         private void SetTemporaryButtonIsEnabled()
         {
-            //bool isTemporaryButtionEnabled = true;
-            //int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
-            //if (count > 0)
-            //{
-            //    if (SelectedVoucherType != "JV") isTemporaryButtionEnabled = false;
-            //    if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isTemporaryButtionEnabled = false;
-            //}
-
-            //IsTemporaryButtonEnabled = isTemporaryButtionEnabled;
-
             bool isTemporaryButtonEnabled;
             if (SelectedVoucherType == "JV") isTemporaryButtonEnabled = IsJVStartedChecked;
             else isTemporaryButtonEnabled = !IsPostButtonEnabled;
@@ -631,7 +606,6 @@ namespace GKS.Model.ViewModels
 
         public void SetPostButtonIsEnabled()
         {
-            // -- IsPostButtonEnabled = !IsTemporaryButtonEnabled;
             bool isPostButtionEnabled = false;
             int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
             if (count > 0)
@@ -665,11 +639,6 @@ namespace GKS.Model.ViewModels
                     ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
             }
-        }
-
-        private bool ValidateAll()
-        {
-            return true;
         }
 
         private void SetAllHeads()
@@ -881,8 +850,6 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            //RecordManager recordManager = new RecordManager(GKSFactory.GetRecordRepository(),
-            //                                                _voucherPost.TemporaryRecords);
             IRecordManager recordManager = BLLCoreFactory.GetRecordManager();
             recordManager.SetRecords(_voucherPost.TemporaryRecords);
             bool isSuccess = recordManager.Save();

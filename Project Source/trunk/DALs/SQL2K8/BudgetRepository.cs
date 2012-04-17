@@ -60,7 +60,6 @@ namespace SQL2K8
         public IList<BLLBudget> GetAll(int projectId)
         {
             return _db.Budgets.Where(b => b.ProjectHead.ProjectID == projectId && b.IsActive==true).Select(GetBLLBudget).ToList();
-            //return _db.Budgets.Where(h => headIds.Contains(h.ID)).Select(GetBLLBudget).ToList();
         }
 
         internal static DALBudget GetDALBudget(int projectHeadId)
@@ -99,14 +98,6 @@ namespace SQL2K8
                 ProjectHeadId = dalBudget.ProjectHeadID.Value
             };
         }
-
-        //public BLLBudget Get(string headName)
-        //{
-        //    DALBudget dalBudget = _db.Budgets.Where(h => h.Name == headName).SingleOrDefault();
-        //    if (dalBudget == null) return null;
-        //    return GetBLLBudget(dalBudget);
-        //}
-
 
         public BLLBudget GetByProjectHeadId(int projectHeadId)
         {

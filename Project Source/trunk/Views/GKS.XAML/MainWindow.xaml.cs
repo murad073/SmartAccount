@@ -31,13 +31,6 @@ namespace GKS.XAML
             ci.DateTimeFormat.FullDateTimePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            //BudgetRepository { get; set; }
-            //HeadRepository { get; set; }
-            //LedgerRepository { get; set; }
-            //ParameterRepository { get; set; 
-            //ProjectRepository { get; set; }
-            //RecordRepository { get; set; }
-
             //BLLCoreFactory.BudgetRepository = GKSFactory.
             BLLCoreFactory.HeadRepository = GKSFactory.GetHeadRepository();
             BLLCoreFactory.LedgerRepository = GKSFactory.GetLedgerRepository();
