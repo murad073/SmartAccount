@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKS.Model.ViewModels;
+using GKS.XAML.Pages;
 
 namespace GKS.XAML.UserControls
 {
@@ -34,7 +35,9 @@ namespace GKS.XAML.UserControls
 
         private void buttonVoucherEdit_Click(object sender, RoutedEventArgs e)
         {
-            VoucherViewModel vm = DataContext as VoucherViewModel;
+            //VoucherViewModel vm = DataContext as VoucherViewModel;
+            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow();
+            voucherWindow.ShowDialog();
         }
     }
 }
