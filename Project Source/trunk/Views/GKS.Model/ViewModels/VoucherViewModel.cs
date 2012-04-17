@@ -16,7 +16,7 @@ using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
 {
-    public class VoucherViewModel
+    public class VoucherViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

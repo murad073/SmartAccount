@@ -1,7 +1,7 @@
 ﻿<Window x:Class="GKS.XAML.Pages.VoucherDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Voucher" Height="400" Width="590">
+        Title="Voucher" Height="420" Width="590">
     <Grid>
         <Label Content="Project:" Height="23" HorizontalAlignment="Left" Margin="73,18,0,0" Name="label1" VerticalAlignment="Top" />
         
@@ -21,9 +21,11 @@
         <TextBox Height="21" HorizontalAlignment="Left" Margin="119,109,0,0" Name="textBox3" VerticalAlignment="Top" Width="140" />
         
         <DataGrid AutoGenerateColumns="False" Height="129" HorizontalAlignment="Left" Margin="41,145,0,0" Name="dataGridVoucherEntries" VerticalAlignment="Top" Width="492" />
-        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="458,323,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" />
-        <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="36,286,0,0" Name="label7" VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Left" Margin="126,288,0,50" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="407" />
-        <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="373,323,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="458,350,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" />
+        <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,284,0,0" Name="label7" VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Right" Margin="0,286,35,72" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="414" />
+        <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="373,350,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="64,315,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,316,0,0" Name="textBox4" VerticalAlignment="Top" Width="414" />
     </Grid>
 </Window>
