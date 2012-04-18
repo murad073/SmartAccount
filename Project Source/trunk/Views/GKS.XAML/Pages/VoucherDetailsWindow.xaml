@@ -1,31 +1,64 @@
 ﻿<Window x:Class="GKS.XAML.Pages.VoucherDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Voucher" Height="420" Width="590">
+        Title="Voucher" Height="440" Width="600"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" >
     <Grid>
-        <Label Content="Project:" Height="23" HorizontalAlignment="Left" Margin="73,18,0,0" Name="label1" VerticalAlignment="Top" />
-        
-        
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,19,0,0" Name="textBoxProject" VerticalAlignment="Top" Width="414" />
-        <Label Content="Voucher no:" Height="24" HorizontalAlignment="Left" Margin="384,49,0,0" Name="label2" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="451,49,0,0" Name="textBoxVoucherNo" VerticalAlignment="Top" Width="82" />
-        <Label Content="Date:" Height="28" HorizontalAlignment="Left" Margin="416,79,0,0" Name="label3" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="451,81,0,0" Name="textBoxDate" VerticalAlignment="Top" Width="82" />
-        
-        
-        <Label Content="Cheque no:" Height="24" HorizontalAlignment="Left" Margin="55,48,0,0" Name="label4" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,51,0,0" Name="textBox1" VerticalAlignment="Top" Width="140" />
-        <Label Content="Date of cheque:" Height="26" HorizontalAlignment="Left" Margin="33,78,0,0" Name="label5" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,80,0,0" Name="textBox2" VerticalAlignment="Top" Width="140" />
-        <Label Content="Bank name:" Height="24" HorizontalAlignment="Left" Margin="53,109,0,0" Name="label6" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,109,0,0" Name="textBox3" VerticalAlignment="Top" Width="140" />
-        
-        <DataGrid AutoGenerateColumns="False" Height="129" HorizontalAlignment="Left" Margin="41,145,0,0" Name="dataGridVoucherEntries" VerticalAlignment="Top" Width="492" />
-        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="458,350,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" />
-        <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,284,0,0" Name="label7" VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Right" Margin="0,286,35,72" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="414" />
-        <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="373,350,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
-        <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="64,315,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,316,0,0" Name="textBox4" VerticalAlignment="Top" Width="414" />
+        <Label Content="Project:" Height="23" HorizontalAlignment="Left" Margin="73,24,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,25,0,0" Name="textBoxProject" VerticalAlignment="Top" Width="424" 
+                 Text="{Binding Path=ProjectName, Mode=TwoWay}" />
+
+        <Label Content="Voucher no:" Height="24" HorizontalAlignment="Left" Margin="394,57,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="461,57,0,0" Name="textBoxVoucherNo" VerticalAlignment="Top" Width="82" 
+                 Text="{Binding Path=VoucherNo, Mode=TwoWay}" />
+        <Label Content="Date:" Height="28" HorizontalAlignment="Left" Margin="426,87,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="461,89,0,0" Name="textBoxDate" VerticalAlignment="Top" Width="82" 
+                 Text="{Binding Path=VoucherDate, Mode=TwoWay}" />
+
+        <Label Content="Cheque no:" Height="24" HorizontalAlignment="Left" Margin="55,54,0,0" Name="label4" VerticalAlignment="Top" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,57,0,0" Name="textBox1" VerticalAlignment="Top" Width="140" 
+                 Text="{Binding Path=ChequeNo, Mode=TwoWay}" />
+        <Label Content="Date of cheque:" Height="26" HorizontalAlignment="Left" Margin="33,84,0,0" Name="label5" VerticalAlignment="Top" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,86,0,0" Name="textBox2" VerticalAlignment="Top" Width="140" 
+                 Text="{Binding Path=ChequeDate, Mode=TwoWay}" />
+        <Label Content="Bank name:" Height="24" HorizontalAlignment="Left" Margin="53,115,0,0" Name="label6" VerticalAlignment="Top" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,115,0,0" Name="textBox3" VerticalAlignment="Top" Width="140" 
+                 Text="{Binding Path=BankName, Mode=TwoWay}" />
+
+        <DataGrid Name="dataGridVoucherEntries"
+                  IsReadOnly="True"
+                  HorizontalGridLinesBrush="Gray"
+                  VerticalGridLinesBrush="Gray"
+                  IsTabStop="False"                  
+                  CanUserSortColumns="False" AutoGenerateColumns="True"                                           
+                  IsSynchronizedWithCurrentItem="True"
+                  Background="Transparent"
+                  RowHeaderWidth="25"                
+                  RowBackground="White"
+                  AlternatingRowBackground="Azure"
+                  AlternationCount="2"
+                  ItemsSource="{Binding Path=VoucherGridItems}"
+                  Height="129" HorizontalAlignment="Left" Margin="41,151,0,0" VerticalAlignment="Top" Width="502" >
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="IsTabStop" Value="False"/>
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+
+        <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,290,0,0" Name="label7" VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="119,290,0,86" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="424" />
+
+        <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="63,321,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,322,0,0" Name="textBox4" VerticalAlignment="Top" Width="424" 
+                 Text="{Binding Path=VoucherNarration, Mode=TwoWay}" />
+
+        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="468,356,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Path=OKButtonClicked}" />
+
+        <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="383,356,0,0" Name="button1" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Path=PrintButtonClicked}" />
     </Grid>
 </Window>

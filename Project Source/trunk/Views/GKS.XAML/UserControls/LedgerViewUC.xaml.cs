@@ -23,12 +23,12 @@ namespace GKS.XAML.UserControls
         public LedgerViewUC()
         {
             InitializeComponent();
-            DataContext = new ViewLedgerModel();
+            DataContext = new LedgerViewModel();
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewLedgerModel vm = DataContext as ViewLedgerModel;
+            LedgerViewModel vm = DataContext as LedgerViewModel;
             vm.Reset();
         }
     }

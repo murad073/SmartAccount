@@ -15,7 +15,7 @@ using BLL.Model.Repositories;
 namespace GKS.Model.ViewModels
 {
 
-    public class ViewLedgerModel : INotifyPropertyChanged
+    public class LedgerViewModel : INotifyPropertyChanged
     {
         #region Events
 
@@ -27,7 +27,7 @@ namespace GKS.Model.ViewModels
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
         private readonly ILedgerManager _ledgerManager;
-        public ViewLedgerModel()
+        public LedgerViewModel()
         {
             //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
             //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
@@ -273,11 +273,11 @@ namespace GKS.Model.ViewModels
 
     public class ViewLedger : ICommand
     {
-        private ViewLedgerModel _viewLedgerModel;
+        private LedgerViewModel _ledgerViewModel;
         private ILedgerRepository _ledgerRepository;
-        public ViewLedger(ViewLedgerModel viewLedgerModel, ILedgerRepository ledgerRepository)
+        public ViewLedger(LedgerViewModel ledgerViewModel, ILedgerRepository ledgerRepository)
         {
-            _viewLedgerModel = viewLedgerModel;
+            _ledgerViewModel = ledgerViewModel;
             _ledgerRepository = ledgerRepository;
         }
 
@@ -290,7 +290,7 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            _viewLedgerModel.NotifyLedgerGrid();
+            _ledgerViewModel.NotifyLedgerGrid();
         }
     }
 }

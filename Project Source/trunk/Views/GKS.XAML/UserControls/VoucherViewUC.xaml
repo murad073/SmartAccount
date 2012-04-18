@@ -57,7 +57,7 @@
         </DataGrid>
 
         <Button Content="Voucher Details" Height="23" HorizontalAlignment="Right" Margin="0,533,84,0" Name="buttonVoucherDetails" VerticalAlignment="Top" Width="97" 
-                Command="{Binding Path=VoucherDetailsButtonClicked}" IsEnabled="True" Click="buttonVoucherEdit_Click" >
+                Command="{Binding Path=VoucherDetailsButtonClicked}" IsEnabled="True" Click="buttonVoucherDetails_Click" >
         </Button>
 
         <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="81,534,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="559" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />

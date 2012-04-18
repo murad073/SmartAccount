@@ -33,10 +33,11 @@ namespace GKS.XAML.UserControls
             vm.Reset();
         }
 
-        private void buttonVoucherEdit_Click(object sender, RoutedEventArgs e)
+        private void buttonVoucherDetails_Click(object sender, RoutedEventArgs e)
         {
-            //VoucherViewModel vm = DataContext as VoucherViewModel;
-            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow();
+            VoucherViewModel vm = DataContext as VoucherViewModel;
+            //Voucher voucher = vm.SelectedGridItem;
+            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
             voucherWindow.ShowDialog();
         }
     }
