@@ -116,6 +116,9 @@
     <Compile Include="Pages\VoucherDetailsWindow.xaml.cs">
       <DependentUpon>VoucherDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BudgetSetup.xaml.cs">
+      <DependentUpon>BudgetSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
       <DependentUpon>VoucherPostUC.xaml</DependentUpon>
@@ -160,6 +163,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\VoucherDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BudgetSetup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
