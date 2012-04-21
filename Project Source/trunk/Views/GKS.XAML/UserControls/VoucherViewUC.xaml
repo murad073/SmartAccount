@@ -39,21 +39,29 @@
         </Button>
 
         <DataGrid 
-            Name="dataGridAllProjects"
                   IsReadOnly="True"
-                  SelectionMode="Single"
-                  SelectedItem="{Binding Path=SelectedGridItem, Mode=OneWayToSource}"
                   GridLinesVisibility="None"                  
-                  IsTextSearchEnabled="True"
-                  HorizontalAlignment="Left" Margin="81,167,0,0" VerticalAlignment="Top" AutoGenerateColumns="False"                                                  
+                  IsTextSearchEnabled="True"                  
+                  Grid.Row="1" 
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"                                                  
                   IsSynchronizedWithCurrentItem="True" 
                   Background="Transparent"
                   RowHeaderWidth="25"
                   RowBackground="White"
                   AlternatingRowBackground="Azure"
-                  AlternationCount="2"
-                  ItemsSource="{Binding Path=VoucherGridViewItems, Mode=OneWay}"
-                  Height="351" Width="675" >
+                  AlternationCount="2"                  
+                  Height="350" HorizontalAlignment="Left" Margin="75,185,0,0" Name="VoucherDataGrid" VerticalAlignment="Top" Width="690" 
+                  ItemsSource="{Binding Path=VoucherGridViewItems, Mode=OneWay}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vouhcer No" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=Head}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Debit" Binding="{Binding Path=Debit}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Credit" Binding="{Binding Path=Credit}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cash/Bank" Binding="{Binding Path=CashOrBank}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
         </DataGrid>
 
         <Button Content="Voucher Details" Height="23" HorizontalAlignment="Right" Margin="0,533,84,0" Name="buttonVoucherDetails" VerticalAlignment="Top" Width="97" 

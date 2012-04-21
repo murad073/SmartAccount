@@ -73,7 +73,7 @@ namespace GKS.Model.ViewModels
                 if (PropertyChanged != null)
                 {
                     //PropertyChanged(this, new PropertyChangedEventArgs("AllHeads"));
-                    //PropertyChanged(this, new PropertyChangedEventArgs("SelectedHead"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedProject"));
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace GKS.Model.ViewModels
         {
             get
             {
-                return new[] { "Debit voucher", "Credit voucher", "Journal voucher", "Contra" };
+                return new[] {"All", "Debit voucher", "Credit voucher", "Journal voucher", "Contra" };
             }
         }
 
@@ -106,7 +106,7 @@ namespace GKS.Model.ViewModels
             {
                 _voucherStartDate = value;
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("VoucherStartDate"));
             }
         }
 
@@ -118,7 +118,7 @@ namespace GKS.Model.ViewModels
             {
                 _voucherEndDate = value;
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("VoucherEndDate"));
             }
         }
 
@@ -149,6 +149,8 @@ namespace GKS.Model.ViewModels
                 //    Particular = l.Particular,
                 //    Remarks = l.Remarks
                 //}).ToList();
+
+                //TODO: murad will do that - > new class and do all union
                 return null;
             }
         }

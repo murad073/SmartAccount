@@ -6,7 +6,7 @@
         <Label Content="Projet:" Height="28" HorizontalAlignment="Left" Margin="61,42,0,0" Name="label1" VerticalAlignment="Top" />
         <ComboBox Height="21" HorizontalAlignment="Right" Margin="0,45,71,0" Name="comboBox1" VerticalAlignment="Top" Width="456" />
         <Label Content="Budget year:" Height="26" HorizontalAlignment="Left" Margin="30,71,0,0" Name="label2" VerticalAlignment="Top" />
-        <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,73,0,0" Name="comboBox2" VerticalAlignment="Top" Width="120" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,76,0,0" Name="comboBox2" VerticalAlignment="Top" Width="120" />
         <Button Content="View/Edit" Height="23" HorizontalAlignment="Left" Margin="483,73,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
         
         <DataGrid AutoGenerateColumns="False" Height="247" HorizontalAlignment="Left" Margin="101,111,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="456" />
