@@ -8,12 +8,8 @@ namespace BLL.Messaging
 {
     public class MessageService
     {
-        //private readonly Dictionary<string, Message> _messages;
-
         private MessageService()
         {
-            //_messages = new Dictionary<string, Message>();
-            //AttachAllDefaultMessage();
         }
 
         private static readonly MessageService _instance = new MessageService();

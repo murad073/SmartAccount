@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using BLL.Factories;
-//using BLL.LedgerManagement;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using GKS.Factory;
 using BLL.Model.Repositories;
 
@@ -29,15 +27,7 @@ namespace GKS.Model.ViewModels
         private readonly ILedgerManager _ledgerManager;
         public LedgerViewModel()
         {
-            //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
-            //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
-            //IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
             ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
-            //IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
-
-            //_projectManager = new ProjectManager(projectRepository, headRepository, recordRepository);
-            //_headManager = new HeadManager(headRepository);
-            //_ledgerManager =  new LedgerManager(ledgerRepository, parameterRepository);
 
             _ledgerManager = BLLCoreFactory.GetLedgerManager();
             _headManager = BLLCoreFactory.GetHeadManager();
@@ -45,16 +35,10 @@ namespace GKS.Model.ViewModels
 
             AllProjects = _projectManager.GetProjects();
 
-            //IList<Project> projects = _projectManager.GetProjects();
-            //Projects = new SelectionList<string>(projects.Select(p => p.Name)); -- For multi selection list.
-
             IsAllHeadsEnabled = true;
             ShowAllAdvance = false;
             LedgerEndDate = DateTime.Now;
             LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
-
-            //ClearMessage();
-            //SelectedProject = _projectManager.GetDefaultProject();
         }
 
         #region Event invokers
@@ -67,7 +51,7 @@ namespace GKS.Model.ViewModels
 
         #endregion
 
-        public IList<Project> _allProjects;
+        private IList<Project> _allProjects;
         public IList<Project> AllProjects
         {
             get
@@ -187,7 +171,6 @@ namespace GKS.Model.ViewModels
             {
                 if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
                 {
-                    //Message latestMessage = _ledgerManager.GetLatestMessage();
                     Message latestMessage = MessageService.Instance.GetLatestMessage();
                     ErrorMessage = latestMessage.MessageText;
                     ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
@@ -273,7 +256,7 @@ namespace GKS.Model.ViewModels
 
     public class ViewLedger : ICommand
     {
-        private LedgerViewModel _ledgerViewModel;
+        private readonly LedgerViewModel _ledgerViewModel;
         private ILedgerRepository _ledgerRepository;
         public ViewLedger(LedgerViewModel ledgerViewModel, ILedgerRepository ledgerRepository)
         {

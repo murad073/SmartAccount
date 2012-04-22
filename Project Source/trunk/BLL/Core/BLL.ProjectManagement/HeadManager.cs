@@ -45,14 +45,10 @@ namespace BLL.ProjectManagement
 
             if (existingHead != null)
             {
-                //_latestMessage = MessageService.Instance.Get("HeadAlreadyExists", MessageType.Error);
-                //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "HeadAlreadyExists", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
                 return false;
             }
             Head insertedHead = _headRepository.Insert(head);
-            //_latestMessage = MessageService.Instance.Get("NewHeadSuccessfullyCreated", MessageType.Success);
-            //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, insertedHead.Name);
             InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewHeadSuccessfullyCreated", Parameters = new Dictionary<string, string> { { "HeadName", insertedHead.Name } } });
             return true;
         }
@@ -64,13 +60,9 @@ namespace BLL.ProjectManagement
             if (existingHead != null)
             {
                 _headRepository.Update(head);
-                //_latestMessage = MessageService.Instance.Get("HeadSuccessfullyUpdated", MessageType.Success);
-                //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "HeadSuccessfullyUpdated", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
                 return true;
             }
-            //_latestMessage = MessageService.Instance.Get("HeadUpdatedFailed", MessageType.Error);
-            //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, head.Name);
             InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "HeadUpdatedFailed", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
             return false;
         }

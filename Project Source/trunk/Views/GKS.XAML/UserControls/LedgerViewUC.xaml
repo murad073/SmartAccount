@@ -9,47 +9,6 @@
 
     <Grid Height="590" Width="840">
         <Label Content="Select a head for a project and click the 'View' button below:" Height="28" HorizontalAlignment="Left" Margin="77,37,0,0" Name="label3" VerticalAlignment="Top" Width="336" />
-
-        <!--<Label Content="Project(s): " Height="23" HorizontalAlignment="Left" Margin="32,131,0,0" Name="label1" VerticalAlignment="Top" Width="59" />
-        <ListBox Height="293" HorizontalAlignment="Left" Margin="35,153,0,0" Name="checkboxList" VerticalAlignment="Top" Width="141" 
-                 SelectionMode="Multiple" ItemsSource="{Binding Projects}" SelectedItem="{Binding Path=SelectedTestProjects, Mode=TwoWay}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemContainerStyle>
-                <Style>
-                    <Setter Property="ListBoxItem.Background" Value="Transparent"/>
-                    <Setter Property="ListBoxItem.Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="Bd" 
-                    SnapsToDevicePixels="true" 
-                    Background="{TemplateBinding Background}" 
-                    BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="{TemplateBinding BorderThickness}" 
-                    Padding="{TemplateBinding Padding}">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="true">
-                                        <Setter Property="Background" TargetName="Bd" Value="Transparent" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Item}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
         
         <Label Content="Project: " Height="26" HorizontalAlignment="Left" Margin="74,68,0,0" Name="label1" VerticalAlignment="Top" Width="50" />
         <ComboBox DisplayMemberPath="Name" HorizontalAlignment="Right" ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" Margin="0,71,111,0" Name="comboBoxProjectItems" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" VerticalAlignment="Top" Width="607" />
@@ -110,11 +69,5 @@
 
         </DataGrid>
         <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="77,555,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="688" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />
-        <!--<Button Content="Select all" Command="{Binding SelectAllCommand}" Height="23" HorizontalAlignment="Left" Margin="35,457,0,0" Name="button4" VerticalAlignment="Top" Width="141" />
-        <Button Content="Unselect all" Command="{Binding UnselectAllCommand}" Height="23" HorizontalAlignment="Left" Margin="35,486,0,0" Name="button5" VerticalAlignment="Top" Width="141" />-->
-
-        <!--<Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="638,524,0,0" Name="button3" VerticalAlignment="Top" Width="75" />
-        <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="727,524,0,0" Name="button1" VerticalAlignment="Top" Width="75" />-->
-
     </Grid>
 </UserControl>

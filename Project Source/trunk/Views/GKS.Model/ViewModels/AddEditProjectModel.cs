@@ -7,7 +7,6 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels
@@ -73,8 +72,6 @@ namespace GKS.Model.ViewModels
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActiveEnabled"));
             }
         }
-
-        //public Project Project { get; set; }
 
         private string _projectNameText;
         public string ProjectNameText
@@ -148,13 +145,13 @@ namespace GKS.Model.ViewModels
 
     public class SaveProject : ICommand
     {
-        AddEditProjectModel _projectModel;
-        IProjectManager _projectManger;
+        private readonly AddEditProjectModel _projectModel;
+        private readonly IProjectManager _projectManger;
 
         public SaveProject(AddEditProjectModel projectModel)
         {
             _projectModel = projectModel;
-            _projectManger = BLLCoreFactory.GetProjectManager();// new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
+            _projectManger = BLLCoreFactory.GetProjectManager();
         }
 
         public bool CanExecute(object parameter)

@@ -11,15 +11,13 @@ namespace SQL2K8
         {
         }
 
-        private static DBFactory _instance;
+        private static DBFactory _instance = new DBFactory();
         public static DBFactory Instance
         {
             get
             {
-                if (_instance == null) _instance = new DBFactory();
                 return _instance;
             }
-            //private set { _instance = value; }
         }
 
         public SmartAccountEntities DB = new SmartAccountEntities();

@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Windows.Input;
-//using BLL.LedgerManagement;
 using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using GKS.Factory;
 using BLL.Model.Repositories;
-//using BLL.ParameterManagement;
 
 namespace GKS.Model.ViewModels
 {
@@ -21,19 +18,11 @@ namespace GKS.Model.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly IProjectManager _projectManager;
-        private readonly IHeadManager _headManager;
         private readonly ILedgerManager _ledgerManager;
         private readonly IParameterManager _parameterManager;
         public VoucherViewModel()
         {
-            //IProjectRepository projectRepository = GKSFactory.GetProjectRepository();
-            //IHeadRepository headRepository = GKSFactory.GetHeadRepository();
-            //IRecordRepository recordRepository = GKSFactory.GetRecordRepository();
-            //ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
-            //IParameterRepository parameterRepository = GKSFactory.GetParameterRepository();
-
             _projectManager = BLLCoreFactory.GetProjectManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
             _ledgerManager = BLLCoreFactory.GetLedgerManager();
             _parameterManager = BLLCoreFactory.GetParameterManager();
 
@@ -45,7 +34,7 @@ namespace GKS.Model.ViewModels
             VoucherDetailsButtonClicked = new ViewVoucherDetails(this);
         }
 
-        public IList<Project> _allProjects;
+        private IList<Project> _allProjects;
         public IList<Project> AllProjects
         {
             get
@@ -72,7 +61,6 @@ namespace GKS.Model.ViewModels
 
                 if (PropertyChanged != null)
                 {
-                    //PropertyChanged(this, new PropertyChangedEventArgs("AllHeads"));
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedProject"));
                 }
             }
@@ -93,7 +81,6 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedVoucherType = value;
-                //VoucherTypeChanged(); // All small event moved to inside the function
                 if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedVoucherType")); }
             }
         }
@@ -199,7 +186,7 @@ namespace GKS.Model.ViewModels
 
     public class ViewVoucherDetails : ICommand
     {
-        private VoucherViewModel _viewVoucherModel;
+        private readonly VoucherViewModel _viewVoucherModel;
         public ViewVoucherDetails(VoucherViewModel viewVoucherModel)
         {
             _viewVoucherModel = viewVoucherModel;

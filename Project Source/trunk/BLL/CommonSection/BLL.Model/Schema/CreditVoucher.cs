@@ -5,9 +5,6 @@ namespace BLL.Model.Schema
 {
     public class CreditVoucher : VoucherBase
     {
-        //public bool IsPaymentInCheque;
-        //public ChequeInfo ChequeInfo;
-
         public CreditVoucher(IRecordRepository recordRepository) : base(recordRepository)
         {
         }
@@ -26,23 +23,6 @@ namespace BLL.Model.Schema
         {
             get { return Amount; }
         }
-
-        //public static CreditVoucher Clone(Record record)
-        //{
-        //    return new CreditVoucher(record.RecordRepository)
-        //    {
-        //        VoucherSerialNo = record.VoucherSerialNo,
-        //        ProjectName = record.ProjectName,
-        //        Date = record.Date,
-        //        Narration = record.Narration,
-        //        LinkedVoucherNo = record.LinkedVoucherNo,
-        //        Tag = record.Tag,
-        //        VoucherTypeKey = record.VoucherTypeKey,
-        //        HeadName = record.HeadName,
-        //        Debit = record.Debit,
-        //        Credit = record.Credit
-        //    };
-        //}
     }
 }
 

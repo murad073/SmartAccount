@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using BLL.DALInterface;
 using BLL.Model;
 using BLL.Model.Schema;
 using DALHead = SQL2K8.Head;
@@ -48,7 +47,6 @@ namespace SQL2K8
         {
             DALHead dalHead = GetDALHead(entity.Name);
             if (dalHead == null) return false;
-            //dalHead.Name = entity.Name;
             dalHead.Type = entity.Type.ToString();
             dalHead.Description = entity.Description;
             dalHead.IsActive = entity.IsActive;

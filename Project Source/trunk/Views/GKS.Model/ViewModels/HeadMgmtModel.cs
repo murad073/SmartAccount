@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
-//using BLL.Model;
 using BLL.Factories;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
     public class HeadMgmtModel : INotifyPropertyChanged
     {
-        IHeadManager _headManager;
+        readonly IHeadManager _headManager;
         public HeadMgmtModel()
         {
             _headManager = BLLCoreFactory.GetHeadManager();

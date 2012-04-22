@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using BLL.Model.Schema;
 using DALBudget = SQL2K8.Budget;
 using BLLBudget = BLL.Model.Schema.Budget;
 using BLL.Model.Repositories;
@@ -10,7 +8,7 @@ namespace SQL2K8
 {
     public class BudgetRepository : IBudgetRepository
     {
-        private SmartAccountEntities _db;
+        private readonly SmartAccountEntities _db;
         public BudgetRepository()
         {
             _db = DBFactory.Instance.DB;
@@ -60,7 +58,6 @@ namespace SQL2K8
         public IList<BLLBudget> GetAll(int projectId)
         {
             return _db.Budgets.Where(b => b.ProjectHead.ProjectID == projectId && b.IsActive==true).Select(GetBLLBudget).ToList();
-            //return _db.Budgets.Where(h => headIds.Contains(h.ID)).Select(GetBLLBudget).ToList();
         }
 
         internal static DALBudget GetDALBudget(int projectHeadId)
@@ -99,14 +96,6 @@ namespace SQL2K8
                 ProjectHeadId = dalBudget.ProjectHeadID.Value
             };
         }
-
-        //public BLLBudget Get(string headName)
-        //{
-        //    DALBudget dalBudget = _db.Budgets.Where(h => h.Name == headName).SingleOrDefault();
-        //    if (dalBudget == null) return null;
-        //    return GetBLLBudget(dalBudget);
-        //}
-
 
         public BLLBudget GetByProjectHeadId(int projectHeadId)
         {

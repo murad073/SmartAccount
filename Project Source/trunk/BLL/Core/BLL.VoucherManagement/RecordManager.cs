@@ -34,7 +34,6 @@ namespace BLL.VoucherManagement
                 if (_records.Any(record => !record.Save()))
                 {
                     success = false;
-                    //_latestMessage = MessageService.Instance.Get("UnknownProblemArise", MessageType.Error);
                     InvokeManagerEvent(EventType.Error, "UnknownProblemArise");
                     
                 }
@@ -43,7 +42,6 @@ namespace BLL.VoucherManagement
                 {
                     if (_recordRepository.CommitTransaction())
                     {
-                        //_latestMessage = MessageService.Instance.Get("VoucherPostedSuccessfully", MessageType.Success);
                         InvokeManagerEvent(EventType.Success, "VoucherPostedSuccessfully");
                     }
                 }
@@ -51,7 +49,6 @@ namespace BLL.VoucherManagement
                 return success;
             }
 
-            //_latestMessage = MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error);
             InvokeManagerEvent(EventType.Success, "VoucherBalanceIsNotZero");
             return false;
         }

@@ -65,7 +65,6 @@ namespace SQL2K8
         {
             DALProject dalProject = GetDALProject(entity.Name);
             if (dalProject == null) return false;
-            //dalProject.Name = entity.Name;
             dalProject.Description = entity.Description;
             dalProject.IsActive = entity.IsActive;
             dalProject.CreateDate = entity.CreateDate;

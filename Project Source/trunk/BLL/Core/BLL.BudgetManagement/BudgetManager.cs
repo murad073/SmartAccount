@@ -35,14 +35,9 @@ namespace BLL.BudgetManagement
 
                 if (insertedBudget != null)
                 {
-                    //_latestMessage = MessageService.Instance.Get("NewBudgetSavedSuccessfully", MessageType.Success);
-                    //_latestMessage.MessageText = string.Format(_latestMessage.MessageText, insertedBudget.Date.Year);
-
                     InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewBudgetSavedSuccessfully", Parameters = new Dictionary<string, string> { { "BudgetYear", insertedBudget.Date.Year.ToString() } } });
-
                     return true;
                 }
-                //_latestMessage = MessageService.Instance.Get("NewBudgetInsertFailed", MessageType.Error);
                 InvokeManagerEvent(EventType.Error, "NewBudgetInsertFailed");
                 return false;
             }
@@ -52,10 +47,8 @@ namespace BLL.BudgetManagement
                 budget.IsActive = true;
                 bool isUpdate = _budgetRepository.Update(budget);
                 if (isUpdate)
-                    //_latestMessage = MessageService.Instance.Get("BudgetUpdatedSuccessfully", MessageType.Success);
                     InvokeManagerEvent(EventType.Success, "BudgetUpdatedSuccessfully");
                 else
-                    //_latestMessage = MessageService.Instance.Get("BudgetUpdatedFailed", MessageType.Error);
                     InvokeManagerEvent(EventType.Error, "BudgetUpdatedFailed");
                 return isUpdate;
             }

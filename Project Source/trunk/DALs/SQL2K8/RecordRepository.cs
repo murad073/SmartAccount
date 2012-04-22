@@ -26,46 +26,6 @@ namespace SQL2K8
             return pc.ID;
         }
 
-        //public int InsertLedgerBookRow(BLL.Model.Record.Record record, string recordType = "LedgerBook")
-        //{
-        //    Record dalRecord = new Record { Type = recordType, ProjectHeadID = GetProjectHeadId(record.ProjectId, record.HeadId), Date = record.Date, VoucherType = record.VoucherType, VoucherSerialNo = record.VoucherSerialNo, Debit = record.Debit, Credit = record.Credit, Narration = record.Description };
-        //    db.AddToRecords(dalRecord);
-        //    db.SaveChanges();
-
-        //    return dalRecord.ID;
-        //}
-
-        //public int InsertCashBookRow(BLL.Model.Record.Record record)
-        //{
-        //    Record dalRecord = new Record { Type = "CashBook", ProjectHeadID = GetProjectHeadId(record.ProjectId, record.HeadId), Date = record.Date, VoucherType = record.VoucherType, VoucherSerialNo = record.VoucherSerialNo, Debit = record.Debit, Credit = record.Credit, Narration = record.Description };
-        //    db.AddToRecords(dalRecord);
-        //    db.SaveChanges();
-
-        //    return dalRecord.ID;
-        //}
-
-        //public int InsertBankBookRow(BLL.Model.Record.BankRecord record)
-        //{
-        //    int recordId = InsertLedgerBookRow(record, "BankBook");
-
-        //    BankRecord dalBankRecord = new BankRecord { RecordID = recordId, ChequeNo = record.ChequeNo };
-        //    db.AddToBankRecords(dalBankRecord);
-        //    db.SaveChanges();
-
-        //    return dalBankRecord.ID;
-        //}
-
-        //public int InsertFixedAssetRow(FixedAssetRecord record)
-        //{
-        //    int recordId = InsertLedgerBookRow(record);
-
-        //    FixedAsset dalFixedAssetRecord = new FixedAsset { RecordID = recordId, Name = record.FixedAssetName, DepreciationRate = record.DepreciationRate };
-        //    db.AddToFixedAssets(dalFixedAssetRecord);
-        //    db.SaveChanges();
-
-        //    return dalFixedAssetRecord.ID;
-        //}
-
         public bool IsRecordFound(string key, int serialNo)
         {
             Record record = _db.Records.Where(r => r.VoucherType == key && r.VoucherSerialNo == serialNo).SingleOrDefault();

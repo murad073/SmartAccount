@@ -7,7 +7,6 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Managers;
 using BLL.Model.Schema;
-//using BLL.ProjectManagement;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels

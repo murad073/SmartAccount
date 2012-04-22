@@ -77,21 +77,18 @@ namespace BLL.VoucherManagement
 
         private bool SetErrorMessage(string messageKey)
         {
-            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Error);
             InvokeManagerEvent(EventType.Error, messageKey);
             return false;
         }
 
         private bool SetWarningMessage(string messageKey)
         {
-            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Warning);
             InvokeManagerEvent(EventType.Warning, messageKey);
             return true;
         }
 
         private bool SetInformationMessage(string messageKey)
         {
-            //_latestMessage = MessageService.Instance.Get(messageKey, MessageType.Information);
             InvokeManagerEvent(EventType.Information, messageKey);
             return true;
         }

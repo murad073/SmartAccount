@@ -50,7 +50,7 @@ namespace BLL.LedgerManagement
 
             return
                 _ledgerRepository.GetLedger(projectId, headId).OrderBy(l => l.Date).Where(
-                    l => GetDateAt12AM(l.Date) >= financialYearStartDate && GetDateAt12AM(l.Date) <= LedgerEndDate).
+                    l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
                     ToList();
         }
 
@@ -59,7 +59,7 @@ namespace BLL.LedgerManagement
             return _ledgerRepository.GetLedger(projectId);
         }
 
-        public DateTime GetDateAt12AM(DateTime date)
+        public DateTime GetDateAt12Am(DateTime date)
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }

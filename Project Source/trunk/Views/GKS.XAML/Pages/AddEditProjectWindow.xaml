@@ -24,9 +24,7 @@
         </DatePicker>
 
         <Label Content="Status:" Height="28" HorizontalAlignment="Center" Name="labelStatus" VerticalAlignment="Center" IsEnabled="False" Margin="102,83,392,211" />
-        <!--<ComboBox Height="26" HorizontalAlignment="Left" Margin="180,217,0,0" Name="comboBoxStatus" VerticalAlignment="Top" Width="115"
-                  ItemsSource="{Binding Path=StatusCombo, Mode=TwoWay}" SelectedItem="{Binding Path=StatusComboSelected, Mode=TwoWay}" >
-        </ComboBox>-->
+
         <RadioButton Content="Active" Height="16" HorizontalAlignment="Center" Name="radioButtonActive" VerticalAlignment="Center" Width="54"
                      GroupName="Status" IsChecked="{Binding Path=IsActive, Mode=TwoWay}" IsEnabled="{Binding Path=IsActiveEnabled, Mode=TwoWay}" Margin="152,89,332,217">
         </RadioButton>
@@ -45,12 +43,5 @@
 
         <TextBlock Width="510" Text="{Binding Path=MessageText, Mode=TwoWay}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="8,260,21,0" TextAlignment="Center" Name="messageTextBlock" VerticalAlignment="Top" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Height="41" />
 
-        <!--<GroupBox Header="Create/Edit Project" Height="240" HorizontalAlignment="Center" Margin="76,35,79,62" Name="groupBox1" VerticalAlignment="Center" Width="333"></GroupBox>
-        <Grid Margin="84,49,87,70">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="321*" />
-            </Grid.ColumnDefinitions>
-        </Grid>-->
     </Grid>
 </Window>

@@ -8,8 +8,6 @@ namespace BLL.Model.Schema
         public DebitVoucher(IRecordRepository recordRepository)
             : base(recordRepository)
         { }
-        //public bool IsPaymentInCheque;
-        //public ChequeInfo ChequeInfo;
 
         public override string VoucherTypeKey
         {
@@ -25,23 +23,5 @@ namespace BLL.Model.Schema
         {
             get { return 0; }
         }
-
-
-        //public static DebitVoucher Clone(Record record)
-        //{
-        //    return new DebitVoucher(record.RecordRepository)
-        //               {
-        //                   VoucherSerialNo = record.VoucherSerialNo,
-        //                   ProjectName = record.ProjectName,
-        //                   Date = record.Date,
-        //                   Narration = record.Narration,
-        //                   LinkedVoucherNo = record.LinkedVoucherNo,
-        //                   Tag = record.Tag,
-        //                   VoucherTypeKey = record.VoucherTypeKey,
-        //                   HeadName = record.HeadName,
-        //                   Debit = record.Debit,
-        //                   Credit = record.Credit
-        //               };
-        //}
     }
 }

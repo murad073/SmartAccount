@@ -50,7 +50,6 @@
     <Compile Include="Managers\IRecordManager.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Repositories\IBudgetRepository.cs" />
-    <Compile Include="Log\ILogger.cs" />
     <Compile Include="Repositories\IParameterRepository.cs" />
     <Compile Include="Schema\ChequeInfo.cs" />
     <Compile Include="Constants.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="Schema\TransactionInCash.cs" />
     <Compile Include="Schema\TransactionInCheque.cs" />
     <Compile Include="Schema\VoucherBase.cs" />
-    <Compile Include="Schema\VoucherFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HelperService\BLL.Utils\BLL.Utils.csproj">

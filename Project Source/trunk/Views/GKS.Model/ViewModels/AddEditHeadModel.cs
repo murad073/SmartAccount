@@ -19,7 +19,6 @@ namespace GKS.Model.ViewModels
         {
             SaveButtonClicked = new SaveNewHead(this);
             CloseButtonClicked = new CloseAddHeadWindow(this);
-            //Head = new Head { IsActive = true };
             IsActive = true;
         }
 
@@ -67,8 +66,6 @@ namespace GKS.Model.ViewModels
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActiveEnabled"));
             }
         }
-
-        //public Head Head { get; set; }
 
         private string _headName;
         public string HeadName
@@ -144,8 +141,8 @@ namespace GKS.Model.ViewModels
 
     public class SaveNewHead : ICommand
     {
-        AddEditHeadModel _addEditHeadModel;
-        IHeadManager _headManager;
+        private readonly AddEditHeadModel _addEditHeadModel;
+        private readonly IHeadManager _headManager;
         public SaveNewHead(AddEditHeadModel addEditHeadModel)
         {
             _addEditHeadModel = addEditHeadModel;
@@ -181,7 +178,7 @@ namespace GKS.Model.ViewModels
 
     public class CloseAddHeadWindow : ICommand
     {
-        AddEditHeadModel _addEditHeadModel;
+        private readonly AddEditHeadModel _addEditHeadModel;
         public CloseAddHeadWindow(AddEditHeadModel addEditHeadModel)
         {
             _addEditHeadModel = addEditHeadModel;

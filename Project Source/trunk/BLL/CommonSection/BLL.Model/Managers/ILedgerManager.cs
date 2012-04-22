@@ -8,9 +8,8 @@ namespace BLL.Model.Managers
     {
         DateTime LedgerEndDate { get; set; }
         bool Validate(Project project, Head head, bool showAllAdvance);
-        //Message GetLatestMessage();
         IList<Ledger> GetLedgerBook(int projectId, int headId, bool isCashBankShown = false);
         IList<Ledger> GetAllAdvance(int projectId);
-        DateTime GetDateAt12AM(DateTime date);
+        DateTime GetDateAt12Am(DateTime date);
     }
 }

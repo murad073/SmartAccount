@@ -6,7 +6,7 @@ namespace BLL.Model.Managers
     {
         public virtual event EventHandler<BLLEventArgs> ManagerEvent;
 
-        public virtual string ModuleName { get { return this.GetType().Name; } }
+        public virtual string ModuleName { get { return GetType().Name; } }
 
         public void InvokeManagerEvent(string message)
         {

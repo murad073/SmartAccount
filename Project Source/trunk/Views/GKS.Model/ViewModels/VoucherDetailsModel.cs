@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -114,7 +111,7 @@ namespace GKS.Model.ViewModels
 
     public class VoucherDetailsOK : ICommand
     {
-        VoucherDetailsModel _voucherModel;
+        readonly VoucherDetailsModel _voucherModel;
         public VoucherDetailsOK(VoucherDetailsModel voucherModel)
         {
             _voucherModel = voucherModel;
@@ -122,8 +119,6 @@ namespace GKS.Model.ViewModels
 
         public bool CanExecute(object parameter)
         {
-            //if (_voucherModel.CloseWindow != null)
-            //    return true;
             return true;
         }
 
