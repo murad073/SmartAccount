@@ -33,9 +33,11 @@ namespace BLL.Messaging
 
         public void ManagerEventHandler(object sender, BLLEventArgs eventArgs)
         {
-            if (!IsEventForMessage(eventArgs)) return;
+            string messageText;
 
-            string messageText = ConfigValues.Get(eventArgs.MessageKey);
+            if (!IsEventForMessage(eventArgs, out messageText)) return;
+
+            //string messageText = ConfigValues.Get(eventArgs.MessageKey);
 
             if (eventArgs.Parameters != null && eventArgs.Parameters.Count > 0)
             {
@@ -53,13 +55,22 @@ namespace BLL.Messaging
             MessageQueue.Add(newMessage);
         }
 
-        private bool IsEventForMessage(BLLEventArgs eventArgs)
+        private bool IsEventForMessage(BLLEventArgs eventArgs, out string messageText)
         {
-            if (string.IsNullOrWhiteSpace(eventArgs.MessageKey))
-                return false;
+            messageText = "";
+            bool isEventForMessage = true;
+            if (string.IsNullOrWhiteSpace(eventArgs.MessageKey) && string.IsNullOrWhiteSpace(eventArgs.MessageDescription))
+                isEventForMessage = false;
             if (!new[] { EventType.Error, EventType.Information, EventType.Success, EventType.Warning }.Contains(eventArgs.EventType))
-                return false;
-            return true;
+                isEventForMessage = false;
+
+            if (isEventForMessage)
+            {
+                messageText = ConfigValues.Get(eventArgs.MessageKey);
+                if (string.IsNullOrWhiteSpace(messageText)) messageText = eventArgs.MessageDescription;
+            }
+
+            return isEventForMessage;
         }
 
         public void Reset()

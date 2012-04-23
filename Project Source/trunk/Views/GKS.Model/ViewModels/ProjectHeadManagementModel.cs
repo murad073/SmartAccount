@@ -202,7 +202,6 @@ namespace GKS.Model.ViewModels
 
             if (head.Key > 0)
             {
-
                 List<KeyValuePair<int, string>> existingHeads = _projectHeadModel.HeadsForProject.ToList();
                 existingHeads.Add(head);
                 _projectHeadModel.HeadsForProject = existingHeads.ToArray();
@@ -275,7 +274,9 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
+            MessageService.Instance.Reset();
             string message = "";
+
             if (_projectHeadModel.RemainingHeads != null && _projectHeadModel.RemainingHeads.Count() > 0)
             {
                 int[] removeHeadIds = _projectHeadModel.RemainingHeads.Select(rc => rc.Key).ToArray();

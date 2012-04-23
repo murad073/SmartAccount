@@ -25,6 +25,9 @@ namespace GKS.XAML
     {
         public MainWindow()
         {
+            GKSFactory.RepositoryType = RepositoryType.SqlCompact;
+            //GKSFactory.RepositoryType = RepositoryType.SqlExpress;
+
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             ci.DateTimeFormat.LongDatePattern = "dd-MM-yyyy";

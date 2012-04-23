@@ -12,6 +12,7 @@
     <AssemblyName>SQLCompact</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -81,16 +81,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SQLCE.Designer.cs">
-      <DesignTime>True</DesignTime>
+      <DependentUpon>SQLCE.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SQLCE.edmx.sqlce" />
-    <None Include="SQLCE2.edmx.sqlce" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -120,15 +114,24 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
+      <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
+      <Name>BLL.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL2K8.edmx.sql" />
     <Content Include="SQLCE.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
-      <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
-      <Name>BLL.Model</Name>
-    </ProjectReference>
+    <None Include="App.Config" />
+    <EntityDeploy Include="SQLCE.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SQLCE.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SQLCE.edmx.sqlce" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

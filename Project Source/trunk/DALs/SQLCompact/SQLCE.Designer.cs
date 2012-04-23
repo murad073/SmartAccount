@@ -18,13 +18,13 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_BankRecord_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Record), "BankRecord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.BankRecord), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_FixedAsset_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.Record), "FixedAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.FixedAsset), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_ProjectHead_Head", "Head", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Head), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.OpeningBalance), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Record), true)]
-[assembly: EdmRelationshipAttribute("SQLCEModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Budget), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_BankRecord_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Record), "BankRecord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.BankRecord), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_FixedAsset_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.Record), "FixedAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.FixedAsset), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_ProjectHead_Head", "Head", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Head), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.OpeningBalance), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.ProjectHead), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQLCompact.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Record), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountCEModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQLCompact.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQLCompact.Budget), true)]
 
 #endregion
 
@@ -330,7 +330,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="BankRecord")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="BankRecord")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class BankRecord : EntityObject
@@ -510,16 +510,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_BankRecord_Record", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_BankRecord_Record", "Record")]
         public Record Record
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_BankRecord_Record", "Record").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_BankRecord_Record", "Record").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_BankRecord_Record", "Record").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_BankRecord_Record", "Record").Value = value;
             }
         }
         /// <summary>
@@ -531,13 +531,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_BankRecord_Record", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_BankRecord_Record", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SQLCEModel.FK_BankRecord_Record", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SmartAccountCEModel.FK_BankRecord_Record", "Record", value);
                 }
             }
         }
@@ -548,7 +548,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Budget")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Budget")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Budget : EntityObject
@@ -728,16 +728,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_Budget_ProjectHead", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_Budget_ProjectHead", "ProjectHead")]
         public ProjectHead ProjectHead
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Budget_ProjectHead", "ProjectHead").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Budget_ProjectHead", "ProjectHead").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Budget_ProjectHead", "ProjectHead").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Budget_ProjectHead", "ProjectHead").Value = value;
             }
         }
         /// <summary>
@@ -749,13 +749,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Budget_ProjectHead", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Budget_ProjectHead", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SQLCEModel.FK_Budget_ProjectHead", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Budget_ProjectHead", "ProjectHead", value);
                 }
             }
         }
@@ -766,7 +766,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="FixedAsset")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="FixedAsset")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class FixedAsset : EntityObject
@@ -968,16 +968,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_FixedAsset_Record", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_FixedAsset_Record", "Record")]
         public Record Record
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_FixedAsset_Record", "Record").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_FixedAsset_Record", "Record").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_FixedAsset_Record", "Record").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_FixedAsset_Record", "Record").Value = value;
             }
         }
         /// <summary>
@@ -989,13 +989,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SQLCEModel.FK_FixedAsset_Record", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Record>("SmartAccountCEModel.FK_FixedAsset_Record", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SQLCEModel.FK_FixedAsset_Record", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Record>("SmartAccountCEModel.FK_FixedAsset_Record", "Record", value);
                 }
             }
         }
@@ -1006,7 +1006,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Head")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Head")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Head : EntityObject
@@ -1190,18 +1190,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_ProjectHead_Head", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_ProjectHead_Head", "ProjectHead")]
         public EntityCollection<ProjectHead> ProjectHeads
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SQLCEModel.FK_ProjectHead_Head", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SmartAccountCEModel.FK_ProjectHead_Head", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SQLCEModel.FK_ProjectHead_Head", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SmartAccountCEModel.FK_ProjectHead_Head", "ProjectHead", value);
                 }
             }
         }
@@ -1212,7 +1212,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Log")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Log")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Log : EntityObject
@@ -1365,7 +1365,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="OpeningBalance")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="OpeningBalance")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class OpeningBalance : EntityObject
@@ -1545,16 +1545,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead")]
         public ProjectHead ProjectHead
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead").Value = value;
             }
         }
         /// <summary>
@@ -1566,13 +1566,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "ProjectHead", value);
                 }
             }
         }
@@ -1583,7 +1583,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Parameter")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Parameter")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Parameter : EntityObject
@@ -1714,7 +1714,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Project")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Project")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Project : EntityObject
@@ -1874,18 +1874,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_ProjectHead_Project", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_ProjectHead_Project", "ProjectHead")]
         public EntityCollection<ProjectHead> ProjectHeads
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SQLCEModel.FK_ProjectHead_Project", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProjectHead>("SmartAccountCEModel.FK_ProjectHead_Project", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SQLCEModel.FK_ProjectHead_Project", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProjectHead>("SmartAccountCEModel.FK_ProjectHead_Project", "ProjectHead", value);
                 }
             }
         }
@@ -1896,7 +1896,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="ProjectHead")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="ProjectHead")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class ProjectHead : EntityObject
@@ -2032,16 +2032,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_ProjectHead_Head", "Head")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_ProjectHead_Head", "Head")]
         public Head Head
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SQLCEModel.FK_ProjectHead_Head", "Head").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountCEModel.FK_ProjectHead_Head", "Head").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SQLCEModel.FK_ProjectHead_Head", "Head").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountCEModel.FK_ProjectHead_Head", "Head").Value = value;
             }
         }
         /// <summary>
@@ -2053,13 +2053,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SQLCEModel.FK_ProjectHead_Head", "Head");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Head>("SmartAccountCEModel.FK_ProjectHead_Head", "Head");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Head>("SQLCEModel.FK_ProjectHead_Head", "Head", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Head>("SmartAccountCEModel.FK_ProjectHead_Head", "Head", value);
                 }
             }
         }
@@ -2070,18 +2070,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_OpeningBalance_ProjectCategory", "OpeningBalance")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_OpeningBalance_ProjectCategory", "OpeningBalance")]
         public EntityCollection<OpeningBalance> OpeningBalances
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OpeningBalance>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OpeningBalance>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OpeningBalance>("SQLCEModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OpeningBalance>("SmartAccountCEModel.FK_OpeningBalance_ProjectCategory", "OpeningBalance", value);
                 }
             }
         }
@@ -2092,16 +2092,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_ProjectHead_Project", "Project")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_ProjectHead_Project", "Project")]
         public Project Project
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SQLCEModel.FK_ProjectHead_Project", "Project").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountCEModel.FK_ProjectHead_Project", "Project").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SQLCEModel.FK_ProjectHead_Project", "Project").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountCEModel.FK_ProjectHead_Project", "Project").Value = value;
             }
         }
         /// <summary>
@@ -2113,13 +2113,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SQLCEModel.FK_ProjectHead_Project", "Project");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("SmartAccountCEModel.FK_ProjectHead_Project", "Project");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("SQLCEModel.FK_ProjectHead_Project", "Project", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("SmartAccountCEModel.FK_ProjectHead_Project", "Project", value);
                 }
             }
         }
@@ -2130,18 +2130,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_Record_ProjectCategory", "Record")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_Record_ProjectCategory", "Record")]
         public EntityCollection<Record> Records
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Record>("SQLCEModel.FK_Record_ProjectCategory", "Record");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Record>("SmartAccountCEModel.FK_Record_ProjectCategory", "Record");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("SQLCEModel.FK_Record_ProjectCategory", "Record", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("SmartAccountCEModel.FK_Record_ProjectCategory", "Record", value);
                 }
             }
         }
@@ -2152,18 +2152,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_Budget_ProjectHead", "Budget")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_Budget_ProjectHead", "Budget")]
         public EntityCollection<Budget> Budgets
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SQLCEModel.FK_Budget_ProjectHead", "Budget");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SmartAccountCEModel.FK_Budget_ProjectHead", "Budget");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SQLCEModel.FK_Budget_ProjectHead", "Budget", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SmartAccountCEModel.FK_Budget_ProjectHead", "Budget", value);
                 }
             }
         }
@@ -2174,7 +2174,7 @@ namespace SQLCompact
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SQLCEModel", Name="Record")]
+    [EdmEntityTypeAttribute(NamespaceName="SmartAccountCEModel", Name="Record")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Record : EntityObject
@@ -2512,18 +2512,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_BankRecord_Record", "BankRecord")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_BankRecord_Record", "BankRecord")]
         public EntityCollection<BankRecord> BankRecords
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BankRecord>("SQLCEModel.FK_BankRecord_Record", "BankRecord");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BankRecord>("SmartAccountCEModel.FK_BankRecord_Record", "BankRecord");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BankRecord>("SQLCEModel.FK_BankRecord_Record", "BankRecord", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BankRecord>("SmartAccountCEModel.FK_BankRecord_Record", "BankRecord", value);
                 }
             }
         }
@@ -2534,18 +2534,18 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_FixedAsset_Record", "FixedAsset")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_FixedAsset_Record", "FixedAsset")]
         public EntityCollection<FixedAsset> FixedAssets
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FixedAsset>("SQLCEModel.FK_FixedAsset_Record", "FixedAsset");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FixedAsset>("SmartAccountCEModel.FK_FixedAsset_Record", "FixedAsset");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FixedAsset>("SQLCEModel.FK_FixedAsset_Record", "FixedAsset", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FixedAsset>("SmartAccountCEModel.FK_FixedAsset_Record", "FixedAsset", value);
                 }
             }
         }
@@ -2556,16 +2556,16 @@ namespace SQLCompact
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SQLCEModel", "FK_Record_ProjectCategory", "ProjectHead")]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountCEModel", "FK_Record_ProjectCategory", "ProjectHead")]
         public ProjectHead ProjectHead
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Record_ProjectCategory", "ProjectHead").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Record_ProjectCategory", "ProjectHead").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Record_ProjectCategory", "ProjectHead").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Record_ProjectCategory", "ProjectHead").Value = value;
             }
         }
         /// <summary>
@@ -2577,13 +2577,13 @@ namespace SQLCompact
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SQLCEModel.FK_Record_ProjectCategory", "ProjectHead");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Record_ProjectCategory", "ProjectHead");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SQLCEModel.FK_Record_ProjectCategory", "ProjectHead", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProjectHead>("SmartAccountCEModel.FK_Record_ProjectCategory", "ProjectHead", value);
                 }
             }
         }

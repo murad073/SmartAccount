@@ -91,9 +91,9 @@ namespace SQL2K8
                 Id = dalBudget.ID,
                 Amount = dalBudget.Amount,
                 Date = dalBudget.Date.Value,
-                IsActive = dalBudget.IsActive == true,
+                IsActive = dalBudget.IsActive,
                 Note = dalBudget.Note,
-                ProjectHeadId = dalBudget.ProjectHeadID.Value
+                ProjectHeadId = dalBudget.ProjectHeadID
             };
         }
 

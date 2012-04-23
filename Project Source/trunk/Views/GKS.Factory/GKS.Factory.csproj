@@ -52,6 +52,10 @@
       <Project>{BA605CD0-1CB4-4289-B4C7-CA6B2DC928BA}</Project>
       <Name>SQL2K8</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DALs\SQLCompact\SQLCompact.csproj">
+      <Project>{556C90B7-EFF6-4474-BFCE-4149D4077712}</Project>
+      <Name>SQLCompact</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

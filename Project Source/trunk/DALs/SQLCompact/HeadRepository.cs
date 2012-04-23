@@ -11,7 +11,7 @@ namespace SQLCompact
         private SQLCEEntities _db;
         public HeadRepository()
         {
-            _db = DBFactory.Instance.DB;
+            _db = SQLCEFactory.Instance.DB;
         }
 
         public BLL.Model.Schema.Head Get(int id)
@@ -63,12 +63,12 @@ namespace SQLCompact
 
         internal static DALHead GetDALHead(int id)
         {
-            return DBFactory.Instance.DB.Heads.Where(h => h.ID == id).SingleOrDefault();
+            return SQLCEFactory.Instance.DB.Heads.Where(h => h.ID == id).SingleOrDefault();
         }
 
         internal static DALHead GetDALHead(string name)
         {
-            return DBFactory.Instance.DB.Heads.Where(h => h.Name == name).SingleOrDefault();
+            return SQLCEFactory.Instance.DB.Heads.Where(h => h.Name == name).SingleOrDefault();
         }
 
         internal static DALHead GetDALHead(BLL.Model.Schema.Head bllHead)

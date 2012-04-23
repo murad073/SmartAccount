@@ -19,12 +19,12 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_BankRecord_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.Record), "BankRecord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.BankRecord), true)]
+[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.Budget), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_FixedAsset_Record", "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQL2K8.Record), "FixedAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.FixedAsset), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_ProjectHead_Head", "Head", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.Head), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.ProjectHead), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_OpeningBalance_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQL2K8.ProjectHead), "OpeningBalance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.OpeningBalance), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_ProjectHead_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.Project), "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.ProjectHead), true)]
 [assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Record_ProjectCategory", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SQL2K8.ProjectHead), "Record", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.Record), true)]
-[assembly: EdmRelationshipAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "ProjectHead", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SQL2K8.ProjectHead), "Budget", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SQL2K8.Budget), true)]
 
 #endregion
 
@@ -91,6 +91,22 @@ namespace SQL2K8
             }
         }
         private ObjectSet<BankRecord> _BankRecords;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Budget> Budgets
+        {
+            get
+            {
+                if ((_Budgets == null))
+                {
+                    _Budgets = base.CreateObjectSet<Budget>("Budgets");
+                }
+                return _Budgets;
+            }
+        }
+        private ObjectSet<Budget> _Budgets;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -219,22 +235,6 @@ namespace SQL2K8
             }
         }
         private ObjectSet<Record> _Records;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Budget> Budgets
-        {
-            get
-            {
-                if ((_Budgets == null))
-                {
-                    _Budgets = base.CreateObjectSet<Budget>("Budgets");
-                }
-                return _Budgets;
-            }
-        }
-        private ObjectSet<Budget> _Budgets;
 
         #endregion
         #region AddTo Methods
@@ -245,6 +245,14 @@ namespace SQL2K8
         public void AddToBankRecords(BankRecord bankRecord)
         {
             base.AddObject("BankRecords", bankRecord);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Budgets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBudgets(Budget budget)
+        {
+            base.AddObject("Budgets", budget);
         }
     
         /// <summary>
@@ -309,14 +317,6 @@ namespace SQL2K8
         public void AddToRecords(Record record)
         {
             base.AddObject("Records", record);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Budgets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBudgets(Budget budget)
-        {
-            base.AddObject("Budgets", budget);
         }
 
         #endregion
@@ -559,12 +559,16 @@ namespace SQL2K8
         /// Create a new Budget object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="projectHeadID">Initial value of the ProjectHeadID property.</param>
         /// <param name="amount">Initial value of the Amount property.</param>
-        public static Budget CreateBudget(global::System.Int32 id, global::System.Double amount)
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static Budget CreateBudget(global::System.Int32 id, global::System.Int32 projectHeadID, global::System.Double amount, global::System.Boolean isActive)
         {
             Budget budget = new Budget();
             budget.ID = id;
+            budget.ProjectHeadID = projectHeadID;
             budget.Amount = amount;
+            budget.IsActive = isActive;
             return budget;
         }
 
@@ -601,9 +605,9 @@ namespace SQL2K8
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ProjectHeadID
+        public global::System.Int32 ProjectHeadID
         {
             get
             {
@@ -618,8 +622,8 @@ namespace SQL2K8
                 OnProjectHeadIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _ProjectHeadID;
-        partial void OnProjectHeadIDChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _ProjectHeadID;
+        partial void OnProjectHeadIDChanging(global::System.Int32 value);
         partial void OnProjectHeadIDChanged();
     
         /// <summary>
@@ -697,9 +701,9 @@ namespace SQL2K8
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsActive
+        public global::System.Boolean IsActive
         {
             get
             {
@@ -714,8 +718,8 @@ namespace SQL2K8
                 OnIsActiveChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsActive;
-        partial void OnIsActiveChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
         partial void OnIsActiveChanged();
 
         #endregion
@@ -2032,6 +2036,28 @@ namespace SQL2K8
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "Budget")]
+        public EntityCollection<Budget> Budgets
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_ProjectHead_Head", "Head")]
         public Head Head
         {
@@ -2142,28 +2168,6 @@ namespace SQL2K8
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Record>("SmartAccountModel.FK_Record_ProjectCategory", "Record", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SmartAccountModel", "FK_Budget_ProjectHead", "Budget")]
-        public EntityCollection<Budget> Budgets
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Budget>("SmartAccountModel.FK_Budget_ProjectHead", "Budget", value);
                 }
             }
         }

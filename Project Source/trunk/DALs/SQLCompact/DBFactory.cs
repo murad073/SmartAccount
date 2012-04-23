@@ -1,17 +1,17 @@
 ﻿namespace SQLCompact
 {
-    public class DBFactory
+    public class SQLCEFactory
     {
-        private DBFactory()
+        private SQLCEFactory()
         {
         }
 
-        private static DBFactory _instance;
-        public static DBFactory Instance
+        private static SQLCEFactory _instance;
+        public static SQLCEFactory Instance
         {
             get
             {
-                if (_instance == null) _instance = new DBFactory();
+                if (_instance == null) _instance = new SQLCEFactory();
                 return _instance;
             }
             //private set { _instance = value; }

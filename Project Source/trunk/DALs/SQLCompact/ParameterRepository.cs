@@ -14,7 +14,7 @@ namespace SQLCompact
         private readonly SQLCEEntities _db;
         public ParameterRepository()
         {
-            _db = DBFactory.Instance.DB;
+            _db = SQLCEFactory.Instance.DB;
         }
 
         //public int Set(string key, string value)
@@ -82,7 +82,7 @@ namespace SQLCompact
 
         internal static DALParameter GetDALParameter(string key)
         {
-            return DBFactory.Instance.DB.Parameters.Where(p => p.Key == key).SingleOrDefault();
+            return SQLCEFactory.Instance.DB.Parameters.Where(p => p.Key == key).SingleOrDefault();
         }
 
         internal static DALParameter GetDALParameter(BLLParameter bllParameter)

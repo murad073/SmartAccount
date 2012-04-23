@@ -16,7 +16,7 @@ namespace SQLCompact
 
         public ProjectRepository()
         {
-            _db = DBFactory.Instance.DB;
+            _db = SQLCEFactory.Instance.DB;
         }
 
         public bool RemoveHeadFromProject(int projectId, int headId)
@@ -87,12 +87,12 @@ namespace SQLCompact
 
         internal static DALProject GetDALProject(int id)
         {
-            return DBFactory.Instance.DB.Projects.Where(p => p.ID == id).SingleOrDefault();
+            return SQLCEFactory.Instance.DB.Projects.Where(p => p.ID == id).SingleOrDefault();
         }
 
         internal static DALProject GetDALProject(string name)
         {
-            return DBFactory.Instance.DB.Projects.Where(p => p.Name == name).SingleOrDefault();
+            return SQLCEFactory.Instance.DB.Projects.Where(p => p.Name == name).SingleOrDefault();
         }
 
         internal static DALProject GetDALProject(BLLProject bllProject)
