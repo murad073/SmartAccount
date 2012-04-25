@@ -28,7 +28,8 @@ namespace GKS.Model.ViewModels
 
             AllProjects = _projectManager.GetProjects();
             SelectedVoucherType = "Debit voucher";
-            VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
+            //VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
+            VoucherStartDate = DateTime.Today;
             VoucherEndDate = DateTime.Today;
 
             VoucherDetailsButtonClicked = new ViewVoucherDetails(this);
