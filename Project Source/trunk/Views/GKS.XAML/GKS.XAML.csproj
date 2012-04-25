@@ -87,6 +87,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -113,6 +116,9 @@
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\VoucherDetailsWindow.xaml.cs">
       <DependentUpon>VoucherDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -120,6 +126,7 @@
       <DependentUpon>BudgetSetup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="UserControls\Excel.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
       <DependentUpon>VoucherPostUC.xaml</DependentUpon>
     </Compile>
@@ -161,6 +168,10 @@
     <Page Include="Pages\AddEditProjectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\VoucherDetailsWindow.xaml">
       <SubType>Designer</SubType>

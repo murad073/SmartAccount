@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLL.Model.Schema
 {
@@ -15,4 +16,6 @@ namespace BLL.Model.Schema
         public DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     }
+
+    public class Projects : List<Project> { }
 }

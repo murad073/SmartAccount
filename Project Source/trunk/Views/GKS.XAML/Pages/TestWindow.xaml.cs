@@ -9,80 +9,101 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKS.Model.ViewModels;
-using BLL.Model.Schema;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.ComponentModel;
-using GKS.XAML.Pages;
-//using tool = Microsoft.Windows.Controls;
 
-
-namespace GKS.XAML.UserControls
+namespace GKS.XAML.Pages
 {
     /// <summary>
-    /// Interaction logic for ProjectMgmtUC.xaml
+    /// Interaction logic for TestWindow.xaml
     /// </summary>
-    public partial class ProjectMgmtUC : UserControl
+    public partial class TestWindow : Window
     {
-        public ProjectMgmtUC()
+        public TestWindow()
         {
             InitializeComponent();
-            DataContext = new ProjectManagementModel();
+
+            Employees employees = new Employees();
+
+            Employee employee1 = new Employee();
+            employee1.EmployeeID = 001;
+            employee1.EmployeeName = "Jakaria";
+            employee1.EmployeeDesignation = "User Experience";
+
+            employees.Add(employee1);
+
+            Employee employee2 = new Employee();
+            employee2.EmployeeID = 002;
+            employee2.EmployeeName = "Moshiur";
+            employee2.EmployeeDesignation = "Development";
+
+            employees.Add(employee2);
+
+            Employee employee3 = new Employee();
+            employee3.EmployeeID = 003;
+            employee3.EmployeeName = "Nazmul";
+            employee3.EmployeeDesignation = "Database";
+
+            employees.Add(employee3);
+
+            dataGridEmployees.ItemsSource = employees;
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
-            ProjectManagementModel vm = DataContext as ProjectManagementModel;
-
-            AddEditProjectWindow projectWindow = new AddEditProjectWindow {Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset};
-            projectWindow.SetOperationType(OperationType.Add);
-            projectWindow.ShowDialog();
-        }
-
-        private void buttonView_Click(object sender, RoutedEventArgs e)
-        {
-            ProjectManagementModel vm = DataContext as ProjectManagementModel;
-            Project project = vm.SelectedGridItem;
-            if (project != null)
-            {
-                AddEditProjectWindow projectWindow = new AddEditProjectWindow(project) { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
-                projectWindow.SetOperationType(OperationType.Update);
-                projectWindow.ShowDialog();
-            }
-            else MessageBox.Show("No project is selected.");
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            ProjectManagementModel vm = DataContext as ProjectManagementModel;
-            vm.Reset();
-        }
-
-        private void Export_Click(object sender, RoutedEventArgs e)
-        {
-            ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
-            ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
-            s.dataToPrint = (Projects)view.SourceCollection;
+            ExportToExcel<Employee, Employees> s = new ExportToExcel<Employee, Employees>();
+            ICollectionView view = CollectionViewSource.GetDefaultView(dataGridEmployees.ItemsSource);
+            s.dataToPrint = (Employees)view.SourceCollection;
             s.GenerateReport();
-        }
-
-        private void buttonTest_Click(object sender, RoutedEventArgs e)
-        {
-            TestWindow testWnd = new TestWindow();
-            testWnd.ShowDialog();
         }
     }
 
-    
-    /// <summary>
-    /// Class for generator of Excel file
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
+    public class Employees : List<Employee> { }
+    public class Employee
+    {
+        private int _id;
+        public int EmployeeID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
+        private string _name;
+        public string EmployeeName
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        private string _designation;
+        public string EmployeeDesignation
+        {
+            get
+            {
+                return _designation;
+            }
+            set
+            {
+                _designation = value;
+            }
+        }
+    }
+
     public class ExportToExcel<T, U>
         where T : class
         where U : List<T>
@@ -120,7 +141,7 @@ namespace GKS.XAML.UserControls
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while generating Excel report.");
+                MessageBox.Show("Error while generating Excel report");
             }
             finally
             {

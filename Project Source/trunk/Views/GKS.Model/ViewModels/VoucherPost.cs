@@ -826,6 +826,8 @@ namespace GKS.Model.ViewModels
         public double Balance { get; set; }
     }
 
+    public class ViewableGridRows : List<ViewableGridRow> { }
+
     public class CreateTempVoucher : ICommand
     {
         private readonly VoucherPost _voucherPost;
