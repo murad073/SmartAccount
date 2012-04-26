@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using BLL.Model;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 using System.Linq;
 using System;
 
@@ -10,11 +10,11 @@ namespace BLL.ProjectManagement
 {
     public class ProjectManager : ManagerBase, IProjectManager
     {
-        private readonly IProjectRepository _projectRepository;
-        private readonly IHeadRepository _headRepository;
-        private readonly IRecordRepository _recordRepository;
+        private readonly IRepository<Project> _projectRepository;
+        private readonly IRepository<Head> _headRepository;
+        private readonly IRepository<Record> _recordRepository;
 
-        public ProjectManager(IProjectRepository projectRepository, IHeadRepository headRepository, IRecordRepository recordRepository)
+        public ProjectManager(IRepository<Project> projectRepository, IRepository<Head> headRepository, IRepository<Record> recordRepository)
         {
             _projectRepository = projectRepository;
             _headRepository = headRepository;

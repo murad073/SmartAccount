@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 using BLL.Model;
 using System;
 using System.Linq;
@@ -11,9 +11,9 @@ namespace BLL.LedgerManagement
 {
     public class LedgerManager : ManagerBase, ILedgerManager
     {
-        private readonly ILedgerRepository _ledgerRepository;
+        private readonly IRepository<Record> _ledgerRepository;
         private readonly IParameterManager _parameterManager;
-        public LedgerManager(ILedgerRepository ledgerRepository, IParameterRepository parameterRepository)
+        public LedgerManager(IRepository<Record> ledgerRepository, IRepository<Parameter> parameterRepository)
         {
             _ledgerRepository = ledgerRepository;
             _parameterManager = new ParameterManager(parameterRepository);
@@ -63,5 +63,13 @@ namespace BLL.LedgerManagement
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }
+
+        //public IList<Ledger> GetAll(int projectId, string voucherType, DateTime startDate, DateTime endDate)
+        //{
+        //    IList<Ledger> all = _ledgerRepository.GetLedger(projectId);
+        //    return all.Where(l=>l.)
+        //}
+        //TODO: will complete after code first approach
     }
 }
+

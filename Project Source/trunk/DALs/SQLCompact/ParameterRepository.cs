@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BLL.Model.Repositories;
 using SQLCompact;
-using BLLParameter = BLL.Model.Schema.Parameter;
+using BLLParameter = BLL.Model.Entity.Parameter;
 using DALParameter = SQLCompact.Parameter;
 
 namespace SQLCompact

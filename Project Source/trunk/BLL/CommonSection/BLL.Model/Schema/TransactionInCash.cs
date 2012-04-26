@@ -1,11 +1,13 @@
-﻿using BLL.Model.Repositories;
+﻿using BLL.Model.Entity;
+using BLL.Model.Repositories;
 
 namespace BLL.Model.Schema
 {
     public class TransactionInCash : Record
     {
-        public TransactionInCash(IRecordRepository recordRepository) : base(recordRepository)
+        public TransactionInCash(IRepository<Record> recordRepository)
         {
+            base.RecordRepository = recordRepository;
         }
 
         public override string LedgerType
@@ -15,17 +17,19 @@ namespace BLL.Model.Schema
 
         public override bool Save()
         {
-            return RecordRepository.InsertCashBookRow(this);
-        }
-
-        public override string HeadName 
-        {
-            get { return "Cash Book"; }
-        }
-
-        public override bool IsValid()
-        {
+            //return RecordRepository.InsertCashBookRow(this);
+            //TODO: change the save logic
             return true;
         }
+
+        public override string HeadName() 
+        {
+            return "Cash Book"; 
+        }
+
+        //public override bool IsValid()
+        //{
+        //    return true;
+        //}
     }
 }

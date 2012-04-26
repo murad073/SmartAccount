@@ -1,17 +1,19 @@
 ﻿
+using BLL.Model.Entity;
 using BLL.Model.Repositories;
 
 namespace BLL.Model.Schema
 {
     public class CreditVoucher : VoucherBase
     {
-        public CreditVoucher(IRecordRepository recordRepository) : base(recordRepository)
+        public CreditVoucher(IRepository<Record> recordRepository)
+            : base(recordRepository)
         {
         }
 
-        public override string VoucherTypeKey
+        public override string VoucherTypeKey()
         {
-            get { return Constants.CreditVoucherShortKey; }
+            return Constants.CreditVoucherShortKey; 
         }
 
         public override double Debit

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 
 namespace BLL.ParameterManagement
 {
     public class ParameterManager : ManagerBase, IParameterManager
     {
-        private IParameterRepository _parameterRepository;
-        public ParameterManager(IParameterRepository parameterRepository)
+        private IRepository<Parameter> _parameterRepository;
+        public ParameterManager(IRepository<Parameter> parameterRepository)
         {
             _parameterRepository = parameterRepository;
         }

@@ -11,7 +11,6 @@ namespace BLL.Model
         public const string CreditVoucherShortKey = "CV";
         public const string JournalVoucherShortKey = "JV";
         public const string ContraVoucherShortKey = "C";
-
     }
 }
 

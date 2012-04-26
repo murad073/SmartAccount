@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Data.Common;
-using BLL.Model.Schema;
 using BLL.Model.Repositories;
 
 
@@ -85,7 +84,7 @@ namespace SQLCompact
             return false;
         }
 
-        private int InsertLedgerRecord(BLL.Model.Schema.Record record)
+        private int InsertLedgerRecord(BLL.Model.Entity.Record record)
         {
             Record dalRecord = new Record
             {
@@ -111,7 +110,7 @@ namespace SQLCompact
             return InsertLedgerRecord(record) > 0;
         }
 
-        public bool InsertLedgerBookRow(VoucherBase record, BLL.Model.Schema.FixedAsset fixedAsset)
+        public bool InsertLedgerBookRow(VoucherBase record, BLL.Model.Entity.FixedAsset fixedAsset)
         {
             int recordId = InsertLedgerRecord(record);
             if (recordId > 0)

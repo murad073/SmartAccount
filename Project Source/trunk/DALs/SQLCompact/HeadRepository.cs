@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BLL.Model.Schema;
 using DALHead = SQLCompact.Head;
 using IHeadRepository = BLL.Model.Repositories.IHeadRepository;
 
@@ -14,14 +13,14 @@ namespace SQLCompact
             _db = SQLCEFactory.Instance.DB;
         }
 
-        public BLL.Model.Schema.Head Get(int id)
+        public BLL.Model.Entity.Head Get(int id)
         {
             DALHead dalHead = GetDALHead(id);
             if (dalHead == null) return null;
             return GetBLLHead(dalHead);
         }
 
-        public BLL.Model.Schema.Head Insert(BLL.Model.Schema.Head entity)
+        public BLL.Model.Entity.Head Insert(BLL.Model.Entity.Head entity)
         {
             DALHead dalhead = GetDALHead(entity);
             _db.AddToHeads(dalhead);
@@ -30,7 +29,7 @@ namespace SQLCompact
             return entity;
         }
 
-        public BLL.Model.Schema.Head Delete(int id)
+        public BLL.Model.Entity.Head Delete(int id)
         {
             DALHead dalHead = GetDALHead(id);
             if (dalHead == null) return null;
@@ -39,7 +38,7 @@ namespace SQLCompact
             return GetBLLHead(dalHead);
         }
 
-        public bool Update(BLL.Model.Schema.Head entity)
+        public bool Update(BLL.Model.Entity.Head entity)
         {
             DALHead dalHead = GetDALHead(entity.Name);
             if (dalHead == null) return false;
@@ -50,12 +49,12 @@ namespace SQLCompact
             return _db.SaveChanges() > 0;
         }
 
-        public IList<BLL.Model.Schema.Head> GetAll()
+        public IList<BLL.Model.Entity.Head> GetAll()
         {
             return _db.Heads.ToList().Select(GetBLLHead).ToList();
         }
 
-        public IList<BLL.Model.Schema.Head> GetAll(int projectId)
+        public IList<BLL.Model.Entity.Head> GetAll(int projectId)
         {
             int[] headIds = _db.ProjectHeads.Where(pc => pc.ProjectID == projectId).Select(pcc => pcc.HeadID).ToArray();
             return _db.Heads.Where(h => headIds.Contains(h.ID)).Select(GetBLLHead).ToList();
@@ -71,7 +70,7 @@ namespace SQLCompact
             return SQLCEFactory.Instance.DB.Heads.Where(h => h.Name == name).SingleOrDefault();
         }
 
-        internal static DALHead GetDALHead(BLL.Model.Schema.Head bllHead)
+        internal static DALHead GetDALHead(BLL.Model.Entity.Head bllHead)
         {
             return new DALHead
                        {
@@ -83,9 +82,9 @@ namespace SQLCompact
                        };
         }
 
-        internal static BLL.Model.Schema.Head GetBLLHead(DALHead dalHead)
+        internal static BLL.Model.Entity.Head GetBLLHead(DALHead dalHead)
         {
-            return new BLL.Model.Schema.Head
+            return new BLL.Model.Entity.Head
             {
                 Id = dalHead.ID,
                 Name = dalHead.Name,
@@ -95,7 +94,7 @@ namespace SQLCompact
             };
         }
 
-        public BLL.Model.Schema.Head Get(string headName)
+        public BLL.Model.Entity.Head Get(string headName)
         {
             DALHead dalHead = _db.Heads.Where(h => h.Name == headName).SingleOrDefault();
             if (dalHead == null) return null;

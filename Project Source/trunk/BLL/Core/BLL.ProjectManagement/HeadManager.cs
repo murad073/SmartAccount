@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BLL.Model;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 
 namespace BLL.ProjectManagement
 {
     public class HeadManager : ManagerBase, IHeadManager
     {
-        private readonly IHeadRepository _headRepository;
-        public HeadManager(IHeadRepository headRepository)
+        private readonly IRepository<Head> _headRepository;
+        public HeadManager(IRepository<Head> headRepository)
         {
             _headRepository = headRepository;
         }

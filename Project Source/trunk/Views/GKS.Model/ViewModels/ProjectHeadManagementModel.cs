@@ -5,8 +5,8 @@ using System.Linq;
 using System.Windows.Input;
 using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
-using BLL.Model.Schema;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels

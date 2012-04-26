@@ -10,7 +10,7 @@ namespace GKS.Factory
     {
         public static RepositoryType RepositoryType { get; set; }
 
-        public static IRecordRepository GetRecordRepository()
+        public static IRepository<Record> GetRecordRepository()
         {
             switch (RepositoryType)
             {
@@ -24,7 +24,7 @@ namespace GKS.Factory
             
         }
 
-        public static IProjectRepository GetProjectRepository()
+        public static IRepository<Project> GetProjectRepository()
         {
             switch (RepositoryType)
             {
@@ -38,7 +38,7 @@ namespace GKS.Factory
             
         }
 
-        public static IHeadRepository GetHeadRepository()
+        public static IRepository<Head> GetHeadRepository()
         {
             switch (RepositoryType)
             {
@@ -52,7 +52,7 @@ namespace GKS.Factory
             
         }
 
-        public static ILedgerRepository GetLedgerRepository()
+        public static IRepository<Record> GetLedgerRepository()
         {
             switch (RepositoryType)
             {

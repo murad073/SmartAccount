@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using BLL.Model;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 using System;
 
 namespace BLL.BudgetManagement
 {
     public class BudgetManager : ManagerBase, IBudgetManager
     {
-        private readonly IBudgetRepository _budgetRepository;
-        private readonly IProjectRepository _projectRepository;
+        private readonly IRepository<Budget> _budgetRepository;
+        private readonly IRepository<Project> _projectRepository;
 
-        public BudgetManager(IBudgetRepository budgetRepository, IProjectRepository projectRepository)
+        public BudgetManager(IRepository<Budget> budgetRepository, IRepository<Project> projectRepository)
         {
             _budgetRepository = budgetRepository;
             _projectRepository = projectRepository;

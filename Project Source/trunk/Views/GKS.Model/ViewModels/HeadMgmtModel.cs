@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using BLL.Factories;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
-using BLL.Model.Schema;
 using GKS.Factory;
 
 namespace GKS.Model.ViewModels

@@ -1,4 +1,4 @@
-﻿using BLL.Model.Schema;
+﻿using BLL.Model.Entity;
 
 namespace BLL.Model.Repositories
 {

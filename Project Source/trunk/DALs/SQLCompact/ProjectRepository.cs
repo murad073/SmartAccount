@@ -4,7 +4,7 @@ using System.Linq;
 using BLL.Model;
 using SQLCompact;
 using DALProject = SQLCompact.Project;
-using BLLProject = BLL.Model.Schema.Project;
+using BLLProject = BLL.Model.Entity.Project;
 using BLL.Model.Repositories;
 using IProjectRepository = BLL.Model.Repositories.IProjectRepository;
 

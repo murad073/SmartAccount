@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BLL.Model.Repositories;
-using BLLParameter = BLL.Model.Schema.Parameter;
+using BLLParameter = BLL.Model.Entity.Parameter;
 using DALParameter = SQL2K8.Parameter;
 
 namespace SQL2K8
