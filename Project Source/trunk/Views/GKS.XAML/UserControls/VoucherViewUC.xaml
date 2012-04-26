@@ -41,17 +41,14 @@
         <DataGrid 
                   IsReadOnly="True"
                   GridLinesVisibility="None"                  
-                  IsTextSearchEnabled="True"                  
-                  Grid.Row="1" 
-                  Grid.Column="1"
-                  AutoGenerateColumns="False"                                                  
+                  IsTextSearchEnabled="True" AutoGenerateColumns="False"                                                  
                   IsSynchronizedWithCurrentItem="True" 
                   Background="Transparent"
                   RowHeaderWidth="25"
                   RowBackground="White"
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"                  
-                  Height="350" HorizontalAlignment="Left" Margin="75,185,0,0" Name="VoucherDataGrid" VerticalAlignment="Top" Width="690" 
+                  Height="348" HorizontalAlignment="Left" Margin="81,165,0,0" Name="VoucherDataGrid" VerticalAlignment="Top" Width="672" 
                   ItemsSource="{Binding Path=VoucherGridViewItems, Mode=OneWay}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
