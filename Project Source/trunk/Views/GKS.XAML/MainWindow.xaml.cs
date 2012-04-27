@@ -34,11 +34,11 @@ namespace GKS.XAML
             ci.DateTimeFormat.FullDateTimePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            BLLCoreFactory.HeadRepository = GKSFactory.GetHeadRepository();
-            BLLCoreFactory.LedgerRepository = GKSFactory.GetLedgerRepository();
-            BLLCoreFactory.ParameterRepository = GKSFactory.GetParameterRepository();
-            BLLCoreFactory.ProjectRepository = GKSFactory.GetProjectRepository();
-            BLLCoreFactory.RecordRepository = GKSFactory.GetRecordRepository();
+            //BLLCoreFactory.HeadRepository = GKSFactory.GetHeadRepository();
+            //BLLCoreFactory.LedgerRepository = GKSFactory.GetLedgerRepository();
+            //BLLCoreFactory.ParameterRepository = GKSFactory.GetParameterRepository();
+            //BLLCoreFactory.ProjectRepository = GKSFactory.GetProjectRepository();
+            //BLLCoreFactory.RecordRepository = GKSFactory.GetRecordRepository();
 
             InitializeComponent();
         }
