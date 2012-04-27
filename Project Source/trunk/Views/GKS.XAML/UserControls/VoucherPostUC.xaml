@@ -193,8 +193,6 @@
             <Button Content="Clear All" Height="23" HorizontalAlignment="Left" Margin="731,117,0,0" Name="ClearButton" VerticalAlignment="Top" Width="75" Command="{Binding Path=ClearButtonClicked}" Grid.Row="4" />
 
             <TextBlock Text="{Binding Path=NotificationMessage}" TextWrapping="Wrap" Height="51" HorizontalAlignment="Left" TextAlignment="Center" Margin="7,151,0,0" Name="messageTextBlock" VerticalAlignment="Top" Width="826" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Grid.Row="4" />
-            
-
         </Grid>
 
     </Grid>
