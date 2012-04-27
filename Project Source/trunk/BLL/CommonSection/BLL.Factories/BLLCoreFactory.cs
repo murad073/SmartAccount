@@ -21,13 +21,13 @@ namespace BLL.Factories
 
         public static IRepository<Budget> BudgetRepository { get; set; }
         public static IRepository<Head> HeadRepository { get; set; }
-        //public static IRepository<Record> LedgerRepository { get; set; }
-        public static IRepository<Parameter> ParameterRepository { get; set; }
         public static IRepository<Project> ProjectRepository { get; set; }
+        public static IRepository<ProjectHead> ProjectHeadRepository { get; set; }
         public static IRepository<Record> RecordRepository { get; set; }
+        public static IRepository<Parameter> ParameterRepository { get; set; }
 
         public static ILedgerManager  GetLedgerManager()
-        {
+        {            
             if (RecordRepository != null && ProjectRepository != null)
             {
                 LedgerManager ledgerManager = new LedgerManager(RecordRepository, ParameterRepository);

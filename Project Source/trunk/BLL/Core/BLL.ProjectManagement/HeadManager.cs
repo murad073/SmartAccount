@@ -9,16 +9,18 @@ namespace BLL.ProjectManagement
 {
     public class HeadManager : ManagerBase, IHeadManager
     {
+        private readonly IRepository<ProjectHead> _projectHeadRepository;
         private readonly IRepository<Head> _headRepository;
-        public HeadManager(IRepository<Head> headRepository)
+
+        public HeadManager(IRepository<ProjectHead> projectHeadRepository, IRepository<Head> headRepository)
         {
+            _projectHeadRepository = projectHeadRepository;
             _headRepository = headRepository;
         }
 
         public IList<Head> GetHeads(bool isCashOrBankIncluded = true, bool bringInactive = true)
         {
             IList<Head> heads = _headRepository.GetAll().ToList();
-
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
 
             if (!isCashOrBankIncluded)
@@ -28,8 +30,7 @@ namespace BLL.ProjectManagement
 
         public IList<Head> GetHeads(Project project, bool isCashOrBankIncluded = true, bool bringInactive = true)
         {
-            IList<Head> heads = _headRepository.Get( projectId);
-            if (heads == null) return new List<Head>();
+            IList<Head> heads = _projectHeadRepository.Get(ph => ph.Project == project).Select(ph => ph.Head).ToList();
 
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
 
@@ -40,33 +41,49 @@ namespace BLL.ProjectManagement
 
         public bool Add(Head head)
         {
-            Head existingHead = _headRepository.Get(head.Name);
+            Head existingHead = _headRepository.GetSingle(h => h.Name == head.Name);
 
             if (existingHead != null)
             {
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "HeadAlreadyExists", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
                 return false;
             }
-            Head insertedHead = _headRepository.Insert(head);
-            InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewHeadSuccessfullyCreated", Parameters = new Dictionary<string, string> { { "HeadName", insertedHead.Name } } });
-            return true;
+            _headRepository.Insert(head);
+            if (_headRepository.Save() > 0)
+            {
+                InvokeManagerEvent(new BLLEventArgs
+                                       {
+                                           EventType = EventType.Success,
+                                           MessageKey = "NewHeadSuccessfullyCreated",
+                                           Parameters = new Dictionary<string, string> { { "HeadName", head.Name } }
+                                       });
+                return true;
+            }
+            //TODO: possible bug
+            return false;
         }
 
         public bool Update(Head head)
         {
-            Head existingHead = _headRepository.Get(head.Name);
+            //Head existingHead = _projectHeadRepository.Get(head.Name);
 
-            if (existingHead != null)
-            {
+            //if (existingHead != null)
+            //{
                 _headRepository.Update(head);
-                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "HeadSuccessfullyUpdated", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
-                return true;
-            }
+                if (_headRepository.Save() > 0)
+                {
+                    InvokeManagerEvent(new BLLEventArgs
+                                           {
+                                               EventType = EventType.Success,
+                                               MessageKey = "HeadSuccessfullyUpdated",
+                                               Parameters = new Dictionary<string, string> {{"HeadName", head.Name}}
+                                           });
+                    return true;
+                }
+            //}
             InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "HeadUpdatedFailed", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
             return false;
         }
-
-
     }
 }
 
