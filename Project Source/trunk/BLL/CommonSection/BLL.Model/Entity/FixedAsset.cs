@@ -1,4 +1,6 @@
-﻿namespace BLL.Model.Entity
+﻿using System.Collections.Generic;
+
+namespace BLL.Model.Entity
 {
     //public class FixedAsset
     //{
@@ -14,7 +16,9 @@
         public int? DepreciatedValue { get; set; }
         public string DepreciationType { get; set; }
         public bool? ByForceDisposed { get; set; }
-        public int? RecordID { get; set; }
+        //public int RecordID { get; set; }
+
+        public virtual Record Record { get; set; }
     }
 }
 

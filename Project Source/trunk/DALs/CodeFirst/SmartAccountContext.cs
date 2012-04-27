@@ -14,10 +14,16 @@ namespace CodeFirst
         {
         }
 
-        private static readonly SmartAccountContext _instance = new SmartAccountContext();
+        private static SmartAccountContext _instance = new SmartAccountContext();
         public static SmartAccountContext Instance
         {
             get { return _instance; }
+        }
+
+        public void Reset()
+        {
+            _instance.Dispose(true);
+            _instance = new SmartAccountContext();
         }
 
         public DbSet<BankRecord> BankRecords { get; set; }

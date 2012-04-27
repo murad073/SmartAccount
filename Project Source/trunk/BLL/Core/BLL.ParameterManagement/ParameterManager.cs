@@ -18,7 +18,7 @@ namespace BLL.ParameterManagement
 
         private void Set(string key, string value)
         {
-            Parameter existingParameter = _parameterRepository.Get(key);
+            Parameter existingParameter = _parameterRepository.GetSingle(p=>p.Key == key);
             if (existingParameter == null)
             {
                 _parameterRepository.Insert(new Parameter { Key = key, Value = value, IsActive = true });
@@ -32,7 +32,7 @@ namespace BLL.ParameterManagement
 
         private string Get(string key)
         {
-            Parameter existingParameter = _parameterRepository.Get(key);
+            Parameter existingParameter = _parameterRepository.GetSingle(p=>p.Key == key);
             return existingParameter == null ? "" : existingParameter.Value ?? "";
         }
 

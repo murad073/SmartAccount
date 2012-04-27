@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLL.Model.Entity
 {
@@ -23,5 +24,7 @@ namespace BLL.Model.Entity
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
         public string Description { get; set; }
+
+        public virtual ICollection<ProjectHead> ProjectHeads { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BLL.Model.Repositories;
 
 namespace BLL.Model.Entity
@@ -41,7 +42,7 @@ namespace BLL.Model.Entity
     public class Record
     {
         public int ID { get; set; }
-        public int ProjectHeadID { get; set; }
+        //public int ProjectHeadID { get; set; }
         public DateTime Date { get; set; }
         public string VoucherType { get; set; }
         public virtual double Debit { get; set; }
@@ -52,6 +53,10 @@ namespace BLL.Model.Entity
         public string Link { get; set; }
         public string Tag { get; set; }
         public bool IsActive { get; set; }
+
+        public virtual ProjectHead ProjectHead { get; set; }
+        public virtual ICollection<FixedAsset> FixedAssets { get; set; }
+        public virtual ICollection<BankRecord> BankRecords { get; set; }
 
         internal IRepository<Record> RecordRepository;
         public virtual bool Save() { return false; }

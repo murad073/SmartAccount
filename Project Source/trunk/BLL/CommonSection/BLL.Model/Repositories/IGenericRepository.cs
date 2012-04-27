@@ -10,12 +10,13 @@ namespace BLL.Model.Repositories
     {
         IQueryable<T> GetAll();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
+        T GetSingle(Expression<Func<T, bool>> predicate);
         T Get(int id);
-        bool Insert(T entity);
-        T Delete(T entity);
-        bool Update(T entity);
+        void Insert(T entity);
+        void Delete(T entity);
+        void Update(T entity);
         int Save();
-        bool Discard();
+        void Discard();
     }
 }
 
