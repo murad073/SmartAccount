@@ -3,7 +3,7 @@ using System.Linq;
 //using BLL.DALInterface;
 using BLL.Model;
 using DALProject = SQL2K8.Project;
-using BLLProject = BLL.Model.Schema.Project;
+using BLLProject = BLL.Model.Entity.Project;
 using BLL.Model.Repositories;
 using IProjectRepository = BLL.Model.Repositories.IProjectRepository;
 

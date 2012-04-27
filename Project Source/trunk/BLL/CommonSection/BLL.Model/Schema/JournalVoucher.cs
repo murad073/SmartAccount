@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BLL.Model.Entity;
 using BLL.Model.Repositories;
 
 namespace BLL.Model.Schema
@@ -11,7 +12,7 @@ namespace BLL.Model.Schema
 
         private string _jvDebitOrCredit;
 
-        public JournalVoucher(IRecordRepository recordRepository) : base(recordRepository)
+        public JournalVoucher(IRepository<Record> recordRepository) : base(recordRepository)
         {
         }
 
@@ -28,9 +29,9 @@ namespace BLL.Model.Schema
         }
 
 
-        public override string VoucherTypeKey
+        public override string VoucherTypeKey()
         {
-            get { return Constants.JournalVoucherShortKey; }
+            return Constants.JournalVoucherShortKey; 
         }
 
         public override double Debit

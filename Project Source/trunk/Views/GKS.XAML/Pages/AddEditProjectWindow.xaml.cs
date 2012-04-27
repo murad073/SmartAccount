@@ -11,8 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BLL.Model.Entity;
 using GKS.Model.ViewModels;
-using BLL.Model.Schema;
 
 namespace GKS.XAML
 {

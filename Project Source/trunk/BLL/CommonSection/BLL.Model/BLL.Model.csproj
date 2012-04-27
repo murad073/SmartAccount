@@ -49,34 +49,46 @@
     <Compile Include="Managers\IProjectManager.cs" />
     <Compile Include="Managers\IRecordManager.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Repositories\IBudgetRepository.cs" />
-    <Compile Include="Repositories\IParameterRepository.cs" />
-    <Compile Include="Schema\ChequeInfo.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Entity\BankRecord.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Schema\Budget.cs" />
-    <Compile Include="Schema\FixedAsset.cs" />
-    <Compile Include="Schema\Head.cs" />
-    <Compile Include="Schema\HeadType.cs">
+    <Compile Include="Entity\Budget.cs" />
+    <Compile Include="Entity\FixedAsset.cs" />
+    <Compile Include="Entity\Head.cs" />
+    <Compile Include="Entity\Log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entity\OpeningBalance.cs" />
+    <Compile Include="Entity\Parameter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Schema\MassVoucher.cs" />
-    <Compile Include="Schema\Parameter.cs" />
-    <Compile Include="Schema\Project.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schema\Ledger.cs" />
-    <Compile Include="Repositories\IHeadRepository.cs" />
-    <Compile Include="Repositories\ILedgerRepository.cs" />
-    <Compile Include="Repositories\IProjectRepository.cs" />
-    <Compile Include="Repositories\IRecordRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Schema\CreditVoucher.cs" />
-    <Compile Include="Schema\DebitVoucher.cs" />
-    <Compile Include="Schema\JournalVoucher.cs" />
-    <Compile Include="Schema\Record.cs" />
-    <Compile Include="Schema\TransactionFactory.cs" />
-    <Compile Include="Schema\TransactionInCash.cs" />
-    <Compile Include="Schema\TransactionInCheque.cs" />
-    <Compile Include="Schema\VoucherBase.cs" />
+    <Compile Include="Entity\Project.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\ProjectHead.cs" />
+    <Compile Include="Entity\Record.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\CreditVoucher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\DebitVoucher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\JournalVoucher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\MassVoucher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\TransactionInCash.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\TransactionInCheque.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Schema\VoucherBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HelperService\BLL.Utils\BLL.Utils.csproj">
@@ -84,6 +96,7 @@
       <Name>BLL.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

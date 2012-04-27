@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 
 namespace BLL.ParameterManagement
 {
     public class ParameterManager : ManagerBase, IParameterManager
     {
-        private IParameterRepository _parameterRepository;
-        public ParameterManager(IParameterRepository parameterRepository)
+        private IRepository<Parameter> _parameterRepository;
+        public ParameterManager(IRepository<Parameter> parameterRepository)
         {
             _parameterRepository = parameterRepository;
         }
 
         private void Set(string key, string value)
         {
-            Parameter existingParameter = _parameterRepository.Get(key);
+            Parameter existingParameter = _parameterRepository.GetSingle(p=>p.Key == key);
             if (existingParameter == null)
             {
                 _parameterRepository.Insert(new Parameter { Key = key, Value = value, IsActive = true });
@@ -32,7 +32,7 @@ namespace BLL.ParameterManagement
 
         private string Get(string key)
         {
-            Parameter existingParameter = _parameterRepository.Get(key);
+            Parameter existingParameter = _parameterRepository.GetSingle(p=>p.Key == key);
             return existingParameter == null ? "" : existingParameter.Value ?? "";
         }
 

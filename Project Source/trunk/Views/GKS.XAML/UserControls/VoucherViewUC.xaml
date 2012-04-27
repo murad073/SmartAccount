@@ -24,7 +24,7 @@
         </Button>
         
         <Label Content="Voucher type:" Height="23" HorizontalAlignment="Left" Margin="78,90,0,0" Name="label2" VerticalAlignment="Top" Width="81" />
-        <ComboBox Height="20" HorizontalAlignment="Left" Margin="154,91,0,0" Name="comboBoxVoucherType" VerticalAlignment="Top" Width="109" ItemsSource="{Binding Path=VoucherTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedVoucherType, Mode=TwoWay}" />
+        <ComboBox Height="20" HorizontalAlignment="Left" Margin="154,91,0,0" Name="comboBoxVoucherType" VerticalAlignment="Top" Width="109" DisplayMemberPath="Value"  ItemsSource="{Binding Path=VoucherTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedVoucherType, Mode=TwoWay}" />
         
         
         <Label Content="Start date:" Height="28" HorizontalAlignment="Left" Margin="400,90,0,0" Name="label4" VerticalAlignment="Top" />

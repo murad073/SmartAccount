@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 using BLL.Model;
 using System;
 using System.Linq;
@@ -11,9 +11,9 @@ namespace BLL.LedgerManagement
 {
     public class LedgerManager : ManagerBase, ILedgerManager
     {
-        private readonly ILedgerRepository _ledgerRepository;
+        private readonly IRepository<Record> _ledgerRepository;
         private readonly IParameterManager _parameterManager;
-        public LedgerManager(ILedgerRepository ledgerRepository, IParameterRepository parameterRepository)
+        public LedgerManager(IRepository<Record> ledgerRepository, IRepository<Parameter> parameterRepository)
         {
             _ledgerRepository = ledgerRepository;
             _parameterManager = new ParameterManager(parameterRepository);
@@ -28,40 +28,57 @@ namespace BLL.LedgerManagement
 
         public DateTime LedgerEndDate { get; set; }
 
-        public bool Validate(Project project, Head head, bool showAllAdvance)
+        public bool Validate(ProjectHead projectHead, bool showAllAdvance)
         {
-            if (project == null)
-            {
-                InvokeManagerEvent(EventType.Error, "NoProjectSelected");
-                return false;
-            }
+            //if (project == null)
+            //{
+            //    InvokeManagerEvent(EventType.Error, "NoProjectSelected");
+            //    return false;
+            //}
 
-            if (!showAllAdvance && head == null)
-            {
-                InvokeManagerEvent(EventType.Error, "NoHeadSelected");
-                return false;
-            }
+            //if (!showAllAdvance && head == null)
+            //{
+            //    InvokeManagerEvent(EventType.Error, "NoHeadSelected");
+            //    return false;
+            //}
             return true;
         }
 
-        public IList<Ledger> GetLedgerBook(int projectId, int headId, bool isCashBankShown = false)
+        public IList<Record> GetLedgerBook(ProjectHead projectHead, bool isCashBankShown = false)
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            return
-                _ledgerRepository.GetLedger(projectId, headId).OrderBy(l => l.Date).Where(
+            return _ledgerRepository.Get(r => r.ProjectHead == projectHead).OrderBy(l => l.Date).Where(
                     l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
                     ToList();
+
+            //return
+            //    _ledgerRepository.GetLedger(projectId, headId) .OrderBy(l => l.Date).Where(
+            //        l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
+            //        ToList();
         }
 
-        public IList<Ledger> GetAllAdvance(int projectId)
+        public IList<Record> GetAllAdvance(Project project)
         {
-            return _ledgerRepository.GetLedger(projectId);
+            //return _ledgerRepository.GetLedger(projectId);
+
+            //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
+            double balance = 0;
+            return project.ProjectHeads.SelectMany(ph => ph.Records).Where(
+                    r => r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList();
         }
 
         public DateTime GetDateAt12Am(DateTime date)
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }
+
+        //public IList<Ledger> GetAll(int projectId, string voucherType, DateTime startDate, DateTime endDate)
+        //{
+        //    IList<Ledger> all = _ledgerRepository.GetLedger(projectId);
+        //    return all.Where(l=>l.)
+        //}
+        //TODO: will complete after code first approach
     }
 }
+

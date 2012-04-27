@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DALBudget = SQL2K8.Budget;
-using BLLBudget = BLL.Model.Schema.Budget;
+using BLLBudget = BLL.Model.Entity.Budget;
 using BLL.Model.Repositories;
 
 namespace SQL2K8

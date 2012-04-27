@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BLL.Model;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 
 namespace BLL.ProjectManagement
 {
     public class HeadManager : ManagerBase, IHeadManager
     {
-        private readonly IHeadRepository _headRepository;
-        public HeadManager(IHeadRepository headRepository)
+        private readonly IRepository<Head> _headRepository;
+        public HeadManager(IRepository<Head> headRepository)
         {
             _headRepository = headRepository;
         }
 
         public IList<Head> GetHeads(bool isCashOrBankIncluded = true, bool bringInactive = true)
         {
-            IList<Head> heads = _headRepository.GetAll();
-            if (heads == null) return new List<Head>();
+            IList<Head> heads = _headRepository.GetAll().ToList();
 
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
 
@@ -27,9 +26,9 @@ namespace BLL.ProjectManagement
             return heads;
         }
 
-        public IList<Head> GetHeads(int projectId, bool isCashOrBankIncluded = true, bool bringInactive = true)
+        public IList<Head> GetHeads(Project project, bool isCashOrBankIncluded = true, bool bringInactive = true)
         {
-            IList<Head> heads = _headRepository.GetAll(projectId);
+            IList<Head> heads = _headRepository.Get( projectId);
             if (heads == null) return new List<Head>();
 
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();

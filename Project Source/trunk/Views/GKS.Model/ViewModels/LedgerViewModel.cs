@@ -5,8 +5,8 @@ using System.Linq;
 using System.Windows.Input;
 using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
-using BLL.Model.Schema;
 using GKS.Factory;
 using BLL.Model.Repositories;
 
@@ -27,7 +27,7 @@ namespace GKS.Model.ViewModels
         private readonly ILedgerManager _ledgerManager;
         public LedgerViewModel()
         {
-            ILedgerRepository ledgerRepository = GKSFactory.GetLedgerRepository();
+            IRepository<Record> ledgerRepository = GKSFactory.GetLedgerRepository();
 
             _ledgerManager = BLLCoreFactory.GetLedgerManager();
             _headManager = BLLCoreFactory.GetHeadManager();
@@ -257,8 +257,8 @@ namespace GKS.Model.ViewModels
     public class ViewLedger : ICommand
     {
         private readonly LedgerViewModel _ledgerViewModel;
-        private ILedgerRepository _ledgerRepository;
-        public ViewLedger(LedgerViewModel ledgerViewModel, ILedgerRepository ledgerRepository)
+        private IRepository<Record> _ledgerRepository;
+        public ViewLedger(LedgerViewModel ledgerViewModel, IRepository<Record> ledgerRepository)
         {
             _ledgerViewModel = ledgerViewModel;
             _ledgerRepository = ledgerRepository;

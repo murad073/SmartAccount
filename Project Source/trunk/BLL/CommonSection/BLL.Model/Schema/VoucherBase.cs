@@ -1,13 +1,14 @@
-﻿using BLL.Model.Repositories;
+﻿using BLL.Model.Entity;
+using BLL.Model.Repositories;
 using BLL.Utils;
 
 namespace BLL.Model.Schema
 {
     public abstract class VoucherBase : Record
     {
-        protected VoucherBase(IRecordRepository recordRepository)
-            : base(recordRepository)
+        protected VoucherBase(IRepository<Record> recordRepository)
         {
+            base.RecordRepository = recordRepository;
         }
 
         public bool IsFixedAsset;
@@ -20,16 +21,19 @@ namespace BLL.Model.Schema
             get { return "LedgerBook"; }
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        //public override bool IsValid()
+        //{
+        //    return true;
+        //}
 
         public override bool Save()
         {
-            if (IsFixedAsset)
-                return RecordRepository.InsertLedgerBookRow(this, FixedAsset);
-            return RecordRepository.InsertLedgerBookRow(this);
+            //if (IsFixedAsset)
+            //    return RecordRepository.InsertLedgerBookRow(this, FixedAsset);
+            //return RecordRepository.InsertLedgerBookRow(this);
+
+            //TODO: change the save strategy
+            return true;
         }
     }
 }

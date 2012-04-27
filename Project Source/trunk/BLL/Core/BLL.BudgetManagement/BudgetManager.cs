@@ -1,57 +1,60 @@
 ﻿using System.Collections.Generic;
 using BLL.Model;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Model.Repositories;
-using BLL.Model.Schema;
 using System;
+using System.Linq;
 
 namespace BLL.BudgetManagement
 {
     public class BudgetManager : ManagerBase, IBudgetManager
     {
-        private readonly IBudgetRepository _budgetRepository;
-        private readonly IProjectRepository _projectRepository;
+        private readonly IRepository<Budget> _budgetRepository;
+        private readonly IRepository<Project> _projectRepository;
+        private readonly IRepository<ProjectHead> _projectHeadRepository;
 
-        public BudgetManager(IBudgetRepository budgetRepository, IProjectRepository projectRepository)
+        public BudgetManager(IRepository<Budget> budgetRepository, IRepository<Project> projectRepository, IRepository<ProjectHead> projectHeadRepository)
         {
             _budgetRepository = budgetRepository;
             _projectRepository = projectRepository;
+            _projectHeadRepository = projectHeadRepository;
         }
 
         public bool Set(string projectName, string headName, double amount)
         {
-            int projectHeadId = _projectRepository.GetProjectHeadId(projectName, headName);
-            Budget budget = _budgetRepository.GetByProjectHeadId(projectHeadId);
+            ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Head.Name == headName && ph.Project.Name == projectName);
+            Budget budget = projectHead.Budgets.SingleOrDefault(b => b.IsActive);
+            //TODO: depends on current accounting year. 
             if (budget == null)
             {
-                Budget newBudget = new Budget
-                                       {
-                                           Amount = amount,
-                                           Date = DateTime.Now,
-                                           IsActive = true,
-                                           ProjectHeadId = projectHeadId
-                                       };
-                Budget insertedBudget = _budgetRepository.Insert(newBudget);
-
-                if (insertedBudget != null)
-                {
-                    InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewBudgetSavedSuccessfully", Parameters = new Dictionary<string, string> { { "BudgetYear", insertedBudget.Date.Year.ToString() } } });
-                    return true;
-                }
-                InvokeManagerEvent(EventType.Error, "NewBudgetInsertFailed");
-                return false;
+                return InsertNewBudget(projectHead, amount);
             }
             else
             {
-                budget.Amount = amount;
-                budget.IsActive = true;
-                bool isUpdate = _budgetRepository.Update(budget);
-                if (isUpdate)
-                    InvokeManagerEvent(EventType.Success, "BudgetUpdatedSuccessfully");
-                else
-                    InvokeManagerEvent(EventType.Error, "BudgetUpdatedFailed");
-                return isUpdate;
+                budget.IsActive = false;
+                return InsertNewBudget(projectHead, amount);
             }
+        }
+
+        private bool InsertNewBudget(ProjectHead projectHead, double amount)
+        {
+            Budget newBudget = new Budget
+            {
+                Amount = amount,
+                Date = DateTime.Now,
+                IsActive = true,
+                ProjectHead = projectHead
+            };
+            _budgetRepository.Insert(newBudget);
+
+            if (_budgetRepository.Save() > 0)
+            {
+                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewBudgetSavedSuccessfully", Parameters = new Dictionary<string, string> { { "BudgetYear", newBudget.Date.Year.ToString() } } });
+                return true;
+            }
+            InvokeManagerEvent(EventType.Error, "NewBudgetInsertFailed");
+            return false;
         }
     }
 }

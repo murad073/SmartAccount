@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BLL.Model.Entity;
 using BLL.Model.Schema;
 
 namespace BLL.Model.Managers

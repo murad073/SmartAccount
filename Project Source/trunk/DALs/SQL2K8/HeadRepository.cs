@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using BLL.Model;
-using BLL.Model.Schema;
 using DALHead = SQL2K8.Head;
-using BLLHead = BLL.Model.Schema.Head;
+using BLLHead = BLL.Model.Entity.Head;
 using BLL.Model.Repositories;
 using IHeadRepository = BLL.Model.Repositories.IHeadRepository;
 

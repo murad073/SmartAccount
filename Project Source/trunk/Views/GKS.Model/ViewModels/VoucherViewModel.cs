@@ -6,8 +6,8 @@ using System.ComponentModel;
 using System.Windows.Input;
 using BLL.Factories;
 using BLL.Messaging;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
-using BLL.Model.Schema;
 using GKS.Factory;
 using BLL.Model.Repositories;
 
@@ -27,7 +27,7 @@ namespace GKS.Model.ViewModels
             _parameterManager = BLLCoreFactory.GetParameterManager();
 
             AllProjects = _projectManager.GetProjects();
-            SelectedVoucherType = "Debit voucher";
+            SelectedVoucherType = VoucherTypes[0];
             //VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
             VoucherStartDate = DateTime.Today;
             VoucherEndDate = DateTime.Today;
@@ -67,16 +67,24 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public string[] VoucherTypes
+        public KeyValuePair<string, string>[] VoucherTypes
         {
             get
             {
-                return new[] {"All", "Debit voucher", "Credit voucher", "Journal voucher", "Contra" };
+                return new[]
+                           {
+                               new KeyValuePair<string, string>("All", "All"),
+                               new KeyValuePair<string, string>("DV", "Debit voucher"),
+                               new KeyValuePair<string, string>("CV", "Credit voucher"),
+                               new KeyValuePair<string, string>("JV", "Journal voucher"),
+                               new KeyValuePair<string, string>("Contra", "Contra")
+                               //"All", "Debit voucher", "Credit voucher", "Journal voucher", "Contra"
+                           };
             }
         }
 
-        private string _selectedVoucherType;
-        public string SelectedVoucherType
+        private KeyValuePair<string, string> _selectedVoucherType;
+        public KeyValuePair<string, string> SelectedVoucherType
         {
             get { return _selectedVoucherType; }
             set
@@ -124,6 +132,8 @@ namespace GKS.Model.ViewModels
 
                 ClearMessage();
                 _ledgerManager.LedgerEndDate = VoucherEndDate;
+                //_ledgerManager.GetLedgerBook(SelectedProject.Id, )
+
                 //double balance = 0;
                 //return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l =>
                 //new Ledger
@@ -183,6 +193,16 @@ namespace GKS.Model.ViewModels
         {
             AllProjects = _projectManager.GetProjects();
         }
+    }
+
+    public class VoucherItem
+    {
+        public string Date { get; set; }
+        public string VoucherNo { get; set; }
+        public string HeadOfAccount { get; set; }
+        public double Debit { get; set; }
+        public double Credit { get; set; }
+        public string CashOrBank { get; set; }
     }
 
     public class ViewVoucherDetails : ICommand

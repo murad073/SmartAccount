@@ -3,7 +3,6 @@
 *.user
 *.suo
 *.config
-*.edmx
 *.so.[0-9]* 
 _ReSharper.*
 bin/
