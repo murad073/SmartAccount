@@ -28,7 +28,7 @@ namespace BLL.LedgerManagement
 
         public DateTime LedgerEndDate { get; set; }
 
-        public bool Validate(ProjectHead projectHead, bool showAllAdvance)
+        public bool Validate(Project project, Head head, bool showAllAdvance)
         {
             //if (project == null)
             //{
@@ -44,11 +44,11 @@ namespace BLL.LedgerManagement
             return true;
         }
 
-        public IList<Record> GetLedgerBook(ProjectHead projectHead, bool isCashBankShown = false)
+        public IList<Record> GetLedgerBook(Project project, Head head, bool isCashBankShown = false)
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            return _ledgerRepository.Get(r => r.ProjectHead == projectHead).OrderBy(l => l.Date).Where(
+            return _ledgerRepository.Get(r => r.ProjectHead.Project == project && r.ProjectHead.Head == head).OrderBy(l => l.Date).Where(
                     l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
                     ToList();
 

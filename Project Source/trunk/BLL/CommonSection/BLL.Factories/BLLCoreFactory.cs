@@ -26,8 +26,8 @@ namespace BLL.Factories
         public static IRepository<Record> RecordRepository { get; set; }
         public static IRepository<Parameter> ParameterRepository { get; set; }
 
-        public static ILedgerManager  GetLedgerManager()
-        {            
+        public static ILedgerManager GetLedgerManager()
+        {
             if (RecordRepository != null && ProjectRepository != null)
             {
                 LedgerManager ledgerManager = new LedgerManager(RecordRepository, ParameterRepository);
@@ -54,7 +54,7 @@ namespace BLL.Factories
 
         public static IMassVoucherManager GetMassVoucherManager()
         {
-            if (RecordRepository != null && ProjectRepository != null && HeadRepository !=null)
+            if (RecordRepository != null && ProjectRepository != null && HeadRepository != null)
             {
                 MassVoucherManager ledgerManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository);
                 ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
@@ -80,9 +80,9 @@ namespace BLL.Factories
 
         public static IHeadManager GetHeadManager()
         {
-            if (HeadRepository != null)
+            if (ProjectHeadRepository != null && HeadRepository != null)
             {
-                HeadManager ledgerManager = new HeadManager(HeadRepository);
+                HeadManager ledgerManager = new HeadManager(ProjectHeadRepository, HeadRepository);
                 ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return ledgerManager;
@@ -93,9 +93,9 @@ namespace BLL.Factories
 
         public static IProjectManager GetProjectManager()
         {
-            if (ProjectRepository!=null && HeadRepository != null && RecordRepository!=null)
+            if (ProjectRepository != null && HeadRepository != null && ProjectHeadRepository != null && RecordRepository != null)
             {
-                ProjectManager ledgerManager = new ProjectManager(ProjectRepository, HeadRepository, RecordRepository);
+                ProjectManager ledgerManager = new ProjectManager(ProjectRepository, HeadRepository, ProjectHeadRepository, RecordRepository);
                 ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return ledgerManager;

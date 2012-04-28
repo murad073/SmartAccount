@@ -7,6 +7,7 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
+using BLL.Model.Schema;
 using BLL.Utils;
 using System.Windows.Data;
 
@@ -559,7 +560,7 @@ namespace GKS.Model.ViewModels
         {
             if (SelectedHead != null)
                 //return _headManager.IsCapitalHead(SelectedHead.Id);
-                return SelectedHead.Type == HeadType.Capital;
+                return SelectedHead.Type == HeadType.Capital.ToString();
             return false;
         }
 
@@ -663,7 +664,7 @@ namespace GKS.Model.ViewModels
         private void SetAllHeads()
         {
             if (SelectedProject != null)
-                AllHeads = _headManager.GetHeads(SelectedProject.Id, false, false).ToList();
+                AllHeads = _headManager.GetHeads(SelectedProject, false, false).ToList();
             else
             {
                 AllHeads = null;
@@ -753,12 +754,12 @@ namespace GKS.Model.ViewModels
                 double balance = 0;
                 return TemporaryRecords.Select(tv => new ViewableGridRow
                                                          {
-                                                             Balance = (balance += tv.Balance),
+                                                             //Balance = (balance += tv.Balance),
                                                              Credit = tv.Credit,
                                                              Debit = tv.Debit,
-                                                             Date = tv.Date,
-                                                             Head = tv.HeadName,
-                                                             VoucherNo = tv.VoucherNo
+                                                             Date = tv.Date
+                                                             //Head = tv.HeadName,
+                                                             //VoucherNo = tv.VoucherNo
                                                          }).ToList();
 
             }

@@ -64,17 +64,17 @@ namespace GKS.Model.ViewModels
                 }
                 else
                 {
-                    HeadsForProject = _headManager.GetHeads(value.Id, false).Select(p => new KeyValuePair<int, string>(p.Id, p.Name)).ToArray();
-                    int[] ids = _headsForProject.Select(c => c.Key).ToArray();
-                    RemainingHeads = _allHeads.Where(c => !ids.Contains(c.Id) && c.Name != ProjectSelected.Name).Select(p => new KeyValuePair<int, string>(p.Id, p.Name)).ToArray();
+                    HeadsForProject = _headManager.GetHeads(value, false);//.Select(p => new KeyValuePair<int, string>(p.ID, p.Name)).ToArray();
+                    //int[] ids = _headsForProject.Select(c => c.Key).ToArray();
+                    RemainingHeads = _allHeads.Except(HeadsForProject).ToList();// .Where(c => !ids.Contains(c.ID) && c.Name != ProjectSelected.Name).Select(p => new KeyValuePair<int, string>(p.ID, p.Name)).ToArray();
                 }
-                SelectedRemainingHead = SelectedHeadForProject = new KeyValuePair<int, string>(0, null);
+                SelectedRemainingHead = SelectedHeadForProject = null;
             }
         }
 
         // Remaining Heads list box - right sided
-        private KeyValuePair<int, string>[] _remainingHeads;
-        public KeyValuePair<int, string>[] RemainingHeads
+        private IList<Head> _remainingHeads;
+        public IList<Head> RemainingHeads
         {
             get
             {
@@ -88,8 +88,8 @@ namespace GKS.Model.ViewModels
 
         }
 
-        private KeyValuePair<int, string> _selectedRemainingHead;
-        public KeyValuePair<int, string> SelectedRemainingHead
+        private Head _selectedRemainingHead;
+        public Head SelectedRemainingHead
         {
             get
             {
@@ -107,8 +107,8 @@ namespace GKS.Model.ViewModels
         }
 
         // Project-Head list box - middle placed
-        private KeyValuePair<int, string>[] _headsForProject;
-        public KeyValuePair<int, string>[] HeadsForProject
+        private IList<Head> _headsForProject;
+        public IList<Head> HeadsForProject
         {
             get
             {
@@ -121,8 +121,8 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private KeyValuePair<int, string> _selectedHeadForProject;
-        public KeyValuePair<int, string> SelectedHeadForProject
+        private Head _selectedHeadForProject;
+        public Head SelectedHeadForProject
         {
             get
             {
@@ -131,10 +131,10 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedHeadForProject = value;
-                if (ProjectSelected != null)
-                    RemoveHeadEnable = !_projectManager.IsRecordFound(ProjectSelected.Id, value.Key);
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedHeadForProject"));
+                //if (ProjectSelected != null)
+                //    RemoveHeadEnable = !_projectManager.IsRecordFound(ProjectSelected.Id, value.Key);
+                //if (PropertyChanged != null)
+                //    PropertyChanged(this, new PropertyChangedEventArgs("SelectedHeadForProject"));
             }
         }
 
@@ -198,22 +198,22 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            KeyValuePair<int, string> head = _projectHeadModel.SelectedRemainingHead;
+            Head head = _projectHeadModel.SelectedRemainingHead;
 
-            if (head.Key > 0)
-            {
-                List<KeyValuePair<int, string>> existingHeads = _projectHeadModel.HeadsForProject.ToList();
-                existingHeads.Add(head);
-                _projectHeadModel.HeadsForProject = existingHeads.ToArray();
+            //if (head.Key > 0)
+            //{
+            List<Head> existingHeads = _projectHeadModel.HeadsForProject.ToList();
+            existingHeads.Add(head);
+            _projectHeadModel.HeadsForProject = existingHeads.ToArray();
 
-                KeyValuePair<int, string> removableHead = _projectHeadModel.RemainingHeads.Where(rc => rc.Key == head.Key).SingleOrDefault();
-                List<KeyValuePair<int, string>> existingRemovableHeads = _projectHeadModel.RemainingHeads.ToList();
-                existingRemovableHeads.Remove(removableHead);
-                _projectHeadModel.RemainingHeads = existingRemovableHeads.ToArray();
+            //Head removableHead = _projectHeadModel.RemainingHeads.Where(rc => rc.Key == head.Key).SingleOrDefault();
+            List<Head> existingRemovableHeads = _projectHeadModel.RemainingHeads.ToList();
+            //existingRemovableHeads.Remove(removableHead);
+            _projectHeadModel.RemainingHeads = existingRemovableHeads.ToArray();
 
-                _projectHeadModel.SelectedHeadForProject = head;
-                _projectHeadModel.SelectedRemainingHead = new KeyValuePair<int, string>(0, null);
-            }
+            _projectHeadModel.SelectedHeadForProject = head;
+            _projectHeadModel.SelectedRemainingHead = null;
+            //}
         }
     }
 
@@ -234,22 +234,22 @@ namespace GKS.Model.ViewModels
 
         public void Execute(object parameter)
         {
-            KeyValuePair<int, string> head = _projectHeadModel.SelectedHeadForProject;
+            Head head = _projectHeadModel.SelectedHeadForProject;
 
-            if (head.Key > 0)
-            {
-                List<KeyValuePair<int, string>> existingHeads = _projectHeadModel.RemainingHeads.ToList();
+            //if (head.Key > 0)
+            //{
+                List<Head> existingHeads = _projectHeadModel.RemainingHeads.ToList();
                 existingHeads.Add(head);
                 _projectHeadModel.RemainingHeads = existingHeads.ToArray();
 
-                KeyValuePair<int, string> removableHead = _projectHeadModel.HeadsForProject.Where(cp => cp.Key == head.Key).SingleOrDefault();
-                List<KeyValuePair<int, string>> existingRemovableHeads = _projectHeadModel.HeadsForProject.ToList();
-                existingRemovableHeads.Remove(removableHead);
-                _projectHeadModel.HeadsForProject = existingRemovableHeads.ToArray();
+                //KeyValuePair<int, string> removableHead = _projectHeadModel.HeadsForProject.Where(cp => cp.Key == head.Key).SingleOrDefault();
+                //List<KeyValuePair<int, string>> existingRemovableHeads = _projectHeadModel.HeadsForProject.ToList();
+                //existingRemovableHeads.Remove(removableHead);
+                //_projectHeadModel.HeadsForProject = existingRemovableHeads.ToArray();
 
-                _projectHeadModel.SelectedRemainingHead = head;
-                _projectHeadModel.SelectedHeadForProject = new KeyValuePair<int, string>(0, null);
-            }
+                //_projectHeadModel.SelectedRemainingHead = head;
+                //_projectHeadModel.SelectedHeadForProject = new KeyValuePair<int, string>(0, null);
+            //}
         }
     }
 
@@ -279,16 +279,16 @@ namespace GKS.Model.ViewModels
 
             if (_projectHeadModel.RemainingHeads != null && _projectHeadModel.RemainingHeads.Count() > 0)
             {
-                int[] removeHeadIds = _projectHeadModel.RemainingHeads.Select(rc => rc.Key).ToArray();
-                int removedItems = _projectManager.RemoveHeadsFromProject(_projectHeadModel.ProjectSelected.Id,
-                                                                          removeHeadIds);
+                IList<Head> removeHeads = _projectHeadModel.RemainingHeads;//.Select(rc => rc.Key).ToArray();
+                int removedItems = _projectManager.RemoveHeadsFromProject(_projectHeadModel.ProjectSelected,
+                                                                          _projectHeadModel.RemainingHeads);
                 Message removedMessage = MessageService.Instance.GetLatestMessage();
                 if (removedItems > 0) message += removedMessage.MessageText + Environment.NewLine;
             }
             if (_projectHeadModel.HeadsForProject != null && _projectHeadModel.HeadsForProject.Count() > 0)
             {
-                int[] addedHeadIds = _projectHeadModel.HeadsForProject.Select(cp => cp.Key).ToArray();
-                int addedItems = _projectManager.AddHeadsToProject(_projectHeadModel.ProjectSelected.Id, addedHeadIds);
+                IList<Head> addedHeads = _projectHeadModel.HeadsForProject;//.Select(cp => cp.Key).ToArray();
+                int addedItems = _projectManager.AddHeadsToProject(_projectHeadModel.ProjectSelected, addedHeads);
                 Message addedMessage = MessageService.Instance.GetLatestMessage();
                 if (addedItems > 0) message += addedMessage.MessageText;
             }

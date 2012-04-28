@@ -7,11 +7,10 @@ using BLL.Model.Repositories;
 
 namespace CodeFirst
 {
-    public abstract class GenericRepository<T> :
+    public class Repository<T> :
         IRepository<T>
         where T : class, new()
     {
-
         private readonly SmartAccountContext _entities = SmartAccountContext.Instance;
 
         public virtual IQueryable<T> GetAll()

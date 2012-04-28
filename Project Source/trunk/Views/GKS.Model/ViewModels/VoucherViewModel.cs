@@ -118,7 +118,7 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public IList<Ledger> VoucherGridViewItems
+        public IList<Record> VoucherGridViewItems
         {
             get
             {

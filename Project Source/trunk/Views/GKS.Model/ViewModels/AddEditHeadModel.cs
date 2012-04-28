@@ -7,6 +7,7 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
+using BLL.Model.Schema;
 
 namespace GKS.Model.ViewModels
 {
@@ -132,7 +133,7 @@ namespace GKS.Model.ViewModels
                 Description = HeadDescription,
                 IsActive = IsActive,
                 Name = HeadName,
-                Type = CurrentHeadOption
+                Type = CurrentHeadOption.ToString()
             };
         }
     }

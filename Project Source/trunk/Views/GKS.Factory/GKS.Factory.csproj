@@ -48,13 +48,9 @@
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DALs\SQL2K8\SQL2K8.csproj">
-      <Project>{BA605CD0-1CB4-4289-B4C7-CA6B2DC928BA}</Project>
-      <Name>SQL2K8</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DALs\SQLCompact\SQLCompact.csproj">
-      <Project>{556C90B7-EFF6-4474-BFCE-4149D4077712}</Project>
-      <Name>SQLCompact</Name>
+    <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
+      <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
+      <Name>CodeFirst</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

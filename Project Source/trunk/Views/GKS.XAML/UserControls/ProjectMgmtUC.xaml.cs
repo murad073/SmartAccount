@@ -64,10 +64,10 @@ namespace GKS.XAML.UserControls
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
-            ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
-            s.dataToPrint = (Projects)view.SourceCollection;
-            s.GenerateReport();
+            //ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
+            //ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
+            //s.dataToPrint = (Projects)view.SourceCollection;
+            //s.GenerateReport();
         }
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)

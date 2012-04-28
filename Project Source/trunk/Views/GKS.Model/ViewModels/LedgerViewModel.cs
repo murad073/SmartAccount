@@ -27,7 +27,7 @@ namespace GKS.Model.ViewModels
         private readonly ILedgerManager _ledgerManager;
         public LedgerViewModel()
         {
-            IRepository<Record> ledgerRepository = GKSFactory.GetLedgerRepository();
+            IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
 
             _ledgerManager = BLLCoreFactory.GetLedgerManager();
             _headManager = BLLCoreFactory.GetHeadManager();
@@ -88,8 +88,8 @@ namespace GKS.Model.ViewModels
         {
             get
             {
-                if (SelectedProject == null || SelectedProject.Id <= 0) return null;
-                return _headManager.GetHeads(SelectedProject.Id).ToList();
+                if (SelectedProject == null || SelectedProject.ID <= 0) return null;
+                return _headManager.GetHeads(SelectedProject).ToList();
             }
         }
 
@@ -165,7 +165,7 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public IList<Ledger> LedgerGridViewItems
+        public IList<Record> LedgerGridViewItems
         {
             get
             {
@@ -182,22 +182,11 @@ namespace GKS.Model.ViewModels
                 double balance = 0;
                 if (!ShowAllAdvance)
                 {
-                    return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l =>
-                    new Ledger
-                    {
-                        VoucherNo = l.VoucherNo,
-                        Date = l.Date,
-                        ChequeNo = l.ChequeNo,
-                        Debit = l.Debit,
-                        Credit = l.Credit,
-                        Balance = balance += l.Debit - l.Credit,
-                        Particular = l.Particular,
-                        Remarks = l.Remarks
-                    }).ToList();
+                    return _ledgerManager.GetLedgerBook(SelectedProject, SelectedHead).ToList();
                 }
                 else
                 {
-                    return _ledgerManager.GetAllAdvance(SelectedProject.Id);
+                    return _ledgerManager.GetAllAdvance(SelectedProject);
                 }
             }
         }

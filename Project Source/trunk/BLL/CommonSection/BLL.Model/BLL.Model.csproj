@@ -74,6 +74,7 @@
     <Compile Include="Schema\DebitVoucher.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Schema\HeadType.cs" />
     <Compile Include="Schema\JournalVoucher.cs">
       <SubType>Code</SubType>
     </Compile>

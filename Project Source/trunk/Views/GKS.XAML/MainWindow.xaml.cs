@@ -25,7 +25,7 @@ namespace GKS.XAML
     {
         public MainWindow()
         {
-            GKSFactory.RepositoryType = RepositoryType.SqlCompact;
+            GKSFactory.RepositoryType = RepositoryType.CodeFirst;
             //GKSFactory.RepositoryType = RepositoryType.SqlExpress;
 
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);

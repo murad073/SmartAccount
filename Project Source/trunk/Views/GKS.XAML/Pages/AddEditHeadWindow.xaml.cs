@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Model.Entity;
+using BLL.Model.Schema;
 using GKS.Model.ViewModels;
 
 namespace GKS.XAML
@@ -51,7 +52,7 @@ namespace GKS.XAML
             Init();
             _vm.HeadName = head.Name;
             _vm.HeadDescription = head.Description;
-            _vm.CurrentHeadOption = head.Type;
+            _vm.CurrentHeadOption = head.Type == "Capital" ? HeadType.Capital : HeadType.Revenue;
             _vm.IsActive = head.IsActive;
         }
 

@@ -8,8 +8,8 @@ namespace BLL.Model.Managers
         IList<Project> GetProjects(bool bringInactive = true);
         bool Add(Project project);
         bool Update(Project project);
-        int RemoveHeadsFromProject(int projectId, int[] headIds);
-        int AddHeadsToProject(int projectId, int[] headIds);
-        bool IsRecordFound(int projectId, int headId);
+        int RemoveHeadsFromProject(Project project, IList<Head> heads);
+        int AddHeadsToProject(Project project, IList<Head> heads);
+        //bool IsRecordFound(int projectId, int headId);
     }
 }

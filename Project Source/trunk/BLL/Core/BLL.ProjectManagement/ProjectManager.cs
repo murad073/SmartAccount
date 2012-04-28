@@ -157,59 +157,72 @@ namespace BLL.ProjectManagement
             //return count;
         }
 
-        public int AddHeadsToProject(int projectId, int[] headIds)
+        public int AddHeadsToProject(Project project, IList<Head> heads)
         {
             int count = 0;
-            Project project = _projectRepository.Get(projectId);
+            //Project project = _projectRepository.Get(projectId);
 
-            if (project == null)
+            foreach (Head addableHead in heads)
             {
-                InvokeManagerEvent(new BLLEventArgs
+                ProjectHead projectHead =
+                    _projectHeadRepository.GetSingle(ph => ph.Project == project && ph.Head == addableHead);
+                if (projectHead == null)
                 {
-                    EventType = EventType.Warning,
-                    MessageDescription = "Invalid project selected."
-                });
-                return 0;
-            }
-
-            string headNames = "";
-            Head head;
-            foreach (int headId in headIds)
-            {
-                head = _headRepository.Get(headId);
-                if (head != null)
-                {
-                    if (_projectRepository.AddHeadToProject(projectId, headId))
-                    {
-                        headNames += string.IsNullOrWhiteSpace(headNames) ? head.Name : ", " + head.Name;
-                        count++;
-                    }
+                    ProjectHead newProjectHead = new ProjectHead { Project = project, Head = addableHead, IsActive = true };
+                    _projectHeadRepository.Insert(newProjectHead);
                 }
+                //else _projectHeadRepository.Update(projectHead);
             }
 
-            if (count > 0)
-            {
-                InvokeManagerEvent(new BLLEventArgs
-                {
-                    EventType = EventType.Success,
-                    MessageDescription = count + " head(s) added to project '" + project.Name + "': " + headNames + "."
-                });
-            }
-            else
-            {
-                InvokeManagerEvent(new BLLEventArgs
-                {
-                    EventType = EventType.Information,
-                    MessageDescription = "No head(s) added to project '" + project.Name + "'."
-                });
-            }
-            return count;
+            return _projectHeadRepository.Save();
+            //if (project == null)
+            //{
+            //    InvokeManagerEvent(new BLLEventArgs
+            //    {
+            //        EventType = EventType.Warning,
+            //        MessageDescription = "Invalid project selected."
+            //    });
+            //    return 0;
+            //}
+
+            //string headNames = "";
+            //Head head;
+            //foreach (int headId in headIds)
+            //{
+            //    head = _headRepository.Get(headId);
+            //    if (head != null)
+            //    {
+            //        if (_projectRepository.AddHeadToProject(projectId, headId))
+            //        {
+            //            headNames += string.IsNullOrWhiteSpace(headNames) ? head.Name : ", " + head.Name;
+            //            count++;
+            //        }
+            //    }
+            //}
+
+            //if (count > 0)
+            //{
+            //    InvokeManagerEvent(new BLLEventArgs
+            //    {
+            //        EventType = EventType.Success,
+            //        MessageDescription = count + " head(s) added to project '" + project.Name + "': " + headNames + "."
+            //    });
+            //}
+            //else
+            //{
+            //    InvokeManagerEvent(new BLLEventArgs
+            //    {
+            //        EventType = EventType.Information,
+            //        MessageDescription = "No head(s) added to project '" + project.Name + "'."
+            //    });
+            //}
+            //return count;
         }
 
-        public bool IsRecordFound(int projectId, int headId)
-        {
-            return _recordRepository.IsRecordFound(projectId, headId);
-        }
+        //public bool IsRecordFound(int projectId, int headId)
+        //{
+        //    return _recordRepository.IsRecordFound(projectId, headId);
+        //}
     }
 }
 
