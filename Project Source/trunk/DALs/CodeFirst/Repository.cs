@@ -48,7 +48,6 @@ namespace CodeFirst
         public void Discard()
         {
             _entities.Reset();
-
         }
 
         public T Get(int id)

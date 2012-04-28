@@ -8,10 +8,11 @@ using BLL.Model.Entity;
 
 namespace CodeFirst
 {
-    class SmartAccountContext : DbContext
+    internal class SmartAccountContext : DbContext
     {
         private SmartAccountContext()
         {
+            Database.SetInitializer(new EntitiesContextInitializer());
         }
 
         private static SmartAccountContext _instance = new SmartAccountContext();
