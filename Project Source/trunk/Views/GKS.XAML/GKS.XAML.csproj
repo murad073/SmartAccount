@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ExportToExcel.cs" />
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
     </Compile>
