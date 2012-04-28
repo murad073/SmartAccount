@@ -38,7 +38,7 @@ namespace GKS.XAML.UserControls
         {
             ProjectManagementModel vm = DataContext as ProjectManagementModel;
 
-            AddEditProjectWindow projectWindow = new AddEditProjectWindow {Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset};
+            AddEditProjectWindow projectWindow = new AddEditProjectWindow { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
             projectWindow.SetOperationType(OperationType.Add);
             projectWindow.ShowDialog();
         }
@@ -66,7 +66,7 @@ namespace GKS.XAML.UserControls
         {
             ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
             ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
-            s.dataToPrint = (Projects)view.SourceCollection;
+            s.dataToPrint = (List<Project>)view.SourceCollection;
             s.GenerateReport();
         }
 
@@ -77,7 +77,7 @@ namespace GKS.XAML.UserControls
         }
     }
 
-    
+
     /// <summary>
     /// Class for generator of Excel file
     /// </summary>
