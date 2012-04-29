@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Factories\BLL.Factories.csproj">
+      <Project>{406CACEA-6D54-480C-A284-A5A97314D994}</Project>
+      <Name>BLL.Factories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>

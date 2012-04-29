@@ -8,6 +8,6 @@ namespace BLL.Model.Managers
     {
         bool Set(MassVoucher massVoucher);
         IList<Record> GetEntryableRecords();
-        int GetNewVoucherNo(string key, string projectName);
+        int GetNewVoucherNo(string voucherType, Project project);
     }
 }

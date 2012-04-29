@@ -30,7 +30,9 @@ namespace BLL.ProjectManagement
 
         public IList<Head> GetHeads(Project project, bool isCashOrBankIncluded = true, bool bringInactive = true)
         {
-            IList<Head> heads = _projectHeadRepository.Get(ph => ph.Project == project).Select(ph => ph.Head).ToList();
+            IList<ProjectHead> headQuery = _projectHeadRepository.Get(ph => ph.Project.ID == project.ID).ToList();
+            //TODO: Nazmul direct referencing is not working. ID is working...  ph => ph.Project.ID == project.ID
+            IList<Head> heads = headQuery.Select(ph => ph.Head).ToList();
 
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
 

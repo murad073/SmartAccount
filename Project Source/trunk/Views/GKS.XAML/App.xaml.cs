@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using GKS.Factory;
 
 namespace GKS.XAML
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public App()
         {
             base.DispatcherUnhandledException += AppDispatcherUnhandledException;
+            GKSFactory.RepositoryType = RepositoryType.CodeFirst;
+            //GKSFactory.RepositoryType = RepositoryType.SqlExpress;
+
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            ci.DateTimeFormat.LongDatePattern = "dd-MM-yyyy";
+            ci.DateTimeFormat.FullDateTimePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
         }
 
         static void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

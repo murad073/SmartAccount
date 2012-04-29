@@ -59,6 +59,7 @@ namespace BLL.Model.Entity
         public virtual ICollection<BankRecord> BankRecords { get; set; }
 
         internal IRepository<Record> RecordRepository;
+        
         public virtual bool Save() { return false; }
         public virtual string VoucherTypeKey() { return ""; }
         public virtual string HeadName() { return ""; }

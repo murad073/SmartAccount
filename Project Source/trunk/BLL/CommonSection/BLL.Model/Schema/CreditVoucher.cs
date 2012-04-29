@@ -6,8 +6,12 @@ namespace BLL.Model.Schema
 {
     public class CreditVoucher : VoucherBase
     {
+        public CreditVoucher()
+        {
+        }
+
         public CreditVoucher(IRepository<Record> recordRepository)
-            : base(recordRepository)
+            : base(recordRepository, null)
         {
         }
 

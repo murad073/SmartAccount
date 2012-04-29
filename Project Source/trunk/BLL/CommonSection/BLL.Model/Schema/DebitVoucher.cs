@@ -6,8 +6,12 @@ namespace BLL.Model.Schema
 {
     public class DebitVoucher : VoucherBase
     {
-        public DebitVoucher(IRepository<Record> recordRepository)
-            : base(recordRepository)
+        public DebitVoucher()
+        {
+            
+        }
+        public DebitVoucher(IRepository<Record> recordRepository, IRepository<FixedAsset> fixedAssetRepository)
+            : base(recordRepository, fixedAssetRepository)
         { }
 
         public override string VoucherTypeKey()

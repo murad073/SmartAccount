@@ -19,7 +19,7 @@
         </ListBox>
 
         <Label Content="All account heads for the selected project:" Height="28" HorizontalAlignment="Left" Margin="256,63,0,0" Name="label3" VerticalAlignment="Top" Width="233" />
-        <ListBox  DisplayMemberPath="Value" Height="423" HorizontalAlignment="Left" Margin="257,92,0,0" Name="listBoxSelectedHeads" VerticalAlignment="Top" Width="232" 
+        <ListBox  DisplayMemberPath="Name" Height="423" HorizontalAlignment="Left" Margin="257,92,0,0" Name="listBoxSelectedHeads" VerticalAlignment="Top" Width="232" 
                  ItemsSource="{Binding Path=HeadsForProject, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedHeadForProject, Mode=TwoWay}" >
             <ListBox.ToolTip>
                 <ToolTip>
@@ -29,7 +29,7 @@
         </ListBox>
 
         <Label Content="All account heads:" Height="28" HorizontalAlignment="Left" Margin="557,63,0,0" Name="label2" VerticalAlignment="Top" Width="217" />
-        <ListBox DisplayMemberPath="Value"  Height="423" HorizontalAlignment="Left" Margin="559,92,0,0" Name="listBoxRemainingHeads" VerticalAlignment="Top" Width="226" 
+        <ListBox DisplayMemberPath="Name"  Height="423" HorizontalAlignment="Left" Margin="559,92,0,0" Name="listBoxRemainingHeads" VerticalAlignment="Top" Width="226" 
                  ItemsSource="{Binding Path=RemainingHeads, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedRemainingHead, Mode=TwoWay}">
             <ListBox.ToolTip>
                 <ToolTip>

@@ -29,7 +29,7 @@ namespace GKS.Model.ViewModels
             InputFirstPartEnabled = true;
             InputSecondPartEnabled = true;
 
-            AllProjects = new CollectionView(_projectManager.GetProjects(false));
+            AllProjects = _projectManager.GetProjects(false);
             SelectedVoucherType = "DV";
 
             VoucherDate = DateTime.Now;
@@ -66,8 +66,8 @@ namespace GKS.Model.ViewModels
 
         #region Project Head section
 
-        private CollectionView _allProjects;
-        public CollectionView AllProjects
+        private IList<Project> _allProjects;
+        public IList<Project> AllProjects
         {
             get { return _allProjects; }
             set
@@ -675,7 +675,7 @@ namespace GKS.Model.ViewModels
         private void SetVoucherSerialNo()
         {
             if (SelectedProject != null)
-                VoucherSerialNo = _massVoucherManager.GetNewVoucherNo(SelectedVoucherType, SelectedProject.Name);
+                VoucherSerialNo = _massVoucherManager.GetNewVoucherNo(SelectedVoucherType, SelectedProject);
             else
                 VoucherSerialNo = 0;
         }
@@ -711,8 +711,8 @@ namespace GKS.Model.ViewModels
             MassVoucher massVoucher = new MassVoucher
                                           {
                                               Amount = Amount,
-                                              ProjectName = SelectedProject == null ? "" : SelectedProject.Name,
-                                              HeadName = SelectedHead == null ? "" : SelectedHead.Name,
+                                              Project = SelectedProject,
+                                              Head = SelectedHead,
                                               VoucherType = SelectedVoucherType,
                                               VoucherSerialNo = VoucherSerialNo,
                                               VoucherDate = VoucherDate,
@@ -767,7 +767,7 @@ namespace GKS.Model.ViewModels
 
         public void Reset(bool removeMessage = true)
         {
-            AllProjects = new CollectionView(_projectManager.GetProjects(false));
+            AllProjects = _projectManager.GetProjects(false);
             SelectedProject = null;
 
             ClearTemporaryRecords();

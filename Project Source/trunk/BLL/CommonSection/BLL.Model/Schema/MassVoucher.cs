@@ -1,4 +1,5 @@
 ﻿using System;
+using BLL.Model.Entity;
 
 namespace BLL.Model.Schema
 {
@@ -9,8 +10,8 @@ namespace BLL.Model.Schema
         public string VoucherType { get; set; }
         public int VoucherSerialNo { get; set; }
 
-        public string ProjectName { get; set; }
-        public string HeadName { get; set; }
+        public Project Project { get; set; }
+        public Head Head { get; set; }
         public DateTime VoucherDate { get; set; }
         public double Amount { get; set; }
         public string Narration { get; set; }

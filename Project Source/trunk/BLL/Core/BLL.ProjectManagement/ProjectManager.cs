@@ -46,9 +46,8 @@ namespace BLL.ProjectManagement
             Head cashBook = _headRepository.GetSingle(h => h.Name == "Cash Book");
             Head bankBook = _headRepository.GetSingle(h => h.Name == "Bank Book");
 
-            project.ProjectHeads.Add(new ProjectHead() { Project = project, Head = cashBook, IsActive = true });
-            project.ProjectHeads.Add(new ProjectHead() { Project = project, Head = bankBook, IsActive = true });
-
+            _projectHeadRepository.Insert(new ProjectHead() { Project = project, Head = cashBook, IsActive = true });
+            _projectHeadRepository.Insert(new ProjectHead() { Project = project, Head = bankBook, IsActive = true });
 
             //AddHeadsToProject(insertedProject.Id, new int[] { cashBookId, bankBookId });
             if (_projectRepository.Save() > 0)
@@ -116,7 +115,7 @@ namespace BLL.ProjectManagement
 
             foreach (Head deletableHead in heads)
             {
-                ProjectHead deletableProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project == project && ph.Head == deletableHead);
+                ProjectHead deletableProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == deletableHead.ID);
                 project.ProjectHeads.Remove(deletableProjectHead);
             }
 
@@ -165,7 +164,7 @@ namespace BLL.ProjectManagement
             foreach (Head addableHead in heads)
             {
                 ProjectHead projectHead =
-                    _projectHeadRepository.GetSingle(ph => ph.Project == project && ph.Head == addableHead);
+                    _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == addableHead.ID);
                 if (projectHead == null)
                 {
                     ProjectHead newProjectHead = new ProjectHead { Project = project, Head = addableHead, IsActive = true };

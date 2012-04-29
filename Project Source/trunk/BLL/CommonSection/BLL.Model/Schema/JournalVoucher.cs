@@ -11,8 +11,12 @@ namespace BLL.Model.Schema
         private const string CreditText = "credit";
 
         private string _jvDebitOrCredit;
-
-        public JournalVoucher(IRepository<Record> recordRepository) : base(recordRepository)
+        public JournalVoucher()
+        {
+            
+        }
+        public JournalVoucher(IRepository<Record> recordRepository, IRepository<FixedAsset> fixedAssetRepository)
+            : base(recordRepository, fixedAssetRepository)
         {
         }
 

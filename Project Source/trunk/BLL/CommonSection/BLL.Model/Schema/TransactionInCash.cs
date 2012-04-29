@@ -5,6 +5,10 @@ namespace BLL.Model.Schema
 {
     public class TransactionInCash : Record
     {
+        public TransactionInCash()
+        {
+        }
+
         public TransactionInCash(IRepository<Record> recordRepository)
         {
             base.RecordRepository = recordRepository;

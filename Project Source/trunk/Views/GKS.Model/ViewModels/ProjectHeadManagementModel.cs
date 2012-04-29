@@ -174,7 +174,7 @@ namespace GKS.Model.ViewModels
 
         public void Reset()
         {
-            AllProjectItems = new List<Project>(_projectManager.GetProjects(false));
+            AllProjectItems = _projectManager.GetProjects(false);
             _allHeads = _headManager.GetHeads(false, false);
             ProjectSelected = null;
             NotificationMessage = "";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BLL.Model;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
@@ -13,17 +14,24 @@ namespace BLL.VoucherManagement
         private readonly IRepository<Head> _headRepository;
         private readonly IRepository<Project> _projectRepository;
         private readonly IRepository<Record> _recordRepository;
+        private readonly IRepository<FixedAsset> _fixedAssetRepository;
+        private readonly IRepository<ProjectHead> _projectHeadRepository;
+        private readonly IRepository<BankRecord> _bankRecordRepository;
+        private ProjectHead _projectHead;
 
         private MassVoucher _massVoucher;
 
         private IList<Record> _entryableRecords;
 
-        public MassVoucherManager(IRepository<Record> dalVoucherManager, IRepository<Project> dalProjectManager,
-                                  IRepository<Head> dalHeadManager)
+        public MassVoucherManager(IRepository<Record> recordRepository, IRepository<Project> projectRepository,
+                                  IRepository<Head> headRepository, IRepository<ProjectHead> projectHeadRepository, IRepository<FixedAsset> fixedAssetRepository, IRepository<BankRecord> bankRecordRepository)
         {
-            _recordRepository = dalVoucherManager;
-            _projectRepository = dalProjectManager;
-            _headRepository = dalHeadManager;
+            _recordRepository = recordRepository;
+            _bankRecordRepository = bankRecordRepository;
+            _projectRepository = projectRepository;
+            _headRepository = headRepository;
+            _projectHeadRepository = projectHeadRepository;
+            _fixedAssetRepository = fixedAssetRepository;
         }
 
         public override string ModuleName
@@ -34,11 +42,11 @@ namespace BLL.VoucherManagement
         public bool Set(MassVoucher massVoucher)
         {
             bool isValid = true;
-            if (string.IsNullOrWhiteSpace(massVoucher.ProjectName))
+            if (massVoucher.Project == null)
             {
                 isValid = SetErrorMessage("NoProjectSelected");
             }
-            else if (massVoucher.VoucherType != "Contra" && string.IsNullOrWhiteSpace(massVoucher.HeadName))
+            else if (massVoucher.VoucherType != "Contra" && massVoucher.Head == null)
             {
                 isValid = SetErrorMessage("NoHeadSelected");
             }
@@ -71,6 +79,8 @@ namespace BLL.VoucherManagement
             if (isValid)
             {
                 _massVoucher = massVoucher;
+                _projectHead = _projectHeadRepository.GetSingle(
+                    ph => ph.Project.ID == massVoucher.Project.ID && ph.Head.ID == massVoucher.Head.ID);
                 isValid = SetEntryableRecords();
             }
             return isValid;
@@ -107,8 +117,8 @@ namespace BLL.VoucherManagement
                                          : (Record)GetTransactionInCash(0, _massVoucher.Amount);
                 //if (debitVoucher.IsValid() && transaction.IsValid())
                 //{
-                    records.Add(debitVoucher);
-                    records.Add(transaction);
+                records.Add(debitVoucher);
+                records.Add(transaction);
                 //}
                 //else
                 //{
@@ -123,8 +133,8 @@ namespace BLL.VoucherManagement
                                          : (Record)GetTransactionInCash(_massVoucher.Amount, 0);
                 //if (creditVoucher.IsValid() && transaction.IsValid())
                 //{
-                    records.Add(creditVoucher);
-                    records.Add(transaction);
+                records.Add(creditVoucher);
+                records.Add(transaction);
                 //}
                 //else
                 //{
@@ -136,7 +146,7 @@ namespace BLL.VoucherManagement
                 JournalVoucher journalVoucher = GetJournalVoucher();
                 //if (journalVoucher.IsValid())
                 //{
-                    records.Add(journalVoucher);
+                records.Add(journalVoucher);
                 //}
                 //else
                 //{
@@ -155,8 +165,8 @@ namespace BLL.VoucherManagement
                 TransactionInCheque chequeTransaction = GetTransactionInCheque(cashCredit, cashDebit);
                 //if (cashTransaction.IsValid() && chequeTransaction.IsValid())
                 //{
-                    records.Add(cashTransaction);
-                    records.Add(chequeTransaction);
+                records.Add(cashTransaction);
+                records.Add(chequeTransaction);
                 //}
                 //else
                 //{
@@ -175,91 +185,87 @@ namespace BLL.VoucherManagement
             return _entryableRecords;
         }
 
-        public int GetNewVoucherNo(string key, string projectName)
+        public int GetNewVoucherNo(string voucherType, Project project)
         {
-            //Project project = _projectRepository.Get(projectName);
-            //return _recordRepository.GetMaxVoucherNo(key, project.Id) + 1;
-            //TODO: cahnge the logic
-            return 1;
+            IList<ProjectHead> projectHeads = _projectHeadRepository.Get(ph => ph.Project.ID == project.ID).ToList();
+            int[] ids = projectHeads.Select(ph => ph.ID).ToArray();
+            IList<Record> records = _recordRepository.GetAll().ToList();
+            if (records.Count == 0) return 1;
+            records = records.Where(r => r.VoucherType == voucherType).ToList();
+            if (records.Count == 0) return 1;
+            int maxVoucherSerialNo = records.Where(r => ids.Contains(r.ProjectHead.ID)).
+                    ToList().Max(r => r.VoucherSerialNo);
+            return maxVoucherSerialNo + 1;
         }
 
         private DebitVoucher GetDebitVoucher()
         {
-            //DebitVoucher debitVoucher = new DebitVoucher(_recordRepository)
-            //{
-            //    Amount = _massVoucher.Amount,
-            //    HeadName = _massVoucher.HeadName,
-            //    ProjectName = _massVoucher.ProjectName,
-            //    Date = _massVoucher.VoucherDate,
-            //    Narration = _massVoucher.Narration,
-            //    Tag = _massVoucher.Tag,
-            //    VoucherSerialNo = _massVoucher.VoucherSerialNo,
-            //    LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
-            //    VoucherTypeKey = _massVoucher.VoucherType
-            //};
-            //if (_massVoucher.IsFixedAsset)
-            //{
-            //    debitVoucher.IsFixedAsset = true;
-            //    debitVoucher.FixedAsset = GetFixedAsset();
-            //}
-            //return debitVoucher;
-
-            //TODO: change the logic
-
-            return new DebitVoucher(_recordRepository);
+            DebitVoucher debitVoucher = new DebitVoucher(_recordRepository, _fixedAssetRepository)
+            {
+                Amount = _massVoucher.Amount,
+                ProjectHead = _projectHead,
+                Date = _massVoucher.VoucherDate,
+                Narration = _massVoucher.Narration,
+                Tag = _massVoucher.Tag,
+                VoucherSerialNo = _massVoucher.VoucherSerialNo,
+                VoucherType = _massVoucher.VoucherType,
+                IsActive = true
+            };
+            if (_massVoucher.IsFixedAsset)
+            {
+                debitVoucher.IsFixedAsset = true;
+                debitVoucher.FixedAsset = GetFixedAsset();
+            }
+            return debitVoucher;
         }
 
         private CreditVoucher GetCreditVoucher()
         {
-            //CreditVoucher creditVoucher = new CreditVoucher(_recordRepository)
-            //{
-            //    Amount = _massVoucher.Amount,
-            //    HeadName = _massVoucher.HeadName,
-            //    ProjectName = _massVoucher.ProjectName,
-            //    Date = _massVoucher.VoucherDate,
-            //    Narration = _massVoucher.Narration,
-            //    Tag = _massVoucher.Tag,
-            //    VoucherSerialNo = _massVoucher.VoucherSerialNo,
-            //    LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
-            //    VoucherTypeKey = _massVoucher.VoucherType,
-            //    IsFixedAsset = false //TODO: (sobuj) CV cannot be fixed asset. Confirm from sobuj
-            //};
-            //return creditVoucher;
-            //TODO: change the logic here
-            return new CreditVoucher(_recordRepository);
+            CreditVoucher creditVoucher = new CreditVoucher(_recordRepository)
+            {
+                Amount = _massVoucher.Amount,
+                ProjectHead = _projectHead,
+                Date = _massVoucher.VoucherDate,
+                Narration = _massVoucher.Narration,
+                Tag = _massVoucher.Tag,
+                VoucherSerialNo = _massVoucher.VoucherSerialNo,
+                Link = _massVoucher.LinkedVoucherNo,
+                VoucherType = _massVoucher.VoucherType,
+                IsActive = true,
+                IsFixedAsset = false
+            };
+            return creditVoucher;
         }
 
         private JournalVoucher GetJournalVoucher()
         {
-            //double debit = _massVoucher.JVDebitOrCredit.Equals("debit", StringComparison.OrdinalIgnoreCase)
-            //                   ? _massVoucher.Amount
-            //                   : 0;
-            //double credit = _massVoucher.JVDebitOrCredit.Equals("credit", StringComparison.OrdinalIgnoreCase)
-            //                   ? _massVoucher.Amount
-            //                   : 0;
-            //JournalVoucher journalVoucher = new JournalVoucher(_recordRepository)
-            //{
-            //    Amount = _massVoucher.Amount,
-            //    HeadName = _massVoucher.HeadName,
-            //    ProjectName = _massVoucher.ProjectName,
-            //    Date = _massVoucher.VoucherDate,
-            //    Narration = _massVoucher.Narration,
-            //    Tag = _massVoucher.Tag,
-            //    VoucherSerialNo = _massVoucher.VoucherSerialNo,
-            //    LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
-            //    VoucherTypeKey = _massVoucher.VoucherType,
-            //    JVDebitOrCredit = _massVoucher.JVDebitOrCredit,
-            //    Debit = debit,
-            //    Credit = credit
-            //};
-            //if (_massVoucher.IsFixedAsset)
-            //{
-            //    journalVoucher.IsFixedAsset = true;
-            //    journalVoucher.FixedAsset = GetFixedAsset();
-            //}
-            //return journalVoucher;
-            //TODO: change the logic here
-            return new JournalVoucher(_recordRepository);
+            double debit = _massVoucher.JVDebitOrCredit.Equals("debit", StringComparison.OrdinalIgnoreCase)
+                               ? _massVoucher.Amount
+                               : 0;
+            double credit = _massVoucher.JVDebitOrCredit.Equals("credit", StringComparison.OrdinalIgnoreCase)
+                               ? _massVoucher.Amount
+                               : 0;
+            JournalVoucher journalVoucher = new JournalVoucher(_recordRepository, _fixedAssetRepository)
+            {
+                Amount = _massVoucher.Amount,
+                ProjectHead = _projectHead,
+                Date = _massVoucher.VoucherDate,
+                Narration = _massVoucher.Narration,
+                Tag = _massVoucher.Tag,
+                VoucherSerialNo = _massVoucher.VoucherSerialNo,
+                Link = _massVoucher.LinkedVoucherNo,
+                VoucherType = _massVoucher.VoucherType,
+                JVDebitOrCredit = _massVoucher.JVDebitOrCredit,
+                Debit = debit,
+                Credit = credit,
+                IsActive = true
+            };
+            if (_massVoucher.IsFixedAsset)
+            {
+                journalVoucher.IsFixedAsset = true;
+                journalVoucher.FixedAsset = GetFixedAsset();
+            }
+            return journalVoucher;
         }
 
         private FixedAsset GetFixedAsset()
@@ -273,54 +279,49 @@ namespace BLL.VoucherManagement
 
         private TransactionInCheque GetTransactionInCheque(double debit, double credit)
         {
-            //var transactionInCheque = new TransactionInCheque(_recordRepository)
-            //                              {
-            //                                  HeadName = _massVoucher.HeadName,
-            //                                  ProjectName = _massVoucher.ProjectName,
-            //                                  Date = _massVoucher.VoucherDate,
-            //                                  Narration = _massVoucher.Narration,
-            //                                  Tag = _massVoucher.Tag,
-            //                                  VoucherSerialNo = _massVoucher.VoucherSerialNo,
-            //                                  LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
-            //                                  VoucherTypeKey = _massVoucher.VoucherType,
-            //                                  Debit = debit,
-            //                                  Credit = credit,
-            //                                  ChequeInfo = _massVoucher.IsCheque ? GetChequeInfo() : null
-            //                              };
-            //return transactionInCheque;
-            //TODO: change the logic 
-            return new TransactionInCheque(_recordRepository);
+            var transactionInCheque = new TransactionInCheque(_recordRepository, _bankRecordRepository)
+                                          {
+                                              ProjectHead = _projectHead,
+                                              Date = _massVoucher.VoucherDate,
+                                              Narration = _massVoucher.Narration,
+                                              Tag = _massVoucher.Tag,
+                                              VoucherSerialNo = _massVoucher.VoucherSerialNo,
+                                              Link = _massVoucher.LinkedVoucherNo,
+                                              VoucherType = _massVoucher.VoucherType,
+                                              Debit = debit,
+                                              Credit = credit,
+                                              BankRecord = _massVoucher.IsCheque ? GetBankRecord() : null
+                                          };
+            return transactionInCheque;
         }
 
         private TransactionInCash GetTransactionInCash(double debit, double credit)
         {
-            //TransactionInCash transactionInCash = new TransactionInCash(_recordRepository)
-            //{
-            //    HeadName = _massVoucher.HeadName,
-            //    ProjectName = _massVoucher.ProjectName,
-            //    Date = _massVoucher.VoucherDate,
-            //    Narration = _massVoucher.Narration,
-            //    Tag = _massVoucher.Tag,
-            //    VoucherSerialNo = _massVoucher.VoucherSerialNo,
-            //    LinkedVoucherNo = _massVoucher.LinkedVoucherNo,
-            //    VoucherTypeKey = _massVoucher.VoucherType,
-            //    Debit = debit,
-            //    Credit = credit
-            //};
-            //return transactionInCash;
-
-            return new TransactionInCash(_recordRepository);
+            TransactionInCash transactionInCash = new TransactionInCash(_recordRepository)
+            {
+                ProjectHead = _projectHead,
+                Date = _massVoucher.VoucherDate,
+                Narration = _massVoucher.Narration,
+                Tag = _massVoucher.Tag,
+                VoucherSerialNo = _massVoucher.VoucherSerialNo,
+                Link = _massVoucher.LinkedVoucherNo,
+                VoucherType = _massVoucher.VoucherType,
+                Debit = debit,
+                Credit = credit,
+                IsActive = true
+            };
+            return transactionInCash;
         }
 
-        //private ChequeInfo GetChequeInfo()
-        //{
-        //    return new ChequeInfo
-        //               {
-        //                   BankName = _massVoucher.BankName,
-        //                   BankBranch = _massVoucher.BankBranch,
-        //                   ChequeNo = _massVoucher.ChequeNo,
-        //                   Date = _massVoucher.ChequeDate
-        //               };
-        //}
+        private BankRecord GetBankRecord()
+        {
+            return new BankRecord
+                       {
+                           BankName = _massVoucher.BankName,
+                           Branch = _massVoucher.BankBranch,
+                           ChequeNo = _massVoucher.ChequeNo,
+                           ChequeDate = _massVoucher.ChequeDate
+                       };
+        }
     }
 }
