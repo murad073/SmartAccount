@@ -46,5 +46,6 @@
         
         <Button Content="Add" Height="23" HorizontalAlignment="Left" Margin="586,520,0,0" Name="buttonAdd" VerticalAlignment="Top" Width="75" Click="buttonAdd_Click" />
         <Button Content="View/Edit" Height="23" HorizontalAlignment="Left" Margin="670,520,0,0" Name="buttonView" VerticalAlignment="Top" Width="75" IsEnabled="True" Click="buttonView_Click" />
+        <Button Content="Export" Height="23" HorizontalAlignment="Left" Margin="94,519,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="buttonExport_Click" />
     </Grid>
 </UserControl>

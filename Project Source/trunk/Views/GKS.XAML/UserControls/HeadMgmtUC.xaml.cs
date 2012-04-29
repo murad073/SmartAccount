@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Model.Entity;
 using GKS.Model.ViewModels;
+using GKS.Model;
+
+//using ExportToExcelTools;
 
 namespace GKS.XAML.UserControls
 {
@@ -53,6 +56,11 @@ namespace GKS.XAML.UserControls
         {
             HeadMgmtModel vm = DataContext as HeadMgmtModel;
             vm.Reset();
+        }
+
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridAllHeads.ExportToExcel();
         }
     }
 }
