@@ -80,10 +80,6 @@ namespace BLL.ProjectManagement
 
         public bool Update(Project project)
         {
-            //Project existingProject = _projectRepository.Get(project.Name);
-
-            //if (existingProject != null)
-            //{
             _projectRepository.Update(project);
             if (_projectRepository.Save() > 0)
             {
@@ -91,138 +87,78 @@ namespace BLL.ProjectManagement
                                        {
                                            EventType = EventType.Success,
                                            MessageKey = "ProjectSuccessfullyUpdated",
-                                           Parameters =
-                                               new Dictionary<string, string> { { "ProjectName", project.Name } }
+                                           Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } }
                                        });
                 return true;
             }
-            //}
-            InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectUpdatedFailed", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
+            InvokeManagerEvent(new BLLEventArgs
+                                   {
+                                       EventType = EventType.Error,
+                                       MessageKey = "ProjectUpdatedFailed",
+                                       Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } }
+                                   });
+            _projectRepository.Discard();
             return false;
         }
 
         public int RemoveHeadsFromProject(Project project, IList<Head> heads)
         {
             int count = 0;
-            //Project project = _projectRepository.Get(projectId);
-
-            //if (project == null)
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Warning, MessageDescription = "Invalid project selected." });
-            //    return 0;
-            //}
-            //_projectHeadRepository.Get(ph=>ph.)
+            string headNames = "";
 
             foreach (Head deletableHead in heads)
             {
+                headNames += string.IsNullOrWhiteSpace(headNames) ? deletableHead.Name : ", " + deletableHead.Name;
                 ProjectHead deletableProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == deletableHead.ID);
                 project.ProjectHeads.Remove(deletableProjectHead);
             }
+            count = _projectHeadRepository.Save();
 
-            return _projectHeadRepository.Save();
-            //string headNames = "";
-            //Head head;
-            //foreach (int headId in headIds)
-            //{
-            //    head = _headRepository.Get(headId);
-            //    if (head != null)
-            //    {
-            //        if (_projectRepository.RemoveHeadFromProject(projectId, headId))
-            //        {
-            //            headNames += string.IsNullOrWhiteSpace(headNames) ? head.Name : ", " + head.Name;
-            //            count++;
-            //        }
-            //    }
-            //}
-
-            //if (count > 0)
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs
-            //    {
-            //        EventType = EventType.Success,
-            //        MessageDescription = count + " head(s) removed from project '" + project.Name + "': " +
-            //            headNames + "."
-            //    });
-
-            //}
-            //else
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs
-            //    {
-            //        EventType = EventType.Information,
-            //        MessageDescription = "No head(s) removed from project '" + project.Name + "'."
-            //    });
-            //}
-            //return count;
+            if (count > 0)
+            {
+                InvokeManagerEvent(EventType.Success, "", string.Concat("Head(s) removed from project '", project.Name, "': ", headNames, "."));
+            }
+            else
+            {
+                InvokeManagerEvent(EventType.Information, "", string.Concat("No head(s) removed from project '", project.Name, "'."));
+            }
+            return count;
         }
 
         public int AddHeadsToProject(Project project, IList<Head> heads)
         {
             int count = 0;
-            //Project project = _projectRepository.Get(projectId);
-
+            string headNames = "";
             foreach (Head addableHead in heads)
             {
-                ProjectHead projectHead =
-                    _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == addableHead.ID);
+                headNames += string.IsNullOrWhiteSpace(headNames) ? addableHead.Name : ", " + addableHead.Name;
+                ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == addableHead.ID);
                 if (projectHead == null)
                 {
                     ProjectHead newProjectHead = new ProjectHead { Project = project, Head = addableHead, IsActive = true };
                     _projectHeadRepository.Insert(newProjectHead);
                 }
-                //else _projectHeadRepository.Update(projectHead);
             }
 
-            return _projectHeadRepository.Save();
-            //if (project == null)
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs
-            //    {
-            //        EventType = EventType.Warning,
-            //        MessageDescription = "Invalid project selected."
-            //    });
-            //    return 0;
-            //}
+            count = _projectHeadRepository.Save();
 
-            //string headNames = "";
-            //Head head;
-            //foreach (int headId in headIds)
-            //{
-            //    head = _headRepository.Get(headId);
-            //    if (head != null)
-            //    {
-            //        if (_projectRepository.AddHeadToProject(projectId, headId))
-            //        {
-            //            headNames += string.IsNullOrWhiteSpace(headNames) ? head.Name : ", " + head.Name;
-            //            count++;
-            //        }
-            //    }
-            //}
-
-            //if (count > 0)
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs
-            //    {
-            //        EventType = EventType.Success,
-            //        MessageDescription = count + " head(s) added to project '" + project.Name + "': " + headNames + "."
-            //    });
-            //}
-            //else
-            //{
-            //    InvokeManagerEvent(new BLLEventArgs
-            //    {
-            //        EventType = EventType.Information,
-            //        MessageDescription = "No head(s) added to project '" + project.Name + "'."
-            //    });
-            //}
-            //return count;
+            if (count > 0)
+            {
+                InvokeManagerEvent(EventType.Success, "", string.Concat("Head(s) added to project '", project.Name, "': ", headNames, "."));
+            }
+            else
+            {
+                _projectHeadRepository.Discard();
+                InvokeManagerEvent(EventType.Information, string.Concat("No head(s) added to project '", project.Name, "'."));
+            }
+            return count;
         }
 
         public bool IsRecordFound(Project project, Head head)
         {
             if (project == null || head == null) return false;
             ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == head.ID);
-            if(projectHead==null) return false;
+            if (projectHead == null) return false;
             return _recordRepository.Get(r => r.ProjectHead.ID == projectHead.ID).Count() > 0;
         }
     }

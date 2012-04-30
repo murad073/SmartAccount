@@ -28,7 +28,7 @@ namespace GKS.Model.ViewModels
             AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));
         }
 
-        // Project list box - left sided
+        #region View Model Binding Elements
         private ObservableCollection<Project> _allProjectItems;
         public ObservableCollection<Project> AllProjectItems
         {
@@ -61,13 +61,13 @@ namespace GKS.Model.ViewModels
                 else
                 {
                     HeadsForProject = new ObservableCollection<Head>(_headManager.GetHeads(value, false));
-                    RemainingHeads = new ObservableCollection<Head>(_allHeads.Except(HeadsForProject));
+                    RemainingHeads = new ObservableCollection<Head>(
+                        _allHeads.Except(HeadsForProject).Where(h => h.Name != SelectedProject.Name));
                 }
                 SelectedRemainingHead = SelectedHeadForProject = null;
             }
         }
 
-        // Remaining Heads list box - right sided
         private ObservableCollection<Head> _remainingHeads;
         public ObservableCollection<Head> RemainingHeads
         {
@@ -97,7 +97,6 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        // Project-Head list box - middle placed
         private ObservableCollection<Head> _headsForProject;
         public ObservableCollection<Head> HeadsForProject
         {
@@ -151,6 +150,7 @@ namespace GKS.Model.ViewModels
                 NotifyPropertyChanged("RemoveHeadEnable");
             }
         }
+        #endregion
 
         #region relay commands
 
@@ -163,7 +163,6 @@ namespace GKS.Model.ViewModels
                        (_resetButtonClicked = new RelayCommand(p1 => this.Reset()));
             }
         }
-
 
         private RelayCommand _removeHeadButtonClicked;
         public ICommand RemoveHeadButtonClicked
@@ -218,14 +217,12 @@ namespace GKS.Model.ViewModels
 
             if (RemainingHeads != null && RemainingHeads.Count() > 0)
             {
-                //IList<Head> removeHeads = _projectHeadModel.RemainingHeads;//.Select(rc => rc.Key).ToArray();
                 int removedItems = _projectManager.RemoveHeadsFromProject(SelectedProject, RemainingHeads);
                 Message removedMessage = MessageService.Instance.GetLatestMessage();
                 if (removedItems > 0) message += removedMessage.MessageText + Environment.NewLine;
             }
             if (HeadsForProject != null && HeadsForProject.Count() > 0)
             {
-                //IList<Head> addedHeads = _projectHeadModel.HeadsForProject;//.Select(cp => cp.Key).ToArray();
                 int addedItems = _projectManager.AddHeadsToProject(SelectedProject, HeadsForProject);
                 Message addedMessage = MessageService.Instance.GetLatestMessage();
                 if (addedItems > 0) message += addedMessage.MessageText;
