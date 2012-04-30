@@ -10,6 +10,7 @@ namespace BLL.Model.Managers
         bool Update(Project project);
         int RemoveHeadsFromProject(Project project, IList<Head> heads);
         int AddHeadsToProject(Project project, IList<Head> heads);
-        //bool IsRecordFound(int projectId, int headId);
+        bool IsRecordFound(Project project, Head head);
     }
 }
+

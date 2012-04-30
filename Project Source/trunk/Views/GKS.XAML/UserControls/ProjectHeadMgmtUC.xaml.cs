@@ -26,17 +26,17 @@ namespace GKS.XAML.UserControls
             DataContext = new ProjectHeadManagementModel();
         }
 
-        private void buttonSave_Click(object sender, RoutedEventArgs e)
-        {
-            ProjectHeadManagementModel viewModel = (ProjectHeadManagementModel)DataContext;
-            if (viewModel != null && viewModel.SaveProjectsForHead.CanExecute(this))
-               viewModel.SaveProjectsForHead.Execute(this);
-        }
+        //private void buttonSave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ProjectHeadManagementModel viewModel = (ProjectHeadManagementModel)DataContext;
+        //    if (viewModel != null && viewModel.SaveProjectsForHead.CanExecute(this))
+        //       viewModel.SaveProjectsForHead.Execute(this);
+        //}
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            ProjectHeadManagementModel vm = (ProjectHeadManagementModel)DataContext;
-            vm.Reset();
-        }
+        //private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ProjectHeadManagementModel vm = (ProjectHeadManagementModel)DataContext;
+        //    vm.Reset();
+        //}
     }
 }

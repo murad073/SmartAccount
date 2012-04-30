@@ -218,10 +218,13 @@ namespace BLL.ProjectManagement
             //return count;
         }
 
-        //public bool IsRecordFound(int projectId, int headId)
-        //{
-        //    return _recordRepository.IsRecordFound(projectId, headId);
-        //}
+        public bool IsRecordFound(Project project, Head head)
+        {
+            if (project == null || head == null) return false;
+            ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == head.ID);
+            if(projectHead==null) return false;
+            return _recordRepository.Get(r => r.ProjectHead.ID == projectHead.ID).Count() > 0;
+        }
     }
 }
 
