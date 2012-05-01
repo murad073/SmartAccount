@@ -23,7 +23,7 @@ namespace CodeFirst
 
         public void Reset()
         {
-            _instance.Dispose(true);
+            //_instance.Dispose(true);
             _instance = new SmartAccountContext();
         }
 

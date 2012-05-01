@@ -138,7 +138,6 @@
       <DependentUpon>BudgetSetup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="UserControls\Excel.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
       <DependentUpon>VoucherPostUC.xaml</DependentUpon>
     </Compile>

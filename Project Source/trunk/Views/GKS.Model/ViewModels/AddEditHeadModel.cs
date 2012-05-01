@@ -11,16 +11,20 @@ using BLL.Model.Schema;
 
 namespace GKS.Model.ViewModels
 {
-    public class AddEditHeadModel : INotifyPropertyChanged
+    public class AddEditHeadModel : ViewModelBase
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CloseWindow { get; set; }
-
+        private readonly IHeadManager _headManager;
         public AddEditHeadModel()
         {
-            SaveButtonClicked = new SaveNewHead(this);
-            CloseButtonClicked = new CloseAddHeadWindow(this);
-            IsActive = true;
+            Head = Head ?? new Head { IsActive = true };
+            _headManager = BLLCoreFactory.GetHeadManager();
+        }
+
+        private Head _head;
+        public Head Head
+        {
+            get { return _head; }
+            set { _head = value; NotifyPropertyChanged("Head"); }
         }
 
         private string _messageText;
@@ -30,7 +34,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _messageText = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("MessageText"));
+                NotifyPropertyChanged("MessageText");
             }
         }
 
@@ -38,23 +42,7 @@ namespace GKS.Model.ViewModels
         public string ColorCode
         {
             get { return _colorCode; }
-            set { _colorCode = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ColorCode")); }
-        }
-
-        private bool _isActive;
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                _isActive = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActive"));
-            }
-        }
-
-        public bool IsInactive
-        {
-            get { return !IsActive; }
+            set { _colorCode = value; NotifyPropertyChanged("ColorCode"); }
         }
 
         private bool _isActiveEnabled;
@@ -64,50 +52,9 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isActiveEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActiveEnabled"));
+                NotifyPropertyChanged("IsActiveEnabled");
             }
         }
-
-        private string _headName;
-        public string HeadName
-        {
-            get { return _headName; }
-            set
-            {
-                _headName = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("HeadName"));
-            }
-        }
-
-        private string _headDescription;
-        public string HeadDescription
-        {
-            get { return _headDescription; }
-            set
-            {
-                _headDescription = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("HeadDescription"));
-            }
-        }
-
-        private HeadType _currentHeadOption;
-        public HeadType CurrentHeadOption
-        {
-            get
-            {
-                return _currentHeadOption;
-            }
-            set
-            {
-                _currentHeadOption = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("CurrentHeadOption"));
-            }
-        }
-
-        public ICommand SaveButtonClicked { get; set; }
-        public ICommand CloseButtonClicked { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private OperationType _operationType;
         public OperationType OperationType
@@ -126,105 +73,63 @@ namespace GKS.Model.ViewModels
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
         }
 
-        public Head GetHead()
+        #region Relay Commands
+
+        private RelayCommand _saveButtonClicked;
+        public ICommand SaveButtonClicked
         {
-            return new Head
+            get
             {
-                Description = HeadDescription,
-                IsActive = IsActive,
-                Name = HeadName,
-                Type = CurrentHeadOption.ToString()
-            };
-        }
-    }
-
-
-
-    public class SaveNewHead : ICommand
-    {
-        private readonly AddEditHeadModel _addEditHeadModel;
-        private readonly IHeadManager _headManager;
-        public SaveNewHead(AddEditHeadModel addEditHeadModel)
-        {
-            _addEditHeadModel = addEditHeadModel;
-            _headManager = BLLCoreFactory.GetHeadManager();
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            if (!string.IsNullOrWhiteSpace(_addEditHeadModel.HeadName))
-            {
-                Head head = _addEditHeadModel.GetHead();
-
-                OperationType saveType = _addEditHeadModel.OperationType;
-
-                bool isSuccess = saveType == OperationType.Add
-                                     ? _headManager.Add(head)
-                                     : _headManager.Update(head);
-
-                if (isSuccess && _addEditHeadModel.CloseButtonClicked.CanExecute(this))
-                    _addEditHeadModel.CloseButtonClicked.Execute(this);
-                else
-                    _addEditHeadModel.ShowMessage(MessageService.Instance.GetLatestMessage());
+                return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.SaveHead(),
+                                                               p2 => !string.IsNullOrWhiteSpace(Head.Name)));
             }
         }
-    }
 
-    public class CloseAddHeadWindow : ICommand
-    {
-        private readonly AddEditHeadModel _addEditHeadModel;
-        public CloseAddHeadWindow(AddEditHeadModel addEditHeadModel)
+        private RelayCommand _closeButtonClicked;
+        public ICommand CloseButtonClicked
         {
-            _addEditHeadModel = addEditHeadModel;
+            get { return _closeButtonClicked ?? (_closeButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
-        public bool CanExecute(object parameter)
+        //private RelayCommand _headTypeClicked;
+        //public ICommand HeadTypeClicked
+        //{
+        //    get
+        //    {
+        //        return _headTypeClicked ??
+        //               (_headTypeClicked = new RelayCommand((hType) => { Head.Type = hType.ToString(); }));
+        //    }
+        //}
+
+        private void SaveHead()
         {
-            if (_addEditHeadModel.CloseWindow != null)
-                return true;
+            bool isSuccess = OperationType == OperationType.Add
+                                 ? _headManager.Add(Head)
+                                 : _headManager.Update(Head);
+
+            if (isSuccess) InvokeOnFinish();
+            else ShowMessage(MessageService.Instance.GetLatestMessage());
+        }
+
+        #endregion
+    }
+
+    [ValueConversion(typeof(bool), typeof(string))]
+    public class RadioIsCheckedToContentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null && parameter != null)
+                if (string.Equals(value.ToString(), parameter.ToString(), StringComparison.OrdinalIgnoreCase))
+                    return true;
             return false;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            _addEditHeadModel.CloseWindow();
-        }
-    }
-
-    public class EnumMatchToBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType,
-                              object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return false;
-
-            string checkValue = value.ToString();
-            string targetValue = parameter.ToString();
-            return checkValue.Equals(targetValue,
-                     StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        public object ConvertBack(object value, Type targetType,
-                                  object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return null;
-
-            bool useValue = (bool)value;
-            string targetValue = parameter.ToString();
-            if (useValue)
-                return Enum.Parse(targetType, targetValue);
-
+            if(value is bool)
+                if((bool)value)
+                    return parameter;
             return null;
         }
     }

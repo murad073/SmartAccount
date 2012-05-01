@@ -17,14 +17,14 @@ namespace CodeFirst
                                            {
                                                Name = "Bank Book",
                                                IsActive = true,
-                                               Type = "Capital",
+                                               HeadType = "Capital",
                                                Description = "Default Bank Book"
                                            },
                                        new Head
                                            {
                                                Name = "Cash Book",
                                                IsActive = true,
-                                               Type = "Capital",
+                                               HeadType = "Capital",
                                                Description = "Default Cash Book"
                                            }
                                    };

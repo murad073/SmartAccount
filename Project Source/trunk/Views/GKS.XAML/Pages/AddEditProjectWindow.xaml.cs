@@ -46,9 +46,6 @@ namespace GKS.XAML
         {
             Init();
             _vm.Project = project;
-            //_vm.DescriptionText = project.Description;
-            //_vm.CreateDate = project.CreateDate;
-            //_vm.IsActive = project.IsActive;
         }
 
         public void SetOperationType(OperationType operationType)

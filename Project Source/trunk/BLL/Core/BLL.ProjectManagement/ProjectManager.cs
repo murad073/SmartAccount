@@ -51,7 +51,7 @@ namespace BLL.ProjectManagement
                                        {
                                            Name = project.Name,
                                            IsActive = true,
-                                           Type = "Capital",
+                                           HeadType = "Capital",
                                            Description =
                                                "This head (related with project '" + project.Name +
                                                "') is only for inter project loan."

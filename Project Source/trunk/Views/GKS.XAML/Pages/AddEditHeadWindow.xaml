@@ -9,24 +9,24 @@
 	Title="Head of Account" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" >
     
     <Window.Resources>
-        <vm:EnumMatchToBooleanConverter x:Key="enumConverter" />
+        <vm:RadioIsCheckedToContentConverter x:Key="radioConverter" />
     </Window.Resources>
 
     <Grid Height="331" Width="549" HorizontalAlignment="Center" VerticalAlignment="Center">
         
         <Label Content="Head Name:" Height="28" HorizontalAlignment="Center" Margin="93,45,388,258" Name="label1" VerticalAlignment="Center" Width="70" />
-        <TextBox TabIndex="1" Text="{Binding Path=HeadName, Mode=TwoWay}" Height="23" HorizontalAlignment="Center" Margin="164,45,112,263" Name="textHeadName" VerticalAlignment="Center" Width="273" />
+        <TextBox TabIndex="1" Text="{Binding Path=Head.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" HorizontalAlignment="Center" Margin="164,45,112,263" Name="textHeadName" VerticalAlignment="Center" Width="273" />
 
         <Label Content="Type:" Height="28" HorizontalAlignment="Center" Margin="123,79,389,224" Name="label2" VerticalAlignment="Center" />
-        <RadioButton GroupName="HeadType" IsChecked="{Binding Path=CurrentHeadOption, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Revenue}" Content="Revenue" Height="16" HorizontalAlignment="Center" Margin="164,83,308,232" x:Name="Revenue" VerticalAlignment="Center" Width="77" />
-        <RadioButton GroupName="HeadType" IsChecked="{Binding Path=CurrentHeadOption, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Capital}" Content="Capital" Height="16" HorizontalAlignment="Center" Margin="165,103,318,212" x:Name="Capital" VerticalAlignment="Center" Width="66" />
-
+        <RadioButton IsChecked="{Binding Path=Head.HeadType, Converter={StaticResource radioConverter}, ConverterParameter=Revenue}" GroupName="HeadTypeGroup" Content="Revenue" Height="16" HorizontalAlignment="Center" Margin="164,83,308,232"  VerticalAlignment="Center" Width="77" />
+        <RadioButton IsChecked="{Binding Path=Head.HeadType, Converter={StaticResource radioConverter}, ConverterParameter=Capital}" GroupName="HeadTypeGroup" Content="Capital" Height="16" HorizontalAlignment="Center" Margin="164,103,318,212"  VerticalAlignment="Center" Width="66" />
+        <!--try using dynamic resource instead of static resource-->
         <Label Content="Status:" Height="27" HorizontalAlignment="Center" Margin="326,76,177,228" Name="label3" VerticalAlignment="Center" Width="46" IsEnabled="False" />
-        <RadioButton IsChecked="{Binding Path=IsActive, Mode=TwoWay}" GroupName="HeadStatus" Content="Active" Height="16" HorizontalAlignment="Center" Margin="376,83,107,232" Name="radioButtonActive" VerticalAlignment="Center" Width="66" IsEnabled="{Binding Path=IsActiveEnabled, Mode=OneWay}" />
-        <RadioButton IsChecked="{Binding Path=IsInactive, Mode=OneWay}" GroupName="HeadStatus" Content="Inactive" Height="16" HorizontalAlignment="Center" Margin="376,103,107,212" Name="radioButtonInactive" VerticalAlignment="Center" Width="66" IsEnabled="{Binding Path=IsActiveEnabled, Mode=OneWay}" />
+        <RadioButton IsChecked="{Binding Path=Head.IsActive, Converter={StaticResource radioConverter}, ConverterParameter=True}"  GroupName="HeadStatus" Content="Active" Height="16" HorizontalAlignment="Center" Margin="376,83,107,232" Name="radioButtonActive" VerticalAlignment="Center" Width="66" IsEnabled="{Binding Path=IsActiveEnabled, Mode=OneWay}" />
+        <RadioButton IsChecked="{Binding Path=Head.IsActive, Converter={StaticResource radioConverter}, ConverterParameter=False}" GroupName="HeadStatus" Content="Inactive" Height="16" HorizontalAlignment="Center" Margin="376,103,107,212" Name="radioButtonInactive" VerticalAlignment="Center" Width="66" IsEnabled="{Binding Path=IsActiveEnabled, Mode=OneWay}" />
 
         <Label Content="Description:" Height="28" HorizontalAlignment="Left" Margin="93,123,0,0" Name="label4" VerticalAlignment="Top" />
-        <TextBox Text="{Binding Path=HeadDescription, Mode=TwoWay}" Height="72" HorizontalAlignment="Left" Margin="164,127,0,0" Name="textBoxHeadDescription" VerticalAlignment="Top" Width="273" AcceptsReturn="True" FontFamily="Tahoma" TextWrapping="Wrap" />
+        <TextBox Text="{Binding Path=Head.Description, Mode=TwoWay}" Height="72" HorizontalAlignment="Left" Margin="164,127,0,0" Name="textBoxHeadDescription" VerticalAlignment="Top" Width="273" AcceptsReturn="True" FontFamily="Tahoma" TextWrapping="Wrap" />
 
         <Button Content="Save" Height="23" HorizontalAlignment="Center" Margin="278,203,196,84" Name="buttonSave" VerticalAlignment="Center" Width="75" Command="{Binding Path=SaveButtonClicked, Mode=OneWay}" />
         <Button Content="Close" Height="23" HorizontalAlignment="Center" Margin="362,203,112,84" Name="buttonClose" VerticalAlignment="Center" Width="75" Command="{Binding Path=CloseButtonClicked, Mode=OneWay}" />

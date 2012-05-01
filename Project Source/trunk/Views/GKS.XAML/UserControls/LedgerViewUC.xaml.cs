@@ -15,21 +15,12 @@ using GKS.Model.ViewModels;
 
 namespace GKS.XAML.UserControls
 {
-    /// <summary>
-    /// Interaction logic for LedgerViewUC.xaml
-    /// </summary>
     public partial class LedgerViewUC : UserControl
     {
         public LedgerViewUC()
         {
             InitializeComponent();
             DataContext = new LedgerViewModel();
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            LedgerViewModel vm = DataContext as LedgerViewModel;
-            vm.Reset();
         }
     }
 }

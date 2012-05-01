@@ -19,44 +19,42 @@ using GKS.Model;
 
 namespace GKS.XAML.UserControls
 {
-    /// <summary>
-    /// Interaction logic for HeadMgmtUC.xaml
-    /// </summary>
     public partial class HeadMgmtUC : UserControl
     {
+        private readonly HeadMgmtModel _vm;
         public HeadMgmtUC()
         {
             InitializeComponent();
-            DataContext = new HeadMgmtModel();
+            _vm = new HeadMgmtModel();
+            DataContext = _vm;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            HeadMgmtModel vm = DataContext as HeadMgmtModel;
-
-            AddEditHeadWindow headWindow = new AddEditHeadWindow { CallbackOnClose = vm.Reset, Owner = Window.GetWindow(this) };
+            AddEditHeadWindow headWindow = new AddEditHeadWindow { Owner = Window.GetWindow(this) };
+            headWindow.Closed += (sndr, handler) => _vm.Reset();
             headWindow.SetOperationType(OperationType.Add);
             headWindow.ShowDialog();
         }
 
         private void buttonView_Click(object sender, RoutedEventArgs e)
         {
-            HeadMgmtModel vm = DataContext as HeadMgmtModel;
-            Head head = vm.SelectedGridItem;
+            Head head = _vm.SelectedGridItem;
             if (head != null)
             {
-                AddEditHeadWindow headWindow = new AddEditHeadWindow(head) { CallbackOnClose = vm.Reset, Owner = Window.GetWindow(this) };
+                AddEditHeadWindow headWindow = new AddEditHeadWindow(head) { Owner = Window.GetWindow(this) };
+                headWindow.Closed += (sndr, handler) => _vm.Reset();
                 headWindow.SetOperationType(OperationType.Update);
                 headWindow.ShowDialog();
             }
             else MessageBox.Show("No head is selected.");
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            HeadMgmtModel vm = DataContext as HeadMgmtModel;
-            vm.Reset();
-        }
+        //private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    HeadMgmtModel vm = DataContext as HeadMgmtModel;
+        //    vm.Reset();
+        //}
 
         private void buttonExport_Click(object sender, RoutedEventArgs e)
         {

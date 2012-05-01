@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using BLL.Factories;
@@ -19,17 +20,9 @@ namespace GKS.Model.ViewModels
             _projectManager = BLLCoreFactory.GetProjectManager();
         }
 
-        public IList<Project> Projects
+        public ObservableCollection<Project> Projects
         {
-            get
-            {
-                return _projectManager.GetProjects();
-            }
-        }
-
-        public void Reset()
-        {
-            NotifyPropertyChanged("Projects");
+            get { return new ObservableCollection<Project>(_projectManager.GetProjects()); }
         }
 
         private Project _selectedGridItem;
@@ -50,5 +43,11 @@ namespace GKS.Model.ViewModels
                 return _refreshButtonClicked ?? (_refreshButtonClicked = new RelayCommand(p1 => this.Reset()));
             }
         }
+
+        public void Reset()
+        {
+            NotifyPropertyChanged("Projects");
+        }
+
     }
 }

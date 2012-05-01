@@ -22,9 +22,7 @@ namespace BLL.ProjectManagement
         {
             IList<Head> heads = _headRepository.GetAll().ToList();
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
-
-            if (!isCashOrBankIncluded)
-                return heads.Where(p => p.Name != "Cash Book" && p.Name != "Bank Book").ToList();
+            if (!isCashOrBankIncluded) return heads.Where(p => p.Name != "Cash Book" && p.Name != "Bank Book").ToList();
             return heads;
         }
 
@@ -33,11 +31,9 @@ namespace BLL.ProjectManagement
             IList<ProjectHead> headQuery = _projectHeadRepository.Get(ph => ph.Project.ID == project.ID).ToList();
             //TODO: Nazmul direct referencing is not working. ID is working...  ph => ph.Project.ID == project.ID
             IList<Head> heads = headQuery.Select(ph => ph.Head).ToList();
-
             heads = bringInactive ? heads.OrderBy(h => h.Name).ToList() : heads.Where(h => h.IsActive).OrderBy(h => h.Name).ToList();
 
-            if (!isCashOrBankIncluded)
-                return heads.Where(p => p.Name != "Cash Book" && p.Name != "Bank Book").ToList();
+            if (!isCashOrBankIncluded) return heads.Where(p => p.Name != "Cash Book" && p.Name != "Bank Book").ToList();
             return heads;
         }
 
@@ -67,22 +63,17 @@ namespace BLL.ProjectManagement
 
         public bool Update(Head head)
         {
-            //Head existingHead = _projectHeadRepository.Get(head.Name);
-
-            //if (existingHead != null)
-            //{
-                _headRepository.Update(head);
-                if (_headRepository.Save() > 0)
-                {
-                    InvokeManagerEvent(new BLLEventArgs
-                                           {
-                                               EventType = EventType.Success,
-                                               MessageKey = "HeadSuccessfullyUpdated",
-                                               Parameters = new Dictionary<string, string> {{"HeadName", head.Name}}
-                                           });
-                    return true;
-                }
-            //}
+            _headRepository.Update(head);
+            if (_headRepository.Save() > 0)
+            {
+                InvokeManagerEvent(new BLLEventArgs
+                                       {
+                                           EventType = EventType.Success,
+                                           MessageKey = "HeadSuccessfullyUpdated",
+                                           Parameters = new Dictionary<string, string> { { "HeadName", head.Name } }
+                                       });
+                return true;
+            }
             InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "HeadUpdatedFailed", Parameters = new Dictionary<string, string> { { "HeadName", head.Name } } });
             return false;
         }

@@ -42,12 +42,15 @@ namespace CodeFirst
 
         public virtual int Save()
         {
-            return _entities.SaveChanges();
+            int savedCount = _entities.SaveChanges();
+            
+            //if (savedCount > 0) _entities.Reset();
+            return savedCount;
         }
 
         public void Discard()
         {
-            _entities.Reset();
+            //_entities.Reset();
         }
 
         public T Get(int id)

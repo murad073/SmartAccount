@@ -11,13 +11,12 @@ namespace BLL.LedgerManagement
 {
     public class LedgerManager : ManagerBase, ILedgerManager
     {
-        private readonly IRepository<Record> _ledgerRepository;
+        private readonly IRepository<Record> _recordRepository;
         private readonly IParameterManager _parameterManager;
-        public LedgerManager(IRepository<Record> ledgerRepository, IRepository<Parameter> parameterRepository)
+        public LedgerManager(IRepository<Record> recordRepository, IParameterManager parameterManager)
         {
-            _ledgerRepository = ledgerRepository;
-            _parameterManager = new ParameterManager(parameterRepository);
-            //_parameterManager = BLLCoreFactory.GetParameterManager(); //TODO: using BLLCoreFactory creates circular reference
+            _recordRepository = recordRepository;
+            _parameterManager = parameterManager;
             LedgerEndDate = DateTime.Now;
         }
 
@@ -30,17 +29,17 @@ namespace BLL.LedgerManagement
 
         public bool Validate(Project project, Head head, bool showAllAdvance)
         {
-            //if (project == null)
-            //{
-            //    InvokeManagerEvent(EventType.Error, "NoProjectSelected");
-            //    return false;
-            //}
+            if (project == null)
+            {
+                InvokeManagerEvent(EventType.Error, "NoProjectSelected");
+                return false;
+            }
 
-            //if (!showAllAdvance && head == null)
-            //{
-            //    InvokeManagerEvent(EventType.Error, "NoHeadSelected");
-            //    return false;
-            //}
+            if (!showAllAdvance && head == null)
+            {
+                InvokeManagerEvent(EventType.Error, "NoHeadSelected");
+                return false;
+            }
             return true;
         }
 
@@ -48,11 +47,9 @@ namespace BLL.LedgerManagement
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            return new List<Record>();
-
-            //return _ledgerRepository.Get(r => r.ProjectHead.Project == project && r.ProjectHead.Head == head).OrderBy(l => l.Date).Where(
-            //        l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
-            //        ToList();
+            return _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.ProjectHead.Head.ID == head.ID).OrderBy(l => l.Date).ToList().Where(
+                    l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
+                    ToList();
 
             //return
             //    _ledgerRepository.GetLedger(projectId, headId) .OrderBy(l => l.Date).Where(
@@ -63,14 +60,14 @@ namespace BLL.LedgerManagement
         public IList<Record> GetAllAdvance(Project project)
         {
             //return _ledgerRepository.GetLedger(projectId);
-
             //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
-            double balance = 0;
+            //double balance = 0;
             return project.ProjectHeads.SelectMany(ph => ph.Records).Where(
                     r => r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList();
+            //TODO: add date filter
         }
 
-        public DateTime GetDateAt12Am(DateTime date)
+        public static DateTime GetDateAt12Am(DateTime date)
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }

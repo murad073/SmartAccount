@@ -28,13 +28,13 @@
                   ItemsSource="{Binding Path=Heads}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Head Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Head Type" Binding="{Binding Path=Type}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Head Type" Binding="{Binding Path=HeadType}"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Header="Active?" Binding="{Binding Path=IsActive}"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
 
         </DataGrid>
 
-        <Button Height="23" HorizontalAlignment="Left" Margin="555,520,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Click="RefreshButton_Click"  >
+        <Button Height="23" HorizontalAlignment="Left" Margin="555,520,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Command="{Binding Path=RefreshButtonClicked}"  >
             <Grid>
                 <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
             </Grid>

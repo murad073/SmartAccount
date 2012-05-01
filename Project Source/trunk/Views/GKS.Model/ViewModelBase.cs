@@ -9,7 +9,6 @@ namespace GKS.Model
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public virtual void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -22,6 +21,5 @@ namespace GKS.Model
             EventHandler<EventArgs> handler = OnFinish;
             if (handler != null) handler(this, e ?? new EventArgs());
         }
-
     }
 }

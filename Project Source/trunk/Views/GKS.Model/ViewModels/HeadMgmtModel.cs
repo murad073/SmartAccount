@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using BLL.Factories;
@@ -9,30 +10,17 @@ using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
-    public class HeadMgmtModel : INotifyPropertyChanged
+    public class HeadMgmtModel : ViewModelBase
     {
         readonly IHeadManager _headManager;
         public HeadMgmtModel()
         {
             _headManager = BLLCoreFactory.GetHeadManager();
-            
-            AddHeadButtonClicked = new AddnewHead(this);
-            ViewHeadButtonClicked = new ViewHead(this);
         }
 
-        public ICommand AddHeadButtonClicked { get; set; }
-        public ICommand ViewHeadButtonClicked { get; set; }
-
-        public IList<Head> Heads
+        public ObservableCollection<Head> Heads
         {
-            get { return _headManager.GetHeads(false); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void Reset()
-        {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Heads"));
+            get { return new ObservableCollection<Head>(_headManager.GetHeads(false)); }
         }
 
         private Head _selectedGridItem;
@@ -44,45 +32,23 @@ namespace GKS.Model.ViewModels
                 _selectedGridItem = value;
             }
         }
-    }
 
-    class AddnewHead : ICommand
-    {
-        private HeadMgmtModel _headMgmt;
-        public AddnewHead(HeadMgmtModel headMgmt)
+        #region Relay Commands
+
+        private RelayCommand _refreshButtonClicked;
+        public ICommand RefreshButtonClicked
         {
-            _headMgmt = headMgmt;
+            get
+            {
+                return _refreshButtonClicked ?? (_refreshButtonClicked = new RelayCommand(p1 => this.Reset()));
+            }
         }
 
-        public bool CanExecute(object parameter)
+        public void Reset()
         {
-            return true;
+            NotifyPropertyChanged("Heads");
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-        }
-    }
-
-    class ViewHead : ICommand
-    {
-        private HeadMgmtModel _headMgmt;
-        public ViewHead(HeadMgmtModel headMgmt)
-        {
-            _headMgmt = headMgmt;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-        }
+        #endregion
     }
 }

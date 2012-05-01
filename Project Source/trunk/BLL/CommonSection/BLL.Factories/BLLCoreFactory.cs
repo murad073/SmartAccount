@@ -12,13 +12,6 @@ namespace BLL.Factories
 {
     public class BLLCoreFactory
     {
-        //public static IBudgetRepository BudgetRepository { get; set; }
-        //public static IHeadRepository HeadRepository { get; set; }
-        //public static ILedgerRepository LedgerRepository { get; set; }
-        //public static IParameterRepository ParameterRepository { get; set; }
-        //public static IProjectRepository ProjectRepository { get; set; }
-        //public static IRecordRepository RecordRepository { get; set; }
-
         public static IRepository<Budget> BudgetRepository { get; set; }
         public static IRepository<Head> HeadRepository { get; set; }
         public static IRepository<Project> ProjectRepository { get; set; }
@@ -32,7 +25,7 @@ namespace BLL.Factories
         {
             if (RecordRepository != null && ProjectRepository != null)
             {
-                LedgerManager ledgerManager = new LedgerManager(RecordRepository, ParameterRepository);
+                LedgerManager ledgerManager = new LedgerManager(RecordRepository, GetParameterManager());
                 ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return ledgerManager;

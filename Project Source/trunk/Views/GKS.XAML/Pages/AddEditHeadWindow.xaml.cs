@@ -20,17 +20,14 @@ namespace GKS.XAML
 {
     public partial class AddEditHeadWindow : Window
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CallbackOnClose { get; set; }
         private AddEditHeadModel _vm;
 
         private void Init()
         {
             InitializeComponent();
             _vm = new AddEditHeadModel();
-            _vm.CloseWindow = () => { CallbackOnClose(); this.Close(); };
+            _vm.OnFinish += (sender, eventArgs) => this.Close();
             DataContext = _vm;
-
             this.PreviewKeyDown += HandleEsc;
         }
 
@@ -48,10 +45,7 @@ namespace GKS.XAML
         public AddEditHeadWindow(Head head)
         {
             Init();
-            _vm.HeadName = head.Name;
-            _vm.HeadDescription = head.Description;
-            _vm.CurrentHeadOption = head.Type == "Capital" ? HeadType.Capital : HeadType.Revenue;
-            _vm.IsActive = head.IsActive;
+            _vm.Head = head;
         }
 
         public void SetOperationType(OperationType operationType)

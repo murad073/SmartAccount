@@ -560,7 +560,7 @@ namespace GKS.Model.ViewModels
         {
             if (SelectedHead != null)
                 //return _headManager.IsCapitalHead(SelectedHead.Id);
-                return SelectedHead.Type == HeadType.Capital.ToString();
+                return SelectedHead.HeadType == HeadType.Capital.ToString();
             return false;
         }
 

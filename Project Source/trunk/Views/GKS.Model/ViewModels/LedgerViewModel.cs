@@ -12,19 +12,12 @@ using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
 {
-
-    public class LedgerViewModel : INotifyPropertyChanged
+    public class LedgerViewModel : ViewModelBase
     {
-        #region Events
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
         private readonly ILedgerManager _ledgerManager;
+
         public LedgerViewModel()
         {
             IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
@@ -38,18 +31,8 @@ namespace GKS.Model.ViewModels
             IsAllHeadsEnabled = true;
             ShowAllAdvance = false;
             LedgerEndDate = DateTime.Now;
-            LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
+            //LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
         }
-
-        #region Event invokers
-        // Needed when we have multi-select list-box.
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler changed = PropertyChanged;
-            if (changed != null) changed(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         private IList<Project> _allProjects;
         public IList<Project> AllProjects
@@ -61,7 +44,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _allProjects = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("AllProjects"));
+                NotifyPropertyChanged("AllProjects");
             }
         }
 
@@ -75,12 +58,9 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedProject = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("AllHeads"));
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedHead"));
-                }
+                NotifyPropertyChanged("AllHeads");
+                //NotifyPropertyChanged("SelectedHead");
+                SelectedHead = null;
             }
         }
 
@@ -88,8 +68,8 @@ namespace GKS.Model.ViewModels
         {
             get
             {
-                if (SelectedProject == null || SelectedProject.ID <= 0) return null;
-                return _headManager.GetHeads(SelectedProject).ToList();
+                if (SelectedProject == null) return new List<Head>();
+                return _headManager.GetHeads(SelectedProject);
             }
         }
 
@@ -100,7 +80,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isAllHeadsEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsAllHeadsEnabled"));
+                NotifyPropertyChanged("IsAllHeadsEnabled");
             }
         }
 
@@ -114,23 +94,20 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedHead = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("SelectedHead"));
+                NotifyPropertyChanged("SelectedHead");
             }
         }
 
-        private bool _showCashOrBankTransaction;
-        public bool ShowCashOrBankTransaction
-        {
-            get { return _showCashOrBankTransaction; }
-            set
-            {
-                _showCashOrBankTransaction = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("ShowCashOrBankTransaction"));
-                }
-            }
-        }
+        //private bool _showCashOrBankTransaction;
+        //public bool ShowCashOrBankTransaction
+        //{
+        //    get { return _showCashOrBankTransaction; }
+        //    set
+        //    {
+        //        _showCashOrBankTransaction = value;
+        //        NotifyPropertyChanged("ShowCashOrBankTransaction");
+        //    }
+        //}
 
         private bool _showAllAdvance;
         public bool ShowAllAdvance
@@ -142,11 +119,8 @@ namespace GKS.Model.ViewModels
             set
             {
                 _showAllAdvance = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("ShowAllAdvance"));
-                    SetAllHeadsIsEnabled();
-                }
+                NotifyPropertyChanged("ShowAllAdvance");
+                SetAllHeadsIsEnabled();
             }
         }
 
@@ -157,38 +131,18 @@ namespace GKS.Model.ViewModels
             set
             {
                 _ledgerEndDate = value;
-                if (PropertyChanged != null)
-                {
-                    // TODO: Why is it here?
-                    PropertyChanged(this, new PropertyChangedEventArgs("FinacialYearEndDate"));
-                }
+                NotifyPropertyChanged("LedgerEndDate");
             }
         }
 
+        private IList<Record> _ledgerGridViewItems;
         public IList<Record> LedgerGridViewItems
         {
             get
             {
-                if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
-                {
-                    Message latestMessage = MessageService.Instance.GetLatestMessage();
-                    ErrorMessage = latestMessage.MessageText;
-                    ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
-                    return null;
-                }
-
-                ClearMessage();
-                _ledgerManager.LedgerEndDate = LedgerEndDate;
-                double balance = 0;
-                if (!ShowAllAdvance)
-                {
-                    return _ledgerManager.GetLedgerBook(SelectedProject, SelectedHead).ToList();
-                }
-                else
-                {
-                    return _ledgerManager.GetAllAdvance(SelectedProject);
-                }
+                return _ledgerGridViewItems;
             }
+            set { _ledgerGridViewItems = value; NotifyPropertyChanged("LedgerGridViewItems"); }
         }
 
         private string _errorMessage;
@@ -198,7 +152,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _errorMessage = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ErrorMessage"));
+                NotifyPropertyChanged("ErrorMessage");
             }
         }
 
@@ -209,7 +163,7 @@ namespace GKS.Model.ViewModels
             private set
             {
                 _colorCode = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ColorCode"));
+                NotifyPropertyChanged("ColorCode");
             }
         }
 
@@ -218,18 +172,6 @@ namespace GKS.Model.ViewModels
             Message message = new Message();
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
             ErrorMessage = message.MessageText;
-        }
-
-        public ICommand LedgerViewButtonClicked { get; set; }
-
-        public void NotifyLedgerGrid()
-        {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("LedgerGridViewItems"));
-        }
-
-        public void Reset()
-        {
-            AllProjects = _projectManager.GetProjects();
         }
 
         private void SetAllHeadsIsEnabled()
@@ -241,28 +183,78 @@ namespace GKS.Model.ViewModels
             }
             else IsAllHeadsEnabled = true;
         }
+
+        #region Relay Commands
+
+        private RelayCommand _ledgerViewButtonClicked;
+        public ICommand LedgerViewButtonClicked
+        {
+            get
+            {
+                return _ledgerViewButtonClicked ??
+                       (_ledgerViewButtonClicked = new RelayCommand(p1 => this.NotifyLedgerGrid()));
+            }
+        }
+
+        private RelayCommand _refreshButtonClicked;
+        public ICommand RefreshButtonClicked
+        {
+            get { return _refreshButtonClicked ?? (_refreshButtonClicked = new RelayCommand(p1 => this.Reset())); }
+        }
+
+        private void NotifyLedgerGrid()
+        {
+            //NotifyPropertyChanged("LedgerGridViewItems");
+
+            if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
+            {
+                Message latestMessage = MessageService.Instance.GetLatestMessage();
+                ErrorMessage = latestMessage.MessageText;
+                ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
+                return;
+            }
+            ClearMessage();
+
+            _ledgerManager.LedgerEndDate = LedgerEndDate;
+            if (!ShowAllAdvance)
+            {
+                LedgerGridViewItems = _ledgerManager.GetLedgerBook(SelectedProject, SelectedHead).ToList();
+            }
+            else
+            {
+                LedgerGridViewItems = _ledgerManager.GetAllAdvance(SelectedProject);
+            }
+        }
+
+        private void Reset()
+        {
+            AllProjects = _projectManager.GetProjects();
+        }
+
+        #endregion
+
     }
 
-    public class ViewLedger : ICommand
-    {
-        private readonly LedgerViewModel _ledgerViewModel;
-        private IRepository<Record> _ledgerRepository;
-        public ViewLedger(LedgerViewModel ledgerViewModel, IRepository<Record> ledgerRepository)
-        {
-            _ledgerViewModel = ledgerViewModel;
-            _ledgerRepository = ledgerRepository;
-        }
+    //public class ViewLedger : ICommand
+    //{
+    //    private readonly LedgerViewModel _ledgerViewModel;
+    //    private IRepository<Record> _ledgerRepository;
+    //    public ViewLedger(LedgerViewModel ledgerViewModel, IRepository<Record> ledgerRepository)
+    //    {
+    //        _ledgerViewModel = ledgerViewModel;
+    //        _ledgerRepository = ledgerRepository;
+    //    }
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+    //    public bool CanExecute(object parameter)
+    //    {
+    //        return true;
+    //    }
 
-        public event EventHandler CanExecuteChanged;
+    //    public event EventHandler CanExecuteChanged;
 
-        public void Execute(object parameter)
-        {
-            _ledgerViewModel.NotifyLedgerGrid();
-        }
-    }
+    //    public void Execute(object parameter)
+    //    {
+    //        _ledgerViewModel.NotifyLedgerGrid();
+    //    }
+    //}
 }
