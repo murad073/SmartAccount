@@ -10,13 +10,13 @@ using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
-    public class ProjectManagementModel : INotifyPropertyChanged
+    public class ProjectManagementModel : ViewModelBase
     {
         readonly IProjectManager _projectManager;
 
         public ProjectManagementModel()
         {
-            _projectManager = BLLCoreFactory.GetProjectManager();// new ProjectManager(GKSFactory.GetProjectRepository(), GKSFactory.GetHeadRepository(), GKSFactory.GetRecordRepository());
+            _projectManager = BLLCoreFactory.GetProjectManager();
         }
 
         public IList<Project> Projects
@@ -27,11 +27,9 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public void Reset()
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Projects"));
+            NotifyPropertyChanged("Projects");
         }
 
         private Project _selectedGridItem;
@@ -41,6 +39,15 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedGridItem = value;
+            }
+        }
+
+        private RelayCommand _refreshButtonClicked;
+        public ICommand RefreshButtonClicked
+        {
+            get
+            {
+                return _refreshButtonClicked ?? (_refreshButtonClicked = new RelayCommand(p1 => this.Reset()));
             }
         }
     }

@@ -12,21 +12,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Model.Entity;
+using GKS.Model;
 using GKS.Model.ViewModels;
 
 namespace GKS.XAML
 {
     public partial class AddEditProjectWindow : Window
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CallbackOnClose { get; set; }
         private AddEditProjectModel _vm;
 
         private void Init()
         {
             InitializeComponent();
             _vm = new AddEditProjectModel();
-            _vm.CloseWindow = () => { CallbackOnClose(); this.Close(); };
+            _vm.OnFinish += (sender, eventArgs) => this.Close();
             DataContext = _vm;
 
             this.PreviewKeyDown += HandleEsc;
@@ -46,10 +45,10 @@ namespace GKS.XAML
         public AddEditProjectWindow(Project project)
         {
             Init();
-            _vm.ProjectNameText = project.Name;
-            _vm.DescriptionText = project.Description;
-            _vm.CreateDate = project.CreateDate;
-            _vm.IsActive = project.IsActive;
+            _vm.Project = project;
+            //_vm.DescriptionText = project.Description;
+            //_vm.CreateDate = project.CreateDate;
+            //_vm.IsActive = project.IsActive;
         }
 
         public void SetOperationType(OperationType operationType)

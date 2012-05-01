@@ -32,24 +32,15 @@ namespace BLL.ProjectManagement
 
         public bool Add(Project project)
         {
-            Project existingProject = _projectRepository.GetSingle(p => p.Name == project.Name);
-
-            if (existingProject != null)
-            {
-                InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectAlreadyExists", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
-                return false;
-            }
+            if (ProjectWithSameNameAlreadyExists(project)) return false;
 
             _projectRepository.Insert(project);
-            //if (insertedProject != null)
-            //{
             Head cashBook = _headRepository.GetSingle(h => h.Name == "Cash Book");
             Head bankBook = _headRepository.GetSingle(h => h.Name == "Bank Book");
 
             _projectHeadRepository.Insert(new ProjectHead() { Project = project, Head = cashBook, IsActive = true });
             _projectHeadRepository.Insert(new ProjectHead() { Project = project, Head = bankBook, IsActive = true });
 
-            //AddHeadsToProject(insertedProject.Id, new int[] { cashBookId, bankBookId });
             if (_projectRepository.Save() > 0)
             {
                 InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Success, MessageKey = "NewProjectSuccessfullyCreated", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
@@ -80,6 +71,7 @@ namespace BLL.ProjectManagement
 
         public bool Update(Project project)
         {
+            if (ProjectWithSameNameAlreadyExists(project)) return false;
             _projectRepository.Update(project);
             if (_projectRepository.Save() > 0)
             {
@@ -160,6 +152,13 @@ namespace BLL.ProjectManagement
             ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == head.ID);
             if (projectHead == null) return false;
             return _recordRepository.Get(r => r.ProjectHead.ID == projectHead.ID).Count() > 0;
+        }
+
+        private bool ProjectWithSameNameAlreadyExists(Project project)
+        {
+            Project existingProject = _projectRepository.GetSingle(p => p.Name == project.Name);
+            if (existingProject != null) InvokeManagerEvent(new BLLEventArgs { EventType = EventType.Error, MessageKey = "ProjectAlreadyExists", Parameters = new Dictionary<string, string> { { "ProjectName", project.Name } } });
+            return existingProject != null;
         }
     }
 }

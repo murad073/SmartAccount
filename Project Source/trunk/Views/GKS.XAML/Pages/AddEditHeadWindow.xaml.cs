@@ -13,13 +13,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Model.Entity;
 using BLL.Model.Schema;
+using GKS.Model;
 using GKS.Model.ViewModels;
 
 namespace GKS.XAML
 {
-    /// <summary>
-    /// Interaction logic for AddEditHeadPage.xaml
-    /// </summary>
     public partial class AddEditHeadWindow : Window
     {
         public delegate void SimpleDelegate();

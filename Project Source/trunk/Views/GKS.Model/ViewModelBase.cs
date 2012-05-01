@@ -15,5 +15,13 @@ namespace GKS.Model
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public event EventHandler<EventArgs> OnFinish;
+        public void InvokeOnFinish(EventArgs e = null)
+        {
+            EventHandler<EventArgs> handler = OnFinish;
+            if (handler != null) handler(this, e ?? new EventArgs());
+        }
+
     }
 }

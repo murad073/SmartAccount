@@ -15,26 +15,26 @@
     <Grid Width="539" Height="322">
         <Label Content="Projet Name: " Height="28" HorizontalAlignment="Center" Name="labelProjectName" VerticalAlignment="Center" Width="78" Margin="77,18,384,276" />
         <TextBox TabIndex="1" Height="21" HorizontalAlignment="Center" Name="textBoxProjectName" VerticalAlignment="Center" Width="269" 
-                 Text="{Binding Path=ProjectNameText, Mode=TwoWay}" Margin="153,19,117,281">
+                 Text="{Binding Path=Project.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="153,19,117,281">
         </TextBox>
 
         <Label Content="Create Date:" Height="28" HorizontalAlignment="Center" Name="label4" VerticalAlignment="Center" Margin="79,52,389,242" />
         <DatePicker Height="25" HorizontalAlignment="Center" Name="datePickerProjectCreateDate" VerticalAlignment="Center" Width="115" 
-                    SelectedDate="{Binding Path=CreateDate, Mode=TwoWay}" Margin="153,51,271,245" SelectedDateFormat="Short">
+                    SelectedDate="{Binding Path=Project.CreateDate, Mode=TwoWay}" Margin="153,51,271,245" SelectedDateFormat="Short">
         </DatePicker>
 
         <Label Content="Status:" Height="28" HorizontalAlignment="Center" Name="labelStatus" VerticalAlignment="Center" IsEnabled="False" Margin="102,83,392,211" />
 
         <RadioButton Content="Active" Height="16" HorizontalAlignment="Center" Name="radioButtonActive" VerticalAlignment="Center" Width="54"
-                     GroupName="Status" IsChecked="{Binding Path=IsActive, Mode=TwoWay}" IsEnabled="{Binding Path=IsActiveEnabled, Mode=TwoWay}" Margin="152,89,332,217">
+                     GroupName="Status" IsChecked="{Binding Path=Project.IsActive, Mode=TwoWay}" IsEnabled="{Binding Path=IsActiveEnabled, Mode=TwoWay}" Margin="152,89,332,217">
         </RadioButton>
         <RadioButton Content="Inactive" Height="16" HorizontalAlignment="Center" Name="radioButtonInactive" VerticalAlignment="Center" Width="66"
-                     GroupName="Status" IsChecked="{Binding Path=IsInactive, Mode=OneWay}" IsEnabled="{Binding Path=IsActiveEnabled, Mode=TwoWay}" Margin="152,110,320,196">
+                     GroupName="Status" IsEnabled="{Binding Path=IsActiveEnabled, Mode=TwoWay}" Margin="152,110,320,196">
         </RadioButton>
 
         <Label Content="Description:" Height="28" HorizontalAlignment="Center" Name="labelDescription" VerticalAlignment="Center" Width="70" Margin="80,133,389,161" />
         <TextBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="textBoxProjectDescription" Width="270" Height="76"
-                 Text="{Binding Path=DescriptionText, Mode=TwoWay}" Margin="152,138,117,108" AcceptsReturn="True" TextWrapping="Wrap">
+                 Text="{Binding Path=Project.Description, Mode=TwoWay}" Margin="152,138,117,108" AcceptsReturn="True" TextWrapping="Wrap">
         </TextBox>
 
         <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="260,229,0,0" Name="buttonSave" VerticalAlignment="Top" Width="80" Command="{Binding Path=SaveButtonClicked, Mode=OneWay}" />

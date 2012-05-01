@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
@@ -11,17 +12,21 @@ using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
-    public class AddEditProjectModel : INotifyPropertyChanged
+    public class AddEditProjectModel : ViewModelBase
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CloseWindow { get; set; }
+        private readonly IProjectManager _projectManger;
 
         public AddEditProjectModel()
         {
-            CreateDate = DateTime.Now;
-            IsActive = true;
-            SaveButtonClicked = new SaveProject(this);
-            CancelButtonClicked = new CancelProject(this);
+            _projectManger = BLLCoreFactory.GetProjectManager();
+            Project = Project ?? new Project { IsActive = true, CreateDate = DateTime.Now };
+        }
+
+        private Project _project;
+        public Project Project
+        {
+            get { return _project; }
+            set { _project = value; NotifyPropertyChanged("Project"); }
         }
 
         private string _messageText;
@@ -31,7 +36,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _messageText = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("MessageText"));
+                NotifyPropertyChanged("MessageText");
             }
         }
 
@@ -42,24 +47,8 @@ namespace GKS.Model.ViewModels
             set
             {
                 _colorCode = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ColorCode"));
+                NotifyPropertyChanged("ColorCode");
             }
-        }
-
-        private bool _isActive;
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                _isActive = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActive"));
-            }
-        }
-
-        public bool IsInactive
-        {
-            get { return !IsActive; }
         }
 
         private bool _isActiveEnabled;
@@ -69,50 +58,9 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isActiveEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsActiveEnabled"));
+                NotifyPropertyChanged("IsActiveEnabled");
             }
         }
-
-        private string _projectNameText;
-        public string ProjectNameText
-        {
-            get
-            {
-                return _projectNameText;
-            }
-            set
-            {
-                _projectNameText = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ProjectNameText"));
-            }
-        }
-
-        private string _descriptionText;
-        public string DescriptionText
-        {
-            get { return _descriptionText; }
-            set
-            {
-                _descriptionText = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("DescriptionText"));
-            }
-        }
-
-        private DateTime _createDate;
-        public DateTime CreateDate
-        {
-            get { return _createDate; }
-            set
-            {
-                _createDate = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("CreateDate"));
-            }
-        }
-
-        public ICommand SaveButtonClicked { get; set; }
-        public ICommand CancelButtonClicked { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private OperationType _operationType;
         public OperationType OperationType
@@ -131,118 +79,35 @@ namespace GKS.Model.ViewModels
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
         }
 
-        public Project GetProject()
+        #region Relay Commands
+
+        private RelayCommand _saveButtonClicked;
+        public ICommand SaveButtonClicked
         {
-            return new Project
-                       {
-                           CreateDate = CreateDate,
-                           Description = DescriptionText,
-                           IsActive = IsActive,
-                           Name = ProjectNameText
-                       };
-        }
-    }
-
-    public class SaveProject : ICommand
-    {
-        private readonly AddEditProjectModel _projectModel;
-        private readonly IProjectManager _projectManger;
-
-        public SaveProject(AddEditProjectModel projectModel)
-        {
-            _projectModel = projectModel;
-            _projectManger = BLLCoreFactory.GetProjectManager();
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-            //return !string.IsNullOrWhiteSpace(_projectModel.ProjectNameText);
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            if (!string.IsNullOrWhiteSpace(_projectModel.ProjectNameText))
+            get
             {
-                Project project = _projectModel.GetProject();
-
-                OperationType saveType = _projectModel.OperationType;
-
-                bool isSuccess = saveType == OperationType.Add
-                                     ? _projectManger.Add(project)
-                                     : _projectManger.Update(project);
-
-                if (isSuccess && _projectModel.CancelButtonClicked.CanExecute(this))
-                    _projectModel.CancelButtonClicked.Execute(this);
-                else
-                    _projectModel.ShowMessage(MessageService.Instance.GetLatestMessage());
+                return _saveButtonClicked ?? (_saveButtonClicked =
+                        new RelayCommand(p1 => this.SaveProject(), p2 => !string.IsNullOrWhiteSpace(Project.Name)));
             }
         }
-    }
 
-    public class CancelProject : ICommand
-    {
-        AddEditProjectModel _projectModel;
-        public CancelProject(AddEditProjectModel projectModel)
+        private RelayCommand _cancelButtonClicked;
+        public ICommand CancelButtonClicked
         {
-            _projectModel = projectModel;
+            get { return _cancelButtonClicked ?? (_cancelButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish() )); }
         }
 
-        public bool CanExecute(object parameter)
+        private void SaveProject()
         {
-            if (_projectModel.CloseWindow != null)
-                return true;
-            return false;
+            bool isSuccess = OperationType == OperationType.Add
+                                 ? _projectManger.Add(Project)
+                                 : _projectManger.Update(Project);
+
+            if (isSuccess) InvokeOnFinish();
+            else ShowMessage(MessageService.Instance.GetLatestMessage());
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _projectModel.CloseWindow();
-        }
-    }
-
-    public enum ProjectStatus
-    {
-        Active,
-        Inactive
-    }
-
-    public enum OperationType
-    {
-        Add,
-        Update
-    }
-
-    public class EnumConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType,
-                              object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return false;
-
-            string checkValue = value.ToString();
-            string targetValue = parameter.ToString();
-            return checkValue.Equals(targetValue,
-                     StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        public object ConvertBack(object value, Type targetType,
-                                  object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return null;
-
-            bool useValue = (bool)value;
-            string targetValue = parameter.ToString();
-            if (useValue)
-                return Enum.Parse(targetType, targetValue);
-
-            return null;
-        }
+        #endregion
     }
 }
+

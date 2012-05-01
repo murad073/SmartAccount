@@ -13,20 +13,19 @@
                   IsReadOnly="True"
                   SelectionMode="Single"
                   SelectedItem="{Binding Path=SelectedGridItem, Mode=OneWayToSource}"
-                  GridLinesVisibility="None"                  
+                  GridLinesVisibility="None"
                   IsTextSearchEnabled="True"
                   HorizontalAlignment="Stretch" Margin="96,60,96,76" VerticalAlignment="Stretch"
                   Grid.Row="1" 
                   Grid.Column="1"
-                  AutoGenerateColumns="False"                                                  
+                  AutoGenerateColumns="False"
                   IsSynchronizedWithCurrentItem="True" 
                   Background="Transparent"
                   RowHeaderWidth="25"
                   RowBackground="White"
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"
-                  ItemsSource="{Binding Path=Projects}"
-                  >
+                  ItemsSource="{Binding Path=Projects}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Project Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Project Creation Date" Binding="{Binding Path=CreateDate, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
@@ -34,7 +33,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Height="23" HorizontalAlignment="Left" Margin="555,528,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Click="RefreshButton_Click"  >
+        <Button Command="{Binding Path=RefreshButtonClicked}" Height="23" HorizontalAlignment="Left" Margin="555,528,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" >
             <Grid>
                 <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
             </Grid>
