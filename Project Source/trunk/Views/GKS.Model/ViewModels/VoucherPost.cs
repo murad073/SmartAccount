@@ -14,7 +14,7 @@ using System.Windows.Data;
 
 namespace GKS.Model.ViewModels
 {
-    public class VoucherPost : INotifyPropertyChanged
+    public class VoucherPost : ViewModelBase
     {
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
@@ -49,7 +49,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isInputFirstPartEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("InputFirstPartEnabled"));
+                NotifyPropertyChanged("InputFirstPartEnabled");
             }
         }
 
@@ -60,7 +60,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isInputSecondPartEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("InputSecondPartEnabled"));
+                NotifyPropertyChanged("InputSecondPartEnabled");
             }
         }
 
@@ -73,7 +73,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _allProjects = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("AllProjects"));
+                NotifyPropertyChanged("AllProjects");
             }
         }
 
@@ -86,7 +86,7 @@ namespace GKS.Model.ViewModels
                 _selectedProject = value;
                 SetVoucherSerialNo();
                 SetAllHeads();
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedProject")); }
+                NotifyPropertyChanged("SelectedProject");
             }
         }
 
@@ -97,7 +97,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _allHeads = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("AllHeads"));
+                NotifyPropertyChanged("AllHeads");
             }
         }
 
@@ -108,7 +108,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isAllHeadsEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsAllHeadsEnabled"));
+                NotifyPropertyChanged("IsAllHeadsEnabled");
             }
         }
 
@@ -120,7 +120,7 @@ namespace GKS.Model.ViewModels
             {
                 _selectedHead = value;
                 SetFixedAssetOrAdvanceGroupboxIsEnabled();
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedHead")); }
+                NotifyPropertyChanged("SelectedHead");
             }
         }
 
@@ -139,8 +139,8 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedVoucherType = value;
-                VoucherTypeChanged(); // All small event moved to inside the function
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedVoucherType")); }
+                VoucherTypeChanged();
+                NotifyPropertyChanged("SelectedVoucherType");
             }
         }
 
@@ -151,10 +151,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherSerialNo = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("VoucherSerialNo"));
-                }
+                NotifyPropertyChanged("VoucherSerialNo");
             }
         }
 
@@ -165,7 +162,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherDate = value;
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("VoucherDate")); }
+                NotifyPropertyChanged("VoucherDate");
             }
         }
 
@@ -180,10 +177,7 @@ namespace GKS.Model.ViewModels
                 SetInputSecondPartIsEnabled();
                 SetJVBalanceZeroMessage();
                 //SetTemporaryButtonIsEnabled();
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsJVStartedChecked"));
-                }
+                NotifyPropertyChanged("IsJVStartedChecked");
             }
         }
 
@@ -197,7 +191,7 @@ namespace GKS.Model.ViewModels
                 SetJVDebitCreditIsEnabled();
                 SetTemporaryButtonIsEnabled();
                 SetJVStartedIsChecked();
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("IsMultiJVCheckboxVisible")); }
+                NotifyPropertyChanged("IsMultiJVCheckboxVisible");
             }
         }
 
@@ -214,7 +208,7 @@ namespace GKS.Model.ViewModels
             {
                 _amount = value < 0 ? 0 : value;
                 AmountChanged();
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Amount"));
+                NotifyPropertyChanged("Amount");
             }
         }
 
@@ -234,7 +228,7 @@ namespace GKS.Model.ViewModels
             {
                 _selectedJVDebitOrCredit = value;
                 SetFixedAssetOrAdvanceGroupboxIsEnabled();
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("SelectedJVDebitOrCredit"));
+                NotifyPropertyChanged("SelectedJVDebitOrCredit");
             }
         }
 
@@ -245,7 +239,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isJVDebitOrCreditEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsJVDebitOrCreditEnabled"));
+                NotifyPropertyChanged("IsJVDebitOrCreditEnabled");
             }
         }
 
@@ -267,7 +261,7 @@ namespace GKS.Model.ViewModels
                 _selectedContraType = value;
                 SetPaymentInChequeIsChecked();
                 SetChequeGroupboxIsEnabled();
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("SelectedContraType"));
+                NotifyPropertyChanged("SelectedContraType");
             }
         }
 
@@ -278,7 +272,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isContraTypesEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsContraTypesEnabled"));
+                NotifyPropertyChanged("IsContraTypesEnabled");
             }
         }
 
@@ -294,7 +288,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isChequeGroupboxEnabled = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsChequeGroupboxEnabled"));
+                NotifyPropertyChanged("IsChequeGroupboxEnabled");
             }
         }
 
@@ -311,8 +305,7 @@ namespace GKS.Model.ViewModels
                     ChequeDate = DateTime.Now;
                     BankName = "";
                 }
-
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsPaymentInCheque"));
+                NotifyPropertyChanged("IsPaymentInCheque");
             }
         }
 
@@ -323,7 +316,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _chequeNo = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ChequeNo"));
+                NotifyPropertyChanged("ChequeNo");
             }
         }
 
@@ -334,7 +327,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _chequeDate = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ChequeDate"));
+                NotifyPropertyChanged("ChequeDate");
             }
         }
 
@@ -345,7 +338,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _bankName = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("BankName"));
+                NotifyPropertyChanged("BankName");
             }
         }
 
@@ -362,7 +355,7 @@ namespace GKS.Model.ViewModels
             {
                 _isFixedAssetOrAdvanceGroupboxEnabled = value;
                 if (!value) IsFixedAsset = false;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsFixedAssetOrAdvanceGroupboxEnabled"));
+                NotifyPropertyChanged("IsFixedAssetOrAdvanceGroupboxEnabled");
             }
         }
 
@@ -378,8 +371,7 @@ namespace GKS.Model.ViewModels
                     FixedAssetParticulars = string.Empty;
                     FixedAssetDepreciationRate = 0;
                 }
-
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsFixedAsset"));
+                NotifyPropertyChanged("IsFixedAsset");
             }
         }
 
@@ -390,7 +382,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isAdvance = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsAdvance"));
+                NotifyPropertyChanged("IsAdvance");
             }
         }
 
@@ -401,7 +393,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _fixedAssetParticulars = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("FixedAssetParticulars"));
+                NotifyPropertyChanged("FixedAssetParticulars");
             }
         }
 
@@ -412,7 +404,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _fixedAssetDepreciationRate = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("FixedAssetDepreciationRate"));
+                NotifyPropertyChanged("FixedAssetDepreciationRate");
             }
         }
 
@@ -428,7 +420,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _narration = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Narration"));
+                NotifyPropertyChanged("Narration");
             }
         }
 
@@ -439,7 +431,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _takaInWords = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TakaInWords"));
+                NotifyPropertyChanged("TakaInWords");
             }
         }
 
@@ -450,7 +442,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _temporaryRecords = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TemporaryRecords"));
+                NotifyPropertyChanged("TemporaryRecords");
             }
         }
 
@@ -462,7 +454,7 @@ namespace GKS.Model.ViewModels
             {
                 _isTemporaryButtonEnabled = value;
                 //SetPostButtonIsEnabled();
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsTemporaryButtonEnabled"));
+                NotifyPropertyChanged("IsTemporaryButtonEnabled");
             }
         }
 
@@ -476,7 +468,7 @@ namespace GKS.Model.ViewModels
                 SetInputFirstPartIsEnabled();
                 SetInputSecondPartIsEnabled();
                 SetTemporaryButtonIsEnabled();
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("IsPostButtonEnabled"));
+                NotifyPropertyChanged("IsPostButtonEnabled");
             }
         }
 
@@ -487,7 +479,7 @@ namespace GKS.Model.ViewModels
             private set
             {
                 _notificationMessage = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("NotificationMessage"));
+                NotifyPropertyChanged("NotificationMessage");
             }
         }
 
@@ -498,7 +490,7 @@ namespace GKS.Model.ViewModels
             private set
             {
                 _colorCode = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ColorCode"));
+                NotifyPropertyChanged("ColorCode");
             }
         }
 
@@ -602,16 +594,6 @@ namespace GKS.Model.ViewModels
 
         private void SetTemporaryButtonIsEnabled()
         {
-            //bool isTemporaryButtionEnabled = true;
-            //int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
-            //if (count > 0)
-            //{
-            //    if (SelectedVoucherType != "JV") isTemporaryButtionEnabled = false;
-            //    if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isTemporaryButtionEnabled = false;
-            //}
-
-            //IsTemporaryButtonEnabled = isTemporaryButtionEnabled;
-
             bool isTemporaryButtonEnabled;
             if (SelectedVoucherType == "JV") isTemporaryButtonEnabled = IsJVStartedChecked;
             else isTemporaryButtonEnabled = !IsPostButtonEnabled;
@@ -620,7 +602,6 @@ namespace GKS.Model.ViewModels
 
         public void SetPostButtonIsEnabled()
         {
-            // -- IsPostButtonEnabled = !IsTemporaryButtonEnabled;
             bool isPostButtionEnabled = false;
             int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
             if (count > 0)
@@ -654,11 +635,6 @@ namespace GKS.Model.ViewModels
                     ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
             }
-        }
-
-        private bool ValidateAll()
-        {
-            return true;
         }
 
         private void SetAllHeads()
@@ -703,7 +679,6 @@ namespace GKS.Model.ViewModels
 
         #endregion
 
-
         #region Command Operation Region
 
         public MassVoucher GetCurrentVoucher() 
@@ -735,15 +710,15 @@ namespace GKS.Model.ViewModels
         public void AddTemporaryRecords(IList<Record> records)
         {
             TemporaryRecords.AddRange(records);
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TemporaryRecords"));
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TempGridItems"));
+            NotifyPropertyChanged("TemporaryRecords");
+            NotifyPropertyChanged("TempGridItems");
         }
 
         public void ClearTemporaryRecords()
         {
             TemporaryRecords.Clear();
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TemporaryRecords"));
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TempGridItems"));
+            NotifyPropertyChanged("TemporaryRecords");
+            NotifyPropertyChanged("TempGridItems");
         }
 
         public IList<ViewableGridRow> TempGridItems
@@ -752,14 +727,14 @@ namespace GKS.Model.ViewModels
             {
                 if (TemporaryRecords == null || TemporaryRecords.Count == 0) return null;
                 double balance = 0;
-                return TemporaryRecords.Select(tv => new ViewableGridRow
+                return TemporaryRecords.Select(tr => new ViewableGridRow
                                                          {
                                                              //Balance = (balance += tv.Balance),
-                                                             Credit = tv.Credit,
-                                                             Debit = tv.Debit,
-                                                             Date = tv.Date
-                                                             //Head = tv.HeadName,
-                                                             //VoucherNo = tv.VoucherNo
+                                                             Credit = tr.Credit,
+                                                             Debit = tr.Debit,
+                                                             Date = tr.Date,
+                                                             Head = tr.ProjectHead.Head.Name,
+                                                             VoucherNo = tr.VoucherType + "-" + tr.VoucherSerialNo
                                                          }).ToList();
 
             }
@@ -800,8 +775,6 @@ namespace GKS.Model.ViewModels
         public ICommand TempButtonClicked { get; set; }
         public ICommand PostButtonClicked { get; set; }
         public ICommand ClearButtonClicked { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
     }
 
