@@ -99,9 +99,10 @@ namespace BLL.ProjectManagement
             string headNames = "";
 
             foreach (Head deletableHead in heads)
-            {
-                headNames += string.IsNullOrWhiteSpace(headNames) ? deletableHead.Name : ", " + deletableHead.Name;
+            {                
                 ProjectHead deletableProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == deletableHead.ID);
+                if (deletableProjectHead != null)
+                    headNames += string.IsNullOrWhiteSpace(headNames) ? deletableHead.Name : ", " + deletableHead.Name;
                 project.ProjectHeads.Remove(deletableProjectHead);
             }
             count = _projectHeadRepository.Save();
@@ -123,12 +124,12 @@ namespace BLL.ProjectManagement
             string headNames = "";
             foreach (Head addableHead in heads)
             {
-                headNames += string.IsNullOrWhiteSpace(headNames) ? addableHead.Name : ", " + addableHead.Name;
                 ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == addableHead.ID);
                 if (projectHead == null)
                 {
                     ProjectHead newProjectHead = new ProjectHead { Project = project, Head = addableHead, IsActive = true };
                     _projectHeadRepository.Insert(newProjectHead);
+                    headNames += string.IsNullOrWhiteSpace(headNames) ? addableHead.Name : ", " + addableHead.Name;
                 }
             }
 
