@@ -193,8 +193,9 @@ namespace BLL.VoucherManagement
             if (records.Count == 0) return 1;
             records = records.Where(r => r.VoucherType == voucherType).ToList();
             if (records.Count == 0) return 1;
-            int maxVoucherSerialNo = records.Where(r => ids.Contains(r.ProjectHead.ID)).
-                    ToList().Max(r => r.VoucherSerialNo);
+            records = records.Where(r => ids.Contains(r.ProjectHead.ID)).ToList();
+            if (records.Count == 0) return 1;
+            int maxVoucherSerialNo = records.Max(r => r.VoucherSerialNo);
             return maxVoucherSerialNo + 1;
         }
 
