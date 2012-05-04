@@ -21,11 +21,11 @@ namespace GKS.XAML.UserControls
 {
     public partial class HeadMgmtUC : UserControl
     {
-        private readonly HeadMgmtModel _vm;
+        private readonly HeadManagementModel _vm;
         public HeadMgmtUC()
         {
             InitializeComponent();
-            _vm = new HeadMgmtModel();
+            _vm = new HeadManagementModel();
             DataContext = _vm;
         }
 
@@ -52,7 +52,7 @@ namespace GKS.XAML.UserControls
 
         //private void RefreshButton_Click(object sender, RoutedEventArgs e)
         //{
-        //    HeadMgmtModel vm = DataContext as HeadMgmtModel;
+        //    HeadManagementModel vm = DataContext as HeadManagementModel;
         //    vm.Reset();
         //}
 

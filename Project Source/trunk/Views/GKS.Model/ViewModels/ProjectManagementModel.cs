@@ -48,6 +48,5 @@ namespace GKS.Model.ViewModels
         {
             NotifyPropertyChanged("Projects");
         }
-
     }
 }

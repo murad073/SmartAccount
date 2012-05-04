@@ -40,7 +40,7 @@ namespace BLL.Factories
             {
                 ParameterManager parameterManager = new ParameterManager(ParameterRepository);
                 //parameterManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                //parameterManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return parameterManager;
             }
 
@@ -51,10 +51,10 @@ namespace BLL.Factories
         {
             if (RecordRepository != null && ProjectRepository != null && HeadRepository != null)
             {
-                MassVoucherManager ledgerManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankRecordRepository);
-                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
-                return ledgerManager;
+                MassVoucherManager massVoucherManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankRecordRepository);
+                massVoucherManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //massVoucherManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return massVoucherManager;
             }
 
             throw new ArgumentNullException("message");
@@ -64,10 +64,10 @@ namespace BLL.Factories
         {
             if (RecordRepository != null)
             {
-                RecordManager ledgerManager = new RecordManager(RecordRepository);
-                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
-                return ledgerManager;
+                RecordManager recordManager = new RecordManager(RecordRepository);
+                recordManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //recordManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return recordManager;
             }
 
             throw new ArgumentNullException("message");
@@ -77,10 +77,10 @@ namespace BLL.Factories
         {
             if (ProjectHeadRepository != null && HeadRepository != null)
             {
-                HeadManager ledgerManager = new HeadManager(ProjectHeadRepository, HeadRepository);
-                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
-                return ledgerManager;
+                HeadManager headManager = new HeadManager(ProjectHeadRepository, HeadRepository);
+                headManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //headManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return headManager;
             }
 
             throw new ArgumentNullException("message");
@@ -90,10 +90,10 @@ namespace BLL.Factories
         {
             if (ProjectRepository != null && HeadRepository != null && ProjectHeadRepository != null && RecordRepository != null)
             {
-                ProjectManager ledgerManager = new ProjectManager(ProjectRepository, HeadRepository, ProjectHeadRepository, RecordRepository);
-                ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
-                return ledgerManager;
+                ProjectManager projectManager = new ProjectManager(ProjectRepository, HeadRepository, ProjectHeadRepository, RecordRepository);
+                projectManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //projectManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return projectManager;
             }
 
             throw new ArgumentNullException("message");

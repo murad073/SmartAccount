@@ -10,10 +10,10 @@ using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
-    public class HeadMgmtModel : ViewModelBase
+    public class HeadManagementModel : ViewModelBase
     {
         readonly IHeadManager _headManager;
-        public HeadMgmtModel()
+        public HeadManagementModel()
         {
             _headManager = BLLCoreFactory.GetHeadManager();
         }
