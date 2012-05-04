@@ -39,7 +39,6 @@ namespace GKS.Model.ViewModels
 
             TempButtonClicked = new CreateTempVoucher(this);
             PostButtonClicked = new SubmitVoucherForSave(this);
-            ClearButtonClicked = new ClearVoucher(this);
         }
 
         private bool _isInputFirstPartEnabled;
@@ -774,7 +773,16 @@ namespace GKS.Model.ViewModels
 
         public ICommand TempButtonClicked { get; set; }
         public ICommand PostButtonClicked { get; set; }
-        public ICommand ClearButtonClicked { get; set; }
+
+        private RelayCommand _clearButtonClicked;
+        public ICommand ClearButtonClicked
+        {
+            get
+            {
+                return _clearButtonClicked ??
+                       (_clearButtonClicked = new RelayCommand(p1 => this.Reset()));
+            }
+        }
 
     }
 
@@ -853,26 +861,4 @@ namespace GKS.Model.ViewModels
             if (isSuccess) _voucherPost.Reset(false);
         }
     }
-
-    public class ClearVoucher : ICommand
-    {
-        private readonly VoucherPost _voucherPost;
-        public ClearVoucher(VoucherPost voucherPost)
-        {
-            _voucherPost = voucherPost;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _voucherPost.Reset();
-        }
-    }
-
 }
