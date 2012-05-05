@@ -593,7 +593,7 @@ namespace GKS.Model.ViewModels
 
         private void SetTemporaryButtonIsEnabled()
         {
-            bool isTemporaryButtonEnabled;
+            bool isTemporaryButtonEnabled = true;
             if (SelectedVoucherType == "JV") isTemporaryButtonEnabled = IsJVStartedChecked;
             else isTemporaryButtonEnabled = !IsPostButtonEnabled;
             IsTemporaryButtonEnabled = isTemporaryButtonEnabled;
@@ -601,15 +601,15 @@ namespace GKS.Model.ViewModels
 
         public void SetPostButtonIsEnabled()
         {
-            bool isPostButtionEnabled = false;
+            bool isPostButtonEnabled = false;
             int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
             if (count > 0)
             {
-                if (SelectedVoucherType != "JV") isPostButtionEnabled = true;
-                if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isPostButtionEnabled = true;
+                if (SelectedVoucherType != "JV") isPostButtonEnabled = true;
+                if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isPostButtonEnabled = true;
             }
 
-            IsPostButtonEnabled = isPostButtionEnabled;
+            IsPostButtonEnabled = isPostButtonEnabled;
         }
 
         private void SetInputFirstPartIsEnabled()
@@ -728,7 +728,7 @@ namespace GKS.Model.ViewModels
                 double balance = 0;
                 return TemporaryRecords.Select(tr => new ViewableGridRow
                                                          {
-                                                             //Balance = (balance += tv.Balance),
+                                                             Balance = (balance += (tr.Debit - tr.Credit)),
                                                              Credit = tr.Credit,
                                                              Debit = tr.Debit,
                                                              Date = tr.Date,

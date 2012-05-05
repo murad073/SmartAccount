@@ -66,7 +66,7 @@
             <CheckBox Content="Start same JV" IsChecked="{Binding Path=IsJVStartedChecked, Mode=TwoWay}" Height="18" HorizontalAlignment="Left" Margin="28,6,0,0" Name="checkBoxJVEnabled" VerticalAlignment="Top" Width="270" IsEnabled="{Binding Path=IsMultiJVCheckboxVisible, Mode=TwoWay}" Grid.Row="2" >
                 <CheckBox.ToolTip>
                     <ToolTip>
-                        Unckeck to complete journal voucher entries. After reviewing, the voucher can be posted.
+                        Uncheck to complete journal voucher entries. After reviewing, the voucher can be posted.
                     </ToolTip>
                 </CheckBox.ToolTip>
             </CheckBox>
@@ -122,14 +122,14 @@
             <RadioButton Content="Advance" Height="16" HorizontalAlignment="Left" Margin="655,37,0,0"  VerticalAlignment="Top" IsChecked="{Binding Path=IsAdvance, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabled, ElementName=FixedAssetOrAdvanceGroupBox}" Grid.Row="3" >
                 <RadioButton.ToolTip>
                     <ToolTip>
-                        Check, if the amount is paid as 'advance' and will be realized by a journal voucher in future.
+                        Select, if the amount is paid as 'advance' and will be realized by a journal voucher in future.
                     </ToolTip>
                 </RadioButton.ToolTip>
             </RadioButton>
             <RadioButton Content="Fixed asset" Name="FixedAssetRadioButton" Height="16" HorizontalAlignment="Left" Margin="734,37,0,0"  VerticalAlignment="Top" IsChecked="{Binding Path=IsFixedAsset, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabled, ElementName=FixedAssetOrAdvanceGroupBox}" Grid.Row="3" >
                 <RadioButton.ToolTip>
                     <ToolTip>
-                        Check, if the amount is paid to buy a fixed asset.
+                        Select, if the amount is paid for a fixed asset.
                     </ToolTip>
                 </RadioButton.ToolTip>
             </RadioButton>
