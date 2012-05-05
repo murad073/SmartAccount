@@ -81,7 +81,7 @@ namespace BLL.VoucherManagement
                 _massVoucher = massVoucher;
 
                 // TODO: (Mudad) Verify that this right for the current DB struture.
-                if (massVoucher.VoucherType != "Contra")
+                if (!massVoucher.VoucherType.Equals("Contra", StringComparison.OrdinalIgnoreCase))
                 {
                     _projectHead = _projectHeadRepository.GetSingle(
                         ph => ph.Project.ID == massVoucher.Project.ID && ph.Head.ID == massVoucher.Head.ID);
@@ -200,8 +200,11 @@ namespace BLL.VoucherManagement
             if (records.Count == 0) return 1;
             records = records.Where(r => r.VoucherType == voucherType).ToList();
             if (records.Count == 0) return 1;
-            records = records.Where(r => ids.Contains(r.ProjectHead.ID)).ToList();
-            if (records.Count == 0) return 1;
+            if (!voucherType.Equals("Contra", StringComparison.OrdinalIgnoreCase))
+            {
+                records = records.Where(r => ids.Contains(r.ProjectHead.ID)).ToList();
+                if (records.Count == 0) return 1;
+            }
             int maxVoucherSerialNo = records.Max(r => r.VoucherSerialNo);
             return maxVoucherSerialNo + 1;
         }
