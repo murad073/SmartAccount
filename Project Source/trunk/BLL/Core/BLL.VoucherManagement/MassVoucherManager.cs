@@ -79,10 +79,17 @@ namespace BLL.VoucherManagement
             if (isValid)
             {
                 _massVoucher = massVoucher;
-                _projectHead = _projectHeadRepository.GetSingle(
-                    ph => ph.Project.ID == massVoucher.Project.ID && ph.Head.ID == massVoucher.Head.ID);
+
+                // TODO: (Mudad) Verify that this right for the current DB struture.
+                if (massVoucher.VoucherType != "Contra")
+                {
+                    _projectHead = _projectHeadRepository.GetSingle(
+                        ph => ph.Project.ID == massVoucher.Project.ID && ph.Head.ID == massVoucher.Head.ID);
+                }
+
                 isValid = SetEntryableRecords();
             }
+
             return isValid;
         }
 
