@@ -732,7 +732,7 @@ namespace GKS.Model.ViewModels
                                                              Credit = tr.Credit,
                                                              Debit = tr.Debit,
                                                              Date = tr.Date,
-                                                             Head = tr.ProjectHead.Head.Name,
+                                                             Head = tr.HeadName(),
                                                              VoucherNo = tr.VoucherType + "-" + tr.VoucherSerialNo
                                                          }).ToList();
 

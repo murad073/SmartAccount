@@ -26,9 +26,9 @@ namespace BLL.Model.Schema
             return true;
         }
 
-        public override string HeadName() 
+        public override string HeadName()
         {
-            return "Cash Book"; 
+            return "Cash Book";
         }
 
         //public override bool IsValid()

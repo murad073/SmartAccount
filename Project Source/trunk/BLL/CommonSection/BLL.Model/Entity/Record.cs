@@ -52,7 +52,7 @@ namespace BLL.Model.Entity
         public int VoucherSerialNo { get; set; }
         public string Link { get; set; }
         public string Tag { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }        
 
         public virtual ProjectHead ProjectHead { get; set; }
         public virtual ICollection<FixedAsset> FixedAssets { get; set; }
@@ -62,7 +62,8 @@ namespace BLL.Model.Entity
         
         public virtual bool Save() { return false; }
         public virtual string VoucherTypeKey() { return ""; }
-        public virtual string HeadName() { return ""; }
+        public virtual string HeadName() { return ProjectHead.Head.Name; }
+        //public virtual string HeadName { get; set; } TODO: Why don't we implement as a proerty, insead of method?
     }
 }
 
