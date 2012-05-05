@@ -166,7 +166,7 @@
                   RowBackground="White"
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"
-                  ItemsSource="{Binding Path=TempGridItems}"
+                  ItemsSource="{Binding Path=TempRecordsGridItems}"
                   Height="95" HorizontalAlignment="Left" Margin="121,9,0,0" VerticalAlignment="Top" Width="685" Grid.Row="4">
                 
                 <DataGrid.CellStyle>
@@ -178,7 +178,7 @@
                 
             </DataGrid>
 
-            <Button Content="Create Voucher" Height="23" HorizontalAlignment="Left" Margin="533,117,0,0" Name="CreateTemporaryVoucherButton" VerticalAlignment="Top" Width="97" Command="{Binding Path=TempButtonClicked}" IsEnabled="{Binding Path=IsTemporaryButtonEnabled, Mode=TwoWay}">
+            <Button Content="Create Voucher" Height="23" HorizontalAlignment="Left" Margin="533,117,0,0" Name="CreateVoucherButton" VerticalAlignment="Top" Width="97" Command="{Binding Path=CreateVoucherButtonClicked}" IsEnabled="{Binding Path=IsCreateVoucherButtonEnabled, Mode=TwoWay}">
                 <Button.ToolTip>
                     <ToolTip>Create a voucher temporarily for review. It can be posted after reviewing.
                     </ToolTip>

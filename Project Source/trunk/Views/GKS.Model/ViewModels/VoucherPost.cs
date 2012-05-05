@@ -36,9 +36,6 @@ namespace GKS.Model.ViewModels
             ChequeDate = DateTime.Now;
 
             TemporaryRecords = new List<Record>();
-
-            TempButtonClicked = new CreateTempVoucher(this);
-            PostButtonClicked = new SubmitVoucherForSave(this);
         }
 
         private bool _isInputFirstPartEnabled;
@@ -175,7 +172,7 @@ namespace GKS.Model.ViewModels
                 SetPostButtonIsEnabled();
                 SetInputSecondPartIsEnabled();
                 SetJVBalanceZeroMessage();
-                //SetTemporaryButtonIsEnabled();
+                //SetCreateVoucherButtonIsEnabled();
                 NotifyPropertyChanged("IsJVStartedChecked");
             }
         }
@@ -188,7 +185,7 @@ namespace GKS.Model.ViewModels
             {
                 _isMultiJVCheckboxVisible = value;
                 SetJVDebitCreditIsEnabled();
-                SetTemporaryButtonIsEnabled();
+                SetCreateVoucherButtonIsEnabled();
                 SetJVStartedIsChecked();
                 NotifyPropertyChanged("IsMultiJVCheckboxVisible");
             }
@@ -435,7 +432,7 @@ namespace GKS.Model.ViewModels
         }
 
         private List<Record> _temporaryRecords;
-        public List<Record> TemporaryRecords
+        private List<Record> TemporaryRecords
         {
             get { return _temporaryRecords; }
             set
@@ -445,15 +442,15 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private bool _isTemporaryButtonEnabled;
-        public bool IsTemporaryButtonEnabled
+        private bool _isCreateVoucherButtonEnabled;
+        public bool IsCreateVoucherButtonEnabled
         {
-            get { return _isTemporaryButtonEnabled; }
+            get { return _isCreateVoucherButtonEnabled; }
             set
             {
-                _isTemporaryButtonEnabled = value;
+                _isCreateVoucherButtonEnabled = value;
                 //SetPostButtonIsEnabled();
-                NotifyPropertyChanged("IsTemporaryButtonEnabled");
+                NotifyPropertyChanged("IsCreateVoucherButtonEnabled");
             }
         }
 
@@ -466,7 +463,7 @@ namespace GKS.Model.ViewModels
                 _isPostButtonEnabled = value;
                 SetInputFirstPartIsEnabled();
                 SetInputSecondPartIsEnabled();
-                SetTemporaryButtonIsEnabled();
+                SetCreateVoucherButtonIsEnabled();
                 NotifyPropertyChanged("IsPostButtonEnabled");
             }
         }
@@ -508,7 +505,7 @@ namespace GKS.Model.ViewModels
             SetJVStartedIsChecked();
             SetContraTypesIsEnabled();
             SetVoucherSerialNo();
-            SetTemporaryButtonIsEnabled();
+            SetCreateVoucherButtonIsEnabled();
         }
 
         private void SetAllHeadsIsEnabled()
@@ -591,15 +588,15 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private void SetTemporaryButtonIsEnabled()
+        private void SetCreateVoucherButtonIsEnabled()
         {
-            bool isTemporaryButtonEnabled = true;
-            if (SelectedVoucherType == "JV") isTemporaryButtonEnabled = IsJVStartedChecked;
-            else isTemporaryButtonEnabled = !IsPostButtonEnabled;
-            IsTemporaryButtonEnabled = isTemporaryButtonEnabled;
+            bool isCreateVoucherButtonEnabled = true;
+            if (SelectedVoucherType == "JV") isCreateVoucherButtonEnabled = IsJVStartedChecked;
+            else isCreateVoucherButtonEnabled = !IsPostButtonEnabled;
+            IsCreateVoucherButtonEnabled = isCreateVoucherButtonEnabled;
         }
 
-        public void SetPostButtonIsEnabled()
+        private void SetPostButtonIsEnabled()
         {
             bool isPostButtonEnabled = false;
             int count = TemporaryRecords == null ? 0 : TemporaryRecords.Count;
@@ -629,7 +626,7 @@ namespace GKS.Model.ViewModels
         {
             if (SelectedVoucherType == "JV" && !IsJVStartedChecked && TemporaryRecords.Count > 0)
             {
-                if (TempGridItems.Last().Balance != 0)
+                if (TempRecordsGridItems.Last().Balance != 0)
                 {
                     ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
@@ -662,13 +659,13 @@ namespace GKS.Model.ViewModels
             else TakaInWords = "";
         }
 
-        public void ShowMessage(Message message)
+        private void ShowMessage(Message message)
         {
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
             NotificationMessage = message.MessageText;
         }
 
-        public void ClearMessage()
+        private void ClearMessage()
         {
             Message message = new Message();
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
@@ -680,7 +677,7 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
-        public MassVoucher GetCurrentVoucher() 
+        private MassVoucher GetCurrentVoucher() 
         {
             MassVoucher massVoucher = new MassVoucher
                                           {
@@ -706,21 +703,21 @@ namespace GKS.Model.ViewModels
             return massVoucher;
         }
 
-        public void AddTemporaryRecords(IList<Record> records)
+        private void AddTemporaryRecords(IList<Record> records)
         {
             TemporaryRecords.AddRange(records);
             NotifyPropertyChanged("TemporaryRecords");
-            NotifyPropertyChanged("TempGridItems");
+            NotifyPropertyChanged("TempRecordsGridItems");
         }
 
-        public void ClearTemporaryRecords()
+        private void ClearTemporaryRecords()
         {
             TemporaryRecords.Clear();
             NotifyPropertyChanged("TemporaryRecords");
-            NotifyPropertyChanged("TempGridItems");
+            NotifyPropertyChanged("TempRecordsGridItems");
         }
 
-        public IList<ViewableGridRow> TempGridItems
+        public IList<ViewableGridRow> TempRecordsGridItems
         {
             get
             {
@@ -762,17 +759,46 @@ namespace GKS.Model.ViewModels
             IsJVStartedChecked = false;
         }
 
-        public void TemporaryVoucherReset()
+        //public void TemporaryVoucherReset()
+        //{
+        //    VoucherTypeChanged();
+        //    VoucherDate = DateTime.Now;
+        //    SelectedContraType = null;
+        //}
+
+        private void CreateVoucher()
         {
-            VoucherTypeChanged();
-            VoucherDate = DateTime.Now;
-            SelectedContraType = null;
+            IMassVoucherManager massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+            MassVoucher massVoucher = GetCurrentVoucher();
+
+            if (massVoucher == null)
+                return;
+
+            bool isAdded = massVoucherManager.Set(massVoucher);
+            Message latestMessage = MessageService.Instance.GetLatestMessage();
+
+            if (isAdded)
+            {
+                IList<Record> records = massVoucherManager.GetEntryableRecords();
+                AddTemporaryRecords(records);
+                ClearMessage();
+                SetPostButtonIsEnabled();
+            }
+
+            ShowMessage(latestMessage);
+        }
+
+        private void PostVoucher()
+        {
+            IRecordManager recordManager = BLLCoreFactory.GetRecordManager();
+            recordManager.SetRecords(TemporaryRecords);
+            bool isSuccess = recordManager.Save();
+            Message message = MessageService.Instance.GetLatestMessage();
+            ShowMessage(message);
+            if (isSuccess) Reset(false);
         }
 
         #endregion
-
-        public ICommand TempButtonClicked { get; set; }
-        public ICommand PostButtonClicked { get; set; }
 
         private RelayCommand _clearButtonClicked;
         public ICommand ClearButtonClicked
@@ -784,6 +810,23 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private RelayCommand _createVoucherButtonClicked;
+        public ICommand CreateVoucherButtonClicked
+        {
+            get
+            {
+                return _createVoucherButtonClicked ?? (_createVoucherButtonClicked = new RelayCommand(p1 => this.CreateVoucher()));
+            }
+        }
+
+        private RelayCommand _postButtonClicked;
+        public ICommand PostButtonClicked
+        {
+            get
+            {
+                return _postButtonClicked ?? (_postButtonClicked = new RelayCommand(p1 => this.PostVoucher()));
+            }
+        }
     }
 
     public class ViewableGridRow
@@ -797,68 +840,4 @@ namespace GKS.Model.ViewModels
     }
 
     public class ViewableGridRows : List<ViewableGridRow> { }
-
-    public class CreateTempVoucher : ICommand
-    {
-        private readonly VoucherPost _voucherPost;
-        public CreateTempVoucher(VoucherPost voucherPost)
-        {
-            _voucherPost = voucherPost;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            IMassVoucherManager massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
-            MassVoucher massVoucher = _voucherPost.GetCurrentVoucher();
-
-            if (massVoucher == null)
-                return;
-
-            bool isAdded = massVoucherManager.Set(massVoucher);
-            Message latestMessage = MessageService.Instance.GetLatestMessage();
-
-            if (isAdded)
-            {
-                IList<Record> records = massVoucherManager.GetEntryableRecords();
-                _voucherPost.AddTemporaryRecords(records);
-                _voucherPost.ClearMessage();
-                _voucherPost.SetPostButtonIsEnabled();
-            }
-
-            _voucherPost.ShowMessage(latestMessage);
-        }
-    }
-
-    public class SubmitVoucherForSave : ICommand
-    {
-        private readonly VoucherPost _voucherPost;
-        public SubmitVoucherForSave(VoucherPost voucherPost)
-        {
-            _voucherPost = voucherPost;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            IRecordManager recordManager = BLLCoreFactory.GetRecordManager();
-            recordManager.SetRecords(_voucherPost.TemporaryRecords);
-            bool isSuccess = recordManager.Save();
-            Message message = MessageService.Instance.GetLatestMessage();
-            _voucherPost.ShowMessage(message);
-            if (isSuccess) _voucherPost.Reset(false);
-        }
-    }
 }
