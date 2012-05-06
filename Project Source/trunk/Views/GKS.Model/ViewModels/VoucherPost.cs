@@ -36,6 +36,8 @@ namespace GKS.Model.ViewModels
             ChequeDate = DateTime.Now;
 
             TemporaryRecords = new List<Record>();
+
+            _isJVBalanced = true;
         }
 
         private bool _isInputFirstPartEnabled;
@@ -169,9 +171,12 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isJVStartedChecked = value;
-                SetPostButtonIsEnabled();
+                // The following function calls should not change order.
+                if (value == false)
+                    SetJVBalanceZeroMessage();
+                
                 SetInputSecondPartIsEnabled();
-                SetJVBalanceZeroMessage();
+                SetPostButtonIsEnabled();
                 //SetCreateVoucherButtonIsEnabled();
                 NotifyPropertyChanged("IsJVStartedChecked");
             }
@@ -184,6 +189,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isMultiJVCheckboxVisible = value;
+                // The following function calls should not change order.
                 SetJVDebitCreditIsEnabled();
                 SetCreateVoucherButtonIsEnabled();
                 SetJVStartedIsChecked();
@@ -497,6 +503,7 @@ namespace GKS.Model.ViewModels
 
         private void VoucherTypeChanged()
         {
+            // The following function calls should not change order.
             SetAllHeadsIsEnabled();
             SetChequeGroupboxIsEnabled();
             SetFixedAssetOrAdvanceGroupboxIsEnabled();
@@ -547,8 +554,8 @@ namespace GKS.Model.ViewModels
         private bool IsSelectedHeadCapital()
         {
             if (SelectedHead != null)
-                //return _headManager.IsCapitalHead(SelectedHead.Id);
                 return SelectedHead.HeadType == HeadType.Capital.ToString();
+
             return false;
         }
 
@@ -595,7 +602,7 @@ namespace GKS.Model.ViewModels
             else isCreateVoucherButtonEnabled = !IsPostButtonEnabled;
             IsCreateVoucherButtonEnabled = isCreateVoucherButtonEnabled;
         }
-
+        
         private void SetPostButtonIsEnabled()
         {
             bool isPostButtonEnabled = false;
@@ -603,7 +610,7 @@ namespace GKS.Model.ViewModels
             if (count > 0)
             {
                 if (SelectedVoucherType != "JV") isPostButtonEnabled = true;
-                if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isPostButtonEnabled = true;
+                if (SelectedVoucherType == "JV" && !IsJVStartedChecked && _isJVBalanced) isPostButtonEnabled = true;
             }
 
             IsPostButtonEnabled = isPostButtonEnabled;
@@ -622,14 +629,18 @@ namespace GKS.Model.ViewModels
             InputSecondPartEnabled = inputSecondPartEnabled;
         }
 
+        private bool _isJVBalanced;
         private void SetJVBalanceZeroMessage()
         {
             if (SelectedVoucherType == "JV" && !IsJVStartedChecked && TemporaryRecords.Count > 0)
             {
                 if (TempRecordsGridItems.Last().Balance != 0)
                 {
+                    _isJVBalanced = false;
                     ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
+                else
+                    _isJVBalanced = true;
             }
         }
 
