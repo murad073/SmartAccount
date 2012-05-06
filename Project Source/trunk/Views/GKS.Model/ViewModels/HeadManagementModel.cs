@@ -15,7 +15,11 @@ namespace GKS.Model.ViewModels
         readonly IHeadManager _headManager;
         public HeadManagementModel()
         {
-            _headManager = BLLCoreFactory.GetHeadManager();
+            try
+            {
+                _headManager = BLLCoreFactory.GetHeadManager();
+            }
+            catch { }
         }
 
         public ObservableCollection<Head> Heads

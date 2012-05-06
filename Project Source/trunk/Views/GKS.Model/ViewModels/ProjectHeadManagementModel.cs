@@ -21,11 +21,16 @@ namespace GKS.Model.ViewModels
 
         public ProjectHeadManagementModel()
         {
-            _projectManager = BLLCoreFactory.GetProjectManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            _allHeads = _headManager.GetHeads(false, false);
+            try
+            {
+                _projectManager = BLLCoreFactory.GetProjectManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
+                _allHeads = _headManager.GetHeads(false, false);
 
-            AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));
+                AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));
+
+            }
+            catch { }
         }
 
         #region View Model Binding Elements
@@ -229,7 +234,7 @@ namespace GKS.Model.ViewModels
             }
             NotificationMessage = message;
         }
-        
+
         private void Reset()
         {
             AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));

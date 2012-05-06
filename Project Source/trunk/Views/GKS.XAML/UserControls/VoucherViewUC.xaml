@@ -13,7 +13,7 @@
         <Label Content="Project:" Height="26" HorizontalAlignment="Left" Margin="109,58,0,0" Name="label1" VerticalAlignment="Top" Width="50" />
         <ComboBox DisplayMemberPath="Name" HorizontalAlignment="Right" ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" Margin="0,61,114,0" Name="comboBoxProjectItems" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" VerticalAlignment="Top" Width="572" />
 
-        <Button Height="23" HorizontalAlignment="Left" Margin="732,59,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Click="RefreshButton_Click"  >
+        <Button Command="{Binding Path=RefreshClicked}" Height="23" HorizontalAlignment="Left" Margin="732,59,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" >
             <Grid>
                 <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
             </Grid>

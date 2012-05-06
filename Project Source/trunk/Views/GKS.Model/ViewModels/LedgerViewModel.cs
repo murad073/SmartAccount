@@ -20,18 +20,21 @@ namespace GKS.Model.ViewModels
 
         public LedgerViewModel()
         {
-            IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
+            try
+            {
+                IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
 
-            _ledgerManager = BLLCoreFactory.GetLedgerManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            _projectManager = BLLCoreFactory.GetProjectManager();
+                _ledgerManager = BLLCoreFactory.GetLedgerManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
+                _projectManager = BLLCoreFactory.GetProjectManager();
 
-            AllProjects = _projectManager.GetProjects();
+                AllProjects = _projectManager.GetProjects();
 
-            IsAllHeadsEnabled = true;
-            ShowAllAdvance = false;
-            LedgerEndDate = DateTime.Now;
-            //LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
+                IsAllHeadsEnabled = true;
+                ShowAllAdvance = false;
+                LedgerEndDate = DateTime.Now;
+            }
+            catch { }
         }
 
         private IList<Project> _allProjects;
@@ -59,7 +62,6 @@ namespace GKS.Model.ViewModels
             {
                 _selectedProject = value;
                 NotifyPropertyChanged("AllHeads");
-                //NotifyPropertyChanged("SelectedHead");
                 SelectedHead = null;
             }
         }
@@ -97,17 +99,6 @@ namespace GKS.Model.ViewModels
                 NotifyPropertyChanged("SelectedHead");
             }
         }
-
-        //private bool _showCashOrBankTransaction;
-        //public bool ShowCashOrBankTransaction
-        //{
-        //    get { return _showCashOrBankTransaction; }
-        //    set
-        //    {
-        //        _showCashOrBankTransaction = value;
-        //        NotifyPropertyChanged("ShowCashOrBankTransaction");
-        //    }
-        //}
 
         private bool _showAllAdvance;
         public bool ShowAllAdvance
@@ -204,8 +195,6 @@ namespace GKS.Model.ViewModels
 
         private void NotifyLedgerGrid()
         {
-            //NotifyPropertyChanged("LedgerGridViewItems");
-
             if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
             {
                 Message latestMessage = MessageService.Instance.GetLatestMessage();
@@ -232,29 +221,5 @@ namespace GKS.Model.ViewModels
         }
 
         #endregion
-
     }
-
-    //public class ViewLedger : ICommand
-    //{
-    //    private readonly LedgerViewModel _ledgerViewModel;
-    //    private IRepository<Record> _ledgerRepository;
-    //    public ViewLedger(LedgerViewModel ledgerViewModel, IRepository<Record> ledgerRepository)
-    //    {
-    //        _ledgerViewModel = ledgerViewModel;
-    //        _ledgerRepository = ledgerRepository;
-    //    }
-
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return true;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged;
-
-    //    public void Execute(object parameter)
-    //    {
-    //        _ledgerViewModel.NotifyLedgerGrid();
-    //    }
-    //}
 }

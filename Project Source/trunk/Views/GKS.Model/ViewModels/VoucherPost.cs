@@ -22,20 +22,26 @@ namespace GKS.Model.ViewModels
 
         public VoucherPost()
         {
-            _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
-            _projectManager = BLLCoreFactory.GetProjectManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            
-            InputFirstPartEnabled = true;
-            InputSecondPartEnabled = true;
+            try
+            {
+                _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+                _projectManager = BLLCoreFactory.GetProjectManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
 
-            AllProjects = _projectManager.GetProjects(false);
-            SelectedVoucherType = "DV";
+                InputFirstPartEnabled = true;
+                InputSecondPartEnabled = true;
 
-            VoucherDate = DateTime.Now;
-            ChequeDate = DateTime.Now;
 
-            TemporaryRecords = new List<Record>();
+                AllProjects = _projectManager.GetProjects(false);
+
+                SelectedVoucherType = "DV";
+
+                VoucherDate = DateTime.Now;
+                ChequeDate = DateTime.Now;
+
+                TemporaryRecords = new List<Record>();
+            }
+            catch { }
         }
 
         private bool _isInputFirstPartEnabled;
@@ -584,7 +590,7 @@ namespace GKS.Model.ViewModels
             else
             {
                 IsContraTypesEnabled = false;
-                SelectedContraType = null; 
+                SelectedContraType = null;
             }
         }
 
@@ -677,7 +683,7 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
-        private MassVoucher GetCurrentVoucher() 
+        private MassVoucher GetCurrentVoucher()
         {
             MassVoucher massVoucher = new MassVoucher
                                           {

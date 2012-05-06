@@ -19,18 +19,17 @@ namespace GKS.XAML.Pages
     /// </summary>
     public partial class VoucherDetailsWindow : Window
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CallbackOnClose { get; set; }
+        //public delegate void SimpleDelegate();
+        //public SimpleDelegate CallbackOnClose { get; set; }
 
-        VoucherDetailsModel _vm;
+        private VoucherDetailsModel _vm;
 
         public VoucherDetailsWindow()
         {
             InitializeComponent();
             _vm = new VoucherDetailsModel();
-            _vm.CloseWindow = () => { CallbackOnClose(); this.Close(); };
+            _vm.OnFinish += (sndr, eventArgs) => this.Close();
             DataContext = _vm;
-
             this.PreviewKeyDown += HandleEsc;
         }
 

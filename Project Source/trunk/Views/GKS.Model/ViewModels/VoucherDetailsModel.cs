@@ -4,15 +4,10 @@ using System.Windows.Input;
 
 namespace GKS.Model.ViewModels
 {
-    public class VoucherDetailsModel : INotifyPropertyChanged
+    public class VoucherDetailsModel : ViewModelBase
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CloseWindow { get; set; }
-
         public VoucherDetailsModel()
         {
-            OKButtonClicked = new VoucherDetailsOK(this);
-            PrintButtonClicked = new PrintDetails(this);
         }
 
         private string _projectName;
@@ -22,7 +17,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _projectName = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ProjectName"));
+                NotifyPropertyChanged("ProjectName");
             }
         }
 
@@ -33,7 +28,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherNo = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherNo"));
+                NotifyPropertyChanged("VoucherNo");
             }
         }
 
@@ -44,7 +39,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherDate = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherDate"));
+                NotifyPropertyChanged("VoucherDate");
             }
         }
 
@@ -55,7 +50,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _chequeNo = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ChequeNo"));
+                NotifyPropertyChanged("ChequeNo");
             }
         }
 
@@ -66,7 +61,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _chequeDate = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ChequeDate"));
+                NotifyPropertyChanged("ChequeDate");
             }
         }
 
@@ -77,7 +72,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _bankName = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("BankName"));
+                NotifyPropertyChanged("BankName");
             }
         }
 
@@ -88,7 +83,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _takaInWords = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TakaInWords"));
+                NotifyPropertyChanged("TakaInWords");
             }
         }
 
@@ -99,55 +94,28 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherNarration = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherNarration"));
+                NotifyPropertyChanged("VoucherNarration");
             }
         }
 
-        public ICommand OKButtonClicked { get; set; }
-        public ICommand PrintButtonClicked { get; set; }
+        #region Relay Commands
+        private RelayCommand _oKButtonClicked;
+        public ICommand OKButtonClicked
+        {
+            get
+            {
+                return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish()));
+            }
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private RelayCommand _printButtonClicked;
+        public ICommand PrintButtonClicked
+        {
+            get
+            {
+                return _printButtonClicked ?? (_printButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish()));
+            }
+        }
+        #endregion
     }
-
-    public class VoucherDetailsOK : ICommand
-    {
-        readonly VoucherDetailsModel _voucherModel;
-        public VoucherDetailsOK(VoucherDetailsModel voucherModel)
-        {
-            _voucherModel = voucherModel;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _voucherModel.CloseWindow();
-        }
-    }
-
-    public class PrintDetails : ICommand
-    {
-        VoucherDetailsModel _voucherModel;
-        public PrintDetails(VoucherDetailsModel voucherModel)
-        {
-            _voucherModel = voucherModel;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-        }
-    }
-
 }

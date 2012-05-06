@@ -13,26 +13,25 @@ using BLL.Model.Repositories;
 
 namespace GKS.Model.ViewModels
 {
-    public class VoucherViewModel : INotifyPropertyChanged
+    public class VoucherViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly IProjectManager _projectManager;
         private readonly ILedgerManager _ledgerManager;
-        private readonly IParameterManager _parameterManager;
         public VoucherViewModel()
         {
-            _projectManager = BLLCoreFactory.GetProjectManager();
-            _ledgerManager = BLLCoreFactory.GetLedgerManager();
-            _parameterManager = BLLCoreFactory.GetParameterManager();
+            try
+            {
+                _projectManager = BLLCoreFactory.GetProjectManager();
+                _ledgerManager = BLLCoreFactory.GetLedgerManager();
 
-            AllProjects = _projectManager.GetProjects();
-            SelectedVoucherType = VoucherTypes[0];
-            //VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
-            VoucherStartDate = DateTime.Today;
-            VoucherEndDate = DateTime.Today;
-
-            VoucherDetailsButtonClicked = new ViewVoucherDetails(this);
+                AllProjects = _projectManager.GetProjects();
+                SelectedVoucherType = VoucherTypes[0];
+                //VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
+                VoucherStartDate = DateTime.Today;
+                VoucherEndDate = DateTime.Today;
+            }
+            catch { }
         }
 
         private IList<Project> _allProjects;
@@ -45,7 +44,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _allProjects = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("AllProjects"));
+                NotifyPropertyChanged("AllProjects");
             }
         }
 
@@ -59,11 +58,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedProject = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedProject"));
-                }
+                NotifyPropertyChanged("SelectedProject");
             }
         }
 
@@ -78,7 +73,6 @@ namespace GKS.Model.ViewModels
                                new KeyValuePair<string, string>("CV", "Credit voucher"),
                                new KeyValuePair<string, string>("JV", "Journal voucher"),
                                new KeyValuePair<string, string>("Contra", "Contra")
-                               //"All", "Debit voucher", "Credit voucher", "Journal voucher", "Contra"
                            };
             }
         }
@@ -90,7 +84,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedVoucherType = value;
-                if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("SelectedVoucherType")); }
+                NotifyPropertyChanged("SelectedVoucherType");
             }
         }
 
@@ -101,8 +95,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherStartDate = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("VoucherStartDate"));
+                NotifyPropertyChanged("VoucherStartDate");
             }
         }
 
@@ -113,8 +106,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherEndDate = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("VoucherEndDate"));
+                NotifyPropertyChanged("VoucherEndDate");
             }
         }
 
@@ -160,7 +152,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _errorMessage = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ErrorMessage"));
+                NotifyPropertyChanged("ErrorMessage");
             }
         }
 
@@ -171,15 +163,26 @@ namespace GKS.Model.ViewModels
             private set
             {
                 _colorCode = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ColorCode"));
+                NotifyPropertyChanged("ColorCode");
             }
         }
 
-        public ICommand VoucherDetailsButtonClicked { get; set; }
-
-        public void NotifyVoucherGrid()
+        private RelayCommand _voucherDetailsButtonClicked;
+        public ICommand VoucherDetailsButtonClicked
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherGridViewItems"));
+            get
+            {
+                return _voucherDetailsButtonClicked ?? (_voucherDetailsButtonClicked = new RelayCommand(p1 => NotifyPropertyChanged("VoucherGridViewItems")));
+            }
+        }
+
+        private RelayCommand _refreshClicked;
+        public ICommand RefreshClicked
+        {
+            get
+            {
+                return _refreshClicked ?? (_refreshClicked = new RelayCommand(p1 => this.Reset()));
+            }
         }
 
         public void ClearMessage()
@@ -203,26 +206,5 @@ namespace GKS.Model.ViewModels
         public double Debit { get; set; }
         public double Credit { get; set; }
         public string CashOrBank { get; set; }
-    }
-
-    public class ViewVoucherDetails : ICommand
-    {
-        private readonly VoucherViewModel _viewVoucherModel;
-        public ViewVoucherDetails(VoucherViewModel viewVoucherModel)
-        {
-            _viewVoucherModel = viewVoucherModel;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _viewVoucherModel.NotifyVoucherGrid();
-        }
     }
 }

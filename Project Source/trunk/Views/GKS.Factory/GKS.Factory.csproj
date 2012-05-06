@@ -56,6 +56,10 @@
       <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
       <Name>CodeFirst</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DALs\Mock\Mock.csproj">
+      <Project>{FD4C3537-02FC-4682-8C23-C7703DBFD5CF}</Project>
+      <Name>Mock</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

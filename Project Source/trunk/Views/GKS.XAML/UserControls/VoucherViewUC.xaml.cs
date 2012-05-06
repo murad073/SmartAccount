@@ -21,23 +21,23 @@ namespace GKS.XAML.UserControls
     /// </summary>
     public partial class VoucherViewUC : UserControl
     {
+        private readonly VoucherViewModel _vm;
         public VoucherViewUC()
         {
             InitializeComponent();
-            DataContext = new VoucherViewModel();
+            _vm = new VoucherViewModel();
+            DataContext = _vm;
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            VoucherViewModel vm = DataContext as VoucherViewModel;
-            vm.Reset();
-        }
+        //private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _vm.Reset();
+        //}
 
         private void buttonVoucherDetails_Click(object sender, RoutedEventArgs e)
         {
-            VoucherViewModel vm = DataContext as VoucherViewModel;
-            //Voucher voucher = vm.SelectedGridItem;
-            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
+            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow { Owner = Window.GetWindow(this)};
+            voucherWindow.Closed += (sndr, eventArgs) => _vm.Reset();
             voucherWindow.ShowDialog();
         }
     }
