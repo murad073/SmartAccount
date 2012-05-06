@@ -1,0 +1,8 @@
+﻿<Window x:Class="GKS.XAML.Reports.FixedAssetSchedule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="350" Width="550" Title="Fixed Asset Schedule" >
+    <Grid>
+        
+    </Grid>
+</Window>

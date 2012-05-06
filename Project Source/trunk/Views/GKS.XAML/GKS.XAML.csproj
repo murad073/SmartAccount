@@ -137,6 +137,9 @@
     <Compile Include="Pages\BudgetSetup.xaml.cs">
       <DependentUpon>BudgetSetup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reports\FixedAssetSchedule.xaml.cs">
+      <DependentUpon>FixedAssetSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
       <DependentUpon>VoucherPostUC.xaml</DependentUpon>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\BudgetSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\FixedAssetSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -58,6 +58,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedProject = value;
+                NotifyPropertyChanged("SelectedProject");
                 if (value == null)
                 {
                     HeadsForProject = null;
