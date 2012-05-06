@@ -11,11 +11,11 @@ namespace BLL.VoucherManagement
 {
     public class RecordManager : ManagerBase, IRecordManager
     {
-        private readonly IRepository<Record> _recordRepository = default(IRepository<Record>);
+        //private readonly IRepository<Record> _recordRepository = default(IRepository<Record>);
         private  IList<Record> _records = default(List<Record>);
         public RecordManager(IRepository<Record> recordRepository)
         {
-            _recordRepository = recordRepository;
+            //_recordRepository = recordRepository;
         }
 
         public void SetRecords(IList<Record> records)
@@ -28,7 +28,6 @@ namespace BLL.VoucherManagement
             if (IsDebitCreditBalanced())
             {
                 bool success = true;
-                //_recordRepository.BeginTransaction();
 
                 if (_records.Any(record => !record.Save()))
                 {
@@ -39,12 +38,8 @@ namespace BLL.VoucherManagement
 
                 if (success)
                 {
-                    //if (_recordRepository.CommitTransaction())
-                    //{
                         InvokeManagerEvent(EventType.Success, "VoucherPostedSuccessfully");
-                    //}
                 }
-                //else _recordRepository.RollbackTransaction();
                 return success;
             }
 

@@ -58,7 +58,7 @@ namespace GKS.XAML.UserControls
 
         private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
-            dataGridAllHeads.ExportToExcel();
+            //dataGridAllHeads.ExportToExcel();
         }
     }
 }

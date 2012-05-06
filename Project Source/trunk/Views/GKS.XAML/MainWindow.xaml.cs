@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Factories;
 using GKS.Factory;
+using GKS.XAML.Reports;
 
 namespace GKS.XAML
 {
@@ -27,7 +28,8 @@ namespace GKS.XAML
 
         private void FixedAssetScheduleMenuItemClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("clicked");
+            FixedAssetSchedule fixedAssetSchedule = new FixedAssetSchedule {Owner = this};
+            fixedAssetSchedule.ShowDialog();
         }
     }
 }
