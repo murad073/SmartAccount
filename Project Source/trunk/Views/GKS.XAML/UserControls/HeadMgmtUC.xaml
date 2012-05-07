@@ -6,7 +6,7 @@
 
     <Grid Height="590" Width="840">
         <Label Content="Review all account heads:" Height="28" HorizontalAlignment="Left" Margin="91,34,0,0" Name="label1" VerticalAlignment="Top" />
-        <!--<DataGrid Name="dataGridAllHeads"
+        <DataGrid Name="dataGridAllHeads"
                   IsReadOnly="True"
                   IsTextSearchEnabled="True"
                   SelectionMode="Single"
@@ -29,9 +29,9 @@
                 <DataGridCheckBoxColumn Header="Active?" Binding="{Binding Path=IsActive}"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
 
-        </DataGrid>-->
+        </DataGrid>
 
-        <Custom:SolveGrid Name="dataGridAllHeads"
+        <!--<Custom:SolveGrid Name="dataGridAllHeads"
                   IsReadOnly="True"
                   IsTextSearchEnabled="True"
                   SelectionMode="Single"
@@ -48,9 +48,13 @@
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"                  
                   ItemsSource="{Binding Path=Heads}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Head Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Head Type" Binding="{Binding Path=HeadType}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Active?" Binding="{Binding Path=IsActive}"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
             
-            
-        </Custom:SolveGrid>
+        </Custom:SolveGrid>-->
 
         <Button Height="23" HorizontalAlignment="Left" Margin="555,520,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Command="{Binding Path=RefreshButtonClicked}"  >
             <Grid>

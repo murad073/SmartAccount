@@ -43,11 +43,13 @@ namespace GKS.XAML.CustomControles
     ///     <MyNamespace:SolveGrid/>
     ///
     /// </summary>
-    public class SolveGrid : Grid
+    public class SolveGrid : Control
     {
         static SolveGrid()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SolveGrid), new FrameworkPropertyMetadata(typeof(SolveGrid)));
         }
+
+        //public new DataGrid Template { get; set; }
     }
 }
