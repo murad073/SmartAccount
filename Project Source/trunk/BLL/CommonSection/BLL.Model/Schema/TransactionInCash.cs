@@ -21,9 +21,14 @@ namespace BLL.Model.Schema
 
         public override bool Save()
         {
-            //return RecordRepository.InsertCashBookRow(this);
-            //TODO: change the save logic
-            return true;
+            //TODO: Verify that this is right.
+            RecordRepository.Insert(this);
+
+            if (RecordRepository.Save() > 0)
+                return true;
+
+            RecordRepository.Discard(); 
+            return false;            
         }
 
         public override string HeadName()

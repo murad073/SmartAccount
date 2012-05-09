@@ -301,6 +301,7 @@ namespace BLL.VoucherManagement
                                               VoucherType = _massVoucher.VoucherType,
                                               Debit = debit,
                                               Credit = credit,
+                                              IsActive = true,
                                               BankRecord = _massVoucher.IsCheque ? GetBankRecord() : null
                                           };
             return transactionInCheque;
