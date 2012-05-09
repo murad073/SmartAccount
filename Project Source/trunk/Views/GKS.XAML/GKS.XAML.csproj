@@ -129,6 +129,12 @@
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ConfigurationSetting.xaml.cs">
+      <DependentUpon>ConfigurationSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutSolve.xaml.cs">
+      <DependentUpon>AboutSolve.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -177,6 +183,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddEditProjectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ConfigurationSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AboutSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

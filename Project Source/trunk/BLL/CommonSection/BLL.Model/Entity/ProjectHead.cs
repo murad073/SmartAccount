@@ -12,6 +12,5 @@ namespace BLL.Model.Entity
         public virtual ICollection<Record> Records { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<OpeningBalance> OpeningBalances { get; set; }
-        
     }
 }
