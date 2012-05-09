@@ -8,7 +8,6 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
