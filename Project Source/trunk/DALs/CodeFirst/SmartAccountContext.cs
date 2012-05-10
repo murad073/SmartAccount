@@ -11,7 +11,7 @@ namespace CodeFirst
 {
     internal class SmartAccountContext : DbContext
     {
-        public SmartAccountContext()
+        private SmartAccountContext()
         {
             Database.SetInitializer(new EntitiesContextInitializer());
         }
@@ -19,24 +19,30 @@ namespace CodeFirst
         //{
         //    Database.SetInitializer(new EntitiesContextInitializer());
         //}
-        public SmartAccountContext(DbConnection dbConnection)
+        private SmartAccountContext(DbConnection dbConnection)
             : base(dbConnection, true)
         {
             Database.SetInitializer(new EntitiesContextInitializer());
         }
 
+        public static DbConnection DBConnection { get; set; }
 
-        //private static SmartAccountContext _instance = new SmartAccountContext();
-        //public static SmartAccountContext Instance
-        //{
-        //    get { return _instance; }
-        //}
+        private static SmartAccountContext _instance;
+        public static SmartAccountContext Instance
+        {
+            get
+            {
+                return _instance ??
+                       (_instance =
+                        DBConnection == null ? new SmartAccountContext() : new SmartAccountContext(DBConnection));
+            }
+        }
 
-        //public void Reset()
-        //{
-        //    //_instance.Dispose(true);
-        //    _instance = new SmartAccountContext();
-        //}
+        public void Reset()
+        {
+            //_instance.Dispose(true);
+            _instance = new SmartAccountContext();
+        }
 
         public DbSet<BankRecord> BankRecords { get; set; }
 

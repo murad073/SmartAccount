@@ -4,51 +4,25 @@
         Height="610" Width="850" Title="Configuration Manager" >
 
     <Grid Height="570" Width="830">
-        <Label Content="Select a head for a project and click the 'View' button below:" Height="28" HorizontalAlignment="Left" Margin="77,21,0,0" Name="label3" VerticalAlignment="Top" Width="336" />
-
-        <Label Content="Project: " Height="26" HorizontalAlignment="Left" Margin="74,52,0,0" Name="label1" VerticalAlignment="Top" Width="50" />
-        <ComboBox DisplayMemberPath="Name" HorizontalAlignment="Left" ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" Margin="122,55,0,0" Name="comboBoxProjectItems" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" VerticalAlignment="Top" Width="607" />
-
-        <Button Height="23" HorizontalAlignment="Left" Margin="733,55,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Command="{Binding Path=RefreshButtonClicked}" >
-            <Grid>
-                <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
-            </Grid>
-            <Button.ToolTip>
-                <ToolTip>Reload all projects.
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="View" Height="23" HorizontalAlignment="Left" Margin="368,83,0,0" Name="ViewLedgerButton" VerticalAlignment="Top" Width="75" Command="{Binding Path=LedgerViewButtonClicked, Mode=OneWay}" >
-            <Button.ToolTip>
-                See the ledger for the selected head of account.
-            </Button.ToolTip>
-        </Button>
-
-        <DataGrid Name="FixedAssetGridView"
-                  IsReadOnly="True"
-                  GridLinesVisibility="None"                  
-                  IsTextSearchEnabled="True" AutoGenerateColumns="False"                                                  
-                  IsSynchronizedWithCurrentItem="True" 
-                  Background="Transparent"
-                  RowHeaderWidth="25"
-                  RowBackground="White"
-                  AlternatingRowBackground="Azure"
-                  AlternationCount="2"                  
-                  Height="411" HorizontalAlignment="Left" Margin="74,122,0,0" VerticalAlignment="Top" Width="690" 
-                  ItemsSource="{Binding Path=LedgerGridViewItems, Mode=OneWay}" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Vouhcer Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Vouhcer No" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Debit Amount" Binding="{Binding Path=Debit}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Credit Amount" Binding="{Binding Path=Credit}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Balance" Binding="{Binding Path=Balance}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cash/Bank" Binding="{Binding Path=Particular}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cheque No" Binding="{Binding Path=ChequeNo}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Remarks" Binding="{Binding Path=Remarks}"></DataGridTextColumn>
-            </DataGrid.Columns>
-
-        </DataGrid>
-        <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="77,539,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="688" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="482*" />
+            <RowDefinition Height="88*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="194*" />
+            <ColumnDefinition Width="13*" />
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="164*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="149*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Settings and Configurations" Height="28" HorizontalAlignment="Left" Margin="219,20,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" />
+        <Label Content="Accounting Year Start Date:" Height="28" HorizontalAlignment="Left" Margin="38,90,0,0" Name="label1" VerticalAlignment="Top" />
+        <DatePicker Grid.Column="2" Height="25" HorizontalAlignment="Left" Margin="0,93,0,0" Name="datePicker1" VerticalAlignment="Top" Width="115" />
+        <Label Content="Current Accounting Year:" Grid.Column="3" Height="28" HorizontalAlignment="Left" Margin="22,90,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="2012" Grid.Column="5" Height="28" HorizontalAlignment="Left" Margin="0,90,0,0" Name="label4" VerticalAlignment="Top" />
+        <Button Content="Save" Grid.Column="2" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="74,22,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="168,22,0,0" Name="button2" VerticalAlignment="Top" Width="75" Grid.Column="2" Grid.Row="1" />
     </Grid>
 
 </Window>

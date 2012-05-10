@@ -20,7 +20,7 @@ namespace GKS.XAML
         {
             base.DispatcherUnhandledException += AppDispatcherUnhandledException;
 
-            GKSFactory.RepositoryType = RepositoryType.CodeFirst;
+            //GKSFactory.RepositoryType = RepositoryType.CodeFirst;
 
 
             BLLCoreFactory.BudgetRepository = new Repository<Budget>();

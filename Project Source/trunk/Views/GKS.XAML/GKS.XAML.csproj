@@ -129,11 +129,20 @@
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CloseCurrentAccountingYear.xaml.cs">
+      <DependentUpon>CloseCurrentAccountingYear.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ConfigurationSetting.xaml.cs">
       <DependentUpon>ConfigurationSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AboutSolve.xaml.cs">
       <DependentUpon>AboutSolve.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FixedAssetManagement.xaml.cs">
+      <DependentUpon>FixedAssetManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StartNewAccountingYear.xaml.cs">
+      <DependentUpon>StartNewAccountingYear.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -186,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\CloseCurrentAccountingYear.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ConfigurationSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,6 +206,14 @@
     <Page Include="Pages\AboutSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FixedAssetManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StartNewAccountingYear.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TestWindow.xaml">
       <SubType>Designer</SubType>

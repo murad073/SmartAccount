@@ -14,8 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Factories;
-
-using GKS.Factory;
 using GKS.Model.ViewModels;
 using GKS.XAML.Pages;
 using FixedAssetSchedule = GKS.XAML.Reports.FixedAssetSchedule;
@@ -94,5 +92,28 @@ namespace GKS.XAML
             configurationSetting.ShowDialog();
         }
 
+        private void StartNewAccountingYearClick(object sender, RoutedEventArgs e)
+        {
+            StartNewAccountingYear configurationSetting = new StartNewAccountingYear() { Owner = this };
+            configurationSetting.ShowDialog();
+        }
+
+        private void CloseCurrentAccountingYearClick(object sender, RoutedEventArgs e)
+        {
+            CloseCurrentAccountingYear configurationSetting = new CloseCurrentAccountingYear { Owner = this };
+            configurationSetting.ShowDialog();
+        }
+
+        private void FixedAssetManagement_Click(object sender, RoutedEventArgs e)
+        {
+            FixedAssetManagement configurationSetting = new FixedAssetManagement { Owner = this };
+            configurationSetting.ShowDialog();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //Application.
+        }
+        
     }
 }
