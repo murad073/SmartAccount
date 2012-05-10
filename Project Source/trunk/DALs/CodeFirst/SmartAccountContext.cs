@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -10,22 +11,32 @@ namespace CodeFirst
 {
     internal class SmartAccountContext : DbContext
     {
-        private SmartAccountContext()
+        public SmartAccountContext()
+        {
+            Database.SetInitializer(new EntitiesContextInitializer());
+        }
+        //public SmartAccountContext(string connectionString) : base(connectionString)
+        //{
+        //    Database.SetInitializer(new EntitiesContextInitializer());
+        //}
+        public SmartAccountContext(DbConnection dbConnection)
+            : base(dbConnection, true)
         {
             Database.SetInitializer(new EntitiesContextInitializer());
         }
 
-        private static SmartAccountContext _instance = new SmartAccountContext();
-        public static SmartAccountContext Instance
-        {
-            get { return _instance; }
-        }
 
-        public void Reset()
-        {
-            //_instance.Dispose(true);
-            _instance = new SmartAccountContext();
-        }
+        //private static SmartAccountContext _instance = new SmartAccountContext();
+        //public static SmartAccountContext Instance
+        //{
+        //    get { return _instance; }
+        //}
+
+        //public void Reset()
+        //{
+        //    //_instance.Dispose(true);
+        //    _instance = new SmartAccountContext();
+        //}
 
         public DbSet<BankRecord> BankRecords { get; set; }
 

@@ -14,10 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Factories;
+
 using GKS.Factory;
 using GKS.Model.ViewModels;
 using GKS.XAML.Pages;
 using FixedAssetSchedule = GKS.XAML.Reports.FixedAssetSchedule;
+
+using GKS.XAML.Reports;
+
 
 namespace GKS.XAML
 {

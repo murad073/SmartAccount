@@ -279,9 +279,9 @@
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GKS.Factory\GKS.Factory.csproj">
-      <Project>{7ADDA0C7-520D-46C9-8B2D-FC9DAAABFA41}</Project>
-      <Name>GKS.Factory</Name>
+    <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
+      <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
+      <Name>CodeFirst</Name>
     </ProjectReference>
     <ProjectReference Include="..\GKS.Model\GKS.Model.csproj">
       <Project>{442CFA8B-3C4A-4F12-9FB4-92B68D44A857}</Project>

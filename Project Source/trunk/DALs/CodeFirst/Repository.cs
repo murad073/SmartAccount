@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,20 @@ namespace CodeFirst
         IRepository<T>
         where T : class, new()
     {
-        private readonly SmartAccountContext _entities = SmartAccountContext.Instance;
+        private readonly SmartAccountContext _entities;
+
+        public Repository()
+        {
+            _entities = new SmartAccountContext();
+        }
+        //public Repository(string connectionString)
+        //{
+        //    _entities = new SmartAccountContext(connectionString);
+        //}
+        public Repository(DbConnection dbConnection)
+        {
+            _entities = new SmartAccountContext(dbConnection);
+        }
 
         public virtual IQueryable<T> GetAll()
         {

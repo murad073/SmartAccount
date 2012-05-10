@@ -7,8 +7,8 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 using BLL.Model.Repositories;
+using CodeFirst;
 
 namespace GKS.Model.ViewModels
 {
@@ -22,7 +22,7 @@ namespace GKS.Model.ViewModels
         {
             try
             {
-                IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
+                IRepository<Record> ledgerRepository = new Repository<Record>();
 
                 _ledgerManager = BLLCoreFactory.GetLedgerManager();
                 _headManager = BLLCoreFactory.GetHeadManager();

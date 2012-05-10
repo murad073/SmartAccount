@@ -79,9 +79,9 @@
       <Project>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</Project>
       <Name>BLL.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GKS.Factory\GKS.Factory.csproj">
-      <Project>{7ADDA0C7-520D-46C9-8B2D-FC9DAAABFA41}</Project>
-      <Name>GKS.Factory</Name>
+    <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
+      <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
+      <Name>CodeFirst</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
