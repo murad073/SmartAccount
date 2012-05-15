@@ -43,6 +43,7 @@
 
         <DataGrid 
                   IsReadOnly="True"
+                  CanUserSortColumns="False"
                   GridLinesVisibility="None"                  
                   IsTextSearchEnabled="True"                  
                   Grid.Row="1" 
@@ -55,7 +56,7 @@
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"                  
                   Height="350" HorizontalAlignment="Left" Margin="75,185,0,0" Name="LedgerDataGrid" VerticalAlignment="Top" Width="690" 
-                  ItemsSource="{Binding Path=LedgerGridViewItems, Mode=OneWay}" >
+                  ItemsSource="{Binding Path=LedgerDataGrid, Mode=OneWay}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vouhcer Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Vouhcer No" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
@@ -68,6 +69,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="77,555,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="688" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />
+        <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="77,555,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="594" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />
+        <Button Content="Export" Height="23" HorizontalAlignment="Left" Margin="690,555,0,0" Name="buttonExport" VerticalAlignment="Top" Width="75" Click="buttonExport_Click" />
     </Grid>
 </UserControl>

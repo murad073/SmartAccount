@@ -24,7 +24,7 @@ namespace GKS.XAML.Pages
 
         VoucherDetailsModel _vm;
 
-        public VoucherDetailsWindow()
+        private void Init()
         {
             InitializeComponent();
             _vm = new VoucherDetailsModel();
@@ -32,6 +32,16 @@ namespace GKS.XAML.Pages
             DataContext = _vm;
 
             this.PreviewKeyDown += HandleEsc;
+        }
+
+        public VoucherDetailsWindow(VoucherItem voucher)
+        {
+            Init();
+            _vm.ProjectName = voucher.ProjectName;
+            _vm.VoucherDate = voucher.Date;
+            _vm.VoucherNo = voucher.VoucherNo;
+            //_vm.Amount = voucher.Amount;
+            _vm.VoucherNarration = voucher.Narration;
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)

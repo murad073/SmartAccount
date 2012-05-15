@@ -47,9 +47,14 @@ namespace BLL.LedgerManagement
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            return _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.ProjectHead.Head.ID == head.ID).OrderBy(l => l.Date).ToList().Where(
-                    l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
-                    ToList();
+            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.ProjectHead.Head.ID == head.ID).ToList();
+            records = records.OrderBy(l => l.Date).ToList();
+            records = records.Where(l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).ToList();
+
+            return records;
+            //return _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.ProjectHead.Head.ID == head.ID).OrderBy(l => l.Date).ToList().Where(
+            //        l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
+            //        ToList();
 
             //return
             //    _ledgerRepository.GetLedger(projectId, headId) .OrderBy(l => l.Date).Where(

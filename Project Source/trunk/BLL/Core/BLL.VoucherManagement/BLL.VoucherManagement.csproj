@@ -43,6 +43,7 @@
     <Compile Include="RecordManager.cs" />
     <Compile Include="MassVoucherManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VoucherManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonSection\BLL.Model\BLL.Model.csproj">

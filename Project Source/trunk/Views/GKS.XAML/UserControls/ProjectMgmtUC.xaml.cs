@@ -41,6 +41,9 @@ namespace GKS.XAML.UserControls
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
+            if (dataGridAllProjects.Items.Count > 0)
+                dataGridAllProjects.ExportToExcel();
+
             //ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
             //ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
             //s.dataToPrint = (List<Project>)view.SourceCollection;

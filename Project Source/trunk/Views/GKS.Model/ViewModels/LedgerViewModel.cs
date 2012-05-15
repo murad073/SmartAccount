@@ -20,7 +20,7 @@ namespace GKS.Model.ViewModels
 
         public LedgerViewModel()
         {
-            IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
+            //IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
 
             _ledgerManager = BLLCoreFactory.GetLedgerManager();
             _headManager = BLLCoreFactory.GetHeadManager();
@@ -31,7 +31,6 @@ namespace GKS.Model.ViewModels
             IsAllHeadsEnabled = true;
             ShowAllAdvance = false;
             LedgerEndDate = DateTime.Now;
-            //LedgerViewButtonClicked = new ViewLedger(this, ledgerRepository);
         }
 
         private IList<Project> _allProjects;
@@ -142,7 +141,12 @@ namespace GKS.Model.ViewModels
             {
                 return _ledgerGridViewItems;
             }
-            set { _ledgerGridViewItems = value; NotifyPropertyChanged("LedgerGridViewItems"); }
+            set
+            {
+                _ledgerGridViewItems = value;
+                NotifyPropertyChanged("LedgerGridViewItems");
+                NotifyPropertyChanged("LedgerDataGrid");
+            }
         }
 
         private string _errorMessage;
@@ -233,28 +237,40 @@ namespace GKS.Model.ViewModels
 
         #endregion
 
+        public IList<LedgerItem> LedgerDataGrid
+        {
+            get
+            {
+                if (LedgerGridViewItems == null || LedgerGridViewItems.Count == 0) return null;
+                double balance = 0;
+                return LedgerGridViewItems.Select(l => new LedgerItem
+                {
+                    Date = l.Date,
+                    VoucherNo = l.VoucherType + "-" + l.VoucherSerialNo,
+                    Debit = l.Debit,
+                    Credit = l.Credit,
+                    Balance = (balance += (l.Debit - l.Credit)),
+                    Particular = "",//tr.BankRecords.Last().ChequeNo,
+                    Remarks = l.Narration,
+                    ChequeNo = l.BankRecords.Count.ToString() //.ChequeNo
+                    //ChequeNo = tr.BankRecords.Select(br => br.Record.ID == tr.ID).SingleOrDefault().ToString()
+                }).ToList();
+
+            }
+        }
     }
 
-    //public class ViewLedger : ICommand
-    //{
-    //    private readonly LedgerViewModel _ledgerViewModel;
-    //    private IRepository<Record> _ledgerRepository;
-    //    public ViewLedger(LedgerViewModel ledgerViewModel, IRepository<Record> ledgerRepository)
-    //    {
-    //        _ledgerViewModel = ledgerViewModel;
-    //        _ledgerRepository = ledgerRepository;
-    //    }
+    public class LedgerItem
+    {
+        public DateTime Date { get; set; }
+        public string VoucherNo { get; set; }
+        public double Debit { get; set; }
+        public double Credit { get; set; }
+        public double Balance { get; set; }
+        public string Particular { get; set; }
+        public string ChequeNo { get; set; }
+        public string Remarks { get; set; }
+    }
 
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return true;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged;
-
-    //    public void Execute(object parameter)
-    //    {
-    //        _ledgerViewModel.NotifyLedgerGrid();
-    //    }
-    //}
+    //public class ViewableLedgerRows : List<LedgerItem> { }
 }
