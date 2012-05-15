@@ -1,11 +1,8 @@
 ﻿<UserControl x:Class="GKS.XAML.UserControls.HeadMgmtUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GKS.Model.ViewModels;assembly=GKS.Model"
-             mc:Ignorable="d" 
-             d:DesignHeight="610" d:DesignWidth="850">
+             xmlns:Custom="clr-namespace:GKS.XAML.CustomControles"
+             Height="610" Width="850">
 
     <Grid Height="590" Width="840">
         <Label Content="Review all account heads:" Height="28" HorizontalAlignment="Left" Margin="91,34,0,0" Name="label1" VerticalAlignment="Top" />
@@ -33,6 +30,31 @@
             </DataGrid.Columns>
 
         </DataGrid>
+
+        <!--<Custom:SolveGrid Name="dataGridAllHeads"
+                  IsReadOnly="True"
+                  IsTextSearchEnabled="True"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding Path=SelectedGridItem, Mode=OneWayToSource}"
+                  GridLinesVisibility="None"
+                  HorizontalAlignment="Stretch" Margin="94,60,96,85" VerticalAlignment="Stretch"
+                  Grid.Row="1" 
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"                                                  
+                  IsSynchronizedWithCurrentItem="True" 
+                  Background="Transparent"
+                  RowHeaderWidth="25"
+                  RowBackground="White"
+                  AlternatingRowBackground="Azure"
+                  AlternationCount="2"                  
+                  ItemsSource="{Binding Path=Heads}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Head Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Head Type" Binding="{Binding Path=HeadType}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Active?" Binding="{Binding Path=IsActive}"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+            
+        </Custom:SolveGrid>-->
 
         <Button Height="23" HorizontalAlignment="Left" Margin="555,520,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Command="{Binding Path=RefreshButtonClicked}"  >
             <Grid>

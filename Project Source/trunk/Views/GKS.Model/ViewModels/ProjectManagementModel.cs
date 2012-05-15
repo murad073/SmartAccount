@@ -7,7 +7,6 @@ using BLL.Factories;
 using BLL.Model;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
@@ -17,7 +16,12 @@ namespace GKS.Model.ViewModels
 
         public ProjectManagementModel()
         {
-            _projectManager = BLLCoreFactory.GetProjectManager();
+            try
+            {
+                _projectManager = BLLCoreFactory.GetProjectManager();
+            }
+            catch { }
+
         }
 
         public ObservableCollection<Project> Projects
@@ -35,6 +39,8 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        #region Relay Commands
+
         private RelayCommand _refreshButtonClicked;
         public ICommand RefreshButtonClicked
         {
@@ -48,5 +54,6 @@ namespace GKS.Model.ViewModels
         {
             NotifyPropertyChanged("Projects");
         }
+        #endregion
     }
 }

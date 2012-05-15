@@ -18,7 +18,7 @@ namespace GKS.XAML.UserControls
             DataContext = _vm;
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        internal void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             AddEditProjectWindow projectWindow = new AddEditProjectWindow { Owner = Window.GetWindow(this) };
             projectWindow.Closed += (sndr, eventArgs) => _vm.Reset();

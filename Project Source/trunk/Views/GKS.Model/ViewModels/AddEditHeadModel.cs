@@ -91,16 +91,6 @@ namespace GKS.Model.ViewModels
             get { return _closeButtonClicked ?? (_closeButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
-        //private RelayCommand _headTypeClicked;
-        //public ICommand HeadTypeClicked
-        //{
-        //    get
-        //    {
-        //        return _headTypeClicked ??
-        //               (_headTypeClicked = new RelayCommand((hType) => { Head.Type = hType.ToString(); }));
-        //    }
-        //}
-
         private void SaveHead()
         {
             bool isSuccess = OperationType == OperationType.Add

@@ -8,7 +8,6 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
@@ -21,11 +20,16 @@ namespace GKS.Model.ViewModels
 
         public ProjectHeadManagementModel()
         {
-            _projectManager = BLLCoreFactory.GetProjectManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            _allHeads = _headManager.GetHeads(false, false);
+            try
+            {
+                _projectManager = BLLCoreFactory.GetProjectManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
+                _allHeads = _headManager.GetHeads(false, false);
 
-            AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));
+                AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));
+
+            }
+            catch { }
         }
 
         #region View Model Binding Elements
@@ -53,6 +57,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedProject = value;
+                NotifyPropertyChanged("SelectedProject");
                 if (value == null)
                 {
                     HeadsForProject = null;
@@ -60,7 +65,8 @@ namespace GKS.Model.ViewModels
                 }
                 else
                 {
-                    HeadsForProject = new ObservableCollection<Head>(_headManager.GetHeads(value, false));
+                    IList<Head> headsForProject = _headManager.GetHeads(value, false);
+                    HeadsForProject = new ObservableCollection<Head>(headsForProject);
                     RemainingHeads = new ObservableCollection<Head>(
                         _allHeads.Except(HeadsForProject).Where(h => h.Name != SelectedProject.Name));
                 }
@@ -229,7 +235,7 @@ namespace GKS.Model.ViewModels
             }
             NotificationMessage = message;
         }
-        
+
         private void Reset()
         {
             AllProjectItems = new ObservableCollection<Project>(_projectManager.GetProjects(false));

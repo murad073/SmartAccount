@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -14,11 +15,27 @@ namespace CodeFirst
         {
             Database.SetInitializer(new EntitiesContextInitializer());
         }
+        //public SmartAccountContext(string connectionString) : base(connectionString)
+        //{
+        //    Database.SetInitializer(new EntitiesContextInitializer());
+        //}
+        private SmartAccountContext(DbConnection dbConnection)
+            : base(dbConnection, true)
+        {
+            Database.SetInitializer(new EntitiesContextInitializer());
+        }
 
-        private static SmartAccountContext _instance = new SmartAccountContext();
+        public static DbConnection DBConnection { get; set; }
+
+        private static SmartAccountContext _instance;
         public static SmartAccountContext Instance
         {
-            get { return _instance; }
+            get
+            {
+                return _instance ??
+                       (_instance =
+                        DBConnection == null ? new SmartAccountContext() : new SmartAccountContext(DBConnection));
+            }
         }
 
         public void Reset()

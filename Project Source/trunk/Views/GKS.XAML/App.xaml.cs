@@ -8,7 +8,9 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using GKS.Factory;
+using BLL.Factories;
+using BLL.Model.Entity;
+using CodeFirst;
 
 namespace GKS.XAML
 {
@@ -17,8 +19,18 @@ namespace GKS.XAML
         public App()
         {
             base.DispatcherUnhandledException += AppDispatcherUnhandledException;
-            GKSFactory.RepositoryType = RepositoryType.CodeFirst;
-            //GKSFactory.RepositoryType = RepositoryType.SqlExpress;
+
+            //GKSFactory.RepositoryType = RepositoryType.CodeFirst;
+
+
+            BLLCoreFactory.BudgetRepository = new Repository<Budget>();
+            BLLCoreFactory.HeadRepository = new Repository<Head>();
+            BLLCoreFactory.ParameterRepository = new Repository<Parameter>();
+            BLLCoreFactory.ProjectHeadRepository = new Repository<ProjectHead>();
+            BLLCoreFactory.ProjectRepository = new Repository<Project>();
+            BLLCoreFactory.RecordRepository = new Repository<Record>();
+            BLLCoreFactory.BankRecordRepository = new Repository<BankRecord>();
+            BLLCoreFactory.FixedAssetRepository = new Repository<FixedAsset>();
 
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";

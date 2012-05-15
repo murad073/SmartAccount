@@ -8,13 +8,12 @@
              d:DesignHeight="610" d:DesignWidth="850">
 
     <Grid Height="590" Width="840">
-        <Label Content="Select a project, give a voucher number and click the 'View' button below:" Height="28" HorizontalAlignment="Left" Margin="79,27,0,0" Name="label3" VerticalAlignment="Top" Width="374" />
+        <Label Content="Select a project and a voucher type and click the 'View' button below:" Height="28" HorizontalAlignment="Left" Margin="79,27,0,0" Name="label3" VerticalAlignment="Top" Width="374" />
 
         <Label Content="Project:" Height="26" HorizontalAlignment="Left" Margin="109,58,0,0" Name="label1" VerticalAlignment="Top" Width="50" />
         <ComboBox DisplayMemberPath="Name" HorizontalAlignment="Right" ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" Margin="0,61,114,0" Name="comboBoxProjectItems" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" VerticalAlignment="Top" Width="572" />
 
-        <Button Height="23" HorizontalAlignment="Left" Margin="732,59,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" 
-                Command="{Binding Path=RefreshButtonClicked, Mode=OneWay}">
+        <Button Command="{Binding Path=RefreshButtonClicked, Mode=OneWay}" Height="23" HorizontalAlignment="Left" Margin="732,59,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" >
             <Grid>
                 <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
             </Grid>
@@ -23,11 +22,11 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        
+
         <Label Content="Voucher type:" Height="23" HorizontalAlignment="Left" Margin="78,90,0,0" Name="label2" VerticalAlignment="Top" Width="81" />
         <ComboBox Height="20" HorizontalAlignment="Left" Margin="154,91,0,0" Name="comboBoxVoucherType" VerticalAlignment="Top" Width="109" DisplayMemberPath="Value"  ItemsSource="{Binding Path=VoucherTypes, Mode=OneWay}" SelectedItem="{Binding Path=SelectedVoucherType, Mode=TwoWay}" />
-        
-        
+
+
         <Label Content="Start date:" Height="28" HorizontalAlignment="Left" Margin="400,90,0,0" Name="label4" VerticalAlignment="Top" />
         <DatePicker Height="23" HorizontalAlignment="Right" Margin="0,90,265,0" Name="datePickerStartDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=VoucherStartDate, Mode=TwoWay}" />
         <Label Content="End date:" Height="28" HorizontalAlignment="Left" Margin="583,90,0,0" Name="label5" VerticalAlignment="Top" />

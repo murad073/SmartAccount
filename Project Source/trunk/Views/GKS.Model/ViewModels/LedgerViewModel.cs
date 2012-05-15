@@ -7,8 +7,8 @@ using BLL.Factories;
 using BLL.Messaging;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 using BLL.Model.Repositories;
+using CodeFirst;
 
 namespace GKS.Model.ViewModels
 {
@@ -21,16 +21,24 @@ namespace GKS.Model.ViewModels
         public LedgerViewModel()
         {
             //IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
+            try
+            {
+                IRepository<Record> ledgerRepository = new Repository<Record>();
 
-            _ledgerManager = BLLCoreFactory.GetLedgerManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            _projectManager = BLLCoreFactory.GetProjectManager();
+                _ledgerManager = BLLCoreFactory.GetLedgerManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
+                _projectManager = BLLCoreFactory.GetProjectManager();
 
-            AllProjects = _projectManager.GetProjects();
+                AllProjects = _projectManager.GetProjects();
 
-            IsAllHeadsEnabled = true;
-            ShowAllAdvance = false;
-            LedgerEndDate = DateTime.Now;
+                IsAllHeadsEnabled = true;
+                ShowAllAdvance = false;
+                LedgerEndDate = DateTime.Now;
+                IsAllHeadsEnabled = true;
+                ShowAllAdvance = false;
+                LedgerEndDate = DateTime.Now;
+            }
+            catch { }
         }
 
         private IList<Project> _allProjects;
@@ -58,7 +66,6 @@ namespace GKS.Model.ViewModels
             {
                 _selectedProject = value;
                 NotifyPropertyChanged("AllHeads");
-                //NotifyPropertyChanged("SelectedHead");
                 SelectedHead = null;
             }
         }
@@ -96,17 +103,6 @@ namespace GKS.Model.ViewModels
                 NotifyPropertyChanged("SelectedHead");
             }
         }
-
-        //private bool _showCashOrBankTransaction;
-        //public bool ShowCashOrBankTransaction
-        //{
-        //    get { return _showCashOrBankTransaction; }
-        //    set
-        //    {
-        //        _showCashOrBankTransaction = value;
-        //        NotifyPropertyChanged("ShowCashOrBankTransaction");
-        //    }
-        //}
 
         private bool _showAllAdvance;
         public bool ShowAllAdvance
@@ -208,8 +204,6 @@ namespace GKS.Model.ViewModels
 
         private void NotifyLedgerGrid()
         {
-            //NotifyPropertyChanged("LedgerGridViewItems");
-
             if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
             {
                 Message latestMessage = MessageService.Instance.GetLatestMessage();
@@ -252,7 +246,7 @@ namespace GKS.Model.ViewModels
                     Balance = (balance += (l.Debit - l.Credit)),
                     Particular = "",//tr.BankRecords.Last().ChequeNo,
                     Remarks = l.Narration,
-                    ChequeNo = l.BankRecords.Count.ToString() //.ChequeNo
+                    ChequeNo = l.BankRecords == null ? "" : l.BankRecords.Count.ToString() //.ChequeNo
                     //ChequeNo = tr.BankRecords.Select(br => br.Record.ID == tr.ID).SingleOrDefault().ToString()
                 }).ToList();
 

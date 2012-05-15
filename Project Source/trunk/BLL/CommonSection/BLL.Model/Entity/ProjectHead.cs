@@ -5,8 +5,6 @@ namespace BLL.Model.Entity
     public class ProjectHead
     {
         public int ID { get; set; }
-        //public int ProjectID { get; set; }
-        //public int HeadID { get; set; }
         public bool IsActive { get; set; }
 
         public virtual Project Project { get; set; }
@@ -14,6 +12,5 @@ namespace BLL.Model.Entity
         public virtual ICollection<Record> Records { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<OpeningBalance> OpeningBalances { get; set; }
-        
     }
 }

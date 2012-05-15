@@ -6,7 +6,6 @@ using System.Windows.Input;
 using BLL.Factories;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
-using GKS.Factory;
 
 namespace GKS.Model.ViewModels
 {
@@ -15,7 +14,11 @@ namespace GKS.Model.ViewModels
         readonly IHeadManager _headManager;
         public HeadManagementModel()
         {
-            _headManager = BLLCoreFactory.GetHeadManager();
+            try
+            {
+                _headManager = BLLCoreFactory.GetHeadManager();
+            }
+            catch { }
         }
 
         public ObservableCollection<Head> Heads

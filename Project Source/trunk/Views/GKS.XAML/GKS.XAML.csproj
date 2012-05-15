@@ -124,9 +124,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControles\SolveGrid.cs" />
     <Compile Include="ExportToExcel.cs" />
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CloseCurrentAccountingYear.xaml.cs">
+      <DependentUpon>CloseCurrentAccountingYear.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ConfigurationSetting.xaml.cs">
+      <DependentUpon>ConfigurationSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutSolve.xaml.cs">
+      <DependentUpon>AboutSolve.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FixedAssetManagement.xaml.cs">
+      <DependentUpon>FixedAssetManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StartNewAccountingYear.xaml.cs">
+      <DependentUpon>StartNewAccountingYear.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -136,6 +152,9 @@
     </Compile>
     <Compile Include="Pages\BudgetSetup.xaml.cs">
       <DependentUpon>BudgetSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FixedAssetSchedule.xaml.cs">
+      <DependentUpon>FixedAssetSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\VoucherPostUC.xaml.cs">
@@ -168,10 +187,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\AddEditHeadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +194,26 @@
     <Page Include="Pages\AddEditProjectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CloseCurrentAccountingYear.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ConfigurationSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AboutSolve.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FixedAssetManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StartNewAccountingYear.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TestWindow.xaml">
       <SubType>Designer</SubType>
@@ -191,6 +226,14 @@
     <Page Include="Pages\BudgetSetup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\FixedAssetSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\VoucherPostUC.xaml">
       <SubType>Designer</SubType>
@@ -218,9 +261,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\AddEditHeadWindow.xaml.cs">
       <DependentUpon>AddEditHeadWindow.xaml</DependentUpon>
     </Compile>
@@ -260,9 +300,9 @@
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GKS.Factory\GKS.Factory.csproj">
-      <Project>{7ADDA0C7-520D-46C9-8B2D-FC9DAAABFA41}</Project>
-      <Name>GKS.Factory</Name>
+    <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
+      <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
+      <Name>CodeFirst</Name>
     </ProjectReference>
     <ProjectReference Include="..\GKS.Model\GKS.Model.csproj">
       <Project>{442CFA8B-3C4A-4F12-9FB4-92B68D44A857}</Project>

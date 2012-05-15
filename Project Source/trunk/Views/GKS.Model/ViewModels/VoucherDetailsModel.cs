@@ -6,9 +6,6 @@ namespace GKS.Model.ViewModels
 {
     public class VoucherDetailsModel : ViewModelBase
     {
-        public delegate void SimpleDelegate();
-        public SimpleDelegate CloseWindow { get; set; }
-
         public VoucherDetailsModel()
         {
         }
@@ -115,22 +112,27 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private RelayCommand _okButtonClicked;
+        #region Relay Commands
+        private RelayCommand _oKButtonClicked;
         public ICommand OKButtonClicked
         {
-            get { return _okButtonClicked ?? (_okButtonClicked = new RelayCommand(p1 => this.CloseWindow())); }
+            get
+            {
+                return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish()));
+            }
         }
 
         private RelayCommand _printButtonClicked;
         public ICommand PrintButtonClicked
         {
-            get { return _printButtonClicked ?? (_printButtonClicked = new RelayCommand(p1 => this.CloseWindow())); }
+            get { return _printButtonClicked ?? (_printButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
         private RelayCommand _deleteButtonClicked;
         public ICommand DeleteButtonClicked
         {
-            get { return _deleteButtonClicked ?? (_deleteButtonClicked = new RelayCommand(p1 => this.CloseWindow())); }
+            get { return _deleteButtonClicked ?? (_deleteButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
+        #endregion
     }
 }
