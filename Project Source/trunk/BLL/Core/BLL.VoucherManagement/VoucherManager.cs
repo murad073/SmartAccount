@@ -49,7 +49,7 @@ namespace BLL.VoucherManagement
             IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.LedgerType == "LedgerBook").ToList();
             if (voucherType != "All")
                 records = records.Where(r => r.VoucherType == voucherType).ToList();
-            records = records.OrderBy(r => r.ProjectHead.Head.ID).ToList();
+            records = records.OrderBy(r => r.VoucherType).ToList();
             records = records.Where(r => GetDateAt12Am(r.Date) >= VoucherStartDate && GetDateAt12Am(r.Date) <= VoucherEndDate).ToList();
 
             return records;
