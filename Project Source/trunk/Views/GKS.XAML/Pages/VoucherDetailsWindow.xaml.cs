@@ -41,6 +41,9 @@ namespace GKS.XAML.Pages
             _vm.VoucherNo = voucher.VoucherNo;
             _vm.Amount = voucher.Amount;
             _vm.VoucherNarration = voucher.Narration;
+            _vm.ChequeNo = voucher.ChequeNo;
+            _vm.ChequeDate = voucher.ChequeDate;
+            _vm.BankName = voucher.BankName;
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)

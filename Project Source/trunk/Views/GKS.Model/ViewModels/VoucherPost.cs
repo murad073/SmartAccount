@@ -772,7 +772,6 @@ namespace GKS.Model.ViewModels
                                                              Head = tr.HeadName(),
                                                              VoucherNo = tr.VoucherType + "-" + tr.VoucherSerialNo
                                                          }).ToList();
-
             }
         }
 

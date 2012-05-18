@@ -203,7 +203,10 @@ namespace GKS.Model.ViewModels
                     Amount = v.Debit + v.Credit,
                     //CashOrBank = (v.BankRecords.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
                     CashOrBank = v.Tag.Contains("Cash") ? "Cash" : "Bank",
-                    Narration = v.Narration
+                    Narration = v.Narration,
+                    ChequeNo = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeNo).SingleOrDefault() : "",
+                    ChequeDate = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeDate).SingleOrDefault() : new DateTime(),
+                    BankName = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.BankName).SingleOrDefault() : "",
                 }).ToList();
 
             }
@@ -245,5 +248,8 @@ namespace GKS.Model.ViewModels
         public double Amount { get; set; }
         public string CashOrBank { get; set; }
         public string Narration { get; set; }
+        public string ChequeNo { get; set; }
+        public DateTime ChequeDate { get; set; }
+        public string BankName { get; set; }
     }
 }

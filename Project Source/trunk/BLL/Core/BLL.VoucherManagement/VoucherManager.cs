@@ -44,8 +44,6 @@ namespace BLL.VoucherManagement
 
         public IList<Record> GetVouchers(Project project, string voucherType)
         {
-            // TODO: The LedgerType filtering will not allow to get the Cash/Bank column in the DataGrid.
-            // What if we keep a column Cash/Bank in the Record table and create a separate table for CashBook?
             IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.LedgerType == "LedgerBook").ToList();
             if (voucherType != "All")
                 records = records.Where(r => r.VoucherType == voucherType).ToList();
