@@ -55,8 +55,7 @@
                 <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Vouhcer No" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadOfAccount}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Debit" Binding="{Binding Path=Debit}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Credit" Binding="{Binding Path=Credit}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Cash/Bank" Binding="{Binding Path=CashOrBank}"></DataGridTextColumn>
             </DataGrid.Columns>
 

@@ -52,10 +52,10 @@
         </DataGrid>
 
         <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,290,0,0" Name="label7" VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Left" Margin="119,290,0,86" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="424" />
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="119,292,0,0" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="424" Height="21" />
 
         <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="63,321,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,322,0,0" Name="textBox4" VerticalAlignment="Top" Width="424" 
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,324,0,0" Name="textBox4" VerticalAlignment="Top" Width="424" 
                  Text="{Binding Path=VoucherNarration, Mode=OneWay}" IsReadOnly="True"/>
 
         <Button Content="Delete" Height="23" HorizontalAlignment="Left" Margin="276,356,0,0" Name="buttonDelete" VerticalAlignment="Top" Width="75" 

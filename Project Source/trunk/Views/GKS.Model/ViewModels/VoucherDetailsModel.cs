@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using BLL.Utils;
 
 namespace GKS.Model.ViewModels
 {
@@ -43,8 +44,8 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string _amount;
-        public string Amount
+        private double _amount;
+        public double Amount
         {
             get
             {
@@ -53,6 +54,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _amount = value;
+                TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
                 NotifyPropertyChanged("Amount");
             }
         }

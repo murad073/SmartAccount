@@ -39,7 +39,7 @@ namespace GKS.XAML.Pages
             _vm.ProjectName = voucher.ProjectName;
             _vm.VoucherDate = voucher.Date;
             _vm.VoucherNo = voucher.VoucherNo;
-            //_vm.Amount = voucher.Amount;
+            _vm.Amount = voucher.Amount;
             _vm.VoucherNarration = voucher.Narration;
         }
 

@@ -199,9 +199,8 @@ namespace GKS.Model.ViewModels
                     ProjectName = v.ProjectHead.Project.Name,
                     Date = v.Date,
                     VoucherNo = v.VoucherType + "-" + v.VoucherSerialNo,
-                    HeadOfAccount = v.ProjectHead.Head.Name,
-                    Debit = v.Debit,
-                    Credit = v.Credit,
+                    HeadOfAccount = v.ProjectHead.Head.Name,                    
+                    Amount = v.Debit + v.Credit,
                     //CashOrBank = (v.BankRecords.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
                     CashOrBank = v.BankRecords == null ? "Cash" : "Bank",
                     Narration = v.Narration
@@ -242,9 +241,8 @@ namespace GKS.Model.ViewModels
         public string ProjectName { get; set; }
         public DateTime Date { get; set; }
         public string VoucherNo { get; set; }
-        public string HeadOfAccount { get; set; }
-        public double Debit { get; set; } // TODO: We should have an Amount field instead of Debit/Credit.
-        public double Credit { get; set; }
+        public string HeadOfAccount { get; set; }       
+        public double Amount { get; set; }
         public string CashOrBank { get; set; }
         public string Narration { get; set; }
     }
