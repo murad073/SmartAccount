@@ -202,7 +202,7 @@ namespace GKS.Model.ViewModels
                     HeadOfAccount = v.ProjectHead.Head.Name,                    
                     Amount = v.Debit + v.Credit,
                     //CashOrBank = (v.BankRecords.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
-                    CashOrBank = v.BankRecords == null ? "Cash" : "Bank",
+                    CashOrBank = v.Tag.Contains("Cash") ? "Cash" : "Bank",
                     Narration = v.Narration
                 }).ToList();
 

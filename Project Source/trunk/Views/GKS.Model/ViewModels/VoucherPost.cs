@@ -176,7 +176,16 @@ namespace GKS.Model.ViewModels
                 _isJVStartedChecked = value;
                 // The following function calls should not change order.
                 if (value == false)
+                {
+                    if (TemporaryRecords != null && TemporaryRecords.Count != 0)
+                    {
+                        // We want the latest narration for all the records of a JV.
+                        string narration = TemporaryRecords.Last().Narration;
+                        for (int count = 0; count < TemporaryRecords.Count; count++)
+                            TemporaryRecords[count].Narration = narration;
+                    }
                     SetJVBalanceZeroMessage();
+                }
                 
                 SetInputSecondPartIsEnabled();
                 SetPostButtonIsEnabled();
@@ -691,6 +700,23 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
+        private string  GetTag()
+        {
+            string tag = "";
+            if (IsAdvance)
+                tag = "Advance";
+
+            if (tag != "")
+                tag += ",";
+
+            if (IsPaymentInCheque)
+                tag += "Bank";
+            else
+                tag += "Cash";
+
+            return tag;
+        }
+
         private MassVoucher GetCurrentVoucher()
         {
             MassVoucher massVoucher = new MassVoucher
@@ -710,7 +736,7 @@ namespace GKS.Model.ViewModels
                                               BankName = BankName,
                                               FixedAssetName = FixedAssetParticulars,
                                               FixedAssetDepreciationRate = FixedAssetDepreciationRate,
-                                              Tag = IsAdvance ? "Advance" : "",
+                                              Tag = GetTag(),
                                               Narration = Narration
                                           };
 
