@@ -246,8 +246,7 @@ namespace GKS.Model.ViewModels
                     Balance = (balance += (l.Debit - l.Credit)),
                     Particular = l.Tag.Contains("Cash") ? "Cash" : "Bank",//"",//tr.BankRecords.Last().ChequeNo,
                     Remarks = l.Narration,
-                    ChequeNo = l.BankRecords == null ? "" : l.BankRecords.Count.ToString() //.ChequeNo
-                    //ChequeNo = tr.BankRecords.Select(br => br.Record.ID == tr.ID).SingleOrDefault().ToString()
+                    ChequeNo = l.Tag.Contains("Bank") ? l.BankRecords.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault() : "", // TODO: This doesn't work.
                 }).ToList();
 
             }
