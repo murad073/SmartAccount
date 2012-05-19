@@ -54,6 +54,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\AddEditHeadModel.cs" />
     <Compile Include="ViewModels\AddEditProjectModel.cs" />
+    <Compile Include="ViewModels\BudgetSetupModel.cs" />
     <Compile Include="ViewModels\FixedAssetSchedule.cs" />
     <Compile Include="ViewModels\HeadManagementModel.cs" />
     <Compile Include="ViewModels\LedgerViewModel.cs" />
