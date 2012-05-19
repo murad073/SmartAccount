@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GKS.Model.ViewModels;assembly=GKS.Model"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             mc:Ignorable="d" 
             d:DesignHeight="610" d:DesignWidth="850">
 
     <Grid Height="590" Width="840" IsEnabled="true">
