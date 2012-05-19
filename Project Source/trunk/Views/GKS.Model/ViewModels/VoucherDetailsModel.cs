@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using BLL.Model.Entity;
 using BLL.Factories;
 using BLL.Model.Repositories;
+using System.Windows.Controls;
+using System.Printing;
+using System.Windows.Media;
+using System.Windows;
 
 namespace GKS.Model.ViewModels
 {
@@ -161,10 +165,39 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private RelayCommand _printButtonClicked;
+        private void PrintPanel(Grid grid)
+        {
+            PrintDialog print = new PrintDialog();
+            if (print.ShowDialog() == true)
+            {
+                // Uncomment the following to scale the printed portion to the print page.
+
+                //PrintCapabilities capabilities = print.PrintQueue.GetPrintCapabilities(print.PrintTicket);
+                //double scale = Math.Min(capabilities.PageImageableArea.ExtentWidth / grid.ActualWidth,
+                //                        capabilities.PageImageableArea.ExtentHeight / grid.ActualHeight);
+                
+                //Transform oldTransform = grid.LayoutTransform;
+                //grid.LayoutTransform = new ScaleTransform(scale, scale);
+
+                //Size oldSize = new Size(grid.ActualWidth, grid.ActualHeight);
+                //Size pageSize = new Size(capabilities.PageImageableArea.ExtentWidth, capabilities.PageImageableArea.ExtentHeight);
+                
+                //grid.Measure(pageSize);
+                //((UIElement)grid).Arrange(new Rect(new Point(capabilities.PageImageableArea.OriginWidth, capabilities.PageImageableArea.OriginHeight), pageSize));
+                
+                print.PrintVisual(grid, "Voucher");
+                
+                //grid.LayoutTransform = oldTransform;
+                //grid.Measure(oldSize);
+                //((UIElement)grid).Arrange(new Rect(new Point(0, 0), oldSize));
+            }
+            return;
+        }
+
+        private SimpleCommand<Grid> _printButtonClicked;
         public ICommand PrintButtonClicked
         {
-            get { return _printButtonClicked ?? (_printButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _printButtonClicked ?? (_printButtonClicked = new SimpleCommand<Grid> { CanExecuteDelegate = execute => true, ExecuteDelegate = grid => { PrintPanel(grid); } }); }
         }
 
         private RelayCommand _deleteButtonClicked;
@@ -181,5 +214,34 @@ namespace GKS.Model.ViewModels
         double Debit { get; set; }
         double Credit { get; set; }
         double Balance { get; set; }
+    }
+
+    public class SimpleCommand<T> : ICommand
+    {
+        public Predicate<T> CanExecuteDelegate { get; set; }
+        public Action<T> ExecuteDelegate { get; set; }
+
+        #region ICommand Members
+
+        public bool CanExecute(object parameter)
+        {
+            if (CanExecuteDelegate != null)
+                return CanExecuteDelegate((T)parameter);
+            return true; // if there is no can execute default to true.
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public void Execute(object parameter)
+        {
+            if (ExecuteDelegate != null)
+                ExecuteDelegate((T)parameter);
+        }
+
+        #endregion
     }
 }
