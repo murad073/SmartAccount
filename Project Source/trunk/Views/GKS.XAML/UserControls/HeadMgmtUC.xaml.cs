@@ -58,7 +58,8 @@ namespace GKS.XAML.UserControls
 
         private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
-            //dataGridAllHeads.ExportToExcel();
+            if (dataGridAllHeads.Items.Count > 0)
+                dataGridAllHeads.ExportToExcel();
         }
     }
 }

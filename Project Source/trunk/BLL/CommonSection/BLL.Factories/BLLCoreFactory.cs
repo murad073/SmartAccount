@@ -34,6 +34,19 @@ namespace BLL.Factories
             throw new ArgumentNullException("message");
         }
 
+        public static IVoucherManager GetVoucherManager()
+        {
+            if (RecordRepository != null && ProjectRepository != null)
+            {
+                VoucherManager voucherManager = new VoucherManager(RecordRepository);
+                voucherManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return voucherManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
+
         public static IParameterManager GetParameterManager()
         {
             if (ParameterRepository != null)

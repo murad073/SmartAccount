@@ -47,14 +47,18 @@ namespace BLL.LedgerManagement
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            return _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.ProjectHead.Head.ID == head.ID).OrderBy(l => l.Date).ToList().Where(
-                    l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
-                    ToList();
+            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID).ToList(); // TODO: This line returns 0 debit/credit for LedgerType == LedgerBook.
+            if (head.Name.Equals("Cash Book", StringComparison.OrdinalIgnoreCase))
+                records = records.Where(r => r.LedgerType.Equals("CashBook", StringComparison.OrdinalIgnoreCase)).ToList();
+            else if (head.Name.Equals("Bank Book", StringComparison.OrdinalIgnoreCase))
+                records = records.Where(r => r.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase)).ToList();
+            else
+                records =  records.Where(r => r.ProjectHead.Head.ID == head.ID && r.LedgerType.Equals("LedgerBook", StringComparison.OrdinalIgnoreCase)).ToList();
 
-            //return
-            //    _ledgerRepository.GetLedger(projectId, headId) .OrderBy(l => l.Date).Where(
-            //        l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).
-            //        ToList();
+            records = records.OrderBy(l => l.Date).ToList();
+            records = records.Where(l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).ToList();
+
+            return records;
         }
 
         public IList<Record> GetAllAdvance(Project project)
@@ -63,7 +67,7 @@ namespace BLL.LedgerManagement
             //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
             //double balance = 0;
             return project.ProjectHeads.SelectMany(ph => ph.Records).Where(
-                    r => r.Tag == "Advance" && r.LedgerType == "LedgerBook").ToList();
+                    r => r.Tag.Contains("Advance")  && r.LedgerType == "LedgerBook").ToList();
             //TODO: add date filter
         }
 

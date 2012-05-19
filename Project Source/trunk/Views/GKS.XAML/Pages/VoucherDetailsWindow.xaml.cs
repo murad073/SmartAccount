@@ -24,7 +24,7 @@ namespace GKS.XAML.Pages
 
         private VoucherDetailsModel _vm;
 
-        public VoucherDetailsWindow()
+        private void Init()
         {
             InitializeComponent();
             _vm = new VoucherDetailsModel();
@@ -33,10 +33,32 @@ namespace GKS.XAML.Pages
             this.PreviewKeyDown += HandleEsc;
         }
 
+        public VoucherDetailsWindow(VoucherItem voucher)
+        {
+            Init();
+            _vm.ProjectName = voucher.ProjectName;
+            _vm.VoucherDate = voucher.Date;
+            _vm.VoucherNo = voucher.VoucherNo;
+            _vm.Amount = voucher.Amount;
+            _vm.VoucherNarration = voucher.Narration;
+            _vm.ChequeNo = voucher.ChequeNo;
+            _vm.ChequeDate = voucher.ChequeDate;
+            _vm.BankName = voucher.BankName;
+        }
+
         private void HandleEsc(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 Close();
+        }
+
+        private void buttonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog().GetValueOrDefault(false))
+            {
+                printDialog.PrintVisual(this, this.Title);
+            }
         }
     }
 }

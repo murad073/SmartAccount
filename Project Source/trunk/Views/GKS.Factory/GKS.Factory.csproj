@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A7B3773D-9D33-4AA0-A2A2-6FF94EB27E0F}</ProjectGuid>
+    <ProjectGuid>{7ADDA0C7-520D-46C9-8B2D-FC9DAAABFA41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL.VoucherManagement</RootNamespace>
-    <AssemblyName>BLL.VoucherManagement</AssemblyName>
+    <RootNamespace>GKS.Factory</RootNamespace>
+    <AssemblyName>GKS.Factory</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RecordManager.cs" />
-    <Compile Include="MassVoucherManager.cs" />
+    <Compile Include="GKSFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VoucherManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonSection\BLL.Model\BLL.Model.csproj">
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Factories\BLL.Factories.csproj">
+      <Project>{406CACEA-6D54-480C-A284-A5A97314D994}</Project>
+      <Name>BLL.Factories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Model\BLL.Model.csproj">
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
+      <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>
+      <Name>CodeFirst</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
