@@ -51,5 +51,14 @@ namespace GKS.XAML.Pages
             if (e.Key == Key.Escape)
                 Close();
         }
+
+        private void buttonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog().GetValueOrDefault(false))
+            {
+                printDialog.PrintVisual(this, this.Title);
+            }
+        }
     }
 }

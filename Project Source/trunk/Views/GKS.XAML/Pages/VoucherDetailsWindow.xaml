@@ -62,7 +62,7 @@
                 Command="{Binding Path=DeleteButtonClicked}" />
         
         <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="383,356,0,0" Name="button1" VerticalAlignment="Top" Width="75" 
-                Command="{Binding Path=PrintButtonClicked}" />
+                Click="buttonPrint_Click" />
         
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="468,356,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=OKButtonClicked}" />        
