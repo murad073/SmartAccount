@@ -124,7 +124,7 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        // TODO:
+        // TODO (MURAD):
         //private IList<Record> _recordItems;
         //private IList<Record> RecordItems
         //{
