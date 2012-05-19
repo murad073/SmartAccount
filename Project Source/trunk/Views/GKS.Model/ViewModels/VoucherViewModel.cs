@@ -164,7 +164,7 @@ namespace GKS.Model.ViewModels
         {
             get
             {
-                return _voucherDetailsButtonClicked ?? (_voucherDetailsButtonClicked = new RelayCommand(p1 => NotifyPropertyChanged("VoucherGridViewItems")));
+                return _voucherDetailsButtonClicked ?? (_voucherDetailsButtonClicked = new RelayCommand(p1 => NotifyPropertyChanged("VoucherGridViewItems"), p2 => VoucherGridViewItems.Count > 0));
             }
         }
 
