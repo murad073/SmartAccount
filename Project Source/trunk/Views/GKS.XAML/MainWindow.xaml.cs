@@ -92,6 +92,12 @@ namespace GKS.XAML
             configurationSetting.ShowDialog();
         }
 
+        private void SetupBudgetClick(object sender, RoutedEventArgs e)
+        {
+            BudgetSetup budgetSetup = new BudgetSetup() { Owner = this };
+            budgetSetup.ShowDialog();
+        }
+
         private void StartNewAccountingYearClick(object sender, RoutedEventArgs e)
         {
             StartNewAccountingYear configurationSetting = new StartNewAccountingYear() { Owner = this };

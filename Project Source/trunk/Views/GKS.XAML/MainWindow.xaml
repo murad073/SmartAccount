@@ -44,6 +44,7 @@
                 <MenuItem Header="Fixed Asset Schedule" Name="FixedAssetScheduleMenuItem" Click="FixedAssetScheduleMenuItemClick" />
             </MenuItem>
             <MenuItem Header="Operations" >
+                <MenuItem Header="Setup Budget" Name="BudgetSetup" Click="SetupBudgetClick" />
                 <MenuItem Header="Start New Accounting Year" Name="StartNewAccountingYear" Click="StartNewAccountingYearClick" />
                 <MenuItem Header="Close Current Accounting Year" Name="CloseCurrentAccountingYear" Click="CloseCurrentAccountingYearClick" />
             </MenuItem>
