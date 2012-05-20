@@ -5,17 +5,17 @@ namespace BLL.Model.Schema
 {
     public class TransactionInCheque : Record
     {
-        private readonly IRepository<BankRecord> _bankRecordRepository;
-        public BankRecord BankRecord;
+        private readonly IRepository<BankBook> _bankBookRepository;
+        public BankBook BankBook;
 
         public TransactionInCheque()
         {
         }
 
-        public TransactionInCheque(IRepository<Record> recordRepository, IRepository<BankRecord> bankRecordRepository)
+        public TransactionInCheque(IRepository<Record> recordRepository, IRepository<BankBook> bankBookRepository)
         {
             base.RecordRepository = recordRepository;
-            _bankRecordRepository = bankRecordRepository;
+            _bankBookRepository = bankBookRepository;
         }
 
         public override string LedgerType
@@ -27,12 +27,12 @@ namespace BLL.Model.Schema
         {
             RecordRepository.Insert(this);
 
-            if (BankRecord != null)
+            if (BankBook != null)
             {
-                _bankRecordRepository.Insert(BankRecord);
+                _bankBookRepository.Insert(BankBook);
             }
 
-            if (RecordRepository.Save() > 0 || _bankRecordRepository.Save() > 0)
+            if (RecordRepository.Save() > 0 || _bankBookRepository.Save() > 0)
                 return true;
             RecordRepository.Discard();
             return false;

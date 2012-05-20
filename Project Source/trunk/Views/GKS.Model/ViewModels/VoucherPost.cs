@@ -452,7 +452,7 @@ namespace GKS.Model.ViewModels
         private List<Record> _temporaryRecords;
         private List<Record> TemporaryRecords
         {
-            get { return _temporaryRecords; }
+            get { return _temporaryRecords ?? (_temporaryRecords = new List<Record>()); }
             set
             {
                 _temporaryRecords = value;

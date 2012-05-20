@@ -237,19 +237,28 @@ namespace GKS.Model.ViewModels
             {
                 if (LedgerGridViewItems == null || LedgerGridViewItems.Count == 0) return null;
                 double balance = 0;
-                return LedgerGridViewItems.Select(l => new LedgerItem
-                {
-                    Date = l.Date,
-                    VoucherNo = l.VoucherType + "-" + l.VoucherSerialNo,
-                    Debit = l.Debit,
-                    Credit = l.Credit,
-                    Balance = (balance += (l.Debit - l.Credit)),
-                    Particular = l.Tag.Contains("Cash") ? "Cash" : "Bank",//"",//tr.BankRecords.Last().ChequeNo,
-                    Remarks = l.Narration,
-                    ChequeNo = l.Tag.Contains("Bank") ? l.BankRecords.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault() : "", // TODO: This doesn't work.
-                }).ToList();
+                return LedgerGridViewItems.Select(l => GetLedgerItem(l, ref balance)).ToList();
 
             }
+        }
+
+        private LedgerItem GetLedgerItem(Record l, ref double balance)
+        {
+            bool isBankTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Bank");
+            bool isCashTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Cash");
+            bool isBankBookEntry = isBankTag && l.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+
+            return new LedgerItem
+                       {
+                           Date = l.Date,
+                           VoucherNo = l.VoucherType + "-" + l.VoucherSerialNo,
+                           Debit = l.Debit,
+                           Credit = l.Credit,
+                           Balance = (balance += (l.Debit - l.Credit)),
+                           Particular = isCashTag ? "Cash" : "Bank",//"",//tr.BankBooks.Last().ChequeNo,
+                           Remarks = l.Narration,
+                           ChequeNo = isBankBookEntry ? l.BankBooks.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault() : "", // TODO: This doesn't work.
+                       };
         }
     }
 

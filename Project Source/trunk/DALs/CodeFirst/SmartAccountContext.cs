@@ -44,7 +44,7 @@ namespace CodeFirst
             _instance = new SmartAccountContext();
         }
 
-        public DbSet<BankRecord> BankRecords { get; set; }
+        public DbSet<BankBook> BankBooks { get; set; }
 
         public DbSet<Budget> Budgets { get; set; }
 

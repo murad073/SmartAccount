@@ -194,22 +194,30 @@ namespace GKS.Model.ViewModels
             get
             {
                 if (VoucherGridViewItems == null || VoucherGridViewItems.Count == 0) return null;
-                return VoucherGridViewItems.Select(v => new VoucherItem
-                {
-                    ProjectName = v.ProjectHead.Project.Name,
-                    Date = v.Date,
-                    VoucherNo = v.VoucherType + "-" + v.VoucherSerialNo,
-                    HeadOfAccount = v.ProjectHead.Head.Name,                    
-                    Amount = v.Debit + v.Credit,
-                    //CashOrBank = (v.BankRecords.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
-                    CashOrBank = v.Tag.Contains("Cash") ? "Cash" : "Bank",
-                    Narration = v.Narration,
-                    ChequeNo = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeNo).SingleOrDefault() : "",
-                    ChequeDate = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeDate).SingleOrDefault() : new DateTime(),
-                    BankName = v.Tag.Contains("Bank") ? v.BankRecords.Where(br => br.Record.ID == v.ID).Select(br => br.BankName).SingleOrDefault() : "",
-                }).ToList();
+                return VoucherGridViewItems.Select(GetVoucherItem).ToList();
 
             }
+        }
+
+        private VoucherItem GetVoucherItem(Record v)
+        {
+            bool isBankTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Bank");
+            bool isCashTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Cash");
+            bool isBankBookEntry = isBankTag && v.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+            return new VoucherItem
+                       {
+                           ProjectName = v.ProjectHead.Project.Name,
+                           Date = v.Date,
+                           VoucherNo = v.VoucherType + "-" + v.VoucherSerialNo,
+                           HeadOfAccount = v.ProjectHead.Head.Name,
+                           Amount = v.Debit + v.Credit,
+                           //CashOrBank = (v.BankBooks.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
+                           CashOrBank = isCashTag ? "Cash" : "Bank",
+                           Narration = v.Narration,
+                           ChequeNo = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeNo).SingleOrDefault() : "",
+                           ChequeDate = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeDate).SingleOrDefault() : new DateTime(),
+                           BankName = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.BankName).SingleOrDefault() : "",
+                       };
         }
 
         private VoucherItem _selectedVoucherItem;

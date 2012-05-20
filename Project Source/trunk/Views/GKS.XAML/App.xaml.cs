@@ -29,7 +29,7 @@ namespace GKS.XAML
             BLLCoreFactory.ProjectHeadRepository = new Repository<ProjectHead>();
             BLLCoreFactory.ProjectRepository = new Repository<Project>();
             BLLCoreFactory.RecordRepository = new Repository<Record>();
-            BLLCoreFactory.BankRecordRepository = new Repository<BankRecord>();
+            BLLCoreFactory.BankBookRepository = new Repository<BankBook>();
             BLLCoreFactory.FixedAssetRepository = new Repository<FixedAsset>();
 
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);

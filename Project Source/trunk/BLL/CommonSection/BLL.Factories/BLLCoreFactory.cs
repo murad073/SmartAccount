@@ -19,7 +19,7 @@ namespace BLL.Factories
         public static IRepository<Record> RecordRepository { get; set; }
         public static IRepository<Parameter> ParameterRepository { get; set; }
         public static IRepository<FixedAsset> FixedAssetRepository { get; set; }
-        public static IRepository<BankRecord> BankRecordRepository { get; set; }
+        public static IRepository<BankBook> BankBookRepository { get; set; }
 
         public static ILedgerManager GetLedgerManager()
         {
@@ -64,7 +64,7 @@ namespace BLL.Factories
         {
             if (RecordRepository != null && ProjectRepository != null && HeadRepository != null)
             {
-                MassVoucherManager massVoucherManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankRecordRepository);
+                MassVoucherManager massVoucherManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankBookRepository);
                 massVoucherManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //massVoucherManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return massVoucherManager;
