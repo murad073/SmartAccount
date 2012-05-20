@@ -71,7 +71,7 @@ namespace BLL.ProjectManagement
 
         public bool Update(Project project)
         {
-            if (ProjectWithSameNameAlreadyExists(project)) return false;
+            //if (!ProjectWithSameNameAlreadyExists(project)) return false;
             _projectRepository.Update(project);
             if (_projectRepository.Save() > 0)
             {
