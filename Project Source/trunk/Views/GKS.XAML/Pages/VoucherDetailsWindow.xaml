@@ -4,31 +4,38 @@
         Title="Voucher" Height="440" Width="600"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" >
     <Grid>
-        <Label Content="Project:" Height="23" HorizontalAlignment="Left" Margin="73,24,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,25,0,0" Name="textBoxProject" VerticalAlignment="Top" Width="424" 
+
+        <Grid x:Name="PrintPanel" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Project:" Height="23" HorizontalAlignment="Left" Margin="73,24,0,0" Name="label1" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="119,25,0,0" Name="textBoxProject" VerticalAlignment="Top" Width="424" 
                  Text="{Binding Path=ProjectName, Mode=OneWay}" IsReadOnly="True"/>
 
-        <Label Content="Voucher no:" Height="24" HorizontalAlignment="Left" Margin="394,57,0,0" Name="label2" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="461,57,0,0" Name="textBoxVoucherNo" VerticalAlignment="Top" Width="82" 
+            <Label Content="Voucher no:" Height="24" HorizontalAlignment="Left" Margin="394,57,0,0" Name="label2" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="461,57,0,0" Name="textBoxVoucherNo" VerticalAlignment="Top" Width="82" 
                  Text="{Binding Path=VoucherNo, Mode=OneWay}" IsReadOnly="True"/>
-        <Label Content="Date:" Height="23" HorizontalAlignment="Left" Margin="426,84,0,0" Name="label3" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="461,86,0,0" Name="textBoxDate" VerticalAlignment="Top" Width="82" 
+            <Label Content="Date:" Height="23" HorizontalAlignment="Left" Margin="426,84,0,0" Name="label3" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="461,86,0,0" Name="textBoxDate" VerticalAlignment="Top" Width="82" 
                  Text="{Binding Path=VoucherDate, StringFormat=dd-MM-yyyy, Mode =OneWay}" IsReadOnly="True"/>
-        <Label Content="Amount:" Height="28" HorizontalAlignment="Left" Margin="411,114,0,0" Name="label9" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="461,115,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="82" 
+            <Label Content="Amount:" Height="28" HorizontalAlignment="Left" Margin="411,114,0,0" Name="label9" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="461,115,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="82" 
                  Text="{Binding Path=Amount, Mode=OneWay}" IsReadOnly="True"/>
 
-        <Label Content="Cheque no:" Height="24" HorizontalAlignment="Left" Margin="55,54,0,0" Name="label4" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,57,0,0" Name="textBox1" VerticalAlignment="Top" Width="140" 
+            <Label Content="Cheque no:" Height="24" HorizontalAlignment="Left" Margin="55,54,0,0" Name="label4" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="119,57,0,0" Name="textBox1" VerticalAlignment="Top" Width="140" 
                  Text="{Binding Path=ChequeNo, Mode=OneWay}" IsReadOnly="True"/>
-        <Label Content="Date of cheque:" Height="26" HorizontalAlignment="Left" Margin="33,84,0,0" Name="label5" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,86,0,0" Name="textBox2" VerticalAlignment="Top" Width="140" 
+            <Label Content="Date of cheque:" Height="26" HorizontalAlignment="Left" Margin="33,84,0,0" Name="label5" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="119,86,0,0" Name="textBox2" VerticalAlignment="Top" Width="140" 
                  Text="{Binding Path=ChequeDate, Mode=OneWay}" IsReadOnly="True"/>
-        <Label Content="Bank name:" Height="24" HorizontalAlignment="Left" Margin="53,111,0,0" Name="label6" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,115,0,0" Name="textBox3" VerticalAlignment="Top" Width="140" 
+            <Label Content="Bank name:" Height="24" HorizontalAlignment="Left" Margin="53,111,0,0" Name="label6" VerticalAlignment="Top" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="119,115,0,0" Name="textBox3" VerticalAlignment="Top" Width="140" 
                  Text="{Binding Path=BankName, Mode=OneWay}" IsReadOnly="True"/>
 
-        <DataGrid Name="dataGridVoucherEntries"
+            <DataGrid Name="dataGridVoucherEntries"
                   IsReadOnly="True"
                   HorizontalGridLinesBrush="Gray"
                   VerticalGridLinesBrush="Gray"
@@ -43,26 +50,28 @@
                   ItemsSource="{Binding Path=VoucherGridItems, Mode=OneWay}"
                   Height="129" HorizontalAlignment="Left" Margin="41,151,0,0" VerticalAlignment="Top" Width="502" >
 
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="IsTabStop" Value="False"/>
-                    <Setter Property="Focusable" Value="False"/>
-                </Style>
-            </DataGrid.CellStyle>
-        </DataGrid>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="Focusable" Value="False"/>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
 
-        <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,290,0,0" Name="label7" VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="119,292,0,0" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="424" Height="21" />
+            <Label Content="Taka (in words):" Height="25" HorizontalAlignment="Left" Margin="31,290,0,0" Name="label7" VerticalAlignment="Top" />
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="119,292,0,0" Name="textBlockTakaInWords" Text="{Binding Path =TakaInWords, Mode=OneWay}" Width="424" Height="21" />
 
-        <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="63,321,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="119,324,0,0" Name="textBox4" VerticalAlignment="Top" Width="424" 
+            <Label Content="Narration:" Height="28" HorizontalAlignment="Left" Margin="63,321,0,0" Name="label8" VerticalAlignment="Top" Width="58" />
+            <TextBox Height="21" HorizontalAlignment="Left" Margin="119,324,0,0" Name="textBox4" VerticalAlignment="Top" Width="424" 
                  Text="{Binding Path=VoucherNarration, Mode=OneWay}" IsReadOnly="True"/>
 
+        </Grid>
+        
         <Button Content="Delete" Height="23" HorizontalAlignment="Left" Margin="276,356,0,0" Name="buttonDelete" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=DeleteButtonClicked}" />
         
         <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="383,356,0,0" Name="button1" VerticalAlignment="Top" Width="75" 
-                Click="buttonPrint_Click" />
+                Command="{Binding Path=PrintButtonClicked}" CommandParameter="{Binding ElementName=PrintPanel}" />
         
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="468,356,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=OKButtonClicked}" />        

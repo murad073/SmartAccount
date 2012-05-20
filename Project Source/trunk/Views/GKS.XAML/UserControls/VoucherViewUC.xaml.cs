@@ -37,6 +37,9 @@ namespace GKS.XAML.UserControls
             //VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow(voucher) { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
             //voucherWindow.ShowDialog();
 
+            if (voucher == null)
+                return;
+
             VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow(voucher) { Owner = Window.GetWindow(this) };
             voucherWindow.Closed += (sndr, eventArgs) => _vm.Reset();
             voucherWindow.ShowDialog();
