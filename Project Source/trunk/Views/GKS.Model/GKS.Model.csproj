@@ -60,6 +60,7 @@
     <Compile Include="ViewModels\LedgerViewModel.cs" />
     <Compile Include="OperationType.cs" />
     <Compile Include="ViewModels\VoucherDetailsModel.cs" />
+    <Compile Include="VoucherItem.cs" />
     <Compile Include="ViewModels\VoucherPost.cs" />
     <Compile Include="ViewModels\ProjectHeadManagementModel.cs" />
     <Compile Include="ViewModels\ProjectManagementModel.cs" />

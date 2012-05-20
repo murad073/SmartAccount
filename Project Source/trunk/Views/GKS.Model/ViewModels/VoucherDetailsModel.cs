@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
+using BLL.Model.Managers;
 using BLL.Utils;
 using System.Collections.Generic;
 using BLL.Model.Entity;
@@ -15,92 +18,114 @@ namespace GKS.Model.ViewModels
 {
     public class VoucherDetailsModel : ViewModelBase
     {
-        private IRepository<Record> _recordRepository;
+        private readonly IVoucherManager _voucherManager;
         public VoucherDetailsModel()
         {
-            _recordRepository = BLLCoreFactory.RecordRepository;
+            _voucherManager = BLLCoreFactory.GetVoucherManager();
         }
 
-        private string _projectName;
-        public string ProjectName
+        private VoucherItem _voucherItem;
+        public VoucherItem VoucherItem
         {
-            get { return _projectName; }
+            get { return _voucherItem; }
             set
             {
-                _projectName = value;
-                NotifyPropertyChanged("ProjectName");
-            }
-        }
-
-        private string _voucherNo;
-        public string VoucherNo
-        {
-            get { return _voucherNo; }
-            set
-            {
-                _voucherNo = value;
-                NotifyPropertyChanged("VoucherNo");
+                _voucherItem = value;
+                NotifyPropertyChanged("VoucherItem");
             }
         }
 
-        private DateTime _voucherDate;
-        public DateTime VoucherDate
-        {
-            get { return _voucherDate; }
-            set
-            {
-                _voucherDate = value;
-                NotifyPropertyChanged("VoucherDate");
-            }
-        }
+        //private string _projectName;
+        //public string ProjectName
+        //{
+        //    get { return _projectName; }
+        //    set
+        //    {
+        //        _projectName = value;
+        //        NotifyPropertyChanged("ProjectName");
+        //    }
+        //}
 
-        private double _amount;
-        public double Amount
-        {
-            get
-            {
-                return _amount;
-            }
-            set
-            {
-                _amount = value;
-                TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
-                NotifyPropertyChanged("Amount");
-            }
-        }
+        //private string _voucherNo;
+        //public string VoucherNo
+        //{
+        //    get { return _voucherNo; }
+        //    set
+        //    {
+        //        _voucherNo = value;
+        //        NotifyPropertyChanged("VoucherNo");
+        //    }
+        //}
 
-        private string _chequeNo;
-        public string ChequeNo
-        {
-            get { return _chequeNo; }
-            set
-            {
-                _chequeNo = value;
-                NotifyPropertyChanged("ChequeNo");
-            }
-        }
+        //private DateTime _voucherDate;
+        //public DateTime VoucherDate
+        //{
+        //    get { return _voucherDate; }
+        //    set
+        //    {
+        //        _voucherDate = value;
+        //        NotifyPropertyChanged("VoucherDate");
+        //    }
+        //}
 
-        private DateTime _chequeDate;
-        public DateTime ChequeDate
-        {
-            get { return _chequeDate; }
-            set
-            {
-                _chequeDate = value;
-                NotifyPropertyChanged("ChequeDate");
-            }
-        }
+        //private double _amount;
+        //public double Amount
+        //{
+        //    get
+        //    {
+        //        return _amount;
+        //    }
+        //    set
+        //    {
+        //        _amount = value;
+        //        TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
+        //        NotifyPropertyChanged("Amount");
+        //    }
+        //}
 
-        private string _bankName;
-        public string BankName
-        {
-            get { return _bankName; }
-            set
-            {
-                _bankName = value;
-                NotifyPropertyChanged("BankName");
-            }
-        }
+        //private string _chequeNo;
+        //public string ChequeNo
+        //{
+        //    get { return _chequeNo; }
+        //    set
+        //    {
+        //        _chequeNo = value;
+        //        NotifyPropertyChanged("ChequeNo");
+        //    }
+        //}
+
+        //private DateTime _chequeDate;
+        //public DateTime ChequeDate
+        //{
+        //    get { return _chequeDate; }
+        //    set
+        //    {
+        //        _chequeDate = value;
+        //        NotifyPropertyChanged("ChequeDate");
+        //    }
+        //}
+
+        //private string _bankName;
+        //public string BankName
+        //{
+        //    get { return _bankName; }
+        //    set
+        //    {
+        //        _bankName = value;
+        //        NotifyPropertyChanged("BankName");
+        //    }
+        //}
+
+        //private string _voucherNarration;
+        //public string VoucherNarration
+        //{
+        //    get { return _voucherNarration; }
+        //    set
+        //    {
+        //        _voucherNarration = value;
+        //        NotifyPropertyChanged("VoucherNarration");
+        //    }
+        //}
 
         private string _takaInWords;
         public string TakaInWords
@@ -113,15 +138,21 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string _voucherNarration;
-        public string VoucherNarration
+        private ObservableCollection<Record> _recordItems;
+        private ObservableCollection<Record> RecordItems
         {
-            get { return _voucherNarration; }
+            //get { return _recordItems; }
             set
             {
-                _voucherNarration = value;
-                NotifyPropertyChanged("VoucherNarration");
+                _recordItems = value;
+                NotifyPropertyChanged("RecordItems");
             }
+        }
+
+        public void SetRecordItems()
+        {
+            //string[] voucherNo = VoucherItem.VoucherNo.Split('-');
+            RecordItems = new ObservableCollection<Record>(_voucherManager.GetVouchers(VoucherItem.VoucherNo));
         }
 
         // TODO (MURAD):
@@ -197,7 +228,7 @@ namespace GKS.Model.ViewModels
         private SimpleCommand<Grid> _printButtonClicked;
         public ICommand PrintButtonClicked
         {
-            get { return _printButtonClicked ?? (_printButtonClicked = new SimpleCommand<Grid> { CanExecuteDelegate = execute => true, ExecuteDelegate = grid => { PrintPanel(grid); } }); }
+            get { return _printButtonClicked ?? (_printButtonClicked = new SimpleCommand<Grid> { CanExecuteDelegate = execute => true, ExecuteDelegate = PrintPanel }); }
         }
 
         private RelayCommand _deleteButtonClicked;
@@ -208,13 +239,13 @@ namespace GKS.Model.ViewModels
         #endregion
     }
 
-    public class ViewableItem
-    {
-        string HeadName { get; set; }
-        double Debit { get; set; }
-        double Credit { get; set; }
-        double Balance { get; set; }
-    }
+    //public class ViewableItem
+    //{
+    //    string HeadName { get; set; }
+    //    double Debit { get; set; }
+    //    double Credit { get; set; }
+    //    double Balance { get; set; }
+    //}
 
     public class SimpleCommand<T> : ICommand
     {

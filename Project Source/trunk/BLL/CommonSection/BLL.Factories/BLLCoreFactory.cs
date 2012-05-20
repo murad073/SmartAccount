@@ -12,14 +12,14 @@ namespace BLL.Factories
 {
     public class BLLCoreFactory
     {
-        public static IRepository<Budget> BudgetRepository { get; set; }
-        public static IRepository<Head> HeadRepository { get; set; }
-        public static IRepository<Project> ProjectRepository { get; set; }
-        public static IRepository<ProjectHead> ProjectHeadRepository { get; set; }
-        public static IRepository<Record> RecordRepository { get; set; }
-        public static IRepository<Parameter> ParameterRepository { get; set; }
-        public static IRepository<FixedAsset> FixedAssetRepository { get; set; }
-        public static IRepository<BankBook> BankBookRepository { get; set; }
+        public static IRepository<Budget> BudgetRepository { private get; set; }
+        public static IRepository<Head> HeadRepository { private get; set; }
+        public static IRepository<Project> ProjectRepository { private get; set; }
+        public static IRepository<ProjectHead> ProjectHeadRepository { private get; set; }
+        public static IRepository<Record> RecordRepository { private get; set; }
+        public static IRepository<Parameter> ParameterRepository { private get; set; }
+        public static IRepository<FixedAsset> FixedAssetRepository { private get; set; }
+        public static IRepository<BankBook> BankBookRepository { private get; set; }
 
         public static ILedgerManager GetLedgerManager()
         {
