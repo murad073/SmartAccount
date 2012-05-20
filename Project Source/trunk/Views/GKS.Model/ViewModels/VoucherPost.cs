@@ -868,15 +868,5 @@ namespace GKS.Model.ViewModels
         }
     }
 
-    public class ViewableGridRow
-    {
-        public string Head { get; set; }
-        public DateTime Date { get; set; }
-        public string VoucherNo { get; set; }
-        public double Debit { get; set; }
-        public double Credit { get; set; }
-        public double Balance { get; set; }
-    }
-
-    public class ViewableGridRows : List<ViewableGridRow> { }
+    //public class ViewableGridRows : List<ViewableGridRow> { }
 }

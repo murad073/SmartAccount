@@ -71,6 +71,7 @@
                     </ToolTip>
                 </CheckBox.ToolTip>
             </CheckBox>
+            <Label Content="{Binding Path=SelectedItem.HeadType, ElementName=comboBoxHead}" Height="28" HorizontalAlignment="Left" Margin="348,-6,0,0" Name="label12" VerticalAlignment="Top" Width="198" />
         </Grid>
 
         <Grid Grid.Row="3" IsEnabled="{Binding Path=InputSecondPartEnabled, Mode=TwoWay}">

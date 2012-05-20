@@ -59,6 +59,7 @@
     <Compile Include="ViewModels\HeadManagementModel.cs" />
     <Compile Include="ViewModels\LedgerViewModel.cs" />
     <Compile Include="OperationType.cs" />
+    <Compile Include="ViewableGridRow.cs" />
     <Compile Include="ViewModels\VoucherDetailsModel.cs" />
     <Compile Include="VoucherItem.cs" />
     <Compile Include="ViewModels\VoucherPost.cs" />

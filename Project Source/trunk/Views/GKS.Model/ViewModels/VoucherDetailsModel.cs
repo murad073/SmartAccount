@@ -138,10 +138,10 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private ObservableCollection<Record> _recordItems;
-        private ObservableCollection<Record> RecordItems
+        private IList<ViewableGridRow> _recordItems;
+        public IList<ViewableGridRow> RecordItems
         {
-            //get { return _recordItems; }
+            get { return _recordItems; }
             set
             {
                 _recordItems = value;
@@ -151,8 +151,15 @@ namespace GKS.Model.ViewModels
 
         public void SetRecordItems()
         {
-            //string[] voucherNo = VoucherItem.VoucherNo.Split('-');
-            RecordItems = new ObservableCollection<Record>(_voucherManager.GetVouchers(VoucherItem.VoucherNo));
+            RecordItems = _voucherManager.GetVouchers(VoucherItem.VoucherNo).Select(r =>
+                    new ViewableGridRow
+                        {
+                            Date = r.Date,
+                            Debit = r.Debit,
+                            Credit = r.Credit,
+                            Head = r.ProjectHead.Head.Name,
+                            VoucherNo = r.VoucherType + "-" + r.VoucherSerialNo
+                        }).ToList();
         }
 
         // TODO (MURAD):

@@ -47,7 +47,7 @@
                   RowBackground="White"
                   AlternatingRowBackground="Azure"
                   AlternationCount="2"
-                  ItemsSource="{Binding Path=RecordItems, Mode=TwoWay}"
+                  ItemsSource="{Binding Path=RecordItems}"
                   Height="129" HorizontalAlignment="Left" Margin="41,151,0,0" VerticalAlignment="Top" Width="502" >
 
                 <DataGrid.CellStyle>
