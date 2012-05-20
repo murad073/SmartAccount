@@ -35,97 +35,97 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        //private string _projectName;
-        //public string ProjectName
-        //{
-        //    get { return _projectName; }
-        //    set
-        //    {
-        //        _projectName = value;
-        //        NotifyPropertyChanged("ProjectName");
-        //    }
-        //}
+        private string _projectName;
+        public string ProjectName
+        {
+            get { return _projectName; }
+            set
+            {
+                _projectName = value;
+                NotifyPropertyChanged("ProjectName");
+            }
+        }
 
-        //private string _voucherNo;
-        //public string VoucherNo
-        //{
-        //    get { return _voucherNo; }
-        //    set
-        //    {
-        //        _voucherNo = value;
-        //        NotifyPropertyChanged("VoucherNo");
-        //    }
-        //}
+        private string _voucherNo;
+        public string VoucherNo
+        {
+            get { return _voucherNo; }
+            set
+            {
+                _voucherNo = value;
+                NotifyPropertyChanged("VoucherNo");
+            }
+        }
 
-        //private DateTime _voucherDate;
-        //public DateTime VoucherDate
-        //{
-        //    get { return _voucherDate; }
-        //    set
-        //    {
-        //        _voucherDate = value;
-        //        NotifyPropertyChanged("VoucherDate");
-        //    }
-        //}
+        private DateTime _voucherDate;
+        public DateTime VoucherDate
+        {
+            get { return _voucherDate; }
+            set
+            {
+                _voucherDate = value;
+                NotifyPropertyChanged("VoucherDate");
+            }
+        }
 
-        //private double _amount;
-        //public double Amount
-        //{
-        //    get
-        //    {
-        //        return _amount;
-        //    }
-        //    set
-        //    {
-        //        _amount = value;
-        //        TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
-        //        NotifyPropertyChanged("Amount");
-        //    }
-        //}
+        private double _amount;
+        public double Amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+                TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
+                NotifyPropertyChanged("Amount");
+            }
+        }
 
-        //private string _chequeNo;
-        //public string ChequeNo
-        //{
-        //    get { return _chequeNo; }
-        //    set
-        //    {
-        //        _chequeNo = value;
-        //        NotifyPropertyChanged("ChequeNo");
-        //    }
-        //}
+        private string _chequeNo;
+        public string ChequeNo
+        {
+            get { return _chequeNo; }
+            set
+            {
+                _chequeNo = value;
+                NotifyPropertyChanged("ChequeNo");
+            }
+        }
 
-        //private DateTime _chequeDate;
-        //public DateTime ChequeDate
-        //{
-        //    get { return _chequeDate; }
-        //    set
-        //    {
-        //        _chequeDate = value;
-        //        NotifyPropertyChanged("ChequeDate");
-        //    }
-        //}
+        private DateTime _chequeDate;
+        public DateTime ChequeDate
+        {
+            get { return _chequeDate; }
+            set
+            {
+                _chequeDate = value;
+                NotifyPropertyChanged("ChequeDate");
+            }
+        }
 
-        //private string _bankName;
-        //public string BankName
-        //{
-        //    get { return _bankName; }
-        //    set
-        //    {
-        //        _bankName = value;
-        //        NotifyPropertyChanged("BankName");
-        //    }
-        //}
+        private string _bankName;
+        public string BankName
+        {
+            get { return _bankName; }
+            set
+            {
+                _bankName = value;
+                NotifyPropertyChanged("BankName");
+            }
+        }
 
-        //private string _voucherNarration;
-        //public string VoucherNarration
-        //{
-        //    get { return _voucherNarration; }
-        //    set
-        //    {
-        //        _voucherNarration = value;
-        //        NotifyPropertyChanged("VoucherNarration");
-        //    }
-        //}
+        private string _voucherNarration;
+        public string VoucherNarration
+        {
+            get { return _voucherNarration; }
+            set
+            {
+                _voucherNarration = value;
+                NotifyPropertyChanged("VoucherNarration");
+            }
+        }
 
         private string _takaInWords;
         public string TakaInWords
