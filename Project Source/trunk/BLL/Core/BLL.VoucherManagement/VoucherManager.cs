@@ -42,6 +42,11 @@ namespace BLL.VoucherManagement
             return true;
         }
 
+        public Record GetNextRecord(int id)
+        {
+            return _recordRepository.Get(r => r.ID == id + 1).SingleOrDefault();
+        }
+
         public IList<Record> GetVouchers(Project project, string voucherType)
         {
             IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.LedgerType == "LedgerBook").ToList();

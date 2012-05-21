@@ -203,7 +203,19 @@ namespace GKS.Model.ViewModels
         {
             bool isBankTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Bank");
             bool isCashTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Cash");
-            bool isBankBookEntry = isBankTag && v.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+            bool isBankBookEntry = isBankTag && v.LedgerType.Equals("LedgerBook", StringComparison.OrdinalIgnoreCase);
+
+            string chequeNo = "";
+            DateTime chequeDate = new DateTime();
+            string bankName = "";
+            if (isBankTag && v.LedgerType.Equals("LedgerBook", StringComparison.OrdinalIgnoreCase))
+            {
+                Record bankRecord = _voucherManager.GetNextRecord(v.ID);
+                chequeNo = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeNo).SingleOrDefault();
+                chequeDate = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeDate).SingleOrDefault();
+                bankName = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.BankName).SingleOrDefault();
+            }
+
             return new VoucherItem
                        {
                            ProjectName = v.ProjectHead.Project.Name,
@@ -211,12 +223,11 @@ namespace GKS.Model.ViewModels
                            VoucherNo = v.VoucherType + "-" + v.VoucherSerialNo,
                            HeadOfAccount = v.ProjectHead.Head.Name,
                            Amount = v.Debit + v.Credit,
-                           //CashOrBank = (v.BankBooks.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
                            CashOrBank = isCashTag ? "Cash" : "Bank",
                            Narration = v.Narration,
-                           ChequeNo = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeNo).SingleOrDefault() : "",
-                           ChequeDate = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeDate).SingleOrDefault() : new DateTime(),
-                           BankName = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.BankName).SingleOrDefault() : "",
+                           ChequeNo = chequeNo,
+                           ChequeDate = chequeDate,
+                           BankName = bankName,
                        };
         }
 
