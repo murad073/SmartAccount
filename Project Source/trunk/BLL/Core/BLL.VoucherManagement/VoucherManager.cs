@@ -47,11 +47,34 @@ namespace BLL.VoucherManagement
             return _recordRepository.Get(r => r.ID == id + 1).SingleOrDefault();
         }
 
+        // TODO: This is the most ugly function of this project.
         public IList<Record> GetVouchers(Project project, string voucherType)
         {
-            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID && r.LedgerType == "LedgerBook").ToList();
+            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID).ToList();
+
+            IList<Record> records1 = null;
+            IList<Record> records2 = null;
+            if (voucherType != "Contra")
+                records1 = records.Where(r => r.LedgerType == "LedgerBook").ToList();
+            
+            if (voucherType == "Contra" || voucherType == "All")
+                records2 = records.Where(r => r.VoucherType == "Contra").ToList();
+
+            if (records1 == null && records2 == null)
+                return null;
+            else if (records1 != null && records2 == null)
+                records = records1;
+            else if (records1 == null && records2 != null)
+                records = records2;
+            else
+                records = records1.Union(records2).ToList();
+                
+
             if (voucherType != "All")
+            {
                 records = records.Where(r => r.VoucherType == voucherType).ToList();
+                
+            }
             records = records.OrderBy(r => r.VoucherType).ToList();
             records = records.Where(r => GetDateAt12Am(r.Date) >= VoucherStartDate && GetDateAt12Am(r.Date) <= VoucherEndDate).ToList();
 
