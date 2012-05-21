@@ -18,6 +18,9 @@ using GKS.Model.ViewModels;
 using GKS.XAML.Pages;
 using FixedAssetSchedule = GKS.XAML.Reports.FixedAssetSchedule;
 
+using GKS.XAML.Reports;
+
+
 
 namespace GKS.XAML
 {

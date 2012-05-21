@@ -15,13 +15,15 @@ namespace BLL.LedgerManagement.Test
     [TestClass]
     public class LedgerManagerTest
     {
-        private const string ConnectionString = @"SmartAccountEntities.sdf";
+        private const string ConnectionString = @"Data Source=D:\My Projects\Practice self\.net projects\office Github SmartAccount\Project Source\trunk\Tests\BLL.LedgerManagement.Test\bin\Debug\SmartAccountEntities.sdf";
 
         private readonly LedgerManager _ledgerManager;
         private IRepository<Project> _projectRepository;
 
         public LedgerManagerTest()
         {
+            //DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0")
+
             DbConnection con = new SqlCeConnection(ConnectionString);
 
             _projectRepository = new Repository<Project>(con);
@@ -31,6 +33,30 @@ namespace BLL.LedgerManagement.Test
             var pManager = new BLL.ParameterManagement.ParameterManager(parmRepo);
             _ledgerManager = new LedgerManager(recordRepository, pManager);
         }
+
+
+        [TestInitialize]
+        public void Init()
+        {
+
+            //var initializer = new SmartAccountContext();
+            //System.Data.Entity.Database.SetInitializer(initializer);
+
+            //_dbContext = ContainerFactory.Container.GetInstance<IContext>();
+            //initializer.InitializeDatabase((MyTestContext)_dbContext);
+
+            //_testConnection = _dbContext.ConnectionString;
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            
+            //System.Data.Entity.Database.Delete(_testConnection);
+
+            //_dbContext.Dispose();
+        }
+
 
         [TestMethod]
         public void ValidateReturnsFalseProjectNull()

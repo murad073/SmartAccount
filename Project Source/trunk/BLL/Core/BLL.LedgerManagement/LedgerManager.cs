@@ -45,7 +45,7 @@ namespace BLL.LedgerManagement
 
         public IList<Record> GetLedgerBook(Project project, Head head, bool isCashBankShown = false)
         {
-            DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
+            DateTime financialYearStartDate = _parameterManager.GetCurrentFinantialYearStartDate();
 
             IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID).ToList();
             if (head.Name.Equals("Cash Book", StringComparison.OrdinalIgnoreCase))

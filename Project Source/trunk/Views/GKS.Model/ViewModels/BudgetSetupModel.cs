@@ -18,6 +18,7 @@ namespace GKS.Model.ViewModels
             try
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
+                _budgetDataGrid = new List<BudgetGridRow>();
             }
             catch
             { }
