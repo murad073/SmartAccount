@@ -48,9 +48,10 @@
     <Compile Include="Managers\IParameterManager.cs" />
     <Compile Include="Managers\IProjectManager.cs" />
     <Compile Include="Managers\IRecordManager.cs" />
+    <Compile Include="Managers\IVoucherManager.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
-    <Compile Include="Entity\BankRecord.cs" />
+    <Compile Include="Entity\BankBook.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entity\Budget.cs" />
     <Compile Include="Entity\FixedAsset.cs" />

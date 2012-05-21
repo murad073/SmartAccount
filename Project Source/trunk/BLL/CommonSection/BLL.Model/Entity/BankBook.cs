@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace BLL.Model.Entity
 {
-    public class BankRecord
+    public class BankBook
     {
         public int ID { get; set; }
-        //public int RecordID { get; set; }
         public string ChequeNo { get; set; }
         public string BankName { get; set; }
         public string Branch { get; set; }
         public DateTime ChequeDate { get; set; }
+        public int RecordId { get; set; }
 
         public virtual Record Record { get; set; }
 

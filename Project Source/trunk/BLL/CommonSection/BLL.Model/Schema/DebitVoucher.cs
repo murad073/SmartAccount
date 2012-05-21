@@ -19,14 +19,19 @@ namespace BLL.Model.Schema
             return Constants.DebitVoucherShortKey; 
         }
 
-        public override double Debit
+        public override void SetAmount(double amount)
         {
-            get { return Amount; }
+            Debit = amount;
         }
 
-        public override double Credit
-        {
-            get { return 0; }
-        }
+        //public override double Debit
+        //{
+        //    get { return Amount; }
+        //}
+
+        //public override double Credit
+        //{
+        //    get { return 0; }
+        //}
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKS.Model.ViewModels;
+using GKS.Model;
 
 namespace GKS.XAML.UserControls
 {
@@ -21,6 +22,12 @@ namespace GKS.XAML.UserControls
         {
             InitializeComponent();
             DataContext = new LedgerViewModel();
+        }
+
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (LedgerDataGrid.Items.Count > 0)
+                LedgerDataGrid.ExportToExcel();
         }
     }
 }

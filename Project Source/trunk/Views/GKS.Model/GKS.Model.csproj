@@ -34,8 +34,10 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,10 +54,14 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\AddEditHeadModel.cs" />
     <Compile Include="ViewModels\AddEditProjectModel.cs" />
+    <Compile Include="ViewModels\BudgetSetupModel.cs" />
+    <Compile Include="ViewModels\FixedAssetSchedule.cs" />
     <Compile Include="ViewModels\HeadManagementModel.cs" />
     <Compile Include="ViewModels\LedgerViewModel.cs" />
     <Compile Include="OperationType.cs" />
+    <Compile Include="ViewableGridRow.cs" />
     <Compile Include="ViewModels\VoucherDetailsModel.cs" />
+    <Compile Include="VoucherItem.cs" />
     <Compile Include="ViewModels\VoucherPost.cs" />
     <Compile Include="ViewModels\ProjectHeadManagementModel.cs" />
     <Compile Include="ViewModels\ProjectManagementModel.cs" />

@@ -30,8 +30,6 @@ namespace GKS.Model.ViewModels
 
                 InputFirstPartEnabled = true;
                 InputSecondPartEnabled = true;
-
-
                 AllProjects = _projectManager.GetProjects(false);
 
                 SelectedVoucherType = "DV";
@@ -40,6 +38,7 @@ namespace GKS.Model.ViewModels
                 ChequeDate = DateTime.Now;
 
                 TemporaryRecords = new List<Record>();
+                _isJVBalanced = true;
             }
             catch { }
         }
@@ -175,9 +174,21 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isJVStartedChecked = value;
-                SetPostButtonIsEnabled();
+                // The following function calls should not change order.
+                if (value == false)
+                {
+                    if (TemporaryRecords != null && TemporaryRecords.Count != 0)
+                    {
+                        // We want the latest narration for all the records of a JV.
+                        string narration = TemporaryRecords.Last().Narration;
+                        for (int count = 0; count < TemporaryRecords.Count; count++)
+                            TemporaryRecords[count].Narration = narration;
+                    }
+                    SetJVBalanceZeroMessage();
+                }
+                
                 SetInputSecondPartIsEnabled();
-                SetJVBalanceZeroMessage();
+                SetPostButtonIsEnabled();
                 //SetCreateVoucherButtonIsEnabled();
                 NotifyPropertyChanged("IsJVStartedChecked");
             }
@@ -190,6 +201,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _isMultiJVCheckboxVisible = value;
+                // The following function calls should not change order.
                 SetJVDebitCreditIsEnabled();
                 SetCreateVoucherButtonIsEnabled();
                 SetJVStartedIsChecked();
@@ -440,7 +452,7 @@ namespace GKS.Model.ViewModels
         private List<Record> _temporaryRecords;
         private List<Record> TemporaryRecords
         {
-            get { return _temporaryRecords; }
+            get { return _temporaryRecords ?? (_temporaryRecords = new List<Record>()); }
             set
             {
                 _temporaryRecords = value;
@@ -503,6 +515,7 @@ namespace GKS.Model.ViewModels
 
         private void VoucherTypeChanged()
         {
+            // The following function calls should not change order.
             SetAllHeadsIsEnabled();
             SetChequeGroupboxIsEnabled();
             SetFixedAssetOrAdvanceGroupboxIsEnabled();
@@ -553,8 +566,8 @@ namespace GKS.Model.ViewModels
         private bool IsSelectedHeadCapital()
         {
             if (SelectedHead != null)
-                //return _headManager.IsCapitalHead(SelectedHead.Id);
                 return SelectedHead.HeadType == HeadType.Capital.ToString();
+
             return false;
         }
 
@@ -601,7 +614,7 @@ namespace GKS.Model.ViewModels
             else isCreateVoucherButtonEnabled = !IsPostButtonEnabled;
             IsCreateVoucherButtonEnabled = isCreateVoucherButtonEnabled;
         }
-
+        
         private void SetPostButtonIsEnabled()
         {
             bool isPostButtonEnabled = false;
@@ -609,7 +622,7 @@ namespace GKS.Model.ViewModels
             if (count > 0)
             {
                 if (SelectedVoucherType != "JV") isPostButtonEnabled = true;
-                if (SelectedVoucherType == "JV" && !IsJVStartedChecked) isPostButtonEnabled = true;
+                if (SelectedVoucherType == "JV" && !IsJVStartedChecked && _isJVBalanced) isPostButtonEnabled = true;
             }
 
             IsPostButtonEnabled = isPostButtonEnabled;
@@ -628,14 +641,18 @@ namespace GKS.Model.ViewModels
             InputSecondPartEnabled = inputSecondPartEnabled;
         }
 
+        private bool _isJVBalanced;
         private void SetJVBalanceZeroMessage()
         {
             if (SelectedVoucherType == "JV" && !IsJVStartedChecked && TemporaryRecords.Count > 0)
             {
                 if (TempRecordsGridItems.Last().Balance != 0)
                 {
+                    _isJVBalanced = false;
                     ShowMessage(MessageService.Instance.Get("VoucherBalanceIsNotZero", MessageType.Error));
                 }
+                else
+                    _isJVBalanced = true;
             }
         }
 
@@ -683,6 +700,23 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
+        private string  GetTag()
+        {
+            string tag = "";
+            if (IsAdvance)
+                tag = "Advance";
+
+            if (tag != "")
+                tag += ",";
+
+            if (IsPaymentInCheque)
+                tag += "Bank";
+            else
+                tag += "Cash";
+
+            return tag;
+        }
+
         private MassVoucher GetCurrentVoucher()
         {
             MassVoucher massVoucher = new MassVoucher
@@ -702,7 +736,7 @@ namespace GKS.Model.ViewModels
                                               BankName = BankName,
                                               FixedAssetName = FixedAssetParticulars,
                                               FixedAssetDepreciationRate = FixedAssetDepreciationRate,
-                                              Tag = IsAdvance ? "Advance" : "",
+                                              Tag = GetTag(),
                                               Narration = Narration
                                           };
 
@@ -738,7 +772,6 @@ namespace GKS.Model.ViewModels
                                                              Head = tr.HeadName(),
                                                              VoucherNo = tr.VoucherType + "-" + tr.VoucherSerialNo
                                                          }).ToList();
-
             }
         }
 
@@ -835,15 +868,5 @@ namespace GKS.Model.ViewModels
         }
     }
 
-    public class ViewableGridRow
-    {
-        public string Head { get; set; }
-        public DateTime Date { get; set; }
-        public string VoucherNo { get; set; }
-        public double Debit { get; set; }
-        public double Credit { get; set; }
-        public double Balance { get; set; }
-    }
-
-    public class ViewableGridRows : List<ViewableGridRow> { }
+    //public class ViewableGridRows : List<ViewableGridRow> { }
 }

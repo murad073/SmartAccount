@@ -65,7 +65,8 @@ namespace GKS.Model.ViewModels
                 }
                 else
                 {
-                    HeadsForProject = new ObservableCollection<Head>(_headManager.GetHeads(value, false));
+                    IList<Head> headsForProject = _headManager.GetHeads(value, false);
+                    HeadsForProject = new ObservableCollection<Head>(headsForProject);
                     RemainingHeads = new ObservableCollection<Head>(
                         _allHeads.Except(HeadsForProject).Where(h => h.Name != SelectedProject.Name));
                 }

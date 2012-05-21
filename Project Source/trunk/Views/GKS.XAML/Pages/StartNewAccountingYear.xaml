@@ -1,0 +1,8 @@
+﻿<Window x:Class="GKS.XAML.Pages.StartNewAccountingYear"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="StartNewAccountingYear" Height="610" Width="850" >
+    <Grid>
+        
+    </Grid>
+</Window>

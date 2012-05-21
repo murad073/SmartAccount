@@ -15,29 +15,47 @@
         </Grid.RowDefinitions>
         <Menu IsEnabled="True" Height="23" HorizontalAlignment="Left" Name="menu1" VerticalAlignment="Top" Width="980">
             <MenuItem Header="File">
-                <MenuItem Command="ApplicationCommands.Close" Header="Exit" />
+                <MenuItem Header="Exit" Click="MenuItem_Click"   />
             </MenuItem>
-            <MenuItem Header="Voucher">
-                <MenuItem Header="Post a Debit Voucher" />
-                <MenuItem Header="Post a Credit Voucher" />
-                <MenuItem Header="Post a Journal Voucher" />
-                <MenuItem Header="Post a Contra" />
+            
+            <MenuItem Header="Management">
+                <MenuItem Header="Voucher">
+                    <MenuItem Header="Post a Debit Voucher" Click="PostADebitVoucher_Click" />
+                    <MenuItem Header="Post a Credit Voucher" Click="PostACreditVoucher_Click" />
+                    <MenuItem Header="Post a Journal Voucher" Click="PostAJournalVoucher_Click" />
+                    <MenuItem Header="Post a Contra" Click="PostAContraVoucher_Click" />
+                </MenuItem>
+                <MenuItem Header="Project">
+                    <MenuItem Header="Add a New Project" Click="AddANewProject_Click" />
+                    <MenuItem Header="View All Projects" Click="ViewAllProjects_Click" />
+                </MenuItem>
+                <MenuItem Header="Head">
+                    <MenuItem Header="Create New Head" Click="AddANewHead_Click" />
+                    <MenuItem Header="View All Heads" Click="ViewAllHeads_Click" />
+                </MenuItem>
+
+                <MenuItem Header="Fixed Asset">
+                    <MenuItem Header="Fixed Asset Management" Click="FixedAssetManagement_Click" />
+                </MenuItem>
+
             </MenuItem>
-            <MenuItem Header="Project">
-                <MenuItem Header="Add a New Project" />
-                <MenuItem Header="View All Projects" />
-                <MenuItem Header="View Project Details" />
-            </MenuItem>
-            <MenuItem Header="Head">
-                <MenuItem Header="Create New Head" />
-                <MenuItem Header="View All Heads" />
-                <MenuItem Header="View Head Details" />
-            </MenuItem>
-            <MenuItem Header="Reports" IsEnabled="True" >
+            
+            <MenuItem Header="Reports" >
                 <MenuItem Header="Fixed Asset Schedule" Name="FixedAssetScheduleMenuItem" Click="FixedAssetScheduleMenuItemClick" />
             </MenuItem>
-            <MenuItem Header="Settings" />
-            <MenuItem Header="Help" />
+            <MenuItem Header="Operations" >
+                <MenuItem Header="Setup Budget" Name="BudgetSetup" Click="SetupBudgetClick" />
+                <MenuItem Header="Start New Accounting Year" Name="StartNewAccountingYear" Click="StartNewAccountingYearClick" />
+                <MenuItem Header="Close Current Accounting Year" Name="CloseCurrentAccountingYear" Click="CloseCurrentAccountingYearClick" />
+            </MenuItem>
+
+            <MenuItem Header="Settings" >
+                <MenuItem Header="Configuration" Click="ConfigurationSetting_Click" />
+            </MenuItem>
+            <MenuItem Header="Help" >
+                <MenuItem Header="Help Document" ></MenuItem>
+                <MenuItem Header="About SOLVE" ></MenuItem>
+            </MenuItem>
         </Menu>
 
         <TabControl Grid.Row="1" Height="670" Name="tabControl1" Width="980" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" VerticalAlignment="Top">

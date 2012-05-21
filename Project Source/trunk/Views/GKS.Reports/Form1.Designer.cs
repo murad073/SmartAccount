@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.BankRecordBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.BankRecordBindingSource)).BeginInit();
+            this.BankBookBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.BankBookBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             reportDataSource1.Name = "Entities";
-            reportDataSource1.Value = this.BankRecordBindingSource;
+            reportDataSource1.Value = this.BankBookBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "GKS.Reports.Report1.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
@@ -47,9 +47,9 @@
             this.reportViewer1.Size = new System.Drawing.Size(682, 386);
             this.reportViewer1.TabIndex = 0;
             // 
-            // BankRecordBindingSource
+            // BankBookBindingSource
             // 
-            this.BankRecordBindingSource.DataSource = typeof(BLL.Model.Entity.BankRecord);
+            this.BankBookBindingSource.DataSource = typeof(BLL.Model.Entity.BankBook);
             // 
             // Form1
             // 
@@ -60,7 +60,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.BankRecordBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BankBookBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -68,7 +68,7 @@
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        private System.Windows.Forms.BindingSource BankRecordBindingSource;
+        private System.Windows.Forms.BindingSource BankBookBindingSource;
     }
 }
 

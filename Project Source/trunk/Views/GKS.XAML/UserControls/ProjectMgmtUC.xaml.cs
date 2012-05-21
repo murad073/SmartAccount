@@ -18,7 +18,7 @@ namespace GKS.XAML.UserControls
             DataContext = _vm;
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        internal void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             AddEditProjectWindow projectWindow = new AddEditProjectWindow { Owner = Window.GetWindow(this) };
             projectWindow.Closed += (sndr, eventArgs) => _vm.Reset();
@@ -41,6 +41,9 @@ namespace GKS.XAML.UserControls
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
+            if (dataGridAllProjects.Items.Count > 0)
+                dataGridAllProjects.ExportToExcel();
+
             //ExportToExcel<Project, Projects> s = new ExportToExcel<Project, Projects>();
             //ICollectionView view = CollectionViewSource.GetDefaultView(dataGridAllProjects.ItemsSource);
             //s.dataToPrint = (List<Project>)view.SourceCollection;

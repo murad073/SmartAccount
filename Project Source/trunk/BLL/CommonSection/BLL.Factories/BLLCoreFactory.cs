@@ -12,14 +12,14 @@ namespace BLL.Factories
 {
     public class BLLCoreFactory
     {
-        public static IRepository<Budget> BudgetRepository { get; set; }
-        public static IRepository<Head> HeadRepository { get; set; }
-        public static IRepository<Project> ProjectRepository { get; set; }
-        public static IRepository<ProjectHead> ProjectHeadRepository { get; set; }
-        public static IRepository<Record> RecordRepository { get; set; }
-        public static IRepository<Parameter> ParameterRepository { get; set; }
-        public static IRepository<FixedAsset> FixedAssetRepository { get; set; }
-        public static IRepository<BankRecord> BankRecordRepository { get; set; }
+        public static IRepository<Budget> BudgetRepository { private get; set; }
+        public static IRepository<Head> HeadRepository { private get; set; }
+        public static IRepository<Project> ProjectRepository { private get; set; }
+        public static IRepository<ProjectHead> ProjectHeadRepository { private get; set; }
+        public static IRepository<Record> RecordRepository { private get; set; }
+        public static IRepository<Parameter> ParameterRepository { private get; set; }
+        public static IRepository<FixedAsset> FixedAssetRepository { private get; set; }
+        public static IRepository<BankBook> BankBookRepository { private get; set; }
 
         public static ILedgerManager GetLedgerManager()
         {
@@ -29,6 +29,19 @@ namespace BLL.Factories
                 ledgerManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return ledgerManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }
+
+        public static IVoucherManager GetVoucherManager()
+        {
+            if (RecordRepository != null && ProjectRepository != null)
+            {
+                VoucherManager voucherManager = new VoucherManager(RecordRepository);
+                voucherManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //ledgerManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                return voucherManager;
             }
 
             throw new ArgumentNullException("message");
@@ -51,7 +64,7 @@ namespace BLL.Factories
         {
             if (RecordRepository != null && ProjectRepository != null && HeadRepository != null)
             {
-                MassVoucherManager massVoucherManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankRecordRepository);
+                MassVoucherManager massVoucherManager = new MassVoucherManager(RecordRepository, ProjectRepository, HeadRepository, ProjectHeadRepository, FixedAssetRepository, BankBookRepository);
                 massVoucherManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
                 //massVoucherManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
                 return massVoucherManager;

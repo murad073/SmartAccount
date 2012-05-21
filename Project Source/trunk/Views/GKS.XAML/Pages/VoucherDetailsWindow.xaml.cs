@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GKS.Model;
 using GKS.Model.ViewModels;
 
 namespace GKS.XAML.Pages
@@ -24,13 +25,28 @@ namespace GKS.XAML.Pages
 
         private VoucherDetailsModel _vm;
 
-        public VoucherDetailsWindow()
+        private void Init()
         {
             InitializeComponent();
             _vm = new VoucherDetailsModel();
             _vm.OnFinish += (sndr, eventArgs) => this.Close();
             DataContext = _vm;
             this.PreviewKeyDown += HandleEsc;
+        }
+
+        public VoucherDetailsWindow(VoucherItem voucher)
+        {
+            Init();
+            _vm.VoucherItem = voucher;
+            _vm.SetRecordItems();
+            //_vm.ProjectName = voucher.ProjectName;
+            //_vm.VoucherDate = voucher.Date;
+            //_vm.VoucherNo = voucher.VoucherNo;
+            //_vm.Amount = voucher.Amount;
+            //_vm.VoucherNarration = voucher.Narration;
+            //_vm.ChequeNo = voucher.ChequeNo;
+            //_vm.ChequeDate = voucher.ChequeDate;
+            //_vm.BankName = voucher.BankName;
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)

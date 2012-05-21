@@ -20,6 +20,7 @@ namespace GKS.Model.ViewModels
 
         public LedgerViewModel()
         {
+            //IRepository<Record> ledgerRepository = GKSFactory.GetRepository<Record>();
             try
             {
                 IRepository<Record> ledgerRepository = new Repository<Record>();
@@ -30,6 +31,9 @@ namespace GKS.Model.ViewModels
 
                 AllProjects = _projectManager.GetProjects();
 
+                IsAllHeadsEnabled = true;
+                ShowAllAdvance = false;
+                LedgerEndDate = DateTime.Now;
                 IsAllHeadsEnabled = true;
                 ShowAllAdvance = false;
                 LedgerEndDate = DateTime.Now;
@@ -133,7 +137,12 @@ namespace GKS.Model.ViewModels
             {
                 return _ledgerGridViewItems;
             }
-            set { _ledgerGridViewItems = value; NotifyPropertyChanged("LedgerGridViewItems"); }
+            set
+            {
+                _ledgerGridViewItems = value;
+                NotifyPropertyChanged("LedgerGridViewItems");
+                NotifyPropertyChanged("LedgerDataGrid");
+            }
         }
 
         private string _errorMessage;
@@ -221,5 +230,49 @@ namespace GKS.Model.ViewModels
         }
 
         #endregion
+
+        public IList<LedgerItem> LedgerDataGrid
+        {
+            get
+            {
+                if (LedgerGridViewItems == null || LedgerGridViewItems.Count == 0) return null;
+                double balance = 0;
+                return LedgerGridViewItems.Select(l => GetLedgerItem(l, ref balance)).ToList();
+
+            }
+        }
+
+        private LedgerItem GetLedgerItem(Record l, ref double balance)
+        {
+            bool isBankTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Bank");
+            bool isCashTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Cash");
+            bool isBankBookEntry = isBankTag && l.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+
+            return new LedgerItem
+                       {
+                           Date = l.Date,
+                           VoucherNo = l.VoucherType + "-" + l.VoucherSerialNo,
+                           Debit = l.Debit,
+                           Credit = l.Credit,
+                           Balance = (balance += (l.Debit - l.Credit)),
+                           Particular = isCashTag ? "Cash" : "Bank",//"",//tr.BankBooks.Last().ChequeNo,
+                           Remarks = l.Narration,
+                           ChequeNo = isBankBookEntry ? l.BankBooks.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault() : "", // TODO: This doesn't work.
+                       };
+        }
     }
+
+    public class LedgerItem
+    {
+        public DateTime Date { get; set; }
+        public string VoucherNo { get; set; }
+        public double Debit { get; set; }
+        public double Credit { get; set; }
+        public double Balance { get; set; }
+        public string Particular { get; set; }
+        public string ChequeNo { get; set; }
+        public string Remarks { get; set; }
+    }
+
+    //public class ViewableLedgerRows : List<LedgerItem> { }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GKS.Model;
 using GKS.Model.ViewModels;
 using GKS.XAML.Pages;
 
@@ -29,16 +30,30 @@ namespace GKS.XAML.UserControls
             DataContext = _vm;
         }
 
+        private void buttonVoucherDetails_Click(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel vm = DataContext as VoucherViewModel;
+            VoucherItem voucher = vm.SelectedVoucherItem;
+            //VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow(voucher) { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
+            //voucherWindow.ShowDialog();
+
+            if (voucher == null)
+                return;
+
+            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow(voucher) { Owner = Window.GetWindow(this) };
+            voucherWindow.Closed += (sndr, eventArgs) => _vm.Reset();
+            voucherWindow.ShowDialog();
+        }
+
         //private void RefreshButton_Click(object sender, RoutedEventArgs e)
         //{
         //    _vm.Reset();
         //}
 
-        private void buttonVoucherDetails_Click(object sender, RoutedEventArgs e)
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
-            VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow { Owner = Window.GetWindow(this)};
-            voucherWindow.Closed += (sndr, eventArgs) => _vm.Reset();
-            voucherWindow.ShowDialog();
+            if (VoucherDataGrid.Items.Count > 0)
+                VoucherDataGrid.ExportToExcel();
         }
     }
 }

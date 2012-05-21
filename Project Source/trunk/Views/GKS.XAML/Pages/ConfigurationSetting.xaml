@@ -1,0 +1,28 @@
+﻿<Window x:Class="GKS.XAML.Pages.ConfigurationSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="610" Width="850" Title="Configuration Manager" >
+
+    <Grid Height="570" Width="830">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="482*" />
+            <RowDefinition Height="88*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="194*" />
+            <ColumnDefinition Width="13*" />
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="164*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="149*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Settings and Configurations" Height="28" HorizontalAlignment="Left" Margin="219,20,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" />
+        <Label Content="Accounting Year Start Date:" Height="28" HorizontalAlignment="Left" Margin="38,90,0,0" Name="label1" VerticalAlignment="Top" />
+        <DatePicker Grid.Column="2" Height="25" HorizontalAlignment="Left" Margin="0,93,0,0" Name="datePicker1" VerticalAlignment="Top" Width="115" />
+        <Label Content="Current Accounting Year:" Grid.Column="3" Height="28" HorizontalAlignment="Left" Margin="22,90,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="2012" Grid.Column="5" Height="28" HorizontalAlignment="Left" Margin="0,90,0,0" Name="label4" VerticalAlignment="Top" />
+        <Button Content="Save" Grid.Column="2" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="74,22,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="168,22,0,0" Name="button2" VerticalAlignment="Top" Width="75" Grid.Column="2" Grid.Row="1" />
+    </Grid>
+
+</Window>

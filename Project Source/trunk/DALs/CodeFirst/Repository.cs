@@ -16,7 +16,7 @@ namespace CodeFirst
 
         public Repository()
         {
-            _entities = new SmartAccountContext();
+            _entities = SmartAccountContext.Instance;
         }
         //public Repository(string connectionString)
         //{
@@ -24,7 +24,8 @@ namespace CodeFirst
         //}
         public Repository(DbConnection dbConnection)
         {
-            _entities = new SmartAccountContext(dbConnection);
+            SmartAccountContext.DBConnection = dbConnection;
+            _entities = SmartAccountContext.Instance;
         }
 
         public virtual IQueryable<T> GetAll()

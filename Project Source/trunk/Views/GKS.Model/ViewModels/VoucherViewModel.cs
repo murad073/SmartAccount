@@ -16,23 +16,24 @@ namespace GKS.Model.ViewModels
     {
 
         private readonly IProjectManager _projectManager;
-        private readonly ILedgerManager _ledgerManager;
+        private readonly IVoucherManager _voucherManager;
+        private readonly IParameterManager _parameterManager;
         public VoucherViewModel()
         {
             try
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
-                _ledgerManager = BLLCoreFactory.GetLedgerManager();
+                _voucherManager = BLLCoreFactory.GetVoucherManager();
+                _parameterManager = BLLCoreFactory.GetParameterManager(); // TODO: Do we need this?
 
                 AllProjects = _projectManager.GetProjects();
                 SelectedVoucherType = VoucherTypes[0];
-                //VoucherStartDate = _parameterManager.GetFinancialYearStartDate(); // TODO: Should be first day of current finanical year.
                 VoucherStartDate = DateTime.Today;
                 VoucherEndDate = DateTime.Today;
             }
             catch { }
         }
-
+        
         private IList<Project> _allProjects;
         public IList<Project> AllProjects
         {
@@ -109,38 +110,18 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private IList<Record> _voucherGridViewItems;
         public IList<Record> VoucherGridViewItems
         {
             get
             {
-                //if (!_ledgerManager.Validate(SelectedProject, SelectedHead, ShowAllAdvance))
-                //{
-                //    Message latestMessage = _ledgerManager.GetLatestMessage();
-                //    ErrorMessage = latestMessage.MessageText;
-                //    ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
-                //    return null;
-                //}
-
-                ClearMessage();
-                _ledgerManager.LedgerEndDate = VoucherEndDate;
-                //_ledgerManager.GetLedgerBook(SelectedProject.Id, )
-
-                //double balance = 0;
-                //return _ledgerManager.GetLedgerBook(SelectedProject.Id, SelectedHead.Id).Select(l =>
-                //new Ledger
-                //{
-                //    VoucherNo = l.VoucherNo,
-                //    Date = l.Date,
-                //    ChequeNo = l.ChequeNo,
-                //    Debit = l.Debit,
-                //    Credit = l.Credit,
-                //    Balance = balance += l.Debit - l.Credit,
-                //    Particular = l.Particular,
-                //    Remarks = l.Remarks
-                //}).ToList();
-
-                //TODO: murad will do that - > new class and do all union
-                return null;
+                return _voucherGridViewItems;
+            }
+            set
+            {
+                _voucherGridViewItems = value;
+                NotifyPropertyChanged("VoucherGridViewItems");
+                NotifyPropertyChanged("VoucherDataGrid");
             }
         }
 
@@ -166,25 +147,94 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private RelayCommand _voucherViewButtonClicked;
+        public ICommand VoucherViewButtonClicked
+        {
+            get { return _voucherViewButtonClicked ?? (_voucherViewButtonClicked = new RelayCommand(p1 => this.NotifyVoucherGrid())); }
+        }
+
+        private RelayCommand _refreshButtonClicked;
+        public ICommand RefreshButtonClicked
+        {
+            get { return _refreshButtonClicked ?? (_refreshButtonClicked = new RelayCommand(p1 => this.Reset())); }
+        }
+       
         private RelayCommand _voucherDetailsButtonClicked;
         public ICommand VoucherDetailsButtonClicked
         {
             get
             {
-                return _voucherDetailsButtonClicked ?? (_voucherDetailsButtonClicked = new RelayCommand(p1 => NotifyPropertyChanged("VoucherGridViewItems")));
+                return _voucherDetailsButtonClicked ?? (_voucherDetailsButtonClicked = new RelayCommand(p1 => NotifyPropertyChanged("VoucherGridViewItems"), p2 => VoucherGridViewItems.Count > 0));
             }
         }
 
-        private RelayCommand _refreshClicked;
-        public ICommand RefreshClicked
+        private void NotifyVoucherGrid()
+        {
+            //if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherGridViewItems"));
+
+            if (!_voucherManager.Validate(SelectedProject, VoucherStartDate, VoucherEndDate))
+            {
+                Message latestMessage = MessageService.Instance.GetLatestMessage();
+                ErrorMessage = latestMessage.MessageText;
+                ColorCode = MessageService.Instance.GetColorCode(latestMessage.MessageType);
+                VoucherGridViewItems = null;
+                return;
+            }
+
+            ClearMessage();
+
+            _voucherManager.VoucherStartDate = VoucherStartDate;
+            _voucherManager.VoucherEndDate = VoucherEndDate;
+
+            VoucherGridViewItems = _voucherManager.GetVouchers(SelectedProject, SelectedVoucherType.Key);
+        }
+
+        public IList<VoucherItem> VoucherDataGrid
         {
             get
             {
-                return _refreshClicked ?? (_refreshClicked = new RelayCommand(p1 => this.Reset()));
+                if (VoucherGridViewItems == null || VoucherGridViewItems.Count == 0) return null;
+                return VoucherGridViewItems.Select(GetVoucherItem).ToList();
+
             }
         }
 
-        public void ClearMessage()
+        private VoucherItem GetVoucherItem(Record v)
+        {
+            bool isBankTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Bank");
+            bool isCashTag = !string.IsNullOrWhiteSpace(v.Tag) && v.Tag.Contains("Cash");
+            bool isBankBookEntry = isBankTag && v.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+            return new VoucherItem
+                       {
+                           ProjectName = v.ProjectHead.Project.Name,
+                           Date = v.Date,
+                           VoucherNo = v.VoucherType + "-" + v.VoucherSerialNo,
+                           HeadOfAccount = v.ProjectHead.Head.Name,
+                           Amount = v.Debit + v.Credit,
+                           //CashOrBank = (v.BankBooks.Select(br => br.Record.ID == v.ID) == null ? "Cash" : "Bank"), // TODO: It doesn't work.
+                           CashOrBank = isCashTag ? "Cash" : "Bank",
+                           Narration = v.Narration,
+                           ChequeNo = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeNo).SingleOrDefault() : "",
+                           ChequeDate = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.ChequeDate).SingleOrDefault() : new DateTime(),
+                           BankName = isBankBookEntry ? v.BankBooks.Where(br => br.Record.ID == v.ID).Select(br => br.BankName).SingleOrDefault() : "",
+                       };
+        }
+
+        private VoucherItem _selectedVoucherItem;
+        public VoucherItem SelectedVoucherItem
+        {
+            get
+            {
+                return _selectedVoucherItem;
+            }
+            set
+            {
+                _selectedVoucherItem = value;
+                NotifyPropertyChanged("SelectedVoucherItem");
+            }
+        }
+
+        private void ClearMessage()
         {
             Message message = new Message();
             ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
@@ -195,15 +245,5 @@ namespace GKS.Model.ViewModels
         {
             AllProjects = _projectManager.GetProjects();
         }
-    }
-
-    public class VoucherItem
-    {
-        public string Date { get; set; }
-        public string VoucherNo { get; set; }
-        public string HeadOfAccount { get; set; }
-        public double Debit { get; set; }
-        public double Credit { get; set; }
-        public string CashOrBank { get; set; }
     }
 }

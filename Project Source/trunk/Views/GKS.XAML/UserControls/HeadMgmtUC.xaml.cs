@@ -29,7 +29,7 @@ namespace GKS.XAML.UserControls
             DataContext = _vm;
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        internal void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             AddEditHeadWindow headWindow = new AddEditHeadWindow { Owner = Window.GetWindow(this) };
             headWindow.Closed += (sndr, handler) => _vm.Reset();
@@ -58,7 +58,8 @@ namespace GKS.XAML.UserControls
 
         private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
-            //dataGridAllHeads.ExportToExcel();
+            if (dataGridAllHeads.Items.Count > 0)
+                dataGridAllHeads.ExportToExcel();
         }
     }
 }

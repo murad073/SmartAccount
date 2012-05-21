@@ -43,8 +43,8 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>BLL.Model.Entity</rd:DataSetName>
-        <rd:TableName>BankRecord</rd:TableName>
-        <rd:ObjectDataSourceType>BLL.Model.Entity.BankRecord, BLL.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>BankBook</rd:TableName>
+        <rd:ObjectDataSourceType>BLL.Model.Entity.BankBook, BLL.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

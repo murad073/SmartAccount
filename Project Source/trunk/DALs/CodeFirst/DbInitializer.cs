@@ -26,6 +26,13 @@ namespace CodeFirst
                                                IsActive = true,
                                                HeadType = "Capital",
                                                Description = "Default Cash Book"
+                                           },
+                                       new Head
+                                           {
+                                               Name = "Adjustment",
+                                               IsActive = true,
+                                               HeadType = "Revenue",
+                                               Description = "This head created for doing adjustment"
                                            }
                                    };
 
