@@ -50,6 +50,11 @@
                   ItemsSource="{Binding Path=RecordItems}"
                   Height="129" HorizontalAlignment="Left" Margin="41,151,0,0" VerticalAlignment="Top" Width="502" >
 
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#99CCFF"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#000000"/>
+                </DataGrid.Resources>
+                
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="IsTabStop" Value="False"/>

@@ -72,7 +72,7 @@ namespace BLL.LedgerManagement
             //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
             //double balance = 0;
 
-            DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
+            DateTime financialYearStartDate = _parameterManager.GetCurrentFinantialYearStartDate();
 
             IList<Record> records = project.ProjectHeads.SelectMany(ph => ph.Records).ToList();
             if (records.Count == 0)

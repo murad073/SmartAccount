@@ -775,10 +775,11 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        public void Reset(bool removeMessage = true)
+        public void Reset(bool removeProjectAndMessage = true)
         {
             AllProjects = _projectManager.GetProjects(false);
-            SelectedProject = null;
+            
+            if (removeProjectAndMessage) SelectedProject = null;
 
             ClearTemporaryRecords();
 
@@ -790,7 +791,7 @@ namespace GKS.Model.ViewModels
             SelectedJVDebitOrCredit = null;
             SelectedContraType = null;
             Narration = "";
-            if (removeMessage) ClearMessage();
+            if (removeProjectAndMessage) ClearMessage();
 
             IsPostButtonEnabled = false;
             InputFirstPartEnabled = true;
