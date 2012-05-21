@@ -61,6 +61,11 @@ namespace BLL.LedgerManagement
             return records;
         }
 
+        public Record GetNextRecord(int id)
+        {
+            return _recordRepository.Get(r => r.ID == id+1).SingleOrDefault();
+        }
+
         public IList<Record> GetAllAdvance(Project project)
         {
             //return _ledgerRepository.GetLedger(projectId);
