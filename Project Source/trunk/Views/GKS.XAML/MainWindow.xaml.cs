@@ -18,8 +18,6 @@ using GKS.Model.ViewModels;
 using GKS.XAML.Pages;
 using FixedAssetSchedule = GKS.XAML.Reports.FixedAssetSchedule;
 
-using GKS.XAML.Reports;
-
 
 namespace GKS.XAML
 {
@@ -36,63 +34,63 @@ namespace GKS.XAML
             fixedAssetSchedule.ShowDialog();
         }
 
-        private void PostADebitVoucher_Click(object sender, RoutedEventArgs e)
+        private void PostADebitVoucherClicked(object sender, RoutedEventArgs e)
         {
             VoucherPost voucherPostContext = postUC1.DataContext as VoucherPost;
             tabItemPost.Focus();
-            voucherPostContext.SelectedVoucherType = "DV";
+            if (voucherPostContext != null) voucherPostContext.SelectedVoucherType = "DV";
         }
 
-        private void PostACreditVoucher_Click(object sender, RoutedEventArgs e)
+        private void PostACreditVoucherClicked(object sender, RoutedEventArgs e)
         {
             VoucherPost voucherPostContext = postUC1.DataContext as VoucherPost;
             tabItemPost.Focus();
-            voucherPostContext.SelectedVoucherType = "CV";
+            if (voucherPostContext != null) voucherPostContext.SelectedVoucherType = "CV";
         }
 
-        private void PostAJournalVoucher_Click(object sender, RoutedEventArgs e)
+        private void PostAJournalVoucherClicked(object sender, RoutedEventArgs e)
         {
             VoucherPost voucherPostContext = postUC1.DataContext as VoucherPost;
             tabItemPost.Focus();
-            voucherPostContext.SelectedVoucherType = "JV";
+            if (voucherPostContext != null) voucherPostContext.SelectedVoucherType = "JV";
         }
 
-        private void PostAContraVoucher_Click(object sender, RoutedEventArgs e)
+        private void PostAContraVoucherClicked(object sender, RoutedEventArgs e)
         {
             VoucherPost voucherPostContext = postUC1.DataContext as VoucherPost;
             tabItemPost.Focus();
-            voucherPostContext.SelectedVoucherType = "Contra";
+            if (voucherPostContext != null) voucherPostContext.SelectedVoucherType = "Contra";
         }
 
-        private void ViewAllProjects_Click(object sender, RoutedEventArgs e)
+        private void ViewAllProjectsClicked(object sender, RoutedEventArgs e)
         {
             tabItemProjects.Focus();
         }
 
-        private void AddANewProject_Click(object sender, RoutedEventArgs e)
+        private void AddANewProjectClicked(object sender, RoutedEventArgs e)
         {
             tabItemProjects.Focus();
             projectMgmtUC1.buttonAdd_Click(sender, e);
         }
 
-        private void ViewAllHeads_Click(object sender, RoutedEventArgs e)
+        private void ViewAllHeadsClicked(object sender, RoutedEventArgs e)
         {
-            tabItemHeads.Focus();
+            tabItemHeads.Focus(); 
         }
 
-        private void AddANewHead_Click(object sender, RoutedEventArgs e)
+        private void AddANewHeadClicked(object sender, RoutedEventArgs e)
         {
             tabItemHeads.Focus();
             headMgmtUC1.buttonAdd_Click(sender, e);
         }
 
-        private void ConfigurationSetting_Click(object sender, RoutedEventArgs e)
+        private void ConfigurationSettingClicked(object sender, RoutedEventArgs e)
         {
             ConfigurationSetting configurationSetting = new ConfigurationSetting { Owner = this };
             configurationSetting.ShowDialog();
         }
 
-        private void SetupBudgetClick(object sender, RoutedEventArgs e)
+        private void SetupBudgetClicked(object sender, RoutedEventArgs e)
         {
             BudgetSetup budgetSetup = new BudgetSetup() { Owner = this };
             budgetSetup.ShowDialog();
@@ -110,16 +108,16 @@ namespace GKS.XAML
             configurationSetting.ShowDialog();
         }
 
-        private void FixedAssetManagement_Click(object sender, RoutedEventArgs e)
+        private void FixedAssetManagementClicked(object sender, RoutedEventArgs e)
         {
             FixedAssetManagement configurationSetting = new FixedAssetManagement { Owner = this };
             configurationSetting.ShowDialog();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItemClicked(object sender, RoutedEventArgs e)
         {
             //Application.
         }
-        
+
     }
 }
