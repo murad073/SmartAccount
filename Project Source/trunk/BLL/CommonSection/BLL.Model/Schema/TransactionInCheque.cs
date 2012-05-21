@@ -29,6 +29,7 @@ namespace BLL.Model.Schema
 
             if (BankBook != null)
             {
+                BankBook.Record = this;
                 _bankBookRepository.Insert(BankBook);
             }
 

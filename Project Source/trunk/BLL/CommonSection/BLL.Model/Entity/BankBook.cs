@@ -10,7 +10,7 @@ namespace BLL.Model.Entity
         public string BankName { get; set; }
         public string Branch { get; set; }
         public DateTime ChequeDate { get; set; }
-        public int RecordId { get; set; }
+        //public int RecordId { get; set; }
 
         public virtual Record Record { get; set; }
 
