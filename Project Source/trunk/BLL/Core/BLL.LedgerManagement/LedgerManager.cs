@@ -47,7 +47,7 @@ namespace BLL.LedgerManagement
         {
             DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
 
-            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID).ToList(); // TODO: This line returns 0 debit/credit for LedgerType == LedgerBook.
+            IList<Record> records = _recordRepository.Get(r => r.ProjectHead.Project.ID == project.ID).ToList();
             if (head.Name.Equals("Cash Book", StringComparison.OrdinalIgnoreCase))
                 records = records.Where(r => r.LedgerType.Equals("CashBook", StringComparison.OrdinalIgnoreCase)).ToList();
             else if (head.Name.Equals("Bank Book", StringComparison.OrdinalIgnoreCase))
@@ -71,13 +71,20 @@ namespace BLL.LedgerManagement
             //return _ledgerRepository.GetLedger(projectId);
             //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
             //double balance = 0;
+
+            DateTime financialYearStartDate = _parameterManager.GetFinancialYearStartDate();
+
             IList<Record> records = project.ProjectHeads.SelectMany(ph => ph.Records).ToList();
             if (records.Count == 0)
                 return null;
 
-            return records.Where(
+            records = records.Where(
                     r => r.Tag.Contains("Advance")  && r.LedgerType == "LedgerBook").ToList();
-            //TODO: add date filter
+
+            records = records.OrderBy(l => l.Date).ToList();
+            records = records.Where(l => GetDateAt12Am(l.Date) >= financialYearStartDate && GetDateAt12Am(l.Date) <= LedgerEndDate).ToList();
+
+            return records;
         }
 
         public static DateTime GetDateAt12Am(DateTime date)
