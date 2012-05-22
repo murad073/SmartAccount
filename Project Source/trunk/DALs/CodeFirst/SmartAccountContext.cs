@@ -11,18 +11,18 @@ namespace CodeFirst
 {
     internal class SmartAccountContext : DbContext
     {
-        private SmartAccountContext()
+        static SmartAccountContext()
         {
             Database.SetInitializer(new EntitiesContextInitializer());
         }
-        //public SmartAccountContext(string connectionString) : base(connectionString)
-        //{
-        //    Database.SetInitializer(new EntitiesContextInitializer());
-        //}
+        
+        private SmartAccountContext()
+        {
+        }
+
         private SmartAccountContext(DbConnection dbConnection)
             : base(dbConnection, true)
         {
-            Database.SetInitializer(new EntitiesContextInitializer());
         }
 
         public static DbConnection DBConnection { get; set; }
