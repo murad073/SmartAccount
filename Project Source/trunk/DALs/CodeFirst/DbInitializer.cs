@@ -46,7 +46,31 @@ namespace CodeFirst
                                                  new Parameter
                                                      {
                                                          Key = "FinancialYearStartDate",
+                                                         Value = DateTime.Now.ToString("dd/mm"),
+                                                         IsActive = true
+                                                     },
+                                                 new Parameter
+                                                     {
+                                                         Key = "CurrentFinantialYear",
+                                                         Value = DateTime.Now.Year.ToString(),
+                                                         IsActive = true
+                                                     },
+                                                 new Parameter
+                                                     {
+                                                         Key = "CurrentFinantialYearStartDate",
                                                          Value = DateTime.Now.ToString(),
+                                                         IsActive = true
+                                                     },
+                                                 new Parameter
+                                                     {
+                                                         Key = "BankAccountNumber",
+                                                         Value = "",
+                                                         IsActive = true
+                                                     },
+                                                 new Parameter
+                                                     {
+                                                         Key = "BankName",
+                                                         Value = "",
                                                          IsActive = true
                                                      }
                                              };

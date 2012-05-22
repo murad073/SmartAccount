@@ -10,7 +10,7 @@ namespace BLL.ParameterManagement
 {
     public class ParameterManager : ManagerBase, IParameterManager
     {
-        private IRepository<Parameter> _parameterRepository;
+        private readonly IRepository<Parameter> _parameterRepository;
         public ParameterManager(IRepository<Parameter> parameterRepository)
         {
             _parameterRepository = parameterRepository;
@@ -36,11 +36,43 @@ namespace BLL.ParameterManagement
             return existingParameter == null ? "" : existingParameter.Value ?? "";
         }
 
-        public DateTime GetFinancialYearStartDate()
+        public DateTime GetCurrentFinantialYearStartDate()
         {
-            DateTime financialYearStartDate = DateTime.Parse(Get("FinancialYearStartDate"));
-            return new DateTime(DateTime.Now.Year, financialYearStartDate.Month, financialYearStartDate.Day);
+            DateTime currentFinantialYearStartDate;
+            if(DateTime.TryParse(Get("CurrentFinantialYearStartDate"),out currentFinantialYearStartDate ))
+            {
+                return currentFinantialYearStartDate
+            }
+            DateTime financialYearStartDate = DateTime.Parse();
+            //return new DateTime(DateTime.Now.Year, financialYearStartDate.Month, financialYearStartDate.Day);
+            return DateTime.Parse("")
         }
+
+        public string GetCurrentFinantialYear()
+        {
+            string currentFinantialYear = Get("CurrentFinantialYear");
+            if(string.IsNullOrWhiteSpace(currentFinantialYear))
+            {
+                currentFinantialYear = DateTime.Now.Year.ToString();
+                Parameter currentFinantialYearParameter = _parameterRepository.GetSingle(p => p.Key == "CurrentFinantialYear");
+                if (currentFinantialYearParameter == null)
+                {
+                    currentFinantialYearParameter = new Parameter
+                                                        {
+                                                            Key = "CurrentFinantialYear",
+                                                            Value = currentFinantialYear,
+                                                            IsActive = true
+                                                        };
+                    _parameterRepository.Insert(currentFinantialYearParameter);
+                }
+                else
+                {
+                    
+                }
+                //_parameterRepository.
+            }
+        }
+
 
         public void SetFinancialYearStartDate(DateTime date)
         {
