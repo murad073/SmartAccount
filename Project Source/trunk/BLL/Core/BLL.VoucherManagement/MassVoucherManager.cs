@@ -168,8 +168,19 @@ namespace BLL.VoucherManagement
                 double cashCredit = _massVoucher.ContraType.Equals("cash to bank", StringComparison.OrdinalIgnoreCase)
                                         ? _massVoucher.Amount
                                         : 0;
+
+                Head bankBook = _headRepository.GetSingle(h => h.Name.Equals( "Bank Book", StringComparison.OrdinalIgnoreCase));
+                Head cashBook = _headRepository.GetSingle(h => h.Name.Equals("Cash Book", StringComparison.OrdinalIgnoreCase));
+
+                ProjectHead bankBookProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == _massVoucher.Project.ID && ph.Head.ID == bankBook.ID);
+                ProjectHead cashBookProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == _massVoucher.Project.ID && ph.Head.ID == cashBook.ID);
+
                 TransactionInCash cashTransaction = GetTransactionInCash(cashDebit, cashCredit);
+                cashTransaction.ProjectHead = cashBookProjectHead;
+
                 TransactionInCheque chequeTransaction = GetTransactionInCheque(cashCredit, cashDebit);
+                chequeTransaction.ProjectHead = bankBookProjectHead;
+
                 //if (cashTransaction.IsValid() && chequeTransaction.IsValid())
                 //{
                 records.Add(cashTransaction);

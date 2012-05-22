@@ -15,42 +15,43 @@
         </Grid.RowDefinitions>
         <Menu IsEnabled="True" Height="23" HorizontalAlignment="Left" Name="menu1" VerticalAlignment="Top" Width="980">
             <MenuItem Header="File">
-                <MenuItem Header="Exit" Click="MenuItem_Click"   />
+                <MenuItem Header="Exit" Click="MenuItemClicked"   />
             </MenuItem>
             
             <MenuItem Header="Management">
                 <MenuItem Header="Voucher">
-                    <MenuItem Header="Post a Debit Voucher" Click="PostADebitVoucher_Click" />
-                    <MenuItem Header="Post a Credit Voucher" Click="PostACreditVoucher_Click" />
-                    <MenuItem Header="Post a Journal Voucher" Click="PostAJournalVoucher_Click" />
-                    <MenuItem Header="Post a Contra" Click="PostAContraVoucher_Click" />
+                    <MenuItem Header="Post a Debit Voucher" Click="PostADebitVoucherClicked" />
+                    <MenuItem Header="Post a Credit Voucher" Click="PostACreditVoucherClicked" />
+                    <MenuItem Header="Post a Journal Voucher" Click="PostAJournalVoucherClicked" />
+                    <MenuItem Header="Post a Contra" Click="PostAContraVoucherClicked" />
                 </MenuItem>
                 <MenuItem Header="Project">
-                    <MenuItem Header="Add a New Project" Click="AddANewProject_Click" />
-                    <MenuItem Header="View All Projects" Click="ViewAllProjects_Click" />
+                    <MenuItem Header="Add a New Project" Click="AddANewProjectClicked" />
+                    <MenuItem Header="View All Projects" Click="ViewAllProjectsClicked" />
                 </MenuItem>
                 <MenuItem Header="Head">
-                    <MenuItem Header="Create New Head" Click="AddANewHead_Click" />
-                    <MenuItem Header="View All Heads" Click="ViewAllHeads_Click" />
+                    <MenuItem Header="Create New Head" Click="AddANewHeadClicked" />
+                    <MenuItem Header="View All Heads" Click="ViewAllHeadsClicked" />
                 </MenuItem>
-
                 <MenuItem Header="Fixed Asset">
-                    <MenuItem Header="Fixed Asset Management" Click="FixedAssetManagement_Click" />
+                    <MenuItem Header="Fixed Asset Management" Click="FixedAssetManagementClicked" />
                 </MenuItem>
-
+                <MenuItem Header="Budget">
+                    <MenuItem Header="Setup Budget" Name="BudgetSetup" Click="SetupBudgetClicked" />
+                </MenuItem>
             </MenuItem>
             
             <MenuItem Header="Reports" >
                 <MenuItem Header="Fixed Asset Schedule" Name="FixedAssetScheduleMenuItem" Click="FixedAssetScheduleMenuItemClick" />
             </MenuItem>
+
             <MenuItem Header="Operations" >
-                <MenuItem Header="Setup Budget" Name="BudgetSetup" Click="SetupBudgetClick" />
                 <MenuItem Header="Start New Accounting Year" Name="StartNewAccountingYear" Click="StartNewAccountingYearClick" />
                 <MenuItem Header="Close Current Accounting Year" Name="CloseCurrentAccountingYear" Click="CloseCurrentAccountingYearClick" />
             </MenuItem>
 
             <MenuItem Header="Settings" >
-                <MenuItem Header="Configuration" Click="ConfigurationSetting_Click" />
+                <MenuItem Header="Configuration" Click="ConfigurationSettingClicked" />
             </MenuItem>
             <MenuItem Header="Help" >
                 <MenuItem Header="Help Document" ></MenuItem>
