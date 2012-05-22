@@ -26,7 +26,7 @@
             AlternatingRowBackground="Azure"
             AlternationCount="2" 
             Height="247" HorizontalAlignment="Left" Margin="101,111,0,0" Name="dataGridBudget" VerticalAlignment="Top" Width="456" 
-            ItemsSource="{Binding Path=BudgetDataGrid, Mode=TwoWay}">
+            ItemsSource="{Binding Path=BudgetDataGrid}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadName}"></DataGridTextColumn>
