@@ -41,11 +41,11 @@ namespace BLL.ParameterManagement
             DateTime currentFinantialYearStartDate;
             if(DateTime.TryParse(Get("CurrentFinantialYearStartDate"),out currentFinantialYearStartDate ))
             {
-                return currentFinantialYearStartDate
+                //return currentFinantialYearStartDate
             }
-            DateTime financialYearStartDate = DateTime.Parse();
-            //return new DateTime(DateTime.Now.Year, financialYearStartDate.Month, financialYearStartDate.Day);
-            return DateTime.Parse("")
+            //DateTime financialYearStartDate = DateTime.Parse();
+            return new DateTime(DateTime.Now.Year, currentFinantialYearStartDate.Month, currentFinantialYearStartDate.Day);
+            //return DateTime.Parse("")
         }
 
         public string GetCurrentFinantialYear()
@@ -71,6 +71,7 @@ namespace BLL.ParameterManagement
                 }
                 //_parameterRepository.
             }
+            return "";
         }
 
 

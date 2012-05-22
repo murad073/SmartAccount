@@ -15,13 +15,15 @@ namespace BLL.LedgerManagement.Test
     [TestClass]
     public class LedgerManagerTest
     {
-        private const string ConnectionString = @"SmartAccountEntities.sdf";
+        private const string ConnectionString = @"Data Source=SmartAccountEntities.sdf";
 
         private readonly LedgerManager _ledgerManager;
         private IRepository<Project> _projectRepository;
 
         public LedgerManagerTest()
         {
+            //DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0")
+
             DbConnection con = new SqlCeConnection(ConnectionString);
 
             _projectRepository = new Repository<Project>(con);
