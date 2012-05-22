@@ -246,7 +246,18 @@ namespace GKS.Model.ViewModels
         {
             bool isBankTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Bank");
             bool isCashTag = !string.IsNullOrWhiteSpace(l.Tag) && l.Tag.Contains("Cash");
-            bool isBankBookEntry = isBankTag && l.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase);
+
+            string chequeNo = "";
+            if (isBankTag && l.LedgerType.Equals("LedgerBook", StringComparison.OrdinalIgnoreCase))
+            {
+                // TODO: This is a temporary and really lame solution to find the bank record's fields.
+                Record bankRecord = _ledgerManager.GetNextRecord(l.ID);
+                chequeNo = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeNo).SingleOrDefault();
+            }
+            else if (isBankTag && l.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase))
+            {
+                chequeNo = l.BankBooks.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault();
+            }
 
             return new LedgerItem
                        {
@@ -255,9 +266,9 @@ namespace GKS.Model.ViewModels
                            Debit = l.Debit,
                            Credit = l.Credit,
                            Balance = (balance += (l.Debit - l.Credit)),
-                           Particular = isCashTag ? "Cash" : "Bank",//"",//tr.BankBooks.Last().ChequeNo,
+                           Particular = isCashTag ? "Cash" : "Bank",
                            Remarks = l.Narration,
-                           ChequeNo = isBankBookEntry ? l.BankBooks.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault() : "", // TODO: This doesn't work.
+                           ChequeNo = chequeNo,
                        };
         }
     }

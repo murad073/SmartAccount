@@ -31,6 +31,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherItem = value;
+                TakaInWords = Utilities.NumberToTextInLacCrore(((int)_voucherItem.Amount).ToString()) + "Only";
                 NotifyPropertyChanged("VoucherItem");
             }
         }
@@ -151,13 +152,15 @@ namespace GKS.Model.ViewModels
 
         public void SetRecordItems()
         {
+            double balance = 0;
             RecordItems = _voucherManager.GetVouchers(VoucherItem.VoucherNo).Select(r =>
                     new ViewableGridRow
                         {
                             Date = r.Date,
                             Debit = r.Debit,
                             Credit = r.Credit,
-                            Head = r.ProjectHead.Head.Name,
+                            Balance = (balance += (r.Debit - r.Credit)),
+                            Head = r.HeadName(),
                             VoucherNo = r.VoucherType + "-" + r.VoucherSerialNo
                         }).ToList();
         }

@@ -11,6 +11,7 @@ namespace BLL.Model.Managers
         DateTime VoucherStartDate { get; set; }
         DateTime VoucherEndDate { get; set; }
         bool Validate(Project project, DateTime startDate, DateTime endDate);
+        Record GetNextRecord(int id);
         IList<Record> GetVouchers(Project project, string voucherType);
         IList<Record> GetVouchers(string voucherNo);
     }

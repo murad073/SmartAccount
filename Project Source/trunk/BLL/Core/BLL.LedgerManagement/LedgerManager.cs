@@ -61,12 +61,21 @@ namespace BLL.LedgerManagement
             return records;
         }
 
+        public Record GetNextRecord(int id)
+        {
+            return _recordRepository.Get(r => r.ID == id+1).SingleOrDefault();
+        }
+
         public IList<Record> GetAllAdvance(Project project)
         {
             //return _ledgerRepository.GetLedger(projectId);
             //int[] projectHeadIds = db.ProjectHeads.Where(ph => ph.ProjectID == projectId).Select(ph => ph.ID).ToArray();
             //double balance = 0;
-            return project.ProjectHeads.SelectMany(ph => ph.Records).Where(
+            IList<Record> records = project.ProjectHeads.SelectMany(ph => ph.Records).ToList();
+            if (records.Count == 0)
+                return null;
+
+            return records.Where(
                     r => r.Tag.Contains("Advance")  && r.LedgerType == "LedgerBook").ToList();
             //TODO: add date filter
         }

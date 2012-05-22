@@ -11,6 +11,7 @@ namespace BLL.Model.Managers
         //IList<Ledger> GetLedgerBook(int projectId, int headId, bool isCashBankShown = false);
         //IList<Ledger> GetAllAdvance(int projectId);
         IList<Record> GetLedgerBook(Project project, Head head, bool isCashBankShown = false);
+        Record GetNextRecord(int id);
         IList<Record> GetAllAdvance(Project project);
         //DateTime GetDateAt12Am(DateTime date);
     }
