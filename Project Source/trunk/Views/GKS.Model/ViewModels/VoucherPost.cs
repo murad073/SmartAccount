@@ -663,7 +663,7 @@ namespace GKS.Model.ViewModels
             else
             {
                 AllHeads = null;
-                SelectedHead = null;
+                
             }
         }
 
@@ -780,6 +780,7 @@ namespace GKS.Model.ViewModels
             AllProjects = _projectManager.GetProjects(false);
             
             if (removeProjectAndMessage) SelectedProject = null;
+            SelectedHead = null;
 
             ClearTemporaryRecords();
 
