@@ -34,41 +34,9 @@ namespace GKS.Model.ViewModels
                 TakaInWords = Utilities.NumberToTextInLacCrore(((int)_voucherItem.Amount).ToString()) + "Only";
                 NotifyPropertyChanged("VoucherItem");
             }
-        }
+        }     
 
-        //private string _projectName;
-        //public string ProjectName
-        //{
-        //    get { return _projectName; }
-        //    set
-        //    {
-        //        _projectName = value;
-        //        NotifyPropertyChanged("ProjectName");
-        //    }
-        //}
-
-        //private string _voucherNo;
-        //public string VoucherNo
-        //{
-        //    get { return _voucherNo; }
-        //    set
-        //    {
-        //        _voucherNo = value;
-        //        NotifyPropertyChanged("VoucherNo");
-        //    }
-        //}
-
-        //private DateTime _voucherDate;
-        //public DateTime VoucherDate
-        //{
-        //    get { return _voucherDate; }
-        //    set
-        //    {
-        //        _voucherDate = value;
-        //        NotifyPropertyChanged("VoucherDate");
-        //    }
-        //}
-
+        // TODO: Think through the amount and narration for multiple entry-DV/CV.
         //private double _amount;
         //public double Amount
         //{
@@ -84,38 +52,6 @@ namespace GKS.Model.ViewModels
         //    }
         //}
 
-        //private string _chequeNo;
-        //public string ChequeNo
-        //{
-        //    get { return _chequeNo; }
-        //    set
-        //    {
-        //        _chequeNo = value;
-        //        NotifyPropertyChanged("ChequeNo");
-        //    }
-        //}
-
-        //private DateTime _chequeDate;
-        //public DateTime ChequeDate
-        //{
-        //    get { return _chequeDate; }
-        //    set
-        //    {
-        //        _chequeDate = value;
-        //        NotifyPropertyChanged("ChequeDate");
-        //    }
-        //}
-
-        //private string _bankName;
-        //public string BankName
-        //{
-        //    get { return _bankName; }
-        //    set
-        //    {
-        //        _bankName = value;
-        //        NotifyPropertyChanged("BankName");
-        //    }
-        //}
 
         //private string _voucherNarration;
         //public string VoucherNarration
@@ -165,37 +101,6 @@ namespace GKS.Model.ViewModels
                         }).ToList();
         }
 
-        // TODO (MURAD):
-        //private IList<Record> _recordItems;
-        //private IList<Record> RecordItems
-        //{
-        //    get
-        //    {
-        //        return _recordItems;
-        //    }
-        //    set
-        //    {
-        //        string[] voucherNo = VoucherNo.Split('-');
-        //        _recordItems = _recordRepository.Get(r => r.VoucherType == voucherNo[0] && r.VoucherSerialNo.ToString() == voucherNo[1]).ToList();
-        //    }
-        //}
-
-        //public IList<ViewableItem> VoucherGridItems
-        //{
-        //    get
-        //    {
-        //        if (RecordItems == null || RecordItems.Count == 0) return null;
-        //        double balance = 0;
-        //        return RecordItems.Select(v => new ViewableItem
-        //        {
-        //            Balance = (balance += (v.Debit - v.Credit)),
-        //            Debit = v.Debit,
-        //            Credit = v.Credit,
-        //            HeadName = v.HeadName(),
-        //        }).ToList();
-        //    }
-        //}
-
         #region Relay Commands
         private RelayCommand _oKButtonClicked;
         public ICommand OKButtonClicked
@@ -211,7 +116,7 @@ namespace GKS.Model.ViewModels
             PrintDialog print = new PrintDialog();
             if (print.ShowDialog() == true)
             {
-                // Uncomment the following to scale the printed portion to the print page.
+                // TODO: Uncomment the following to scale the printed portion to the print page. But test with a real printer.
 
                 //PrintCapabilities capabilities = print.PrintQueue.GetPrintCapabilities(print.PrintTicket);
                 //double scale = Math.Min(capabilities.PageImageableArea.ExtentWidth / grid.ActualWidth,
@@ -248,14 +153,6 @@ namespace GKS.Model.ViewModels
         }
         #endregion
     }
-
-    //public class ViewableItem
-    //{
-    //    string HeadName { get; set; }
-    //    double Debit { get; set; }
-    //    double Credit { get; set; }
-    //    double Balance { get; set; }
-    //}
 
     public class SimpleCommand<T> : ICommand
     {
