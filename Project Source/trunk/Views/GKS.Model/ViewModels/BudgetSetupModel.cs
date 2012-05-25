@@ -115,16 +115,16 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private RelayCommand _budgetViewButtonClicked;
-        public ICommand BudgetViewButtonClicked
-        {
-            get { return _budgetViewButtonClicked ?? (_budgetViewButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
-        }
-
         private RelayCommand _saveButtonClicked;
         public ICommand SaveButtonClicked
         {
             get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+        }
+
+        private RelayCommand _oKButtonClicked;
+        public ICommand OKButtonClicked
+        {
+            get { return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
     }
 

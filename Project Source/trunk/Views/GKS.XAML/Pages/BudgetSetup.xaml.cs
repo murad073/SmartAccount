@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GKS.Model.ViewModels;
+using GKS.Model;
 
 namespace GKS.XAML.Pages
 {
@@ -23,6 +24,18 @@ namespace GKS.XAML.Pages
         {
             InitializeComponent();
             DataContext = new BudgetSetupModel();
+        }
+
+        private void HandleEsc(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
+        }
+
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridBudget.Items.Count > 0)
+                dataGridBudget.ExportToExcel();
         }
     }
 }
