@@ -1,8 +1,26 @@
 ﻿<Window x:Class="GKS.XAML.Pages.StartNewAccountingYear"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartNewAccountingYear" Height="610" Width="850" >
+        Title="StartNewAccountingYear" Height="550" Width="693" 
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
+        <Label Content="Last Accounting Year:" Height="25" HorizontalAlignment="Left" Margin="62,28,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLasAccountingYear" VerticalAlignment="Top" Width="120" />
+        
+        <Label Content="New Accounting Year:" Height="23" HorizontalAlignment="Left" Margin="374,28,0,0" Name="label2" VerticalAlignment="Top" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewAccountingYear" VerticalAlignment="Top" Width="120" />
+        
+        <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="90,107,0,0" Name="label3" VerticalAlignment="Top" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="135,107,0,0" Name="comboBoxAllProjects" VerticalAlignment="Top" Width="450" />
+        
+        <DataGrid AutoGenerateColumns="False" Height="285" HorizontalAlignment="Left" Margin="96,141,0,0" Name="dataGridClosingBalances" VerticalAlignment="Top" Width="491" />
+
+        <GroupBox Header="Closing balances" Height="370" HorizontalAlignment="Left" Margin="69,75,0,0" Name="groupBox1" VerticalAlignment="Top" Width="542">
+            <Grid />
+        </GroupBox>
+        
+        <Button Content="Import to Current Year" Height="23" HorizontalAlignment="Left" Margin="462,468,0,0" Name="button1" VerticalAlignment="Top" Width="123" />
+        <Button Content="View/Edit Opening Balances" Height="23" HorizontalAlignment="Left" Margin="94,468,0,0" Name="buttonEditOpeningBalances" VerticalAlignment="Top" Width="149" Click="buttonEditOpeningBalances_Click" />
         
     </Grid>
 </Window>

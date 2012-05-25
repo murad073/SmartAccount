@@ -61,6 +61,7 @@
     <Compile Include="OperationType.cs" />
     <Compile Include="ViewableGridRow.cs" />
     <Compile Include="ViewModels\OpeningBalanceSetupModel.cs" />
+    <Compile Include="ViewModels\StartNewAccountingYearModel.cs" />
     <Compile Include="ViewModels\VoucherDetailsModel.cs" />
     <Compile Include="VoucherItem.cs" />
     <Compile Include="ViewModels\VoucherPost.cs" />
