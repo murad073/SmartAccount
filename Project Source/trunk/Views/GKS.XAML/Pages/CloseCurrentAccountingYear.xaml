@@ -5,15 +5,32 @@
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Label Content="Current acoouting year:" Height="28" HorizontalAlignment="Left" Margin="64,50,0,0" Name="labelYear" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="187,52,0,0" Name="textBoxCurrentYear" VerticalAlignment="Top" Width="120" 
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="187,52,0,0" Name="textBoxCurrentYear" VerticalAlignment="Top" Width="120" IsReadOnly="True"
                  Text="{Binding Path=CurrentAccountingYear, Mode=OneWay}" />
         
         <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="64,84,0,0" Name="labelProjects" VerticalAlignment="Top" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="109,84,0,0" Name="comboBox1" VerticalAlignment="Top" Width="475" 
-                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" />
-        
-        <DataGrid AutoGenerateColumns="False" Height="303" HorizontalAlignment="Left" Margin="109,127,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="475" />
-        
+                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" DisplayMemberPath="Name"/>
+
+        <DataGrid 
+            GridLinesVisibility="None"                  
+            IsTextSearchEnabled="True" 
+            AutoGenerateColumns="False"                                                  
+            IsSynchronizedWithCurrentItem="True" 
+            Background="Transparent"
+            RowHeaderWidth="25"
+            RowBackground="White"
+            AlternatingRowBackground="Azure"
+            AlternationCount="2"
+            Height="303" HorizontalAlignment="Left" Margin="109,127,0,0" Name="dataGridCurrentYearBalances" VerticalAlignment="Top" Width="475" 
+            ItemsSource="{Binding Path=CurrentYearBalancesDataGrid}">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button Content="Close Accounting Year" Height="23" HorizontalAlignment="Left" Margin="109,444,0,0" Name="button1" VerticalAlignment="Top" Width="128" 
                 Command="{Binding Path=CloseAccountingYearClicked}" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="509,444,0,0" Name="button2" VerticalAlignment="Top" Width="75" 

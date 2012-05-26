@@ -107,6 +107,28 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyPropertyChanged("ErrorMessage");
+            }
+        }
+
+        private string _colorCode;
+        public string ColorCode
+        {
+            get { return _colorCode; }
+            private set
+            {
+                _colorCode = value;
+                NotifyPropertyChanged("ColorCode");
+            }
+        }
+
         private RelayCommand _editOpeningBalanceClicked;
         public ICommand EditOpeningBalanceClicked
         {
