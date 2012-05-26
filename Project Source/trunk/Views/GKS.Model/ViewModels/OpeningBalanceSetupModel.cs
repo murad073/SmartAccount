@@ -21,6 +21,8 @@ namespace GKS.Model.ViewModels
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
                 _openingBalanceDataGrid = new List<OpeningBalanceGridRow>();
+
+                AllProjects = _projectManager.GetProjects(false);
             }
             catch
             { }
