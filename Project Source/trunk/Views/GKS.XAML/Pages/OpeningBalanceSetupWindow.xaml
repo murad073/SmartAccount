@@ -7,11 +7,11 @@
     <Grid>
         <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="55,42,0,0" Name="labelProject" VerticalAlignment="Top" />
         <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,45,0,0" Name="comboBoxProjects" VerticalAlignment="Top" Width="501" 
-                  ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}"/>
+                  ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" DisplayMemberPath="Name"/>
 
         <Label Content="Head:" Height="28" HorizontalAlignment="Left" Margin="62,71,0,0" Name="labelHead" VerticalAlignment="Top" />
         <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,72,0,0" Name="comboBoxHeads" VerticalAlignment="Top" Width="501" 
-                  ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}"/>
+                  ItemsSource="{Binding Path=AllHeads, Mode=OneWay}" SelectedItem="{Binding Path=SelectedHead, Mode=TwoWay}" DisplayMemberPath="Name" />
 
         <Label Content="Year:" Height="26" HorizontalAlignment="Left" Margin="64,97,0,0" Name="label2" VerticalAlignment="Top" />
         <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,100,0,0" Name="comboBox2" VerticalAlignment="Top" Width="111" 
