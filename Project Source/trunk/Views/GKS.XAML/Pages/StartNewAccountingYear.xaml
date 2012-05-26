@@ -36,7 +36,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <GroupBox Header="Closing balances" Height="370" HorizontalAlignment="Left" Margin="69,75,0,0" Name="groupBox1" VerticalAlignment="Top" Width="542">
+        <GroupBox Header="Closing balances from last year" Height="370" HorizontalAlignment="Left" Margin="69,75,0,0" Name="groupBox1" VerticalAlignment="Top" Width="542">
             <Grid />
         </GroupBox>
         
@@ -44,6 +44,7 @@
                 Command="{Binding Path=ImportToCurrrentYearClicked}"/>
         <Button Content="View/Edit Opening Balances" Height="23" HorizontalAlignment="Left" Margin="94,468,0,0" Name="buttonEditOpeningBalances" VerticalAlignment="Top" Width="149" Click="buttonEditOpeningBalances_Click" 
                 Command="{Binding Path=EditOpeningBalanceClicked}"/>
-        
+        <TextBlock Height="33" HorizontalAlignment="Left" Margin="250,468,0,0" Name="textBlockMessage" VerticalAlignment="Top" Width="206" FontSize="11" TextWrapping="Wrap" 
+                   Text="{Binding Path=ErrorMessage, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}" />
     </Grid>
 </Window>
