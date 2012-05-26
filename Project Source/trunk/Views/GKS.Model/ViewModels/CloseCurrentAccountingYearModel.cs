@@ -5,6 +5,7 @@ using System.Text;
 using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Factories;
+using System.Windows.Input;
 
 namespace GKS.Model.ViewModels
 {
@@ -93,6 +94,18 @@ namespace GKS.Model.ViewModels
                 _colorCode = value;
                 NotifyPropertyChanged("ColorCode");
             }
+        }
+
+        private RelayCommand _closeAccountingYearClicked;
+        public ICommand CloseAccountingYearClicked
+        {
+            get { return _closeAccountingYearClicked ?? (_closeAccountingYearClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+        }
+
+        private RelayCommand _oKClicked;
+        public ICommand OKClicked
+        {
+            get { return _oKClicked ?? (_oKClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
     }
 
