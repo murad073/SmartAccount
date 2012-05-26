@@ -5,13 +5,14 @@
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Label Content="Last Accounting Year:" Height="25" HorizontalAlignment="Left" Margin="62,28,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLasAccountingYear" VerticalAlignment="Top" Width="120" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLasAccountingYear" VerticalAlignment="Top" Width="120" />
         
         <Label Content="New Accounting Year:" Height="23" HorizontalAlignment="Left" Margin="374,28,0,0" Name="label2" VerticalAlignment="Top" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewAccountingYear" VerticalAlignment="Top" Width="120" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewAccountingYear" VerticalAlignment="Top" Width="120" />
         
-        <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="90,107,0,0" Name="label3" VerticalAlignment="Top" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="135,107,0,0" Name="comboBoxAllProjects" VerticalAlignment="Top" Width="450" />
+        <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="90,105,0,0" Name="label3" VerticalAlignment="Top" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="135,107,0,0" Name="comboBoxAllProjects" VerticalAlignment="Top" Width="450" 
+                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" DisplayMemberPath="Name" />
         
         <DataGrid AutoGenerateColumns="False" Height="285" HorizontalAlignment="Left" Margin="96,141,0,0" Name="dataGridClosingBalances" VerticalAlignment="Top" Width="491" />
 

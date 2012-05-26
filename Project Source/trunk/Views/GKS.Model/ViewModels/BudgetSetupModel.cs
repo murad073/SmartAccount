@@ -12,13 +12,17 @@ namespace GKS.Model.ViewModels
     public class BudgetSetupModel : ViewModelBase
     {
         private readonly IProjectManager _projectManager;
+        private readonly IHeadManager _headManager;
 
         public BudgetSetupModel()
         {
             try
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
                 _budgetDataGrid = new List<BudgetGridRow>();
+
+                AllProjects = _projectManager.GetProjects();
             }
             catch
             { }
@@ -49,6 +53,31 @@ namespace GKS.Model.ViewModels
             {
                 _selectedProject = value;
                 NotifyPropertyChanged("SelectedProject");
+                NotifyPropertyChanged("AllHeads");
+                SelectedHead = null;
+            }
+        }
+
+        public IList<Head> AllHeads
+        {
+            get
+            {
+                if (SelectedProject == null) return new List<Head>();
+                return _headManager.GetHeads(SelectedProject);
+            }
+        }
+
+        private Head _selectedHead;
+        public Head SelectedHead
+        {
+            get
+            {
+                return _selectedHead;
+            }
+            set
+            {
+                _selectedHead = value;
+                NotifyPropertyChanged("SelectedHead");
             }
         }
 
