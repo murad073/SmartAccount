@@ -35,8 +35,7 @@ namespace GKS.Model.ViewModels
                 NotifyPropertyChanged("VoucherItem");
             }
         }     
-
-        // TODO: Think through the amount and narration for multiple entry-DV/CV.
+        
         private double _amount;
         public double Amount
         {
@@ -53,6 +52,7 @@ namespace GKS.Model.ViewModels
         }
 
 
+        // TODO: Think through the narration for multiple entry-DV/CV.
         //private string _voucherNarration;
         //public string VoucherNarration
         //{
