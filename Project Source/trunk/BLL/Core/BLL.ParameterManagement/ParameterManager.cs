@@ -36,36 +36,36 @@ namespace BLL.ParameterManagement
             return existingParameter == null ? "" : existingParameter.Value ?? "";
         }
 
-        public DateTime GetCurrentFinantialYearStartDate()
+        public DateTime GetCurrentFinancialYearStartDate()
         {
-            DateTime currentFinantialYearStartDate;
-            if (DateTime.TryParse(Get("CurrentFinantialYearStartDate"), out currentFinantialYearStartDate))
+            DateTime currentFinancialYearStartDate;
+            if (DateTime.TryParse(Get("CurrentFinancialYearStartDate"), out currentFinancialYearStartDate))
             {
-                //return currentFinantialYearStartDate
+                //return currentFinancialYearStartDate
             }
             //DateTime financialYearStartDate = DateTime.Parse();
-            return new DateTime(DateTime.Now.Year, currentFinantialYearStartDate.Month, currentFinantialYearStartDate.Day);
+            return new DateTime(DateTime.Now.Year, currentFinancialYearStartDate.Month, currentFinancialYearStartDate.Day);
             //return DateTime.Parse("")
         }
 
-        public string GetCurrentFinantialYear()
+        public string GetCurrentFinancialYear()
         {
-            string currentFinantialYear = Get("CurrentFinantialYear");
-            return currentFinantialYear;
+            string currentFinancialYear = Get("CurrentFinancialYear");
+            return currentFinancialYear;
         }
 
-        public void SetCurrentFinancialYear(string currentFinantialYear)
+        public void SetCurrentFinancialYear(string currentFinancialYear)
         {
-            if (string.IsNullOrWhiteSpace(currentFinantialYear) || currentFinantialYear.Length != 4)
-                currentFinantialYear = "1900";
+            if (string.IsNullOrWhiteSpace(currentFinancialYear) || currentFinancialYear.Length != 4)
+                currentFinancialYear = "1900";
 
             int year;
-            if (!int.TryParse(currentFinantialYear, out year)) currentFinantialYear = "1900";
-            else year = int.Parse(currentFinantialYear);
+            if (!int.TryParse(currentFinancialYear, out year)) currentFinancialYear = "1900";
+            else year = int.Parse(currentFinancialYear);
 
-            if (!(year >= 1900 && year <= 3000)) currentFinantialYear = "1900";
+            if (!(year >= 1900 && year <= 3000)) currentFinancialYear = "1900";
 
-            Set("CurrentFinantialYear", currentFinantialYear);
+            Set("CurrentFinancialYear", currentFinancialYear);
         }
     }
 }
