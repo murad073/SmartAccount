@@ -11,24 +11,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GKS.Model.ViewModels;
+using GKS.Model;
 
 namespace GKS.XAML.Pages
 {
     /// <summary>
-    /// Interaction logic for CloseCurrentAccountingYear.xaml
+    /// Interaction logic for OpeningBalanceSetupWindow.xaml
     /// </summary>
-    public partial class CloseCurrentAccountingYear : Window
+    public partial class OpeningBalanceSetupWindow : Window
     {
-        public CloseCurrentAccountingYear()
+        public OpeningBalanceSetupWindow()
         {
             InitializeComponent();
-            DataContext = new CloseCurrentAccountingYearModel();
+            DataContext = new OpeningBalanceSetupModel();
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 Close();
+        }
+
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridOpeningBalance.Items.Count > 0)
+                dataGridOpeningBalance.ExportToExcel();
         }
     }
 }

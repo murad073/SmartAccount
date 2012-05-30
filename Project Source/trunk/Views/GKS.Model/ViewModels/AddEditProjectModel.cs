@@ -93,7 +93,7 @@ namespace GKS.Model.ViewModels
         private RelayCommand _cancelButtonClicked;
         public ICommand CancelButtonClicked
         {
-            get { return _cancelButtonClicked ?? (_cancelButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish() )); }
+            get { return _cancelButtonClicked ?? (_cancelButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
         private void SaveProject()

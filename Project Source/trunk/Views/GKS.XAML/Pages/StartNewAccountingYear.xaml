@@ -1,8 +1,50 @@
 ﻿<Window x:Class="GKS.XAML.Pages.StartNewAccountingYear"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartNewAccountingYear" Height="610" Width="850" >
+        Title="StartNewAccountingYear" Height="550" Width="693" 
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
+        <Label Content="Last Accounting Year:" Height="25" HorizontalAlignment="Left" Margin="62,28,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLastAccountingYear" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding Path=LastAccountingYear, Mode=OneWay}" IsReadOnly="True" />
         
+        <Label Content="New Accounting Year:" Height="23" HorizontalAlignment="Left" Margin="374,28,0,0" Name="label2" VerticalAlignment="Top" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewAccountingYear" VerticalAlignment="Top" Width="120" 
+                  ItemsSource="{Binding Path=NewAccountingYear, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedNewAccountingYear, Mode=TwoWay}" />
+        
+        <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="90,105,0,0" Name="label3" VerticalAlignment="Top" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="135,107,0,0" Name="comboBoxAllProjects" VerticalAlignment="Top" Width="450" 
+                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" DisplayMemberPath="Name" />
+
+        <DataGrid  
+            Name="dataGridClosingBalances"
+            GridLinesVisibility="None"                  
+            IsTextSearchEnabled="True" 
+            AutoGenerateColumns="False"                                                  
+            IsSynchronizedWithCurrentItem="True" 
+            Background="Transparent"
+            RowHeaderWidth="25"
+            RowBackground="White"
+            AlternatingRowBackground="Azure"
+            AlternationCount="2" 
+            Height="285" HorizontalAlignment="Left" Margin="96,141,0,0" VerticalAlignment="Top" Width="491" 
+            ItemsSource="{Binding Path=LastAccountingYearDatagrid}">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <GroupBox Header="Closing balances from last year" Height="370" HorizontalAlignment="Left" Margin="69,75,0,0" Name="groupBox1" VerticalAlignment="Top" Width="542">
+            <Grid />
+        </GroupBox>
+        
+        <Button Content="Import to Current Year" Height="23" HorizontalAlignment="Left" Margin="462,468,0,0" Name="buttonImportToCurrentYear" VerticalAlignment="Top" Width="123" 
+                Command="{Binding Path=ImportToCurrrentYearClicked}"/>
+        <Button Content="View/Edit Opening Balances" Height="23" HorizontalAlignment="Left" Margin="94,468,0,0" Name="buttonEditOpeningBalances" VerticalAlignment="Top" Width="149" Click="buttonEditOpeningBalances_Click" 
+                Command="{Binding Path=EditOpeningBalanceClicked}"/>
+        <TextBlock Height="33" HorizontalAlignment="Left" Margin="250,468,0,0" Name="textBlockMessage" VerticalAlignment="Top" Width="206" FontSize="11" TextWrapping="Wrap" 
+                   Text="{Binding Path=ErrorMessage, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}" />
     </Grid>
 </Window>

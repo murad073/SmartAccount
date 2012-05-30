@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GKS.Model.ViewModels;
 
 namespace GKS.XAML.Pages
 {
@@ -18,9 +19,18 @@ namespace GKS.XAML.Pages
     /// </summary>
     public partial class StartNewAccountingYear : Window
     {
+        StartNewAccountingYearModel _vm;
         public StartNewAccountingYear()
         {
             InitializeComponent();
+            _vm = new StartNewAccountingYearModel();
+            DataContext = _vm;
+        }
+
+        private void buttonEditOpeningBalances_Click(object sender, RoutedEventArgs e)
+        {
+            OpeningBalanceSetupWindow projectWindow = new OpeningBalanceSetupWindow() { Owner = Window.GetWindow(this) };
+            projectWindow.ShowDialog();
         }
     }
 }

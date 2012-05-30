@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BLL.Model.Entity;
 using System.Windows.Input;
+using BLL.Model.Entity;
 using BLL.Model.Managers;
 using BLL.Factories;
 
 namespace GKS.Model.ViewModels
 {
-    public class BudgetSetupModel : ViewModelBase
+    public class OpeningBalanceSetupModel : ViewModelBase
     {
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
 
-        public BudgetSetupModel()
+        public OpeningBalanceSetupModel()
         {
             try
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
-                _budgetDataGrid = new List<BudgetGridRow>();
+                _openingBalanceDataGrid = new List<OpeningBalanceGridRow>();
 
-                AllProjects = _projectManager.GetProjects();
+                AllProjects = _projectManager.GetProjects(false);
             }
             catch
             { }
@@ -81,44 +81,44 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string[] _budgetYear;
-        public string[] BudgetYear
+        private string[] _openingBalanceYear;
+        public string[] OpeningBalanceYear
         {
             get
             {
-                return _budgetYear;
+                return _openingBalanceYear;
             }
             set
             {
-                _budgetYear = value;
-                NotifyPropertyChanged("BudgetYear");
+                _openingBalanceYear = value;
+                NotifyPropertyChanged("OpeningBalanceYear");
             }
         }
 
-        private string _selectedBudgetYear;
-        public string SelectedBudgetYear
+        private string _selectedOpeningBalanceYear;
+        public string SelectedOpeningBalanceYear
         {
             get
             {
-                return _selectedBudgetYear;
+                return _selectedOpeningBalanceYear;
             }
             set
             {
-                _selectedBudgetYear = value;
-                NotifyPropertyChanged("SelectedBudgetYear");
+                _selectedOpeningBalanceYear = value;
+                NotifyPropertyChanged("SelectedOpeningBalanceYear");
             }
         }
 
-        private IList<BudgetGridRow> _budgetDataGrid;
-        public IList<BudgetGridRow> BudgetDataGrid
+        private IList<OpeningBalanceGridRow> _openingBalanceDataGrid;
+        public IList<OpeningBalanceGridRow> OpeningBalanceDataGrid
         {
             get
             {
                 // Temporary code.
-                BudgetGridRow gridRow = new BudgetGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
-                _budgetDataGrid.Add(gridRow);
+                OpeningBalanceGridRow gridRow = new OpeningBalanceGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
+                _openingBalanceDataGrid.Add(gridRow);
 
-                return _budgetDataGrid;
+                return _openingBalanceDataGrid;
             }
         }
 
@@ -157,7 +157,7 @@ namespace GKS.Model.ViewModels
         }
     }
 
-    public class BudgetGridRow
+    public class OpeningBalanceGridRow
     {
         public string HeadName { get; set; }
         public double CurrentYear { get; set; }
