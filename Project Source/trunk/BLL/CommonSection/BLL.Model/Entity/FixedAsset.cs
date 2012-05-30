@@ -10,6 +10,7 @@ namespace BLL.Model.Entity
         public int DepreciatedValue { get; set; }
         public string DepreciationType { get; set; }
         public bool ByForceDisposed { get; set; }
+        public bool LifeTimeFinished { get; set; }
 
         public virtual Record Record { get; set; }
     }
