@@ -23,7 +23,7 @@
                  Text="{Binding Path=VoucherItem.Date, StringFormat=dd-MM-yyyy, Mode =OneWay}" IsReadOnly="True"/>
             <Label Content="Amount:" Height="28" HorizontalAlignment="Left" Margin="411,114,0,0" Name="label9" VerticalAlignment="Top" />
             <TextBox Height="21" HorizontalAlignment="Left" Margin="461,115,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="82" 
-                 Text="{Binding Path=VoucherItem.Amount, Mode=OneWay}" IsReadOnly="True"/>
+                 Text="{Binding Path=Amount, Mode=OneWay}" IsReadOnly="True"/>
 
             <Label Content="Cheque no:" Height="24" HorizontalAlignment="Left" Margin="55,54,0,0" Name="label4" VerticalAlignment="Top" />
             <TextBox Height="21" HorizontalAlignment="Left" Margin="119,57,0,0" Name="textBox1" VerticalAlignment="Top" Width="140" 
