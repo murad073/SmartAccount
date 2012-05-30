@@ -180,9 +180,8 @@ namespace GKS.Model.ViewModels
                     if (TemporaryRecords != null && TemporaryRecords.Count != 0)
                     {
                         // We want the latest narration for all the records of a JV.
-                        string narration = TemporaryRecords.Last().Narration;
                         for (int count = 0; count < TemporaryRecords.Count; count++)
-                            TemporaryRecords[count].Narration = narration;
+                            TemporaryRecords[count].Narration = Narration;
                     }
                     SetJVBalanceZeroMessage();
                 }
