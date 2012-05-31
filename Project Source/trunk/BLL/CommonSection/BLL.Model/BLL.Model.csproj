@@ -93,12 +93,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HelperService\BLL.Utils\BLL.Utils.csproj">
-      <Project>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</Project>
+    <ProjectReference Include="..\BLL.Utils\BLL.Utils.csproj">
+      <Project>{98BC9425-6C45-4F12-B211-815EF4C4FD17}</Project>
       <Name>BLL.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</ProjectGuid>
+    <ProjectGuid>{98BC9425-6C45-4F12-B211-815EF4C4FD17}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BLL.Utils</RootNamespace>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utilities.cs" />
-    <Compile Include="VoucherNumberHelper.cs" />
+    <Compile Include="MoneyToTextUtils.cs" />
+    <Compile Include="VoucherNoUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

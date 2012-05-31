@@ -14,5 +14,6 @@ namespace BLL.Model.Managers
         Record GetNextRecord(int id);
         IList<Record> GetVouchers(Project project, string voucherType);
         IList<Record> GetVouchers(string voucherNo);
+        void DeleteVoucher(string voucherNumber);
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.Utils
 {
-    public static class Utilities
+    public static class MoneyToTextUtils
     {
         public static string NumberToText(string number)
         {

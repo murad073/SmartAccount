@@ -170,8 +170,6 @@ namespace GKS.Model.ViewModels
 
         private void NotifyVoucherGrid()
         {
-            //if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("VoucherGridViewItems"));
-
             if (!_voucherManager.Validate(SelectedProject, VoucherStartDate, VoucherEndDate))
             {
                 Message latestMessage = MessageService.Instance.GetLatestMessage();
@@ -254,7 +252,7 @@ namespace GKS.Model.ViewModels
 
         public void Reset()
         {
-            AllProjects = _projectManager.GetProjects();
+            NotifyVoucherGrid();
         }
     }
 }

@@ -7,7 +7,7 @@ using BLL.Model.Entity;
 
 namespace CodeFirst
 {
-    internal class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<SmartAccountContext>
+    internal class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<SmartAccountContext> 
     {
         protected override void Seed(SmartAccountContext context)
         {
@@ -80,8 +80,76 @@ namespace CodeFirst
                 context.Parameters.Add(parameter);
             }
 
+            foreach (Project project in _projects)
+            {
+                context.Projects.Add(project);
+            }
+
+            foreach (Head head in _heads)
+            {
+                context.Heads.Add(head);
+            }
+
             context.SaveChanges();
         }
+
+        private readonly IList<Project> _projects = new List<Project>
+                                              {
+                                                  new Project
+                                                      {
+                                                          Name = "P1",
+                                                          CreateDate = DateTime.Now,
+                                                          IsActive = true,
+                                                          Description = "this is p1"
+                                                      },
+                                                  new Project
+                                                      {
+                                                          Name = "P2",
+                                                          CreateDate = DateTime.Now,
+                                                          IsActive = true,
+                                                          Description = "this is p2"
+                                                      },
+                                                  new Project
+                                                      {
+                                                          Name = "P3",
+                                                          CreateDate = DateTime.Now,
+                                                          IsActive = true,
+                                                          Description = "this is p3"
+                                                      },
+                                                  new Project
+                                                      {
+                                                          Name = "P4",
+                                                          CreateDate = DateTime.Now,
+                                                          IsActive = true,
+                                                          Description = "this is p4"
+                                                      }
+                                              };
+
+        private readonly IList<Head> _heads = new List<Head>
+                                         {
+                                             new Head
+                                                 {
+                                                     Name = "h1",
+                                                     IsActive = true,
+                                                     HeadType = "Capital",
+                                                     Description = "this is h1"
+                                                 },
+                                             new Head
+                                                 {
+                                                     Name = "h2",
+                                                     IsActive = true,
+                                                     HeadType = "Revenue",
+                                                     Description = "this is h2"
+                                                 },
+                                             new Head
+                                                 {
+                                                     Name = "h3",
+                                                     IsActive = true,
+                                                     HeadType = "Capital",
+                                                     Description = "this is h3"
+                                                 }
+                                         };
+ 
     }
 }
 

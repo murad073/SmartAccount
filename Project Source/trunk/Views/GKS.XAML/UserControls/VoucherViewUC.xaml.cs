@@ -30,13 +30,9 @@ namespace GKS.XAML.UserControls
             DataContext = _vm;
         }
 
-        private void buttonVoucherDetails_Click(object sender, RoutedEventArgs e)
+        private void ButtonVoucherDetailsClick(object sender, RoutedEventArgs e)
         {
-            VoucherViewModel vm = DataContext as VoucherViewModel;
-            VoucherItem voucher = vm.SelectedVoucherItem;
-            //VoucherDetailsWindow voucherWindow = new VoucherDetailsWindow(voucher) { Owner = Window.GetWindow(this), CallbackOnClose = vm.Reset };
-            //voucherWindow.ShowDialog();
-
+            VoucherItem voucher = _vm.SelectedVoucherItem;
             if (voucher == null)
                 return;
 
