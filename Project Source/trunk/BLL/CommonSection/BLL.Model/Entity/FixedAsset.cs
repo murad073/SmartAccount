@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Model.Entity
 {
@@ -12,6 +13,7 @@ namespace BLL.Model.Entity
         public bool ByForceDisposed { get; set; }
         public bool LifeTimeFinished { get; set; }
 
+        [Required]
         public virtual Record Record { get; set; }
     }
 }

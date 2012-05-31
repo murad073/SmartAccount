@@ -20,6 +20,7 @@ namespace BLL.VoucherManagement
         private ProjectHead _projectHead;
 
         private MassVoucher _massVoucher;
+        private readonly IVoucherManager _voucherManager;
 
         private IList<Record> _entryableRecords;
 
@@ -32,6 +33,8 @@ namespace BLL.VoucherManagement
             _headRepository = headRepository;
             _projectHeadRepository = projectHeadRepository;
             _fixedAssetRepository = fixedAssetRepository;
+
+            _voucherManager = new VoucherManager(recordRepository);
         }
 
         public override string ModuleName
@@ -42,6 +45,7 @@ namespace BLL.VoucherManagement
         public bool Set(MassVoucher massVoucher)
         {
             bool isValid = true;
+            double ignored = 0;
             if (massVoucher.Project == null)
             {
                 isValid = SetErrorMessage("NoProjectSelected");
@@ -74,6 +78,10 @@ namespace BLL.VoucherManagement
             else if (massVoucher.IsFixedAsset && massVoucher.FixedAssetDepreciationRate == 0)
             {
                 isValid = SetInformationMessage("ZeroDepreciationProvidedForFixedAsset");
+            }
+            else if (_voucherManager.GetVouchers(massVoucher.VoucherType + "-" + massVoucher.VoucherSerialNo.ToString(), ref ignored).Count() != 0)
+            {
+                isValid = SetWarningMessage("VoucherAlreadyExists");
             }
 
             if (isValid)

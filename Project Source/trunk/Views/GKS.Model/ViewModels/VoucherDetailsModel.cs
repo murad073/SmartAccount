@@ -35,24 +35,24 @@ namespace GKS.Model.ViewModels
                 NotifyPropertyChanged("VoucherItem");
             }
         }     
+        
+        private double _amount;
+        public double Amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+                TakaInWords = MoneyToTextUtils.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
+                NotifyPropertyChanged("Amount");
+            }
+        }
 
-        // TODO: Think through the amount and narration for multiple entry-DV/CV.
-        //private double _amount;
-        //public double Amount
-        //{
-        //    get
-        //    {
-        //        return _amount;
-        //    }
-        //    set
-        //    {
-        //        _amount = value;
-        //        TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
-        //        NotifyPropertyChanged("Amount");
-        //    }
-        //}
 
-
+        // TODO: Think through the narration for multiple entry-DV/CV.
         //private string _voucherNarration;
         //public string VoucherNarration
         //{
@@ -89,7 +89,8 @@ namespace GKS.Model.ViewModels
         public void SetRecordItems()
         {
             double balance = 0;
-            RecordItems = _voucherManager.GetVouchers(VoucherItem.VoucherNo).Select(r =>
+            double amount = 0;
+            RecordItems = _voucherManager.GetVouchers(VoucherItem.VoucherNo, ref amount).Select(r =>
                     new ViewableGridRow
                         {
                             Date = r.Date,
@@ -99,6 +100,8 @@ namespace GKS.Model.ViewModels
                             Head = r.HeadName(),
                             VoucherNo = r.VoucherType + "-" + r.VoucherSerialNo
                         }).ToList();
+
+            Amount = amount;
         }
 
         #region Relay Commands
@@ -154,9 +157,7 @@ namespace GKS.Model.ViewModels
 
         private void DeleteVoucher()
         {
-
             _voucherManager.DeleteVoucher(VoucherItem.VoucherNo);
-
             InvokeOnFinish();
         }
 

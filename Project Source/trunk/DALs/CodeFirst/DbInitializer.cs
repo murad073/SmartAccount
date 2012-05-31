@@ -51,13 +51,13 @@ namespace CodeFirst
                                                      },
                                                  new Parameter
                                                      {
-                                                         Key = "CurrentFinantialYear",
+                                                         Key = "CurrentFinancialYear",
                                                          Value = DateTime.Now.Year.ToString(),
                                                          IsActive = true
                                                      },
                                                  new Parameter
                                                      {
-                                                         Key = "CurrentFinantialYearStartDate",
+                                                         Key = "CurrentFinancialYearStartDate",
                                                          Value = DateTime.Now.ToString(),
                                                          IsActive = true
                                                      },

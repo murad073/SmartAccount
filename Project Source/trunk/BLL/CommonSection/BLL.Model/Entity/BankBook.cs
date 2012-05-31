@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Model.Entity
 {
@@ -12,6 +13,7 @@ namespace BLL.Model.Entity
         public DateTime ChequeDate { get; set; }
         //public int RecordId { get; set; }
 
+        [Required]
         public virtual Record Record { get; set; }
 
     }

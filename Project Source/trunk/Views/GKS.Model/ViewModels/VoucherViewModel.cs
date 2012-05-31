@@ -209,9 +209,9 @@ namespace GKS.Model.ViewModels
             if (isBankTag && v.LedgerType.Equals("LedgerBook", StringComparison.OrdinalIgnoreCase))
             {
                 Record bankRecord = _voucherManager.GetNextRecord(v.ID);
-                chequeNo = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeNo).SingleOrDefault();
-                chequeDate = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeDate).SingleOrDefault();
-                bankName = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.BankName).SingleOrDefault();
+                chequeNo = bankRecord.BankBook.ChequeNo;
+                chequeDate = bankRecord.BankBook.ChequeDate;
+                bankName = bankRecord.BankBook.BankName;
             }
 
             return new VoucherItem

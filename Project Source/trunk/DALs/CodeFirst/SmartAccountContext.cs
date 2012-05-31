@@ -67,6 +67,11 @@ namespace CodeFirst
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            //TODO: correct the format for required fields and for cascading
+            //modelBuilder.Entity<Record>().HasRequired(r => r.ProjectHead).
+            //        .WithRequiredPrincipal()
+            //        .WillCascadeOnDelete();
         }
     }
 }
