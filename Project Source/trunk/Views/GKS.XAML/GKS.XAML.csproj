@@ -141,6 +141,9 @@
     <Compile Include="Pages\FixedAssetManagement.xaml.cs">
       <DependentUpon>FixedAssetManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FixedAssetSchedule.xaml.cs">
+      <DependentUpon>FixedAssetSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OpeningBalanceSetupWindow.xaml.cs">
       <DependentUpon>OpeningBalanceSetupWindow.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\FixedAssetManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FixedAssetSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
