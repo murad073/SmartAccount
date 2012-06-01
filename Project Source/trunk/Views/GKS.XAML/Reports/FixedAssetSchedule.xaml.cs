@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GKS.Model.ViewModels;
 
 namespace GKS.XAML.Reports
 {
@@ -21,6 +22,7 @@ namespace GKS.XAML.Reports
         public FixedAssetSchedule()
         {
             InitializeComponent();
+            DataContext = new FixedAssetScheduleModel();
         }
     }
 }

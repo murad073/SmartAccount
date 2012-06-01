@@ -19,19 +19,19 @@
             AlternatingRowBackground="Azure"
             AlternationCount="2" 
             Height="377" HorizontalAlignment="Left" Margin="106,70,0,0" Name="dataGridFixedAssetManagement" VerticalAlignment="Top" Width="493" 
-            ItemsSource="{Binding Path=FixedAssetManagementDataGrid, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedFixedAsset, Mode=TwoWay}">
+            ItemsSource="{Binding Path=FixedAssetScheduleDataGrid, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedFixedAsset, Mode=TwoWay}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Sl No" Binding="{Binding Path=ItemName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Details of Asset" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opening Cost" Binding="{Binding Path=OriginalCost}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cost Added This Year" Binding="{Binding Path=Date}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Total Cost" Binding="{Binding Path=DepreciationRate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Depreciation Rate" Binding="{Binding Path=DepreciatedAmount}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opening Depreciation" Binding="{Binding Path=RemainingAmount}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Dep Charged This Year" Binding="{Binding Path=DisposalDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Accumulated Dep" Binding="{Binding Path=DisposalDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Written Down Value" Binding="{Binding Path=DisposalDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sl No" Binding="{Binding Path=SlNo}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Details of Asset" Binding="{Binding Path=DetailsOfAsset}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opening Cost" Binding="{Binding Path=OpeningCost}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cost Added This Year" Binding="{Binding Path=CostAddedThisYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Cost" Binding="{Binding Path=TotalCost}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Depreciation Rate" Binding="{Binding Path=DepreciationRate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opening Depreciation" Binding="{Binding Path=OpeningDepreciation}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dep Charged This Year" Binding="{Binding Path=DepChargedThisYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Accumulated Dep" Binding="{Binding Path=AccumulatedDep}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Written Down Value" Binding="{Binding Path=WrittenDownValue}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
