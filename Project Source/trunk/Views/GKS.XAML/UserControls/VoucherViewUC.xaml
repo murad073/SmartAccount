@@ -62,7 +62,7 @@
         </DataGrid>
 
         <Button Content="Voucher Details" Height="23" HorizontalAlignment="Right" Margin="0,533,84,0" Name="buttonVoucherDetails" VerticalAlignment="Top" Width="97" 
-                IsEnabled="True" Click="buttonVoucherDetails_Click" >
+                IsEnabled="True" Click="ButtonVoucherDetailsClick" >
         </Button>
 
         <Button Content="Export" Height="23" HorizontalAlignment="Left" Margin="81,534,0,0" Name="buttonExport" VerticalAlignment="Top" Width="75" Click="buttonExport_Click" />

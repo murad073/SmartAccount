@@ -677,7 +677,7 @@ namespace GKS.Model.ViewModels
         private void AmountChanged()
         {
             if (Amount > 0)
-                TakaInWords = Utilities.NumberToTextInLacCrore(((int)Amount).ToString()) + "Only";
+                TakaInWords = MoneyToTextUtils.NumberToTextInLacCrore(((int)Amount).ToString()) + "Only";
             else TakaInWords = "";
         }
 

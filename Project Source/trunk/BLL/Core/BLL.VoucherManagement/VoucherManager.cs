@@ -6,6 +6,7 @@ using BLL.Model.Managers;
 using BLL.Model.Repositories;
 using BLL.Model.Entity;
 using BLL.Model;
+using BLL.Utils;
 
 namespace BLL.VoucherManagement
 {
@@ -19,7 +20,7 @@ namespace BLL.VoucherManagement
 
         public override string ModuleName
         {
-            get { return "Voucher"; }
+            get { return "VoucherManager"; }
         }
 
         public DateTime VoucherStartDate { get; set; }
@@ -56,7 +57,7 @@ namespace BLL.VoucherManagement
             IList<Record> records2 = null;
             if (voucherType != "Contra")
                 records1 = records.Where(r => r.LedgerType == "LedgerBook").ToList();
-            
+
             if (voucherType == "Contra" || voucherType == "All")
                 records2 = records.Where(r => r.VoucherType == "Contra").ToList();
 
@@ -68,12 +69,12 @@ namespace BLL.VoucherManagement
                 records = records2;
             else
                 records = records1.Union(records2).ToList();
-                
+
 
             if (voucherType != "All")
             {
                 records = records.Where(r => r.VoucherType == voucherType).ToList();
-                
+
             }
             records = records.OrderBy(r => r.VoucherType).ToList();
             records = records.Where(r => GetDateAt12Am(r.Date) >= VoucherStartDate && GetDateAt12Am(r.Date) <= VoucherEndDate).ToList();
@@ -97,6 +98,33 @@ namespace BLL.VoucherManagement
         public static DateTime GetDateAt12Am(DateTime date)
         {
             return new DateTime(date.Year, date.Month, date.Day);
+        }
+
+        public void DeleteVoucher(string voucherNumber)
+        {
+            string voucherType;
+            int voucherSerialNo;
+            if (VoucherNoUtils.TryParse(voucherNumber, out voucherType, out voucherSerialNo))
+            {
+                IList<Record> deletableItems =
+                    _recordRepository.Get(r => r.VoucherType == voucherType && r.VoucherSerialNo == voucherSerialNo).
+                        ToList();
+                int count = 0;
+                foreach (Record deletableItem in deletableItems)
+                {
+                    _recordRepository.Delete(deletableItem);
+                    count++;
+                }
+
+                if (count > 0 && _recordRepository.Save() > 0)
+                {
+                    InvokeManagerEvent("Voucher " + voucherNumber + " deleted successfully.");
+                }
+            }
+            else
+            {
+                InvokeManagerEvent("Invalid Voucher Number : " + voucherNumber);
+            }
         }
     }
 }

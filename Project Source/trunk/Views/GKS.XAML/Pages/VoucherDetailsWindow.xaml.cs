@@ -15,14 +15,8 @@ using GKS.Model.ViewModels;
 
 namespace GKS.XAML.Pages
 {
-    /// <summary>
-    /// Interaction logic for VoucherDetailsWindow.xaml
-    /// </summary>
     public partial class VoucherDetailsWindow : Window
     {
-        //public delegate void SimpleDelegate();
-        //public SimpleDelegate CallbackOnClose { get; set; }
-
         private VoucherDetailsModel _vm;
 
         private void Init()
@@ -39,14 +33,7 @@ namespace GKS.XAML.Pages
             Init();
             _vm.VoucherItem = voucher;
             _vm.SetRecordItems();
-            //_vm.ProjectName = voucher.ProjectName;
-            //_vm.VoucherDate = voucher.Date;
-            //_vm.VoucherNo = voucher.VoucherNo;
-            //_vm.Amount = voucher.Amount;
-            //_vm.VoucherNarration = voucher.Narration;
-            //_vm.ChequeNo = voucher.ChequeNo;
-            //_vm.ChequeDate = voucher.ChequeDate;
-            //_vm.BankName = voucher.BankName;
+
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)

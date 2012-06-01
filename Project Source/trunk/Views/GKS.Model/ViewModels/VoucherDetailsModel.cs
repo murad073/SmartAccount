@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using BLL.Model.Managers;
-using BLL.Utils;
 using System.Collections.Generic;
 using BLL.Model.Entity;
 using BLL.Factories;
@@ -13,6 +12,7 @@ using System.Windows.Controls;
 using System.Printing;
 using System.Windows.Media;
 using System.Windows;
+using BLL.Utils;
 
 namespace GKS.Model.ViewModels
 {
@@ -31,7 +31,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _voucherItem = value;
-                TakaInWords = Utilities.NumberToTextInLacCrore(((int)_voucherItem.Amount).ToString()) + "Only";
+                TakaInWords = MoneyToTextUtils.NumberToTextInLacCrore(((int)_voucherItem.Amount).ToString()) + "Only";
                 NotifyPropertyChanged("VoucherItem");
             }
         }     
@@ -46,7 +46,7 @@ namespace GKS.Model.ViewModels
             set
             {
                 _amount = value;
-                TakaInWords = Utilities.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
+                TakaInWords = MoneyToTextUtils.NumberToTextInLacCrore(((double)_amount).ToString()) + "Only";
                 NotifyPropertyChanged("Amount");
             }
         }
@@ -152,8 +152,15 @@ namespace GKS.Model.ViewModels
         private RelayCommand _deleteButtonClicked;
         public ICommand DeleteButtonClicked
         {
-            get { return _deleteButtonClicked ?? (_deleteButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _deleteButtonClicked ?? (_deleteButtonClicked = new RelayCommand(p1 => DeleteVoucher() )); }
         }
+
+        private void DeleteVoucher()
+        {
+            _voucherManager.DeleteVoucher(VoucherItem.VoucherNo);
+            InvokeOnFinish();
+        }
+
         #endregion
     }
 

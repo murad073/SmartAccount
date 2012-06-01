@@ -80,13 +80,13 @@
       <Project>{9D885213-6EFF-4B7E-8CB0-68F16009042A}</Project>
       <Name>BLL.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BLL\CommonSection\BLL.Utils\BLL.Utils.csproj">
+      <Project>{98BC9425-6C45-4F12-B211-815EF4C4FD17}</Project>
+      <Name>BLL.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL\HelperService\BLL.Messaging\BLL.Messaging.csproj">
       <Project>{9CFB283A-35EA-4E70-A75B-25CBDD5883C8}</Project>
       <Name>BLL.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BLL\HelperService\BLL.Utils\BLL.Utils.csproj">
-      <Project>{841EE9FD-8034-4CB2-A7A2-4E1692564FBF}</Project>
-      <Name>BLL.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DALs\CodeFirst\CodeFirst.csproj">
       <Project>{C1998A36-E3F7-417D-9B8A-034870A36919}</Project>

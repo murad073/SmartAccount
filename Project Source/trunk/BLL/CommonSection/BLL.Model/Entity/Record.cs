@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BLL.Model.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Model.Entity
 {
@@ -19,9 +20,11 @@ namespace BLL.Model.Entity
         public bool IsActive { get; set; }
         public string AccountingYear { get; set; }
 
+        [Required]
         public virtual ProjectHead ProjectHead { get; set; }
-        public virtual ICollection<FixedAsset> FixedAssets { get; set; }
-        public virtual ICollection<BankBook> BankBooks { get; set; }
+
+        public virtual FixedAsset FixedAsset { get; set; }
+        public virtual BankBook BankBook { get; set; }
 
         internal IRepository<Record> RecordRepository;
 

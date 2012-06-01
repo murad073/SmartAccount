@@ -252,11 +252,11 @@ namespace GKS.Model.ViewModels
             {
                 // TODO: This is a temporary and really lame solution to find the bank record's fields.
                 Record bankRecord = _ledgerManager.GetNextRecord(l.ID);
-                chequeNo = bankRecord.BankBooks.Where(br => br.Record.ID == bankRecord.ID).Select(br => br.ChequeNo).SingleOrDefault();
+                chequeNo = bankRecord.BankBook.ChequeNo;
             }
             else if (isBankTag && l.LedgerType.Equals("BankBook", StringComparison.OrdinalIgnoreCase))
             {
-                chequeNo = l.BankBooks.Where(br => br.Record.ID == l.ID).Select(br => br.ChequeNo).SingleOrDefault();
+                chequeNo = l.BankBook.ChequeNo;
             }
 
             return new LedgerItem

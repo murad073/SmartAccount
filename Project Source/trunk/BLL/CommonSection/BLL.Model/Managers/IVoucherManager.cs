@@ -13,6 +13,9 @@ namespace BLL.Model.Managers
         bool Validate(Project project, DateTime startDate, DateTime endDate);
         Record GetNextRecord(int id);
         IList<Record> GetVouchers(Project project, string voucherType);
+
         IList<Record> GetVouchers(string voucherNo, ref double amount);
+        void DeleteVoucher(string voucherNumber);
+
     }
 }

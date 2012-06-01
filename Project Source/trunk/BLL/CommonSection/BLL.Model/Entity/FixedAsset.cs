@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Model.Entity
 {
@@ -10,7 +11,9 @@ namespace BLL.Model.Entity
         public int DepreciatedValue { get; set; }
         public string DepreciationType { get; set; }
         public bool ByForceDisposed { get; set; }
+        public bool LifeTimeFinished { get; set; }
 
+        [Required]
         public virtual Record Record { get; set; }
     }
 }
