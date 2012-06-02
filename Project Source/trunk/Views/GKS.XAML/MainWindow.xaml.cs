@@ -99,15 +99,15 @@ namespace GKS.XAML
             budgetSetup.ShowDialog();
         }
 
-        private void StartNewFinantialYearClick(object sender, RoutedEventArgs e)
+        private void StartNewFinancialYearClick(object sender, RoutedEventArgs e)
         {
-            StartNewFinantialYear configurationSetting = new StartNewFinantialYear() { Owner = this };
+            StartNewFinancialYear configurationSetting = new StartNewFinancialYear() { Owner = this };
             configurationSetting.ShowDialog();
         }
 
-        private void CloseCurrentFinantialYearClick(object sender, RoutedEventArgs e)
+        private void CloseCurrentFinancialYearClick(object sender, RoutedEventArgs e)
         {
-            CloseCurrentFinantialYear configurationSetting = new CloseCurrentFinantialYear { Owner = this };
+            CloseCurrentFinancialYear configurationSetting = new CloseCurrentFinancialYear { Owner = this };
             configurationSetting.ShowDialog();
         }
 

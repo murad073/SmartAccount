@@ -739,7 +739,7 @@ namespace GKS.Model.ViewModels
                                               FixedAssetDepreciationRate = FixedAssetDepreciationRate,
                                               Tag = GetTag(),
                                               Narration = Narration,
-                                              FinantialYear = _parameterManager.GetCurrentFinancialYear()
+                                              FinancialYear = _parameterManager.GetCurrentFinancialYear()
                                           };
 
             return massVoucher;

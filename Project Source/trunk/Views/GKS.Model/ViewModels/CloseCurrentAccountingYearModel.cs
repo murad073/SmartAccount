@@ -9,28 +9,28 @@ using System.Windows.Input;
 
 namespace GKS.Model.ViewModels
 {
-    public class CloseCurrentFinantialYearModel : ViewModelBase
+    public class CloseCurrentFinancialYearModel : ViewModelBase
     {
         private readonly IProjectManager _projectManager;
-        public CloseCurrentFinantialYearModel()
+        public CloseCurrentFinancialYearModel()
         {
             _projectManager = BLLCoreFactory.GetProjectManager();
 
-            _currentFinantialYearDatagrid = new List<CurrentYearDatagridRow>();
+            _currentFinancialYearDatagrid = new List<CurrentYearDatagridRow>();
             AllProjects = _projectManager.GetProjects(false);
         }
 
-        string _currentFinantialYear;
-        string CurrentFinantialYear
+        string _currentFinancialYear;
+        string CurrentFinancialYear
         {
             get
             {
-                return _currentFinantialYear;
+                return _currentFinancialYear;
             }
             set
             {
-                _currentFinantialYear = value;
-                NotifyPropertyChanged("CurrentFinantialYear");
+                _currentFinancialYear = value;
+                NotifyPropertyChanged("CurrentFinancialYear");
             }
         }
 
@@ -62,15 +62,15 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        IList<CurrentYearDatagridRow> _currentFinantialYearDatagrid;
-        IList<CurrentYearDatagridRow> CurrentFinantialYearDatagrid
+        IList<CurrentYearDatagridRow> _currentFinancialYearDatagrid;
+        IList<CurrentYearDatagridRow> CurrentFinancialYearDatagrid
         {
             get
             {
                 CurrentYearDatagridRow temp = new CurrentYearDatagridRow { HeadName = "Test Head", Amount = 0 };
-                _currentFinantialYearDatagrid.Add(temp);
+                _currentFinancialYearDatagrid.Add(temp);
 
-                return _currentFinantialYearDatagrid;
+                return _currentFinancialYearDatagrid;
             }
         }
 
@@ -96,10 +96,10 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private RelayCommand _closeFinantialYearClicked;
-        public ICommand CloseFinantialYearClicked
+        private RelayCommand _closeFinancialYearClicked;
+        public ICommand CloseFinancialYearClicked
         {
-            get { return _closeFinantialYearClicked ?? (_closeFinantialYearClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _closeFinancialYearClicked ?? (_closeFinancialYearClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
         private RelayCommand _oKClicked;

@@ -39,8 +39,8 @@ namespace BLL.Model.Schema
         public string ContraType { get; set; }
 
         #region Other Helper Fields
-        
-        public string FinantialYear { get; set; }
+
+        public string FinancialYear { get; set; }
         
         #endregion
     }

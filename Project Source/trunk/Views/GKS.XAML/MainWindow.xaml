@@ -46,8 +46,8 @@
             </MenuItem>
 
             <MenuItem Header="Operations" >
-                <MenuItem Header="Start New Accounting Year" Name="StartNewFinantialYear" Click="StartNewFinantialYearClick" />
-                <MenuItem Header="Close Current Accounting Year" Name="CloseCurrentFinantialYear" Click="CloseCurrentFinantialYearClick" />
+                <MenuItem Header="Start New Accounting Year" Name="StartNewFinancialYear" Click="StartNewFinancialYearClick" />
+                <MenuItem Header="Close Current Accounting Year" Name="CloseCurrentFinancialYear" Click="CloseCurrentFinancialYearClick" />
             </MenuItem>
 
             <MenuItem Header="Settings" >

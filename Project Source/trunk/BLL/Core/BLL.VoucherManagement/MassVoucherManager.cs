@@ -207,7 +207,7 @@ namespace BLL.VoucherManagement
                 Tag = _massVoucher.Tag,
                 VoucherSerialNo = _massVoucher.VoucherSerialNo,
                 VoucherType = _massVoucher.VoucherType,
-                FinantialYear = _massVoucher.FinantialYear,
+                FinancialYear = _massVoucher.FinancialYear,
                 IsActive = true
             };
             debitVoucher.SetAmount(_massVoucher.Amount);

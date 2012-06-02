@@ -1,16 +1,16 @@
-﻿<Window x:Class="GKS.XAML.Pages.StartNewFinantialYear"
+﻿<Window x:Class="GKS.XAML.Pages.StartNewFinancialYear"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartNewFinantialYear" Height="550" Width="693" 
+        Title="StartNewFinancialYear" Height="550" Width="693" 
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Label Content="Last Accounting Year:" Height="25" HorizontalAlignment="Left" Margin="62,28,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLastFinantialYear" VerticalAlignment="Top" Width="120" 
-                 Text="{Binding Path=LastFinantialYear, Mode=OneWay}" IsReadOnly="True" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="177,30,0,0" Name="textBoxLastFinancialYear" VerticalAlignment="Top" Width="120" 
+                 Text="{Binding Path=LastFinancialYear, Mode=OneWay}" IsReadOnly="True" />
         
         <Label Content="New Accounting Year:" Height="23" HorizontalAlignment="Left" Margin="374,28,0,0" Name="label2" VerticalAlignment="Top" />
-        <ComboBox Height="21" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewFinantialYear" VerticalAlignment="Top" Width="120" 
-                  ItemsSource="{Binding Path=NewFinantialYear, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedNewFinantialYear, Mode=TwoWay}" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="489,30,0,0" Name="comboBoxNewFinancialYear" VerticalAlignment="Top" Width="120" 
+                  ItemsSource="{Binding Path=NewFinancialYear, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedNewFinancialYear, Mode=TwoWay}" />
         
         <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="90,105,0,0" Name="label3" VerticalAlignment="Top" />
         <ComboBox Height="21" HorizontalAlignment="Left" Margin="135,107,0,0" Name="comboBoxAllProjects" VerticalAlignment="Top" Width="450" 
@@ -28,7 +28,7 @@
             AlternatingRowBackground="Azure"
             AlternationCount="2" 
             Height="285" HorizontalAlignment="Left" Margin="96,141,0,0" VerticalAlignment="Top" Width="491" 
-            ItemsSource="{Binding Path=LastFinantialYearDatagrid}">
+            ItemsSource="{Binding Path=LastFinancialYearDatagrid}">
             
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadName}"></DataGridTextColumn>

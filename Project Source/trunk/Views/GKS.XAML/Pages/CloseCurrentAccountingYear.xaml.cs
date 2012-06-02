@@ -15,14 +15,14 @@ using GKS.Model.ViewModels;
 namespace GKS.XAML.Pages
 {
     /// <summary>
-    /// Interaction logic for CloseCurrentFinantialYear.xaml
+    /// Interaction logic for CloseCurrentFinancialYear.xaml
     /// </summary>
-    public partial class CloseCurrentFinantialYear : Window
+    public partial class CloseCurrentFinancialYear : Window
     {
-        public CloseCurrentFinantialYear()
+        public CloseCurrentFinancialYear()
         {
             InitializeComponent();
-            DataContext = new CloseCurrentFinantialYearModel();
+            DataContext = new CloseCurrentFinancialYearModel();
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)
