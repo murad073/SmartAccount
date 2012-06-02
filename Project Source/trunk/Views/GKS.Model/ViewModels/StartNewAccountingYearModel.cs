@@ -9,61 +9,61 @@ using BLL.Model.Entity;
 
 namespace GKS.Model.ViewModels
 {
-    public class StartNewAccountingYearModel : ViewModelBase
+    public class StartNewFinantialYearModel : ViewModelBase
     {
         private readonly IProjectManager _projectManager;
-        public StartNewAccountingYearModel() 
+        public StartNewFinantialYearModel() 
         {
             try
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
 
-                _lastAccountingYearDatagrid = new List<LastYearDatagridRow>();
+                _lastFinantialYearDatagrid = new List<LastYearDatagridRow>();
                 AllProjects = _projectManager.GetProjects(false);
             }
             catch
             { }
         }
 
-        string _lastAccountingYear;
-        string LastAccountingYear
+        string _lastFinantialYear;
+        string LastFinantialYear
         {
             get
             {
-                return _lastAccountingYear;
+                return _lastFinantialYear;
             }
             set
             {
-                _lastAccountingYear = value;
-                NotifyPropertyChanged("LastAccountingYear");
+                _lastFinantialYear = value;
+                NotifyPropertyChanged("LastFinantialYear");
             }
         }
 
-        private string[] _newAccountingYear;
-        public string[] NewAccountingYear
+        private string[] _newFinantialYear;
+        public string[] NewFinantialYear
         {
             get
             {
-                return _newAccountingYear;
+                return _newFinantialYear;
             }
             set
             {
-                _newAccountingYear = value;
-                NotifyPropertyChanged("NewAccountingYear");
+                _newFinantialYear = value;
+                NotifyPropertyChanged("NewFinantialYear");
             }
         }
 
-        private string _selectedNewAccountingYear;
-        public string SelectedNewAccountingYear
+        private string _selectedNewFinantialYear;
+        public string SelectedNewFinantialYear
         {
             get
             {
-                return _selectedNewAccountingYear;
+                return _selectedNewFinantialYear;
             }
             set
             {
-                _selectedNewAccountingYear = value;
-                NotifyPropertyChanged("SelectedNewAccountingYear");
+                _selectedNewFinantialYear = value;
+                NotifyPropertyChanged("SelectedNewFinantialYear");
             }
         }
 
@@ -95,15 +95,15 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        IList<LastYearDatagridRow> _lastAccountingYearDatagrid;
-        IList<LastYearDatagridRow> LastAccountingYearDatagrid
+        IList<LastYearDatagridRow> _lastFinantialYearDatagrid;
+        IList<LastYearDatagridRow> LastFinantialYearDatagrid
         {
             get
             {
                 LastYearDatagridRow temp = new LastYearDatagridRow { HeadName = "Test Head", Amount = 0 };
-                _lastAccountingYearDatagrid.Add(temp);
+                _lastFinantialYearDatagrid.Add(temp);
 
-                return _lastAccountingYearDatagrid;
+                return _lastFinantialYearDatagrid;
             }
         }
 

@@ -18,7 +18,7 @@ namespace BLL.Model.Entity
         public string Link { get; set; }
         public string Tag { get; set; }
         public bool IsActive { get; set; }
-        public string AccountingYear { get; set; }
+        public string FinantialYear { get; set; }
 
         [Required]
         public virtual ProjectHead ProjectHead { get; set; }

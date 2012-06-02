@@ -5,7 +5,6 @@ namespace BLL.Model.Schema
 {
     public class MassVoucher
     {
-
         #region Voucher Info
         public string VoucherType { get; set; }
         public int VoucherSerialNo { get; set; }
@@ -39,5 +38,11 @@ namespace BLL.Model.Schema
         public string JVDebitOrCredit { get; set; }
         public string ContraType { get; set; }
 
+        #region Other Helper Fields
+        
+        public string FinantialYear { get; set; }
+        
+        #endregion
     }
 }
+

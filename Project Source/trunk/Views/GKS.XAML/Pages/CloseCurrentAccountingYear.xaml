@@ -1,12 +1,12 @@
-﻿<Window x:Class="GKS.XAML.Pages.CloseCurrentAccountingYear"
+﻿<Window x:Class="GKS.XAML.Pages.CloseCurrentFinantialYear"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CloseCurrentAccountingYear" Height="550" Width="693" 
+        Title="CloseCurrentFinantialYear" Height="550" Width="693" 
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Label Content="Current acoouting year:" Height="28" HorizontalAlignment="Left" Margin="64,50,0,0" Name="labelYear" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="187,52,0,0" Name="textBoxCurrentYear" VerticalAlignment="Top" Width="120" IsReadOnly="True"
-                 Text="{Binding Path=CurrentAccountingYear, Mode=OneWay}" />
+                 Text="{Binding Path=CurrentFinantialYear, Mode=OneWay}" />
         
         <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="64,84,0,0" Name="labelProjects" VerticalAlignment="Top" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="109,84,0,0" Name="comboBox1" VerticalAlignment="Top" Width="475" 
@@ -32,7 +32,7 @@
         </DataGrid>
 
         <Button Content="Close Accounting Year" Height="23" HorizontalAlignment="Left" Margin="109,444,0,0" Name="button1" VerticalAlignment="Top" Width="128" 
-                Command="{Binding Path=CloseAccountingYearClicked}" />
+                Command="{Binding Path=CloseFinantialYearClicked}" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="509,444,0,0" Name="button2" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=OKClicked}"/>
         

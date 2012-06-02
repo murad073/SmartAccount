@@ -15,15 +15,15 @@ using GKS.Model.ViewModels;
 namespace GKS.XAML.Pages
 {
     /// <summary>
-    /// Interaction logic for StartNewAccountingYear.xaml
+    /// Interaction logic for StartNewFinantialYear.xaml
     /// </summary>
-    public partial class StartNewAccountingYear : Window
+    public partial class StartNewFinantialYear : Window
     {
-        StartNewAccountingYearModel _vm;
-        public StartNewAccountingYear()
+        StartNewFinantialYearModel _vm;
+        public StartNewFinantialYear()
         {
             InitializeComponent();
-            _vm = new StartNewAccountingYearModel();
+            _vm = new StartNewFinantialYearModel();
             DataContext = _vm;
         }
 
