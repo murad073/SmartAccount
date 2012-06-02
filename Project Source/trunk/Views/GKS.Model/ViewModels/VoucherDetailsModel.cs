@@ -162,6 +162,9 @@ namespace GKS.Model.ViewModels
             {
                 _voucherManager.DeleteVoucher(VoucherItem.VoucherNo);
                 InvokeOnFinish();
+
+                //VoucherViewModel vm = new VoucherViewModel();
+                //vm.NotifyVoucherGrid();
             }
         }
 
