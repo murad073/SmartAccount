@@ -252,7 +252,7 @@ namespace GKS.Model.ViewModels
 
         public void Reset()
         {
-            NotifyVoucherGrid();
+            AllProjects = _projectManager.GetProjects();
         }
     }
 }
