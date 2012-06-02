@@ -1,54 +1,47 @@
 ﻿<Window x:Class="GKS.XAML.Reports.FixedAssetSchedule"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="610" Width="850" Title="Fixed Asset Schedule" >
+        Title="Fixed Asset Schedule" Height="550" Width="693"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
 
-    <Grid Height="570" Width="830">
-        <Label Content="Select a head for a project and click the 'View' button below:" Height="28" HorizontalAlignment="Left" Margin="77,21,0,0" Name="label3" VerticalAlignment="Top" Width="336" />
+    <Grid>
+        <Label Content="Project:" Height="28" HorizontalAlignment="Left" Margin="60,28,0,0" Name="label1" VerticalAlignment="Top" />
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="106,29,0,0" Name="comboBoxProjects" VerticalAlignment="Top" Width="493" 
+                  ItemsSource="{Binding Path=AllProjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" DisplayMemberPath="Name" />
 
-        <Label Content="Project: " Height="26" HorizontalAlignment="Left" Margin="74,52,0,0" Name="label1" VerticalAlignment="Top" Width="50" />
-        <ComboBox DisplayMemberPath="Name" HorizontalAlignment="Left" ItemsSource="{Binding Path=AllProjects, Mode=OneWay}" Margin="122,55,0,0" Name="comboBoxProjectItems" SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" VerticalAlignment="Top" Width="607" />
+        <DataGrid
+            GridLinesVisibility="None"                  
+            IsTextSearchEnabled="True" 
+            AutoGenerateColumns="False"                                                  
+            IsSynchronizedWithCurrentItem="True" 
+            Background="Transparent"
+            RowHeaderWidth="25"
+            RowBackground="White"
+            AlternatingRowBackground="Azure"
+            AlternationCount="2" 
+            Height="377" HorizontalAlignment="Left" Margin="106,70,0,0" Name="dataGridFixedAssetManagement" VerticalAlignment="Top" Width="493" 
+            ItemsSource="{Binding Path=FixedAssetScheduleDataGrid, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedFixedAsset, Mode=TwoWay}">
 
-        <Button Height="23" HorizontalAlignment="Left" Margin="733,55,0,0" Name="RefreshButton" VerticalAlignment="Top" Width="25" Command="{Binding Path=RefreshButtonClicked}" >
-            <Grid>
-                <Image Margin="0,-2,-1,-1" Name="img" Height="20" Width="20" Source="..\Resource\Images\Reload.png" />
-            </Grid>
-            <Button.ToolTip>
-                <ToolTip>Reload all projects.
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
-        <Button Content="View" Height="23" HorizontalAlignment="Left" Margin="368,83,0,0" Name="ViewLedgerButton" VerticalAlignment="Top" Width="75" Command="{Binding Path=LedgerViewButtonClicked, Mode=OneWay}" >
-            <Button.ToolTip>
-                See the ledger for the selected head of account.
-            </Button.ToolTip>
-        </Button>
-
-        <DataGrid Name="FixedAssetGridView"
-                  IsReadOnly="True"
-                  GridLinesVisibility="None"                  
-                  IsTextSearchEnabled="True" AutoGenerateColumns="False"                                                  
-                  IsSynchronizedWithCurrentItem="True" 
-                  Background="Transparent"
-                  RowHeaderWidth="25"
-                  RowBackground="White"
-                  AlternatingRowBackground="Azure"
-                  AlternationCount="2"                  
-                  Height="411" HorizontalAlignment="Left" Margin="74,122,0,0" VerticalAlignment="Top" Width="690" 
-                  ItemsSource="{Binding Path=LedgerGridViewItems, Mode=OneWay}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vouhcer Date" Binding="{Binding Path=Date, StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Vouhcer No" Binding="{Binding Path=VoucherNo}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Debit Amount" Binding="{Binding Path=Debit}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Credit Amount" Binding="{Binding Path=Credit}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Balance" Binding="{Binding Path=Balance}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cash/Bank" Binding="{Binding Path=Particular}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cheque No" Binding="{Binding Path=ChequeNo}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Remarks" Binding="{Binding Path=Remarks}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sl No" Binding="{Binding Path=SlNo}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Details of Asset" Binding="{Binding Path=DetailsOfAsset}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opening Cost" Binding="{Binding Path=OpeningCost}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cost Added This Year" Binding="{Binding Path=CostAddedThisYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Cost" Binding="{Binding Path=TotalCost}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Depreciation Rate" Binding="{Binding Path=DepreciationRate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opening Depreciation" Binding="{Binding Path=OpeningDepreciation}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dep Charged This Year" Binding="{Binding Path=DepChargedThisYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Accumulated Dep" Binding="{Binding Path=AccumulatedDep}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Written Down Value" Binding="{Binding Path=WrittenDownValue}"></DataGridTextColumn>
             </DataGrid.Columns>
-
         </DataGrid>
-        <TextBlock TextAlignment="Center" Height="23" HorizontalAlignment="Left" Margin="77,539,0,0" Name="textBlockErrorMessage" Text="{Binding Path=ErrorMessage, Mode=OneWay}" VerticalAlignment="Top" Width="688" Foreground="{Binding Path=ColorCode, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" />
+
+        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="524,461,0,0" Name="button2" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Path=OKButtonClicked}"/>
+
+        <TextBlock Height="38" HorizontalAlignment="Left" Margin="187,461,0,0" Name="textBlockMessage" VerticalAlignment="Top" Width="331" TextWrapping="Wrap"
+                   Text="{Binding Path=ErrorMessage, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}" />
+
     </Grid>
 
 </Window>

@@ -57,7 +57,7 @@
     <Compile Include="ViewModels\BudgetSetupModel.cs" />
     <Compile Include="ViewModels\CloseCurrentAccountingYearModel.cs" />
     <Compile Include="ViewModels\FixedAssetManagementModel.cs" />
-    <Compile Include="ViewModels\FixedAssetSchedule.cs" />
+    <Compile Include="ViewModels\FixedAssetScheduleModel.cs" />
     <Compile Include="ViewModels\HeadManagementModel.cs" />
     <Compile Include="ViewModels\LedgerViewModel.cs" />
     <Compile Include="OperationType.cs" />
