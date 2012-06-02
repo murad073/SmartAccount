@@ -11,12 +11,16 @@ namespace BLL.ParameterManagement
     public class ParameterManager : ManagerBase, IParameterManager
     {
         private readonly IRepository<Parameter> _parameterRepository;
+
+        private static string _currentFinancialYear;
+
         public ParameterManager(IRepository<Parameter> parameterRepository)
         {
             _parameterRepository = parameterRepository;
+            _currentFinancialYear = Get("CurrentFinancialYear");
         }
 
-        private void Set(string key, string value)
+        private  void Set(string key, string value)
         {
             Parameter existingParameter = _parameterRepository.GetSingle(p => p.Key == key);
             if (existingParameter == null)
@@ -30,10 +34,11 @@ namespace BLL.ParameterManagement
             }
         }
 
-        private string Get(string key)
+        private  string Get(string key)
         {
             Parameter existingParameter = _parameterRepository.GetSingle(p => p.Key == key);
             return existingParameter == null ? "" : existingParameter.Value ?? "";
+            //return "";
         }
 
         public DateTime GetCurrentFinancialYearStartDate()
@@ -50,8 +55,7 @@ namespace BLL.ParameterManagement
 
         public string GetCurrentFinancialYear()
         {
-            string currentFinancialYear = Get("CurrentFinancialYear");
-            return currentFinancialYear;
+            return _currentFinancialYear;
         }
 
         public void SetCurrentFinancialYear(string currentFinancialYear)

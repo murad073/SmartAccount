@@ -19,14 +19,16 @@ namespace GKS.Model.ViewModels
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
         private readonly IMassVoucherManager _massVoucherManager;
+        private readonly IParameterManager _parameterManager;
 
         public VoucherPost()
         {
-            try
-            {
+            //try
+            //{
                 _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
+                _parameterManager = BLLCoreFactory.GetParameterManager();
 
                 InputFirstPartEnabled = true;
                 InputSecondPartEnabled = true;
@@ -39,8 +41,8 @@ namespace GKS.Model.ViewModels
 
                 TemporaryRecords = new List<Record>();
                 _isJVBalanced = true;
-            }
-            catch { }
+            //}
+            //catch { }
         }
 
         private bool _isInputFirstPartEnabled;
@@ -736,7 +738,8 @@ namespace GKS.Model.ViewModels
                                               FixedAssetName = FixedAssetParticulars,
                                               FixedAssetDepreciationRate = FixedAssetDepreciationRate,
                                               Tag = GetTag(),
-                                              Narration = Narration
+                                              Narration = Narration,
+                                              FinantialYear = _parameterManager.GetCurrentFinancialYear()
                                           };
 
             return massVoucher;

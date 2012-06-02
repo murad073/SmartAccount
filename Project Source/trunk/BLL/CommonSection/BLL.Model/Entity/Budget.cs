@@ -11,7 +11,7 @@ namespace BLL.Model.Entity
         public double Amount { get; set; }
         public string Note { get; set; }
         public bool IsActive { get; set; }
-        public string AccountingYear { get; set; }
+        public string FinantialYear { get; set; }
 
         [Required]
         public virtual ProjectHead ProjectHead { get; set; }

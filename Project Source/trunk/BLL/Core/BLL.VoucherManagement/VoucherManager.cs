@@ -55,6 +55,7 @@ namespace BLL.VoucherManagement
 
             IList<Record> records1 = null;
             IList<Record> records2 = null;
+
             if (voucherType != "Contra")
                 records1 = records.Where(r => r.LedgerType == "LedgerBook").ToList();
 

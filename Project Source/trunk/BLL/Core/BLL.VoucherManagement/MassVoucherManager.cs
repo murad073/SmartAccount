@@ -88,13 +88,11 @@ namespace BLL.VoucherManagement
             {
                 _massVoucher = massVoucher;
 
-                // TODO: (Mudad) Verify that this right for the current DB struture.
                 if (!massVoucher.VoucherType.Equals("Contra", StringComparison.OrdinalIgnoreCase))
                 {
                     _projectHead = _projectHeadRepository.GetSingle(
                         ph => ph.Project.ID == massVoucher.Project.ID && ph.Head.ID == massVoucher.Head.ID);
                 }
-
                 isValid = SetEntryableRecords();
             }
 
@@ -122,7 +120,6 @@ namespace BLL.VoucherManagement
         private bool SetEntryableRecords()
         {
             bool isValid = true;
-
             IList<Record> records = new List<Record>();
             if (_massVoucher.VoucherType.Equals("DV", StringComparison.OrdinalIgnoreCase))
             {
@@ -130,15 +127,8 @@ namespace BLL.VoucherManagement
                 Record transaction = _massVoucher.IsCheque
                                          ? (Record)GetTransactionInCheque(0, _massVoucher.Amount)
                                          : (Record)GetTransactionInCash(0, _massVoucher.Amount);
-                //if (debitVoucher.IsValid() && transaction.IsValid())
-                //{
                 records.Add(debitVoucher);
                 records.Add(transaction);
-                //}
-                //else
-                //{
-                //    isValid = SetErrorMessage("UnknownProblemArise");
-                //}
             }
             else if (_massVoucher.VoucherType.Equals("CV", StringComparison.OrdinalIgnoreCase))
             {
@@ -146,27 +136,13 @@ namespace BLL.VoucherManagement
                 Record transaction = _massVoucher.IsCheque
                                          ? (Record)GetTransactionInCheque(_massVoucher.Amount, 0)
                                          : (Record)GetTransactionInCash(_massVoucher.Amount, 0);
-                //if (creditVoucher.IsValid() && transaction.IsValid())
-                //{
                 records.Add(creditVoucher);
                 records.Add(transaction);
-                //}
-                //else
-                //{
-                //    isValid = SetErrorMessage("UnknownProblemArise");
-                //}
             }
             else if (_massVoucher.VoucherType.Equals("JV", StringComparison.OrdinalIgnoreCase))
             {
                 JournalVoucher journalVoucher = GetJournalVoucher();
-                //if (journalVoucher.IsValid())
-                //{
                 records.Add(journalVoucher);
-                //}
-                //else
-                //{
-                //    isValid = SetErrorMessage("UnknownProblemArise");
-                //}
             }
             else if (_massVoucher.VoucherType.Equals("Contra", StringComparison.OrdinalIgnoreCase))
             {
@@ -177,7 +153,7 @@ namespace BLL.VoucherManagement
                                         ? _massVoucher.Amount
                                         : 0;
 
-                Head bankBook = _headRepository.GetSingle(h => h.Name.Equals( "Bank Book", StringComparison.OrdinalIgnoreCase));
+                Head bankBook = _headRepository.GetSingle(h => h.Name.Equals("Bank Book", StringComparison.OrdinalIgnoreCase));
                 Head cashBook = _headRepository.GetSingle(h => h.Name.Equals("Cash Book", StringComparison.OrdinalIgnoreCase));
 
                 ProjectHead bankBookProjectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == _massVoucher.Project.ID && ph.Head.ID == bankBook.ID);
@@ -189,18 +165,11 @@ namespace BLL.VoucherManagement
                 TransactionInCheque chequeTransaction = GetTransactionInCheque(cashCredit, cashDebit);
                 chequeTransaction.ProjectHead = bankBookProjectHead;
 
-                //if (cashTransaction.IsValid() && chequeTransaction.IsValid())
-                //{
                 records.Add(cashTransaction);
                 records.Add(chequeTransaction);
-                //}
-                //else
-                //{
-                //    isValid = SetErrorMessage("UnknownProblemArise");
-                //}
             }
 
-            if (isValid && records.Count > 0) _entryableRecords = records;
+            if (records.Count > 0) _entryableRecords = records;
             else isValid = false;
 
             return isValid;
@@ -238,6 +207,7 @@ namespace BLL.VoucherManagement
                 Tag = _massVoucher.Tag,
                 VoucherSerialNo = _massVoucher.VoucherSerialNo,
                 VoucherType = _massVoucher.VoucherType,
+                FinantialYear = _massVoucher.FinantialYear,
                 IsActive = true
             };
             debitVoucher.SetAmount(_massVoucher.Amount);
