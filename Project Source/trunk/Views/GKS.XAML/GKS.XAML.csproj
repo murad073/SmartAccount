@@ -129,8 +129,8 @@
     <Compile Include="Pages\AddEditProjectWindow.xaml.cs">
       <DependentUpon>AddEditProjectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CloseCurrentAccountingYear.xaml.cs">
-      <DependentUpon>CloseCurrentAccountingYear.xaml</DependentUpon>
+    <Compile Include="Pages\CloseCurrentFinancialYear.xaml.cs">
+      <DependentUpon>CloseCurrentFinancialYear.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ConfigurationSetting.xaml.cs">
       <DependentUpon>ConfigurationSetting.xaml</DependentUpon>
@@ -144,8 +144,8 @@
     <Compile Include="Pages\OpeningBalanceSetupWindow.xaml.cs">
       <DependentUpon>OpeningBalanceSetupWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\StartNewAccountingYear.xaml.cs">
-      <DependentUpon>StartNewAccountingYear.xaml</DependentUpon>
+    <Compile Include="Pages\StartNewFinancialYear.xaml.cs">
+      <DependentUpon>StartNewFinancialYear.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -198,7 +198,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\CloseCurrentAccountingYear.xaml">
+    <Page Include="Pages\CloseCurrentFinancialYear.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -218,7 +218,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\StartNewAccountingYear.xaml">
+    <Page Include="Pages\StartNewFinancialYear.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
