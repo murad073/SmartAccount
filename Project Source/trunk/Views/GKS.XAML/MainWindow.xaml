@@ -35,6 +35,7 @@
                 </MenuItem>
                 <MenuItem Header="Fixed Asset">
                     <MenuItem Header="Fixed Asset Management" Click="FixedAssetManagementClicked" />
+                    <MenuItem Header="Setup Depreciation Rate" Click="DepreciationRateClicked" />
                 </MenuItem>
                 <MenuItem Header="Budget">
                     <MenuItem Header="Setup Budget" Name="BudgetSetup" Click="SetupBudgetClicked" />

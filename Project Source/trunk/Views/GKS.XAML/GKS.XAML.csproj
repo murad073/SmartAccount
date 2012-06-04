@@ -138,6 +138,9 @@
     <Compile Include="Pages\AboutSolve.xaml.cs">
       <DependentUpon>AboutSolve.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DepreciationRateSetup.xaml.cs">
+      <DependentUpon>DepreciationRateSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FixedAssetManagement.xaml.cs">
       <DependentUpon>FixedAssetManagement.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
     <Page Include="Pages\AboutSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DepreciationRateSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\FixedAssetManagement.xaml">
       <SubType>Designer</SubType>

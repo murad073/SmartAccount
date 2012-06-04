@@ -113,8 +113,14 @@ namespace GKS.XAML
 
         private void FixedAssetManagementClicked(object sender, RoutedEventArgs e)
         {
-            FixedAssetManagement configurationSetting = new FixedAssetManagement { Owner = this };
-            configurationSetting.ShowDialog();
+            FixedAssetManagement fixedAssetManagement = new FixedAssetManagement { Owner = this };
+            fixedAssetManagement.ShowDialog();
+        }
+
+        private void DepreciationRateClicked(object sender, RoutedEventArgs e)
+        {
+            DepreciationRateSetup depreciationRateSetup = new DepreciationRateSetup { Owner = this };
+            depreciationRateSetup.ShowDialog();
         }
 
         private void MenuItemClicked(object sender, RoutedEventArgs e)

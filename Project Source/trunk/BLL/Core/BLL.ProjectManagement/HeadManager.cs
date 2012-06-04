@@ -37,6 +37,14 @@ namespace BLL.ProjectManagement
             return heads;
         }
 
+        public IList<Head> GetCapitalHeads(Project project, bool isCashOrBankIncluded = true, bool bringInactive = true)
+        {
+            IList<Head> heads = GetHeads(project, false, false);
+            heads = heads.Where(h => h.HeadType == "Capital").ToList();
+
+            return heads;
+        }
+
         public bool Add(Head head)
         {
             Head existingHead = _headRepository.GetSingle(h => h.Name == head.Name);
