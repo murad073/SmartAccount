@@ -13,6 +13,7 @@ namespace BLL.Factories
     public class BLLCoreFactory
     {
         public static IRepository<Budget> BudgetRepository { private get; set; }
+        public static IRepository<DepreciationRate> DepreciationRateRepository { private get; set; }
         public static IRepository<Head> HeadRepository { private get; set; }
         public static IRepository<Project> ProjectRepository { private get; set; }
         public static IRepository<ProjectHead> ProjectHeadRepository { private get; set; }

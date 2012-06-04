@@ -48,6 +48,8 @@ namespace CodeFirst
 
         public DbSet<Budget> Budgets { get; set; }
 
+        public DbSet<DepreciationRate> DepreciationRates { get; set; }
+
         public DbSet<FixedAsset> FixedAssets { get; set; }
 
         public DbSet<Head> Heads { get; set; }

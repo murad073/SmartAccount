@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLEventArgs.cs" />
+    <Compile Include="Entity\DepreciationRate.cs" />
     <Compile Include="Managers\IBudgetManager.cs" />
+    <Compile Include="Managers\IDepreciationRateManager.cs" />
     <Compile Include="Managers\IHeadManager.cs" />
     <Compile Include="Managers\ILedgerManager.cs" />
     <Compile Include="Managers\IMassVoucherManager.cs" />

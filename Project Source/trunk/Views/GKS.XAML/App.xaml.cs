@@ -24,6 +24,7 @@ namespace GKS.XAML
 
 
             BLLCoreFactory.BudgetRepository = new Repository<Budget>();
+            BLLCoreFactory.DepreciationRateRepository = new Repository<DepreciationRate>();
             BLLCoreFactory.HeadRepository = new Repository<Head>();
             BLLCoreFactory.ParameterRepository = new Repository<Parameter>();
             BLLCoreFactory.ProjectHeadRepository = new Repository<ProjectHead>();
