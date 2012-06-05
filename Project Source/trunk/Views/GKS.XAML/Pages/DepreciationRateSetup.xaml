@@ -12,7 +12,8 @@
         <ComboBox Height="21" HorizontalAlignment="Left" Margin="101,72,0,0" Name="comboBoxHeads" VerticalAlignment="Top" Width="501" 
                   ItemsSource="{Binding Path=AllHeads, Mode=OneWay}" SelectedItem="{Binding Path=SelectedHead, Mode=TwoWay}" DisplayMemberPath="Name"/>
         <Label Content="Rate:" Height="28" HorizontalAlignment="Left" Margin="65,95,0,0" Name="labelAmount" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="101,98,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="114" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="101,98,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="114" 
+                 Text="{Binding Path=DepreciationRateEdit, Mode=TwoWay}"/>
 
         <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="527,100,0,0" Name="button2" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=SaveButtonClicked}"/>
@@ -37,7 +38,7 @@
         </DataGrid>
 
         <TextBlock TextAlignment="Center" Height="38" HorizontalAlignment="Left" Margin="101,461,0,0" Name="textBlockErrorMessage" VerticalAlignment="Top" Width="332" FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap"
-                   Text="{Binding Path=ErrorMessage, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}"/>
+                   Text="{Binding Path=MessageText, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}"/>
         <Button Content="Export" Height="23" HorizontalAlignment="Left" Margin="443,461,0,0" Name="buttonExport" VerticalAlignment="Top" Width="75" Click="buttonExport_Click" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="527,461,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=OKButtonClicked}" />

@@ -6,6 +6,7 @@ using BLL.Model.Managers;
 using BLL.Factories;
 using BLL.Model.Entity;
 using System.Windows.Input;
+using BLL.Messaging;
 
 namespace GKS.Model.ViewModels
 {
@@ -13,6 +14,7 @@ namespace GKS.Model.ViewModels
     {
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
+        private readonly IDepreciationRateManager _depreciationRateManager;
 
         public DepreciationRateSetupModel()
         {
@@ -20,9 +22,12 @@ namespace GKS.Model.ViewModels
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
-                _depreciationRateDataGrid = new List<DepreciationRateGridRow>();
+                _depreciationRateManager = BLLCoreFactory.GetDepreciationRateManager();
+
+                NotifyDepreciationRateDataGrid();
 
                 AllProjects = _projectManager.GetProjects();
+                DepreciationRateEdit = 0;
             }
             catch
             { }
@@ -81,27 +86,63 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private double _depreciationRateEdit;
+        public double DepreciationRateEdit
+        {
+            get
+            {
+                return _depreciationRateEdit;
+            }
+            set
+            {
+                _depreciationRateEdit = value;
+                NotifyPropertyChanged("DepreciationRateEdit");
+            }
+        }
+
+        private IList<DepreciationRate> _depreciationRateDataGridItems;
+        private IList<DepreciationRate> DepreciationRateDataGridItems
+        {
+            get
+            {
+                return _depreciationRateDataGridItems;
+            }
+            set
+            {
+                _depreciationRateDataGridItems = value;
+                NotifyPropertyChanged("DepreciationRateDataGridItems");
+                NotifyPropertyChanged("DepreciationRateDataGrid");
+            }
+        }
+
         private IList<DepreciationRateGridRow> _depreciationRateDataGrid;
         public IList<DepreciationRateGridRow> DepreciationRateDataGrid
         {
             get
             {
-                // Temporary code.
-                DepreciationRateGridRow gridRow = new DepreciationRateGridRow { HeadName = "Test", DepreciationRate = 0 };
-                _depreciationRateDataGrid.Add(gridRow);
+                if (DepreciationRateDataGridItems == null || DepreciationRateDataGridItems.Count == 0) return null;
 
-                return _depreciationRateDataGrid;
+                return DepreciationRateDataGridItems.Select(dr => GetDepreciationRateGridRow(dr)).ToList();
             }
         }
 
-        private string _errorMessage;
-        public string ErrorMessage
+        private DepreciationRateGridRow GetDepreciationRateGridRow(DepreciationRate depreciationRate)
         {
-            get { return _errorMessage; }
+            return new DepreciationRateGridRow
+            {
+                HeadName = depreciationRate.ProjectHead.Head.Name,
+                DepreciationRate = depreciationRate.Rate,
+            };
+        }
+
+        private string _messageText;
+        public string MessageText
+        {
+            get { return _messageText; }
             set
             {
-                _errorMessage = value;
-                NotifyPropertyChanged("ErrorMessage");
+                _messageText = value;
+                NotifyPropertyChanged("MessageText");
             }
         }
 
@@ -119,13 +160,31 @@ namespace GKS.Model.ViewModels
         private RelayCommand _saveButtonClicked;
         public ICommand SaveButtonClicked
         {
-            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.SaveDepreciationRate())); }
         }
 
         private RelayCommand _oKButtonClicked;
         public ICommand OKButtonClicked
         {
             get { return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+        }
+
+        private void SaveDepreciationRate()
+        {
+            _depreciationRateManager.Set(SelectedProject.Name, SelectedHead.Name, DepreciationRateEdit);
+            NotifyDepreciationRateDataGrid();
+            ShowMessage(MessageService.Instance.GetLatestMessage());
+        }
+
+        private void ShowMessage(Message message)
+        {
+            MessageText = message.MessageText;
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
+        }
+
+        private void NotifyDepreciationRateDataGrid()
+        {
+            DepreciationRateDataGridItems = _depreciationRateManager.GetDepreciationRates();
         }
     }
 
