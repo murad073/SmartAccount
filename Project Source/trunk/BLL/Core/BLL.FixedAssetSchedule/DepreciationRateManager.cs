@@ -27,8 +27,27 @@ namespace BLL.FixedAssetSchedule
             return depreciationRates;
         }
 
-        public bool Set(string projectName, string headName, double rate)
+        public bool Set(Project project, Head head, double rate)
         {
+            if (project == null)
+            {
+                InvokeManagerEvent(EventType.Error, "NoProjectSelected");
+                return false;
+            }
+            if (head == null)
+            {
+                InvokeManagerEvent(EventType.Error, "NoHeadSelected");
+                return false;
+            }
+            if (rate == 0)
+            {
+                // TODO: This will not work right now, think through. But not a big problem.
+                InvokeManagerEvent(EventType.Warning, "ZeroDepreciationProvidedForFixedAsset");
+            }
+
+            string projectName = project.Name;
+            string headName = head.Name;
+
             ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Head.Name == headName && ph.Project.Name == projectName);
 
             bool update = false;

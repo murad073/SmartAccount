@@ -171,8 +171,8 @@ namespace GKS.Model.ViewModels
 
         private void SaveDepreciationRate()
         {
-            _depreciationRateManager.Set(SelectedProject.Name, SelectedHead.Name, DepreciationRateEdit);
-            NotifyDepreciationRateDataGrid();
+            if (_depreciationRateManager.Set(SelectedProject, SelectedHead, DepreciationRateEdit))
+                NotifyDepreciationRateDataGrid();
             ShowMessage(MessageService.Instance.GetLatestMessage());
         }
 
