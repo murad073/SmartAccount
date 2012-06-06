@@ -20,6 +20,19 @@ namespace BLL.FixedAssetSchedule
             _projectHeadRepository = projectHeadRepository;
         }
 
+        public double GetDepreciationRate(string projectName, string headName)
+        {
+            double rate = 0;
+            ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Head.Name == headName && ph.Project.Name == projectName);
+            if (projectHead != null)
+            {
+                DepreciationRate depreciationRate = _depreciationRateRepository.GetSingle(dr => dr.ProjectHead != null ? (dr.ProjectHead.ID == projectHead.ID) : false);
+                rate = (depreciationRate != null) ? depreciationRate.Rate : 0;
+            }
+            
+            return rate;
+        }
+
         public IList<DepreciationRate> GetDepreciationRates()
         {
             IList<DepreciationRate> depreciationRates = _depreciationRateRepository.GetAll().ToList();

@@ -20,6 +20,7 @@ namespace GKS.Model.ViewModels
         private readonly IHeadManager _headManager;
         private readonly IMassVoucherManager _massVoucherManager;
         private readonly IParameterManager _parameterManager;
+        private readonly IDepreciationRateManager _depreciationRateManager;
 
         public VoucherPost()
         {
@@ -29,6 +30,7 @@ namespace GKS.Model.ViewModels
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
                 _parameterManager = BLLCoreFactory.GetParameterManager();
+                _depreciationRateManager = BLLCoreFactory.GetDepreciationRateManager();
 
                 InputFirstPartEnabled = true;
                 InputSecondPartEnabled = true;
@@ -122,8 +124,10 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedHead = value;
-                SetFixedAssetOrAdvanceGroupboxIsEnabled();
+                SetFixedAssetOrAdvanceGroupboxIsEnabled();                
                 NotifyPropertyChanged("SelectedHead");
+                IsFixedAsset = false;
+                IsAdvance = false;
             }
         }
 
@@ -386,6 +390,9 @@ namespace GKS.Model.ViewModels
                     FixedAssetParticulars = string.Empty;
                     FixedAssetDepreciationRate = 0;
                 }
+                else
+                    FixedAssetDepreciationRate = _depreciationRateManager.GetDepreciationRate(SelectedProject.Name, SelectedHead.Name);
+
                 NotifyPropertyChanged("IsFixedAsset");
             }
         }
