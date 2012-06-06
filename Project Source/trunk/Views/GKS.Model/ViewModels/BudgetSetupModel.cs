@@ -6,6 +6,7 @@ using BLL.Model.Entity;
 using System.Windows.Input;
 using BLL.Model.Managers;
 using BLL.Factories;
+using BLL.Messaging;
 
 namespace GKS.Model.ViewModels
 {
@@ -23,12 +24,11 @@ namespace GKS.Model.ViewModels
                 _headManager = BLLCoreFactory.GetHeadManager();
                 _budgetManager = BLLCoreFactory.GetBudgetManager();
 
-                _budgetDataGrid = new List<BudgetGridRow>();
-
                 AllProjects = _projectManager.GetProjects();
 
                 LoadBudgetYears();
                 SelectedBudgetYear = DateTime.Now.Year;
+                NotifyBudgetDataGrid();
             }
             catch
             { }
@@ -141,27 +141,63 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        //private IList<BudgetGridRow> _budgetDataGrid;
+        //public IList<BudgetGridRow> BudgetDataGrid
+        //{
+        //    get
+        //    {
+        //        // Temporary code.
+        //        BudgetGridRow gridRow = new BudgetGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
+        //        _budgetDataGrid.Add(gridRow);
+
+        //        return _budgetDataGrid;
+        //    }
+        //}
+
+        private IList<Budget> _budgetDataGridItems;
+        private IList<Budget> BudgetDataGridItems
+        {
+            get
+            {
+                return _budgetDataGridItems;
+            }
+            set
+            {
+                _budgetDataGridItems = value;
+                NotifyPropertyChanged("BudgetDataGridItems");
+                NotifyPropertyChanged("BudgetDataGrid");
+            }
+        }
+
         private IList<BudgetGridRow> _budgetDataGrid;
         public IList<BudgetGridRow> BudgetDataGrid
         {
             get
             {
-                // Temporary code.
-                BudgetGridRow gridRow = new BudgetGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
-                _budgetDataGrid.Add(gridRow);
+                if (BudgetDataGridItems == null || BudgetDataGridItems.Count == 0) return null;
 
-                return _budgetDataGrid;
+                return BudgetDataGridItems.Select(b => GetBudgetGridRow(b)).ToList();
             }
         }
 
-        private string _errorMessage;
-        public string ErrorMessage
+        private BudgetGridRow GetBudgetGridRow(Budget budget)
         {
-            get { return _errorMessage; }
+            return new BudgetGridRow
+            {
+                HeadName = budget.ProjectHead.Head.Name,
+                Amount = budget.Amount,
+                FinancialYear = budget.FinancialYear,
+            };
+        }
+
+        private string _messageText;
+        public string MessageText
+        {
+            get { return _messageText; }
             set
             {
-                _errorMessage = value;
-                NotifyPropertyChanged("ErrorMessage");
+                _messageText = value;
+                NotifyPropertyChanged("MessageText");
             }
         }
 
@@ -190,14 +226,28 @@ namespace GKS.Model.ViewModels
 
         private void SaveBudget()
         {
-            _budgetManager.Set(SelectedProject, SelectedHead, Amount, SelectedBudgetYear);
+            if (_budgetManager.Set(SelectedProject, SelectedHead, Amount, SelectedBudgetYear))
+                NotifyBudgetDataGrid();
+
+            ShowMessage(MessageService.Instance.GetLatestMessage());
+        }
+
+        private void ShowMessage(Message message)
+        {
+            MessageText = message.MessageText;
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
+        }
+
+        private void NotifyBudgetDataGrid()
+        {
+            BudgetDataGridItems = _budgetManager.GetAllBudgets();
         }
     }
 
     public class BudgetGridRow
     {
         public string HeadName { get; set; }
-        public double CurrentYear { get; set; }
-        public double PreviousYear { get; set; }
+        public double Amount { get; set; }
+        public string FinancialYear { get; set; }
     }
 }

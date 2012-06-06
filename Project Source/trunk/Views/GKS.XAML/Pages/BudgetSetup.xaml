@@ -39,13 +39,13 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Head of Account" Binding="{Binding Path=HeadName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Current Year" Binding="{Binding Path=CurrentYear}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Previous Year" Binding="{Binding Path=PreviousYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Budget Year" Binding="{Binding Path=FinancialYear}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
         <TextBlock TextAlignment="Center" Height="38" HorizontalAlignment="Left" Margin="101,461,0,0" Name="textBlockErrorMessage" VerticalAlignment="Top" Width="332" FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap"
-                   Text="{Binding Path=ErrorMessage, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}"/>
+                   Text="{Binding Path=MessageText, Mode=OneWay}" Foreground="{Binding Path=ColorCode, Mode=OneWay}"/>
         <Button Content="Export" Height="23" HorizontalAlignment="Left" Margin="443,461,0,0" Name="buttonExport" VerticalAlignment="Top" Width="75" Click="buttonExport_Click" />
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="527,461,0,0" Name="buttonOK" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=OKButtonClicked}" />
