@@ -23,6 +23,9 @@ namespace GKS.Model.ViewModels
                 _budgetDataGrid = new List<BudgetGridRow>();
 
                 AllProjects = _projectManager.GetProjects();
+
+                LoadBudgetYears();
+                SelectedBudgetYear = DateTime.Now.Year;
             }
             catch
             { }
@@ -81,8 +84,8 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string[] _budgetYear;
-        public string[] BudgetYear
+        private List<int> _budgetYear;
+        public List<int> BudgetYear
         {
             get
             {
@@ -95,8 +98,19 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string _selectedBudgetYear;
-        public string SelectedBudgetYear
+        private void LoadBudgetYears()
+        {
+            List<int> years = new List<int>();
+            for (int i = DateTime.Now.Year+10; i > DateTime.Now.Year-10; i--)
+            {
+                years.Add(i);
+            }
+
+            BudgetYear = years;
+        }
+
+        private int _selectedBudgetYear;
+        public int SelectedBudgetYear
         {
             get
             {

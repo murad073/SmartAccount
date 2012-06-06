@@ -8,6 +8,7 @@ using BLL.ParameterManagement;
 using BLL.ProjectManagement;
 using BLL.VoucherManagement;
 using BLL.FixedAssetSchedule;
+using BLL.BudgetManagement;
 
 namespace BLL.Factories
 {
@@ -120,11 +121,24 @@ namespace BLL.Factories
             {
                 DepreciationRateManager depreciationRateManager = new DepreciationRateManager(DepreciationRateRepository, ProjectHeadRepository);
                 depreciationRateManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
-                //depreciationRateManager.LedgerEvent += LogService.Instance.ManagerEventHandler;
+                //depreciationRateManager.ManagerEvent += LogService.Instance.ManagerEventHandler;
                 return depreciationRateManager;
             }
 
             throw new ArgumentNullException("message");
         }
+
+        public static IBudgetManager GetBudgetRepository()
+        {
+            if (ProjectHeadRepository != null && BudgetRepository != null)
+            {
+                BudgetManager budgetManager = new BudgetManager(BudgetRepository, ProjectRepository, ProjectHeadRepository);
+                budgetManager.ManagerEvent += MessageService.Instance.ManagerEventHandler;
+                //budgetManager.ManagerEvent += LogService.Instance.ManagerEventHandler;
+                return budgetManager;
+            }
+
+            throw new ArgumentNullException("message");
+        }        
     }
 }
