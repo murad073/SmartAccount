@@ -18,7 +18,8 @@
                   ItemsSource="{Binding Path=BudgetYear, Mode=OneWay}" SelectedItem="{Binding Path=SelectedBudgetYear}"/>
 
         <Label Content="Amount:" Height="28" HorizontalAlignment="Left" Margin="317,97,0,0" Name="labelAmount" VerticalAlignment="Top" />
-        <TextBox Height="21" HorizontalAlignment="Left" Margin="367,100,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="154" />
+        <TextBox Height="21" HorizontalAlignment="Left" Margin="367,100,0,0" Name="textBoxAmount" VerticalAlignment="Top" Width="154" 
+                 Text="{Binding Path=Amount, Mode=TwoWay}"/>
 
         <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="527,100,0,0" Name="button2" VerticalAlignment="Top" Width="75" 
                 Command="{Binding Path=SaveButtonClicked}"/>

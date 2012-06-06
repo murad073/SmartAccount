@@ -128,7 +128,7 @@ namespace BLL.Factories
             throw new ArgumentNullException("message");
         }
 
-        public static IBudgetManager GetBudgetRepository()
+        public static IBudgetManager GetBudgetManager()
         {
             if (ProjectHeadRepository != null && BudgetRepository != null)
             {

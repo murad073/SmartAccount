@@ -52,7 +52,7 @@ namespace BLL.BudgetManagement
             bool update = false;
             if (projectHead != null && projectHead.Budgets != null)
             {
-                Budget budget = projectHead.Budgets.SingleOrDefault(b => b.IsActive);
+                Budget budget = projectHead.Budgets.SingleOrDefault(b => b.FinancialYear == budgetYear.ToString());
                 if (budget != null)
                 {
                     budget.Amount = amount;
@@ -68,6 +68,7 @@ namespace BLL.BudgetManagement
                     {
                         Amount = amount,
                         FinancialYear = budgetYear.ToString(),
+                        Date = DateTime.Today,
                         IsActive = budgetYear < DateTime.Now.Year ? false : true,
                         ProjectHead = projectHead
                     };

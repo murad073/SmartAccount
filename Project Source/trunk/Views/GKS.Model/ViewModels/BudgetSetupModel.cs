@@ -13,6 +13,7 @@ namespace GKS.Model.ViewModels
     {
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
+        private readonly IBudgetManager _budgetManager;
 
         public BudgetSetupModel()
         {
@@ -20,6 +21,8 @@ namespace GKS.Model.ViewModels
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
+                _budgetManager = BLLCoreFactory.GetBudgetManager();
+
                 _budgetDataGrid = new List<BudgetGridRow>();
 
                 AllProjects = _projectManager.GetProjects();
@@ -98,8 +101,23 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        private double _amount;
+        public double Amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+                NotifyPropertyChanged("Amount");
+            }
+        }
+
         private void LoadBudgetYears()
         {
+            // We'll show budgets for current year +- 10 years, total 20 years.
             List<int> years = new List<int>();
             for (int i = DateTime.Now.Year+10; i > DateTime.Now.Year-10; i--)
             {
@@ -161,13 +179,18 @@ namespace GKS.Model.ViewModels
         private RelayCommand _saveButtonClicked;
         public ICommand SaveButtonClicked
         {
-            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.SaveBudget())); }
         }
 
         private RelayCommand _oKButtonClicked;
         public ICommand OKButtonClicked
         {
             get { return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+        }
+
+        private void SaveBudget()
+        {
+            _budgetManager.Set(SelectedProject, SelectedHead, Amount, SelectedBudgetYear);
         }
     }
 
