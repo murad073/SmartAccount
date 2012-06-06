@@ -31,6 +31,7 @@ namespace BLL.ParameterManagement
             {
                 existingParameter.Value = value;
                 _parameterRepository.Update(existingParameter);
+                _parameterRepository.Save();
             }
         }
 
@@ -70,6 +71,7 @@ namespace BLL.ParameterManagement
             if (!(year >= 1900 && year <= 3000)) currentFinancialYear = "1900";
 
             Set("CurrentFinancialYear", currentFinancialYear);
+            _currentFinancialYear = currentFinancialYear;
         }
     }
 }

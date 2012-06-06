@@ -18,19 +18,21 @@ namespace BLL.ParameterManagement.Test
     [TestClass]
     public class ParameterManagerTest
     {
+        private MockRepository _mockRepository;
         private IParameterManager _parameterManager;
 
         [TestInitialize]
         public void Init()
         {
-            MockRepositoryFactory.CreateDB();
+            _mockRepository = new MockRepository(Guid.NewGuid().ToString());
+            _mockRepository.SetRepositories();
             _parameterManager = BLLCoreFactory.GetParameterManager();
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            File.Delete(MockRepositoryFactory.FilePath);
+            _mockRepository.CleanUp();
         }
 
 
@@ -38,7 +40,8 @@ namespace BLL.ParameterManagement.Test
         public void GetCurrentFinantialYearWillBeTodaysYear()
         {
             string expected = "2012";
-            string actual = _parameterManager.GetCurrentFinantialYear();
+            string actual = _parameterManager.GetCurrentFinancialYear();
+
             Assert.AreEqual(expected, actual, "Current finantial year will be create year. ie today");
         }
 
@@ -46,7 +49,7 @@ namespace BLL.ParameterManagement.Test
         public void GetCurrentFinantialYearStartDateWillBeNow()
         {
             DateTime expected = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateTime date = _parameterManager.GetCurrentFinantialYearStartDate();
+            DateTime date = _parameterManager.GetCurrentFinancialYearStartDate();
             DateTime actual = new DateTime(date.Year, date.Month, date.Day);
             Assert.AreEqual(expected, actual, "Current finantial year start date will be today");
         }
@@ -62,7 +65,7 @@ namespace BLL.ParameterManagement.Test
                 _parameterManager.SetCurrentFinancialYear(inputYears[i]);
 
                 string expected = expectedValues[i];
-                string actual = _parameterManager.GetCurrentFinantialYear();
+                string actual = _parameterManager.GetCurrentFinancialYear();
                 Assert.AreEqual(expected, actual, "After setting finantial year to the database, we must get finantial year when we call for it.");
                 //Finantial year must be between 1900-3000 AD
             }

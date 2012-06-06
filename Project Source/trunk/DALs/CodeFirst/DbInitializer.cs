@@ -32,7 +32,6 @@ namespace CodeFirst
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[0], Head = _heads[5], IsActive = true });
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[1], Head = _heads[4], IsActive = true });
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[2], Head = _heads[3], IsActive = true });
-
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[2], Head = _heads[4], IsActive = true });
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[3], Head = _heads[4], IsActive = true });
             context.ProjectHeads.Add(new ProjectHead { Project = _projects[3], Head = _heads[5], IsActive = true });

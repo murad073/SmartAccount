@@ -13,6 +13,7 @@ namespace GKS.Model.ViewModels
     {
         private readonly IProjectManager _projectManager;
         private readonly IHeadManager _headManager;
+        private readonly IBudgetManager _budgetManager;
 
         public BudgetSetupModel()
         {
@@ -20,6 +21,8 @@ namespace GKS.Model.ViewModels
             {
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
+                _budgetManager = BLLCoreFactory.GetBudgetManager();
+
                 _budgetDataGrid = new List<BudgetGridRow>();
 
                 AllProjects = _projectManager.GetProjects();
@@ -147,13 +150,19 @@ namespace GKS.Model.ViewModels
         private RelayCommand _saveButtonClicked;
         public ICommand SaveButtonClicked
         {
-            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => Save())); }
         }
 
         private RelayCommand _oKButtonClicked;
         public ICommand OKButtonClicked
         {
             get { return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
+        }
+
+        private void Save()
+        {
+            //_budgetManager.Set();
+            this.InvokeOnFinish();
         }
     }
 

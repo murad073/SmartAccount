@@ -21,19 +21,20 @@ namespace BLL.BudgetManagement
             _projectHeadRepository = projectHeadRepository;
         }
 
-        public bool Set(string projectName, string headName, double amount)
+        public bool Set(Project project, Head head, string financialYear, double budgetAmount)
         {
-            ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Head.Name == headName && ph.Project.Name == projectName);
-            Budget budget = projectHead.Budgets.SingleOrDefault(b => b.IsActive);
+            ProjectHead projectHead = _projectHeadRepository.GetSingle(ph => ph.Project.ID == project.ID && ph.Head.ID == head.ID );
+            if (projectHead == null) return false;
+            Budget budget = projectHead.Budgets.SingleOrDefault(b => b.FinancialYear == financialYear && b.IsActive);
             //TODO: depends on current accounting year. 
             if (budget == null)
             {
-                return InsertNewBudget(projectHead, amount);
+                return InsertNewBudget(projectHead, budgetAmount);
             }
             else
             {
                 budget.IsActive = false;
-                return InsertNewBudget(projectHead, amount);
+                return InsertNewBudget(projectHead, budgetAmount);
             }
         }
 
