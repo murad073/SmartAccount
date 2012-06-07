@@ -4,6 +4,9 @@ namespace BLL.Model.Managers
 {
     public interface IParameterManager
     {
+        void Set(string key, string value);
+        string Get(string key);
+
         DateTime GetCurrentFinancialYearStartDate();
         void SetCurrentFinancialYear(string currentFinancialYear);
         event EventHandler<BLLEventArgs> ManagerEvent;
@@ -14,4 +17,5 @@ namespace BLL.Model.Managers
         void InvokeManagerEvent(BLLEventArgs eventArgs);
         string GetCurrentFinancialYear();
     }
+
 }

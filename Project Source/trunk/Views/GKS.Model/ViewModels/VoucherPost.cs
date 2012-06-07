@@ -25,22 +25,23 @@ namespace GKS.Model.ViewModels
         {
             //try
             //{
-                _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
-                _projectManager = BLLCoreFactory.GetProjectManager();
-                _headManager = BLLCoreFactory.GetHeadManager();
-                _parameterManager = BLLCoreFactory.GetParameterManager();
+            _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+            _projectManager = BLLCoreFactory.GetProjectManager();
+            _headManager = BLLCoreFactory.GetHeadManager();
+            _parameterManager = BLLCoreFactory.GetParameterManager();
 
-                InputFirstPartEnabled = true;
-                InputSecondPartEnabled = true;
-                AllProjects = _projectManager.GetProjects(false);
+            SetPostStatus();
+            InputFirstPartEnabled = true;
+            InputSecondPartEnabled = true;
+            AllProjects = _projectManager.GetProjects(false);
 
-                SelectedVoucherType = "DV";
+            SelectedVoucherType = "DV";
 
-                VoucherDate = DateTime.Now;
-                ChequeDate = DateTime.Now;
+            VoucherDate = DateTime.Now;
+            ChequeDate = DateTime.Now;
 
-                TemporaryRecords = new List<Record>();
-                _isJVBalanced = true;
+            TemporaryRecords = new List<Record>();
+            _isJVBalanced = true;
             //}
             //catch { }
         }
@@ -48,7 +49,7 @@ namespace GKS.Model.ViewModels
         private bool _isInputFirstPartEnabled;
         public bool InputFirstPartEnabled
         {
-            get { return _isInputFirstPartEnabled; }
+            get { return _isInputFirstPartEnabled && _postStatus == PostStatus.Postable; }
             set
             {
                 _isInputFirstPartEnabled = value;
@@ -59,7 +60,7 @@ namespace GKS.Model.ViewModels
         private bool _isInputSecondPartEnabled;
         public bool InputSecondPartEnabled
         {
-            get { return _isInputSecondPartEnabled; }
+            get { return _isInputSecondPartEnabled && _postStatus == PostStatus.Postable; }
             set
             {
                 _isInputSecondPartEnabled = value;
@@ -187,7 +188,7 @@ namespace GKS.Model.ViewModels
                     }
                     SetJVBalanceZeroMessage();
                 }
-                
+
                 SetInputSecondPartIsEnabled();
                 SetPostButtonIsEnabled();
                 //SetCreateVoucherButtonIsEnabled();
@@ -615,7 +616,7 @@ namespace GKS.Model.ViewModels
             else isCreateVoucherButtonEnabled = !IsPostButtonEnabled;
             IsCreateVoucherButtonEnabled = isCreateVoucherButtonEnabled;
         }
-        
+
         private void SetPostButtonIsEnabled()
         {
             bool isPostButtonEnabled = false;
@@ -664,7 +665,7 @@ namespace GKS.Model.ViewModels
             else
             {
                 AllHeads = null;
-                
+
             }
         }
 
@@ -701,7 +702,7 @@ namespace GKS.Model.ViewModels
 
         #region Command Operation Region
 
-        private string  GetTag()
+        private string GetTag()
         {
             string tag = "";
             if (IsAdvance)
@@ -780,7 +781,7 @@ namespace GKS.Model.ViewModels
         public void Reset(bool removeProjectAndMessage = true)
         {
             AllProjects = _projectManager.GetProjects(false);
-            
+
             if (removeProjectAndMessage) SelectedProject = null;
             SelectedHead = null;
 
@@ -811,6 +812,12 @@ namespace GKS.Model.ViewModels
 
         private void CreateVoucher()
         {
+            if (_postStatus != PostStatus.Postable)
+            {
+                ShowFinancialYearIsNotOpenedMessage();
+                return;
+            }
+
             IMassVoucherManager massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
             MassVoucher massVoucher = GetCurrentVoucher();
 
@@ -833,12 +840,27 @@ namespace GKS.Model.ViewModels
 
         private void PostVoucher()
         {
+            if(_postStatus != PostStatus.Postable)
+            {
+                ShowFinancialYearIsNotOpenedMessage();
+                return;
+            }
+
             IRecordManager recordManager = BLLCoreFactory.GetRecordManager();
             recordManager.SetRecords(TemporaryRecords);
             bool isSuccess = recordManager.Save();
             Message message = MessageService.Instance.GetLatestMessage();
             ShowMessage(message);
             if (isSuccess) Reset(false);
+        }
+
+        private void ShowFinancialYearIsNotOpenedMessage()
+        {
+            ShowMessage(new Message
+            {
+                MessageText = "No opened financial year found. Please open a financial year first before voucher post.",
+                MessageType = MessageType.Error
+            });
         }
 
         #endregion
@@ -870,6 +892,28 @@ namespace GKS.Model.ViewModels
                 return _postButtonClicked ?? (_postButtonClicked = new RelayCommand(p1 => this.PostVoucher()));
             }
         }
+
+
+        #region Extended
+
+        private PostStatus _postStatus;
+
+        private void SetPostStatus()
+        {
+            string financialYear = _parameterManager.GetCurrentFinancialYear();
+            if (string.IsNullOrWhiteSpace(financialYear)) _postStatus = PostStatus.FinancialYearNotOpened;
+            else _postStatus = PostStatus.Postable;
+        }
+
+        #endregion
+    }
+
+    internal enum PostStatus
+    {
+        None,
+        Initial,
+        FinancialYearNotOpened,
+        Postable
     }
 
     //public class ViewableGridRows : List<ViewableGridRow> { }

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using GKS.Model.ViewModels;
 
 namespace GKS.XAML.Pages
 {
@@ -10,6 +12,11 @@ namespace GKS.XAML.Pages
         public ConfigurationSetting()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            propertyGrid.SelectedObject = new ConfigurationSettingModel();
         }
     }
 }
