@@ -20,15 +20,24 @@ namespace GKS.Model.ViewModels
         private readonly IHeadManager _headManager;
         private readonly IMassVoucherManager _massVoucherManager;
         private readonly IParameterManager _parameterManager;
+        private readonly IDepreciationRateManager _depreciationRateManager;
 
         public VoucherPost()
         {
             //try
             //{
-            _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
-            _projectManager = BLLCoreFactory.GetProjectManager();
-            _headManager = BLLCoreFactory.GetHeadManager();
-            _parameterManager = BLLCoreFactory.GetParameterManager();
+//<<<<<<< HEAD
+//            _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+//            _projectManager = BLLCoreFactory.GetProjectManager();
+//            _headManager = BLLCoreFactory.GetHeadManager();
+//            _parameterManager = BLLCoreFactory.GetParameterManager();
+//=======
+                _massVoucherManager = BLLCoreFactory.GetMassVoucherManager();
+                _projectManager = BLLCoreFactory.GetProjectManager();
+                _headManager = BLLCoreFactory.GetHeadManager();
+                _parameterManager = BLLCoreFactory.GetParameterManager();
+                _depreciationRateManager = BLLCoreFactory.GetDepreciationRateManager();
+//>>>>>>> githubJakaria42/master
 
             SetPostStatus();
             InputFirstPartEnabled = true;
@@ -123,8 +132,10 @@ namespace GKS.Model.ViewModels
             set
             {
                 _selectedHead = value;
-                SetFixedAssetOrAdvanceGroupboxIsEnabled();
+                SetFixedAssetOrAdvanceGroupboxIsEnabled();                
                 NotifyPropertyChanged("SelectedHead");
+                IsFixedAsset = false;
+                IsAdvance = false;
             }
         }
 
@@ -387,6 +398,9 @@ namespace GKS.Model.ViewModels
                     FixedAssetParticulars = string.Empty;
                     FixedAssetDepreciationRate = 0;
                 }
+                else
+                    FixedAssetDepreciationRate = _depreciationRateManager.GetDepreciationRate(SelectedProject.Name, SelectedHead.Name);
+
                 NotifyPropertyChanged("IsFixedAsset");
             }
         }

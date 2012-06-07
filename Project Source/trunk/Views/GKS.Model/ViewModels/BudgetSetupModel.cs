@@ -6,6 +6,7 @@ using BLL.Model.Entity;
 using System.Windows.Input;
 using BLL.Model.Managers;
 using BLL.Factories;
+using BLL.Messaging;
 
 namespace GKS.Model.ViewModels
 {
@@ -22,10 +23,17 @@ namespace GKS.Model.ViewModels
                 _projectManager = BLLCoreFactory.GetProjectManager();
                 _headManager = BLLCoreFactory.GetHeadManager();
                 _budgetManager = BLLCoreFactory.GetBudgetManager();
+//<<<<<<< HEAD
 
-                _budgetDataGrid = new List<BudgetGridRow>();
+//                _budgetDataGrid = new List<BudgetGridRow>();
+//=======
+//>>>>>>> githubJakaria42/master
 
                 AllProjects = _projectManager.GetProjects();
+
+                LoadBudgetYears();
+                SelectedBudgetYear = DateTime.Now.Year;
+                //NotifyBudgetDataGrid();
             }
             catch
             { }
@@ -84,8 +92,8 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string[] _budgetYear;
-        public string[] BudgetYear
+        private List<int> _budgetYear;
+        public List<int> BudgetYear
         {
             get
             {
@@ -98,8 +106,34 @@ namespace GKS.Model.ViewModels
             }
         }
 
-        private string _selectedBudgetYear;
-        public string SelectedBudgetYear
+        private double _amount;
+        public double Amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+                NotifyPropertyChanged("Amount");
+            }
+        }
+
+        private void LoadBudgetYears()
+        {
+            // We'll show budgets for current year +- 10 years, total 20 years.
+            List<int> years = new List<int>();
+            for (int i = DateTime.Now.Year+10; i > DateTime.Now.Year-10; i--)
+            {
+                years.Add(i);
+            }
+
+            BudgetYear = years;
+        }
+
+        private int _selectedBudgetYear;
+        public int SelectedBudgetYear
         {
             get
             {
@@ -112,27 +146,63 @@ namespace GKS.Model.ViewModels
             }
         }
 
+        //private IList<BudgetGridRow> _budgetDataGrid;
+        //public IList<BudgetGridRow> BudgetDataGrid
+        //{
+        //    get
+        //    {
+        //        // Temporary code.
+        //        BudgetGridRow gridRow = new BudgetGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
+        //        _budgetDataGrid.Add(gridRow);
+
+        //        return _budgetDataGrid;
+        //    }
+        //}
+
+        private IList<Budget> _budgetDataGridItems;
+        private IList<Budget> BudgetDataGridItems
+        {
+            get
+            {
+                return _budgetDataGridItems;
+            }
+            set
+            {
+                _budgetDataGridItems = value;
+                NotifyPropertyChanged("BudgetDataGridItems");
+                NotifyPropertyChanged("BudgetDataGrid");
+            }
+        }
+
         private IList<BudgetGridRow> _budgetDataGrid;
         public IList<BudgetGridRow> BudgetDataGrid
         {
             get
             {
-                // Temporary code.
-                BudgetGridRow gridRow = new BudgetGridRow { HeadName = "Test", CurrentYear = 0, PreviousYear = 0 };
-                _budgetDataGrid.Add(gridRow);
+                if (BudgetDataGridItems == null || BudgetDataGridItems.Count == 0) return null;
 
-                return _budgetDataGrid;
+                return BudgetDataGridItems.Select(b => GetBudgetGridRow(b)).ToList();
             }
         }
 
-        private string _errorMessage;
-        public string ErrorMessage
+        private BudgetGridRow GetBudgetGridRow(Budget budget)
         {
-            get { return _errorMessage; }
+            return new BudgetGridRow
+            {
+                HeadName = budget.ProjectHead.Head.Name,
+                Amount = budget.Amount,
+                FinancialYear = budget.FinancialYear,
+            };
+        }
+
+        private string _messageText;
+        public string MessageText
+        {
+            get { return _messageText; }
             set
             {
-                _errorMessage = value;
-                NotifyPropertyChanged("ErrorMessage");
+                _messageText = value;
+                NotifyPropertyChanged("MessageText");
             }
         }
 
@@ -150,7 +220,11 @@ namespace GKS.Model.ViewModels
         private RelayCommand _saveButtonClicked;
         public ICommand SaveButtonClicked
         {
-            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => Save())); }
+//<<<<<<< HEAD
+//            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => Save())); }
+//=======
+            get { return _saveButtonClicked ?? (_saveButtonClicked = new RelayCommand(p1 => this.SaveBudget())); }
+//>>>>>>> githubJakaria42/master
         }
 
         private RelayCommand _oKButtonClicked;
@@ -159,17 +233,37 @@ namespace GKS.Model.ViewModels
             get { return _oKButtonClicked ?? (_oKButtonClicked = new RelayCommand(p1 => this.InvokeOnFinish())); }
         }
 
-        private void Save()
+//<<<<<<< HEAD
+//        private void Save()
+//        {
+//            //_budgetManager.Set();
+//            this.InvokeOnFinish();
+//=======
+        private void SaveBudget()
         {
-            //_budgetManager.Set();
-            this.InvokeOnFinish();
+            if (_budgetManager.Set(SelectedProject, SelectedHead, Amount, SelectedBudgetYear))
+                NotifyBudgetDataGrid();
+
+            ShowMessage(MessageService.Instance.GetLatestMessage());
+        }
+
+        private void ShowMessage(Message message)
+        {
+            MessageText = message.MessageText;
+            ColorCode = MessageService.Instance.GetColorCode(message.MessageType);
+        }
+
+        private void NotifyBudgetDataGrid()
+        {
+            BudgetDataGridItems = _budgetManager.GetAllBudgets();
+//>>>>>>> githubJakaria42/master
         }
     }
 
     public class BudgetGridRow
     {
         public string HeadName { get; set; }
-        public double CurrentYear { get; set; }
-        public double PreviousYear { get; set; }
+        public double Amount { get; set; }
+        public string FinancialYear { get; set; }
     }
 }
